@@ -1,6 +1,7 @@
 import React from "react";
 import "../../styles/admin.css";
 import {
+    BrowserRouter,
     Link, NavLink
 } from "react-router-dom";
 class Navigation extends React.Component {
@@ -9,7 +10,7 @@ class Navigation extends React.Component {
             <>
                 <nav id="sidebar" className="sidebar js-sidebar">
                     <div className="sidebar-content js-simplebar">
-                        <Link to='/' className="sidebar-brand"><span className="align-middle">Admin</span></Link>
+                        <Link to='/admin/quanlychutro' className="sidebar-brand"><span className="align-middle">Admin</span></Link>
 
                         <ul className="sidebar-nav">
                             <li className="sidebar-header">
@@ -17,25 +18,25 @@ class Navigation extends React.Component {
                             </li>
 
                             <li>
-                                <NavLink to='/' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý chủ trọ</span></NavLink>
+                                <NavLink to='/admin/quanlychutro' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý chủ trọ</span></NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to='/quanlygoidangky' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý dịch vụ</span></NavLink>
+                                <NavLink to='/admin/quanlygoidangky' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý dịch vụ</span></NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to='/xacthucchutro' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Xác thực chủ trọ</span></NavLink>
+                                <NavLink to='/admin/xacthucchutro' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Xác thực chủ trọ</span></NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to='/xacthucgoidangky' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">yêu cầu đăng ký gói</span></NavLink>
+                                <NavLink to='/admin/xacthucgoidangky' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">yêu cầu đăng ký gói</span></NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to='/quanlykhuvuc' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý khu vực</span></NavLink>
+                                <NavLink to='/admin/quanlykhuvuc' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý khu vực</span></NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to='/quanlybanner' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý banner</span></NavLink>
+                                <NavLink to='/admin/quanlybanner' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý banner</span></NavLink>
                             </li>
                             <li className="sidebar-item">
-                                <NavLink to='/thongtintaikhoan' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Thông tin tài khoản</span></NavLink>
+                                <NavLink to='/admin/thongtintaikhoan' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Thông tin tài khoản</span></NavLink>
                             </li>
                         </ul>
 
