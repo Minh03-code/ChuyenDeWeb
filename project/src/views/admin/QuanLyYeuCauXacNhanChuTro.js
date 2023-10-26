@@ -1,6 +1,20 @@
 import React from 'react';
+import { getAllMotelRoomOwnerAuthenticationCallAPI } from '../../services/admin/MinhService';
+
 class QuanLyYeuCauXacNhanChuTro extends React.Component {
+    state = {
+        listMotelRoomOwnerAuthentication: []
+    }
+    async componentDidMount() {
+        let res = await getAllMotelRoomOwnerAuthenticationCallAPI();
+        if (res != null) {
+            this.setState({
+                listMotelRoomOwnerAuthentication: res
+            })
+        }
+    }
     render() {
+        let { listMotelRoomOwnerAuthentication } = this.state
         return (
             <>
                 <div className="main">
@@ -27,14 +41,23 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>#1111</td>
-                                            <td className="d-none d-xl-table-cell">Nguyễn Tấn Dũng</td>
-                                            <td className="d-none d-xl-table-cell">01231123</td>
-                                            <td className="d-none d-md-table-cell">
-                                                <a href="#" className="btn btn-primary">Xem thông tin</a>
-                                            </td>
-                                        </tr>
+
+                                        {
+
+                                            listMotelRoomOwnerAuthentication && listMotelRoomOwnerAuthentication.length > 0 && listMotelRoomOwnerAuthentication.map((item, index) => {
+                                                return (
+                                                    <tr>
+                                                        <td>#{item.chuTro.id}</td>
+                                                        <td className="d-none d-xl-table-cell">{item.chuTro.ten}</td>
+                                                        <td className="d-none d-xl-table-cell">{item.chuTro.soDienThoai}</td>
+                                                        <td className="d-none d-md-table-cell">
+                                                            <a href="#" className="btn btn-primary">Xem thông tin</a>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+
                                     </tbody>
                                 </table>
                             </div>

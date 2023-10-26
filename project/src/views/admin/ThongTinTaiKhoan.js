@@ -7,9 +7,9 @@ class ThongTinTaiKhoan extends React.Component {
                     <main className="content">
                         <div className="d-grid gap-2">
 
-                        <a type="button" class="btn btn-secondary">Xem thông tin tài khoản</a>
-                        <a type="button" class="btn btn-secondary">Đổi mật khẩu</a>
-                        <a type="button" class="btn btn-secondary">Đăng xuất</a>
+                        <a type="button" className="btn btn-secondary">Xem thông tin tài khoản</a>
+                        <a type="button" className="btn btn-secondary">Đổi mật khẩu</a>
+                        <a type="button" className="btn btn-secondary">Đăng xuất</a>
 
 
                         </div>
