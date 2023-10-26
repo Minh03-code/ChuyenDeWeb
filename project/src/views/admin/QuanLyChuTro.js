@@ -1,6 +1,21 @@
 import React from 'react';
+import axios from 'axios';
+
 class QuanLyChuTro extends React.Component {
+
+    state = {
+        listMotelRoom: []
+    }
+    async componentDidMount() {
+        let res = await axios.get('http://192.168.2.8/3t/laravel/public/api/chutro/all');
+        this.setState({
+            listMotelRoom: res && res.data && res.data.data ? res.data.data : []
+        })
+        console.log(res);
+    }
+
     render() {
+        let { listMotelRoom } = this.state;
         return (
             <>
                 <div className="main">
@@ -30,18 +45,23 @@ class QuanLyChuTro extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>#1111</td>
-                                            <td className="d-none d-xl-table-cell">Nguyễn Tấn Dũng</td>
-                                            <td className="d-none d-xl-table-cell">0123456789</td>
-                                            <td>
-                                                <a href="#" className="btn btn-danger">Khóa</a>
-                                                <a href="#" className="btn btn-success">Mở khóa</a>
-                                            </td>
-                                            <td className="d-none d-md-table-cell">
-                                                <a href="#" className="btn btn-primary">Chỉnh sửa</a>
-                                            </td>
-                                        </tr>
+                                        {listMotelRoom && listMotelRoom.length > 0 && listMotelRoom.map((item, index) => {
+                                            return (
+                                                <tr key={item.id}>
+                                                    <td>{item.id}</td>
+                                                    <td className="d-none d-xl-table-cell">{item.ten}</td>
+                                                    <td className="d-none d-xl-table-cell">{item.soDienThoai}</td>
+                                                    <td>
+                                                        <a href="#" className="btn btn-danger">Khóa</a>
+                                                        <a href="#" className="btn btn-success">Mở khóa</a>
+                                                    </td>
+                                                    <td className="d-none d-md-table-cell">
+                                                        <a href="#" className="btn btn-primary">Chỉnh sửa</a>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
+
                                     </tbody>
                                 </table>
                             </div>
