@@ -23,6 +23,9 @@ class Navigation extends React.Component {
                                 <NavLink to='/quanlygoidangky' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý dịch vụ</span></NavLink>
                             </li>
                             <li className="sidebar-item">
+                                <NavLink to='/quanlytienich' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Quản lý tiện ích</span></NavLink>
+                            </li>
+                            <li className="sidebar-item">
                                 <NavLink to='/xacthucchutro' className={(navData) => (navData.isActive ? "sidebar-item active" : 'sidebar-item')}><span className="sidebar-link align-middle">Xác thực chủ trọ</span></NavLink>
                             </li>
                             <li className="sidebar-item">
