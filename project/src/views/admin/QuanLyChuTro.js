@@ -11,7 +11,7 @@ class QuanLyChuTro extends React.Component {
         this.setState({
             listMotelRoom: res && res.data && res.data.data ? res.data.data : []
         })
-        console.log(res);
+        console.log(res.data);
     }
 
     render() {
@@ -47,7 +47,7 @@ class QuanLyChuTro extends React.Component {
                                     <tbody>
                                         {listMotelRoom && listMotelRoom.length > 0 && listMotelRoom.map((item, index) => {
                                             return (
-                                                <tr key={item.id}>
+                                                <tr>
                                                     <td>{item.id}</td>
                                                     <td className="d-none d-xl-table-cell">{item.ten}</td>
                                                     <td className="d-none d-xl-table-cell">{item.soDienThoai}</td>
@@ -61,12 +61,9 @@ class QuanLyChuTro extends React.Component {
                                                 </tr>
                                             )
                                         })}
-
                                     </tbody>
                                 </table>
                             </div>
-
-
                         </div>
                     </main>
                 </div>
