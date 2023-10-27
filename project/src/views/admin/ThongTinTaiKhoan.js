@@ -1,9 +1,7 @@
 import React from 'react';
-import './styleNghiem.scss';
-import {myAxios} from '../../services/my-axios.js';
+import './styleNghiem.css';
 import { baseURL } from '../../services/my-axios.js';
 import { getProfileAdmin } from '../../services/admin/NghiemService.js';
-import axios from 'axios';
 class ThongTinTaiKhoan extends React.Component {
     state ={
         admin:{}
