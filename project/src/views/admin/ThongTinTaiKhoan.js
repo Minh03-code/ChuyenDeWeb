@@ -1,12 +1,14 @@
 import React from 'react';
 import './styleNghiem.scss';
 import axios from 'axios';
+import myAxios from '../../services/my-axios';
+import { getProfileAdmin } from '../../services/admin/NghiemService';
 class ThongTinTaiKhoan extends React.Component {
     state ={
         admin:{}
     }
     async componentDidMount(){
-        let res = await axios.get("http://192.168.190.1:8080/3t/laravel/public/api/thongtinadmin?id=1");
+        let res = getProfileAdmin();
         if (res.data != null) {
             this.setState({
                 admin: res.data
@@ -15,7 +17,7 @@ class ThongTinTaiKhoan extends React.Component {
     }
     render() {
         let{admin} = this.state;
-        let stringAnh = "http://192.168.190.1:8080/3t/laravel/public/" + admin.hinh;
+        let stringAnh = myAxios.baseURL + admin.hinh;
         return (
             <>
                 <div className="main">
