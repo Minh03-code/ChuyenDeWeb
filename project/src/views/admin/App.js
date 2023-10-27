@@ -17,12 +17,12 @@ import QuanLyTienIch from './QuanLyTienIch.js';
 function App() {
   return (
     <BrowserRouter>
-      <div class="wrapper">
+      <div className="wrapper">
         <Navigation />
 
-        <div class="main">
+        <div className="main">
 
-          <main class="content">
+          <main className="content">
             <Routes>
               <Route path="/" exact element={<QuanLyChuTro />}>
               </Route>
