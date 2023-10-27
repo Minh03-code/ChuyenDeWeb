@@ -1,11 +1,12 @@
 import React from 'react';
-import {baseURL} from "../../services/my-axios";
+import { baseURL } from "../../services/my-axios";
 import { getAllMotelRoomOwnerAuthenticationCallAPI } from '../../services/admin/MinhService';
 
 class QuanLyYeuCauXacNhanChuTro extends React.Component {
     state = {
         listMotelRoomOwnerAuthentication: []
     }
+    hideLoader = () => console.log(1);;
     async componentDidMount() {
         let res = await getAllMotelRoomOwnerAuthenticationCallAPI();
         if (res != null) {
@@ -32,39 +33,43 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <table className="table table-hover my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th className="d-none d-xl-table-cell">Hình</th>
-                                            <th className="d-none d-xl-table-cell">Tên</th>
-                                            <th className="d-none d-xl-table-cell">Số điện thoại</th>
-                                            <th className="d-none d-md-table-cell">Chức năng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                {
+                                    listMotelRoomOwnerAuthentication.length == 0 ? <div className='null'>rỗng</div> :
+                                        <table className="table table-hover my-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th className="d-none d-xl-table-cell">Hình</th>
+                                                    <th className="d-none d-xl-table-cell">Tên</th>
+                                                    <th className="d-none d-xl-table-cell">Số điện thoại</th>
+                                                    <th className="d-none d-md-table-cell">Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                        {
+                                                {
+                                                    listMotelRoomOwnerAuthentication && listMotelRoomOwnerAuthentication.length > 0 && listMotelRoomOwnerAuthentication.map((item, index) => {
+                                                        return (
+                                                            <tr>
+                                                                <td>#{item.chuTro.id}</td>
+                                                                <td className="d-none d-xl-table-cell">
+                                                                    <img className='img-main' src={baseURL + item.chuTro.hinh} alt={item.chuTro.hinh} />
+                                                                </td>
+                                                                <td className="d-none d-xl-table-cell">{item.chuTro.ten}</td>
+                                                                <td className="d-none d-xl-table-cell">{item.chuTro.soDienThoai}</td>
+                                                                <td className="d-none d-md-table-cell">
+                                                                    <a href="#" className="btn btn-primary">Xem thông tin</a>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
 
-                                            listMotelRoomOwnerAuthentication && listMotelRoomOwnerAuthentication.length > 0 && listMotelRoomOwnerAuthentication.map((item, index) => {
-                                                return (
-                                                    <tr>
-                                                        <td>#{item.chuTro.id}</td>
-                                                        <td className="d-none d-xl-table-cell">
-                                                            <img className='img-main' src={baseURL + item.chuTro.hinh} alt={item.chuTro.hinh} />
-                                                        </td>
-                                                        <td className="d-none d-xl-table-cell">{item.chuTro.ten}</td>
-                                                        <td className="d-none d-xl-table-cell">{item.chuTro.soDienThoai}</td>
-                                                        <td className="d-none d-md-table-cell">
-                                                            <a href="#" className="btn btn-primary">Xem thông tin</a>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                        }
+                                            </tbody>
+                                        </table>
+                                }
 
-                                    </tbody>
-                                </table>
+
                             </div>
 
 
