@@ -1,6 +1,7 @@
 import axios from "axios";
+const baseURL = "http://127.0.0.1:8000/";
 const myAxios = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: baseURL,
   timeout: 1000*60,
 });
 // Add a response interceptor
@@ -13,4 +14,4 @@ myAxios.interceptors.response.use(function (response) {
   // Do something with response error
   return Promise.reject(error);
 });
-export default myAxios;
+export {myAxios, baseURL};
