@@ -13,4 +13,6 @@ myAxios.interceptors.response.use(function (response) {
   // Do something with response error
   return Promise.reject(error);
 });
-export default {myAxios};
+const baseURL = 'http://192.168.190.1:8080/3t/laravel/public/';
+export {baseURL};
+export default myAxios;

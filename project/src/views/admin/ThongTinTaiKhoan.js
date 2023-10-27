@@ -1,22 +1,23 @@
 import React from 'react';
 import './styleNghiem.scss';
-import myAxios from '../../services/my-axios';
-import { getProfileAdmin } from '../../services/admin/NghiemService';
+import myAxios from '../../services/my-axios.js';
+import { baseURL } from '../../services/my-axios.js';
+import { getProfileAdmin } from '../../services/admin/NghiemService.js';
+import axios from 'axios';
 class ThongTinTaiKhoan extends React.Component {
     state ={
         admin:{}
     }
     async componentDidMount(){
         let res = await getProfileAdmin();
-        if (res.data != null) {
+        if (res != null) {
             this.setState({
-                admin: res.data
+                admin: res
             })
         }
     }
     render() {
         let{admin} = this.state;
-       
         let stringAnh = baseURL + admin.hinh;
         return (
             <>
@@ -30,7 +31,7 @@ class ThongTinTaiKhoan extends React.Component {
                     <div className="thongtin_content">
                     <p className="title_admin">Thông Tin Tài Khoản Admin</p>
                     <div className="noidung_content">
-                    <div><b className="labeladmin">Tên:</b>{admin.ten}</div>
+                    <div><b className="labeladmin">Tên:</b> {admin.ten}</div>
                     <div><b className="labeladmin">Số Điện Thoại:</b> {admin.soDienThoai}</div>
                     <div><b className="labeladmin">Số Tài Khoản Ngân Hàng:</b> {admin.soTaiKhoanNganHang}</div>
                     <div><b className="labeladmin">Tên Chủ Tài Khoản Ngân Hàng:</b> {admin.tenChuTaiKhoan}</div>
