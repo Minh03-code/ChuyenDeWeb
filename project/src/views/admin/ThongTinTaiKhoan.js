@@ -1,6 +1,5 @@
 import React from 'react';
 import './styleNghiem.scss';
-import axios from 'axios';
 import myAxios from '../../services/my-axios';
 import { getProfileAdmin } from '../../services/admin/NghiemService';
 class ThongTinTaiKhoan extends React.Component {
@@ -8,7 +7,7 @@ class ThongTinTaiKhoan extends React.Component {
         admin:{}
     }
     async componentDidMount(){
-        let res = getProfileAdmin();
+        let res = await getProfileAdmin();
         if (res.data != null) {
             this.setState({
                 admin: res.data
@@ -17,20 +16,20 @@ class ThongTinTaiKhoan extends React.Component {
     }
     render() {
         let{admin} = this.state;
-        let stringAnh = myAxios.baseURL + admin.hinh;
+       
+        let stringAnh = baseURL + admin.hinh;
         return (
             <>
                 <div className="main">
                     <main className="content">
-                    
                     <div className="manhinhadmin">
-                   <img className='img-fluid avt' src={stringAnh} />
+                   <img className='img-fluid avt' src={stringAnh} alt='anh'/>
                    <div className="bg_admin">
 
                     </div>
-                    <div class="thongtin_content">
-                <p className="title_admin">Thông Tin Tài Khoản Admin</p>
-                <div className="noidung_content">
+                    <div className="thongtin_content">
+                    <p className="title_admin">Thông Tin Tài Khoản Admin</p>
+                    <div className="noidung_content">
                     <div><b className="labeladmin">Tên:</b>{admin.ten}</div>
                     <div><b className="labeladmin">Số Điện Thoại:</b> {admin.soDienThoai}</div>
                     <div><b className="labeladmin">Số Tài Khoản Ngân Hàng:</b> {admin.soTaiKhoanNganHang}</div>
@@ -42,7 +41,6 @@ class ThongTinTaiKhoan extends React.Component {
                         </div>
                         </div>
                         </div>
-    
                     </div>
    
                     </main>
