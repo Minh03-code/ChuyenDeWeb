@@ -7,7 +7,7 @@ class QuanLyKhuVuc extends React.Component {
         listQuan: []
     }
     async componentDidMount() {
-        let res = await axios.get('http://127.0.0.1:8000/api/quan');
+        let res = await axios.get('http://127.0.0.1:8000/api/laytatcaquan');
         if (res.data != null) {
             this.setState({
                 listQuan: res.data
