@@ -7,7 +7,7 @@ class QuanLyChuTro extends React.Component {
         listMotelRoom: []
     }
     async componentDidMount() {
-        let res = await axios.get('http://192.168.2.8/3t/laravel/public/api/chutro/all');
+        let res = await axios.get('http://192.168.2.30/3t/laravel/public/api/chutro/all');
         if (res.data != null) {
             this.setState({
                 listMotelRoom: res.data
@@ -55,8 +55,7 @@ class QuanLyChuTro extends React.Component {
                                                     <td className="d-none d-xl-table-cell">{item.ten}</td>
                                                     <td className="d-none d-xl-table-cell">{item.soDienThoai}</td>
                                                     <td>
-                                                        <a href="#" className="btn btn-danger">Khóa</a>
-                                                        <a href="#" className="btn btn-success">Mở khóa</a>
+                                                        {item.xacThuc = 1 ? <>Đang hoạt động <a href="#" className="btn btn-danger">Khóa</a></> : <>Đã khóa <a href="#" className="btn btn-success">Mở khóa</a></>}
                                                     </td>
                                                     <td className="d-none d-md-table-cell">
                                                         <a href="#" className="btn btn-primary">Chỉnh sửa</a>
