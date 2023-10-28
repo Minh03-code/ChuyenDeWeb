@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-
+import QuanLyKhuVuc from './QuanLyKhuVuc';
 class ListPhuong extends React.Component {
     state = {
         listPhuong: []
     }
     async componentDidMount() {
-        let res = await axios.get('http://127.0.0.1:8000/api/phuong');
+        alert(this.props.idQuan);
+        let res = await axios.get(`http://127.0.0.1:8000/api/phuong/layphuongtheoquan?idQuan=${this.props.idQuan}`);
         if (res.data != null) {
             this.setState({
                 listPhuong: res.data
@@ -15,6 +16,7 @@ class ListPhuong extends React.Component {
             console.log(res);
         }
     }
+    
 
     render() {
         let { listPhuong } = this.state;

@@ -15,7 +15,7 @@ import QuanLyYeuCauXacNhanGoi from './QuanLyYeuCauXacNhanGoi.js';
 import QuanLyBanner from './QuanLyBanner.js';
 import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
-import ModalKhuVuc from './ModalKhuVuc.js';
+
 import AddKhuVuc from './AddKhuVuc.js';
 function App() {
   return (
