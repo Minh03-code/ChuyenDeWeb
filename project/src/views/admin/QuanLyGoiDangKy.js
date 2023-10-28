@@ -1,6 +1,23 @@
 import React from 'react';
+import { baseURL } from "../../services/my-axios";
+import { getAllServiceCallAPI } from '../../services/admin/KietService';
+
 class QuanLyGoiDangKy extends React.Component {
+    state = {
+        listService: []
+    }
+    hideLoader = () => console.log(1);;
+    async componentDidMount() {
+        let res = await getAllServiceCallAPI();
+        if (res != null) {
+            this.setState({
+                listService: res
+            })
+        }
+    }
+
     render() {
+        let { listService } = this.state
         return (
             <>
                 <div className="main">
@@ -20,36 +37,45 @@ class QuanLyGoiDangKy extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <table className="table table-hover my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th className="d-none d-xl-table-cell">Số phòng</th>
-                                            <th className="d-none d-xl-table-cell">Thời gian(ngày)</th>
-                                            <th className="d-none d-xl-table-cell">Giá</th>
-                                            <th>Trang thái</th>
-                                            <th className="d-none d-md-table-cell">Chức năng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#1111</td>
-                                            <td className="d-none d-xl-table-cell">10</td>
-                                            <td className="d-none d-xl-table-cell">30</td>
-                                            <td className="d-none d-xl-table-cell">1000 đồng</td>
-                                            <td>
-                                                <a href="#" className="btn btn-danger">Khóa</a>
-                                                <a href="#" className="btn btn-success">Mở khóa</a>
-                                            </td>
-                                            <td className="d-none d-md-table-cell">
-                                                <a href="#" className="btn btn-primary">Chỉnh sửa</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                {
+                                    listService.length == 0 ? <div className='null'>rỗng</div> :
+                                        <table className="table table-hover my-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th className="d-none d-xl-table-cell">Số phòng</th>
+                                                    <th className="d-none d-xl-table-cell">Thời gian(ngày)</th>
+                                                    <th className="d-none d-xl-table-cell">Giá</th>
+                                                    <th>Trang thái</th>
+                                                    <th className="d-none d-md-table-cell">Chức năng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {
+                                                    listService && listService.length > 0 && listService.map((item, index) => {
+                                                        return (
+                                                            <tr>
+                                                                <td>{item.id}</td>
+                                                                <td className="d-none d-xl-table-cell">{item.soLuongPhongToiDa}</td>
+                                                                <td className="d-none d-xl-table-cell">{item.thoiHan}</td>
+                                                                <td className="d-none d-xl-table-cell">{item.gia}</td>
+                                                                <td>
+                                                                    <a href="#" className="btn btn-danger">Khóa</a>
+                                                                    <a href="#" className="btn btn-success">Mở khóa</a>
+                                                                </td>
+                                                                <td className="d-none d-md-table-cell">
+                                                                    <a href="#" className="btn btn-primary">Chỉnh sửa</a>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                }
                             </div>
-
-
                         </div>
                     </main>
                 </div>
