@@ -14,9 +14,9 @@ import ThongTinTaiKhoan from './ThongTinTaiKhoan.js';
 import QuanLyYeuCauXacNhanGoi from './QuanLyYeuCauXacNhanGoi.js';
 import QuanLyBanner from './QuanLyBanner.js';
 import QuanLyTienIch from './QuanLyTienIch.js';
-function App() {
+function Admin() {
   return (
-    <BrowserRouter>
+    <>
       <div className="wrapper">
         <Navigation />
 
@@ -24,7 +24,7 @@ function App() {
 
           <main className="content">
             <Routes>
-              <Route path="/" exact element={<QuanLyChuTro />}>
+              <Route path="/quanlychutro" exact element={<QuanLyChuTro />}>
               </Route>
               <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
               </Route>
@@ -44,8 +44,8 @@ function App() {
           </main>
         </div>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 
-export default App;
+export default Admin;

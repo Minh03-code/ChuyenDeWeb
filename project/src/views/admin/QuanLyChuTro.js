@@ -7,7 +7,7 @@ class QuanLyChuTro extends React.Component {
         listMotelRoom: []
     }
     async componentDidMount() {
-        let res = await axios.get('http://192.168.2.30/3t/laravel/public/api/chutro/all');
+        let res = await axios.get('http://127.0.0.1:8000/api/chutro/all');
         if (res.data != null) {
             this.setState({
                 listMotelRoom: res.data
