@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+
+
 class QuanLyKhuVuc extends React.Component {
     state = {
         listQuan: []
@@ -14,15 +16,15 @@ class QuanLyKhuVuc extends React.Component {
             console.log(res);
         }
     }
+   
     render() {
         let { listQuan } = this.state;
         return (
             <>
+
                 <div className="main">
                     <main className="content">
                         <div className="container-fluid p-0">
-
-
                             <div className="card flex-fill">
                                 <div className="card-header">
                                     <div className="row">
@@ -30,7 +32,10 @@ class QuanLyKhuVuc extends React.Component {
                                             <h5 className="card-title mb-0">Quản lý khu vực</h5>
                                         </div>
                                         <div className="col-md-9">
-                                            <a href="add-product.html" className="btn btn-primary">Thêm</a>
+                                            {/* <button className="btn btn-primary"
+                                                onClick={() => this.handleAddNewKhuVuc(this)}><i className='fas fa-plus'></i> Thêm mới khu vực
+                                            </button> */}
+                                            <a href="addKhuVuc" className="btn btn-primary">Thêm Khu Vực</a>
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +59,8 @@ class QuanLyKhuVuc extends React.Component {
                                                         <a href="listPhuong" className="btn btn-primary">Xem phường</a>
                                                     </td>
                                                     <td className="d-none d-md-table-cell">
-                                                        <a href="#" className="btn btn-primary">Chỉnh sửa</a>
+                                                        <a href="#" className="btn btn-primary">Sửa</a>
+                                                        <a href="#" className="btn btn-secondary">Xóa</a>
                                                     </td>
                                                 </tr>
                                             )

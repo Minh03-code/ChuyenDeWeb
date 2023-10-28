@@ -6,7 +6,7 @@ class ListPhuong extends React.Component {
         listPhuong: []
     }
     async componentDidMount() {
-        let res = await axios.get('http://127.0.0.1:8000/api/layPhuongTheoId');
+        let res = await axios.get('http://127.0.0.1:8000/api/phuong');
         if (res.data != null) {
             this.setState({
                 listPhuong: res.data
@@ -37,9 +37,10 @@ class ListPhuong extends React.Component {
                                 <table className="table table-hover my-0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>STT</th>
                                             <th className="d-none d-xl-table-cell">IDQuận</th>
                                             <th className="d-none d-md-table-cell">Phường</th>
+                                            <th className="d-none d-md-table-cell">Chức năng</th>
                                             {/* <th className="d-none d-md-table-cell">Chức năng</th> */}
                                         </tr>
                                     </thead>
@@ -51,6 +52,10 @@ class ListPhuong extends React.Component {
                                                     <td>{item.id}</td>
                                                     <td className="d-none d-xl-table-cell">{item.idQuan}</td>
                                                     <td className="d-none d-xl-table-cell">{item.tenPhuong}</td>
+                                                    <td className="d-none d-md-table-cell">
+                                                        <a href="#" className="btn btn-primary">Sửa</a>
+                                                        <a href="#" className="btn btn-secondary">Xoá</a>
+                                                    </td>
                                                 </tr>
                                             )
                                         })}
