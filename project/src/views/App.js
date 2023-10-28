@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginRegister />}>
         </Route>
-        <Route path="/admin" element={<Admin />}>
+        <Route path="/admin/*" element={<Admin />}>
         </Route>
       </Routes>
     </BrowserRouter>
