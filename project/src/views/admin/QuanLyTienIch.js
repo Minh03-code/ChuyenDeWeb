@@ -1,17 +1,16 @@
-import axios from 'axios';
 import React from 'react';
+import { getAllTienIchCallAPI } from '../../services/admin/DungService';
 class QuanLyTienIch extends React.Component {
     state = {
         listTienIch: []
     }
+    hideLoader = () => console.log(1);;
     async componentDidMount() {
-        let res = await axios.get('http://127.0.0.1:8000/api/laytatcatienich');
-        if (res.data != null) {
+        let res = await getAllTienIchCallAPI();
+        if (res != null) {
             this.setState({
-                listTienIch: res.data
+                listTienIch: res
             })
-            console.log(this.state.listTienIch);
-            console.log(res);
         }
     }
     render() {
@@ -30,7 +29,7 @@ class QuanLyTienIch extends React.Component {
                                             <h5 className="card-title mb-0">Quản lý tiện ích</h5>
                                         </div>
                                         <div className="col-md-9">
-                                            <a href="add-product.html" className="btn btn-primary">Thêm</a>
+                                            <a href="ThemTienIch" className="btn btn-primary">Thêm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -43,16 +42,6 @@ class QuanLyTienIch extends React.Component {
                                             <th className="d-none d-md-table-cell">Chức năng</th>
                                         </tr>
                                     </thead>
-                                    {/* <tbody>
-                                        <tr>
-                                            <td>#1111</td>
-                                            <td className="d-none d-xl-table-cell">11561665415-banner.png</td>
-                                            <td className="d-none d-xl-table-cell">Tên tiện ích</td>
-                                            <td className="d-none d-md-table-cell">
-                                                <a href="#" className="btn btn-primary">Chỉnh sửa</a>
-                                            </td>
-                                        </tr>
-                                    </tbody> */}
                                     <tbody>
                                         {listTienIch && listTienIch.length > 0 && listTienIch.map((item, index) => {
                                             return (
@@ -61,7 +50,8 @@ class QuanLyTienIch extends React.Component {
                                                     <td className="d-none d-xl-table-cell">{item.ten}</td>
                                                     <td className="d-none d-xl-table-cell">{item.hinh}</td>
                                                     <td className="d-none d-md-table-cell">
-                                                        <a href="" className="btn btn-primary">Chỉnh sửa</a>
+                                                        <a href="#" className="btn btn-primary">EDIT</a>
+                                                        <a href="#" className="btn btn-danger">DELETE</a>
                                                     </td>
                                                 </tr>
                                             )
