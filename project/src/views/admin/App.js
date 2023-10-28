@@ -14,6 +14,7 @@ import ThongTinTaiKhoan from './ThongTinTaiKhoan.js';
 import QuanLyYeuCauXacNhanGoi from './QuanLyYeuCauXacNhanGoi.js';
 import QuanLyBanner from './QuanLyBanner.js';
 import QuanLyTienIch from './QuanLyTienIch.js';
+import ThemTienIch from './ThemTienIch.js';
 function App() {
   return (
     <BrowserRouter>
@@ -28,8 +29,12 @@ function App() {
               </Route>
               <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
               </Route>
+
               <Route path="/quanlytienich" element={<QuanLyTienIch />}>
               </Route>
+              <Route path="/ThemTienIch" element={<ThemTienIch />}>
+              </Route>
+
               <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
               </Route>
               <Route path="/xacthucgoidangky" element={<QuanLyYeuCauXacNhanGoi />}>
