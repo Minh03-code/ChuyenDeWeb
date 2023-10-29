@@ -1,24 +1,25 @@
 import React from 'react';
 import axios from 'axios';
-
-class QuanLyChuTro extends React.Component {
-
+import QuanLyKhuVuc from './QuanLyKhuVuc';
+class ListPhuong extends React.Component {
     state = {
-        listMotelRoom: []
+        listPhuong: []
     }
     async componentDidMount() {
-        let res = await axios.get('http://192.168.2.30/3t/laravel/public/api/chutro/all');
+        alert(this.props.idQuan);
+        let res = await axios.get(`http://127.0.0.1:8000/api/phuong/layphuongtheoquan?idQuan=${this.props.idQuan}`);
         if (res.data != null) {
             this.setState({
-                listMotelRoom: res.data
+                listPhuong: res.data
             })
-            console.log(this.state.listMotelRoom);
+            console.log(this.state.listPhuong);
             console.log(res);
         }
     }
+    
 
     render() {
-        let { listMotelRoom } = this.state;
+        let { listPhuong } = this.state;
         return (
             <>
                 <div className="main">
@@ -30,35 +31,32 @@ class QuanLyChuTro extends React.Component {
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">Quản lý chủ trọ</h5>
+                                            <h5 className="card-title mb-0">Quản lý khu vực</h5>
                                         </div>
-                                        <div className="col-md-9">
-                                            <a href="add-product.html" className="btn btn-primary">Thêm</a>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                                 <table className="table table-hover my-0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th className="d-none d-xl-table-cell">Tên</th>
-                                            <th className="d-none d-xl-table-cell">Số điện thoại</th>
-                                            <th>Trang thái</th>
+                                            <th>STT</th>
+                                            <th className="d-none d-xl-table-cell">IDQuận</th>
+                                            <th className="d-none d-md-table-cell">Phường</th>
                                             <th className="d-none d-md-table-cell">Chức năng</th>
+                                            {/* <th className="d-none d-md-table-cell">Chức năng</th> */}
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
-                                        {listMotelRoom && listMotelRoom.length > 0 && listMotelRoom.map((item, index) => {
+                                        {listPhuong && listPhuong.length > 0 && listPhuong.map((item, index) => {
                                             return (
                                                 <tr>
                                                     <td>{item.id}</td>
-                                                    <td className="d-none d-xl-table-cell">{item.ten}</td>
-                                                    <td className="d-none d-xl-table-cell">{item.soDienThoai}</td>
-                                                    <td>
-                                                        {item.xacThuc = 1 ? <>Đang hoạt động <a href="#" className="btn btn-danger">Khóa</a></> : <>Đã khóa <a href="#" className="btn btn-success">Mở khóa</a></>}
-                                                    </td>
+                                                    <td className="d-none d-xl-table-cell">{item.idQuan}</td>
+                                                    <td className="d-none d-xl-table-cell">{item.tenPhuong}</td>
                                                     <td className="d-none d-md-table-cell">
-                                                        <a href="#" className="btn btn-primary">Chỉnh sửa</a>
+                                                        <a href="#" className="btn btn-primary">Sửa</a>
+                                                        <a href="#" className="btn btn-secondary">Xoá</a>
                                                     </td>
                                                 </tr>
                                             )
@@ -66,6 +64,8 @@ class QuanLyChuTro extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
+
+
                         </div>
                     </main>
                 </div>
@@ -73,4 +73,4 @@ class QuanLyChuTro extends React.Component {
         )
     }
 }
-export default QuanLyChuTro;
+export default ListPhuong;
