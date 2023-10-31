@@ -1,73 +1,62 @@
 import React from 'react';
 import axios from 'axios';
-import ListPhuong from './ListPhuong';
-
-class QuanLyKhuVuc extends React.Component {
+import QuanLyKhuVuc from './QuanLyKhuVuc';
+class ListPhuong extends React.Component {
     state = {
-        listQuan: [],
-        idQuan:""
-    }
-    onChangeDataIdQuan(id){
-       this.setState({
-        idQuan:id
-       })
+        listPhuong: []
     }
     async componentDidMount() {
-        let res = await axios.get('http://127.0.0.1:8000/api/laytatcaquan');
+        alert(this.props.idQuan);
+        let res = await axios.get(`http://127.0.0.1:8000/api/phuong/layphuongtheoquan?idQuan=${this.props.idQuan}`);
         if (res.data != null) {
             this.setState({
-                listQuan: res.data
+                listPhuong: res.data
             })
-            console.log(this.state.listQuan);
+            console.log(this.state.listPhuong);
             console.log(res);
         }
     }
-   
+    
+
     render() {
-        let { listQuan } = this.state;
-        <ListPhuong idQuan={this.state.idQuan}/>
+        let { listPhuong } = this.state;
         return (
             <>
-
                 <div className="main">
                     <main className="content">
                         <div className="container-fluid p-0">
+
+
                             <div className="card flex-fill">
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
                                             <h5 className="card-title mb-0">Quản lý khu vực</h5>
                                         </div>
-                                        <div className="col-md-9">
-                                            {/* <button className="btn btn-primary"
-                                                onClick={() => this.handleAddNewKhuVuc(this)}><i className='fas fa-plus'></i> Thêm mới khu vực
-                                            </button> */}
-                                            <a href="addKhuVuc" className="btn btn-primary">Thêm Khu Vực</a>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                                 <table className="table table-hover my-0">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th className="d-none d-xl-table-cell">Quận</th>
-                                            <th className="d-none d-md-table-cell">Xem phường</th>
+                                            <th>STT</th>
+                                            <th className="d-none d-xl-table-cell">IDQuận</th>
+                                            <th className="d-none d-md-table-cell">Phường</th>
                                             <th className="d-none d-md-table-cell">Chức năng</th>
+                                            {/* <th className="d-none d-md-table-cell">Chức năng</th> */}
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
-                                        {listQuan && listQuan.length > 0 && listQuan.map((item, index) => {
+                                        {listPhuong && listPhuong.length > 0 && listPhuong.map((item, index) => {
                                             return (
                                                 <tr>
                                                     <td>{item.id}</td>
-                                                    <td className="d-none d-xl-table-cell">{item.tenQuan}</td>
-                                                    {/* <td className="d-none d-xl-table-cell">{item.trangThai}</td> */}
-                                                    <td className="d-none d-md-table-cell">
-                                                        <a href="listPhuong" className="btn btn-primary" onClick={()=>this.onChangeDataIdQuan(item.id)}>Xem phường</a>
-                                                    </td>
+                                                    <td className="d-none d-xl-table-cell">{item.idQuan}</td>
+                                                    <td className="d-none d-xl-table-cell">{item.tenPhuong}</td>
                                                     <td className="d-none d-md-table-cell">
                                                         <a href="#" className="btn btn-primary">Sửa</a>
-                                                        <a href="#" className="btn btn-secondary">Xóa</a>
+                                                        <a href="#" className="btn btn-secondary">Xoá</a>
                                                     </td>
                                                 </tr>
                                             )
@@ -84,4 +73,4 @@ class QuanLyKhuVuc extends React.Component {
         )
     }
 }
-export default QuanLyKhuVuc;
+export default ListPhuong;
