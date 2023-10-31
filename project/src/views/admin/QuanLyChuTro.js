@@ -65,7 +65,7 @@ class QuanLyChuTro extends React.Component {
                                                                 <td className="d-none d-xl-table-cell">{item.ten}</td>
                                                                 <td className="d-none d-xl-table-cell">{item.soDienThoai}</td>
                                                                 <td>
-                                                                    {item.xacThuc = 1 ? <>Đã xác thực</> : <>Chưa xác thực</>}
+                                                                    {item.xacThuc == 1 ? <div className='txt_green'>Đã xác thực</div> : <div className='txt_red'>Chưa xác thực</div>}
                                                                 </td>
                                                                 <td className="d-none d-xl-table-cell">{item.idGoi}</td>
                                                                 <td className="d-none d-md-table-cell">

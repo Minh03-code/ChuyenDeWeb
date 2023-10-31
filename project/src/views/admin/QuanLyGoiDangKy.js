@@ -1,4 +1,5 @@
 import React from 'react';
+import './styleKiet.css';
 import { baseURL } from "../../services/my-axios";
 import { getAllServiceCallAPI } from '../../services/admin/KietService';
 
@@ -14,6 +15,7 @@ class QuanLyGoiDangKy extends React.Component {
                 listService: res
             })
         }
+        console.log(res);
     }
 
     render() {
@@ -61,8 +63,7 @@ class QuanLyGoiDangKy extends React.Component {
                                                                 <td className="d-none d-xl-table-cell">{item.thoiHan}</td>
                                                                 <td className="d-none d-xl-table-cell">{item.gia}</td>
                                                                 <td>
-                                                                    <a href="#" className="btn btn-danger">Khóa</a>
-                                                                    <a href="#" className="btn btn-success">Mở khóa</a>
+                                                                    {item.trangThai == 1 ? <div className='txt_red'>Đã khóa</div> : <div className='txt_green'>Đang hoạt động</div>}
                                                                 </td>
                                                                 <td className="d-none d-md-table-cell">
                                                                     <a href="#" className="btn btn-primary">Chỉnh sửa</a>
