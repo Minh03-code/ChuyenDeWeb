@@ -44,10 +44,11 @@ class QuanLyChuTro extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th className="d-none d-xl-table-cell">Số phòng</th>
-                                                    <th className="d-none d-xl-table-cell">Thời gian(ngày)</th>
-                                                    <th className="d-none d-xl-table-cell">Giá</th>
-                                                    <th>Trang thái</th>
+                                                    <th className="d-none d-xl-table-cell">Hình</th>
+                                                    <th className="d-none d-xl-table-cell">Tên</th>
+                                                    <th className="d-none d-xl-table-cell">Số điện thoại</th>
+                                                    <th className="d-none d-xl-table-cell">Xác thực</th>
+                                                    <th className="d-none d-xl-table-cell">Gói đang dùng</th>
                                                     <th className="d-none d-md-table-cell">Chức năng</th>
                                                 </tr>
                                             </thead>
@@ -58,13 +59,17 @@ class QuanLyChuTro extends React.Component {
                                                         return (
                                                             <tr>
                                                                 <td>{item.id}</td>
+                                                                <td className="d-none d-xl-table-cell">
+                                                                    <img className='img-main' src={baseURL + item.hinh} alt={item.hinh} />
+                                                                </td>
                                                                 <td className="d-none d-xl-table-cell">{item.ten}</td>
                                                                 <td className="d-none d-xl-table-cell">{item.soDienThoai}</td>
                                                                 <td>
-                                                                    {item.xacThuc = 1 ? <>Đang hoạt động <a href="#" className="btn btn-danger">Khóa</a></> : <>Đã khóa <a href="#" className="btn btn-success">Mở khóa</a></>}
+                                                                    {item.xacThuc = 1 ? <>Đã xác thực</> : <>Chưa xác thực</>}
                                                                 </td>
+                                                                <td className="d-none d-xl-table-cell">{item.idGoi}</td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <a href="#" className="btn btn-primary">Chỉnh sửa</a>
+                                                                    <a href="#" className="btn btn-primary">Xem thông tin</a>
                                                                 </td>
                                                             </tr>
                                                         )
