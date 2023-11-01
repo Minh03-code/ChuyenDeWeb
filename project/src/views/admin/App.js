@@ -15,24 +15,28 @@ import QuanLyYeuCauXacNhanGoi from './QuanLyYeuCauXacNhanGoi.js';
 import QuanLyBanner from './QuanLyBanner.js';
 import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
-
+import ThemTienIch from './ThemTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
 function App() {
   return (
     <BrowserRouter>
-      <div class="wrapper">
+      <div className="wrapper">
         <Navigation />
 
-        <div class="main">
+        <div className="main">
 
-          <main class="content">
+          <main className="content">
             <Routes>
               <Route path="/" exact element={<QuanLyChuTro />}>
               </Route>
               <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
               </Route>
+
               <Route path="/quanlytienich" element={<QuanLyTienIch />}>
               </Route>
+              <Route path="/ThemTienIch" element={<ThemTienIch />}>
+              </Route>
+
               <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
               </Route>
               <Route path="/xacthucgoidangky" element={<QuanLyYeuCauXacNhanGoi />}>
