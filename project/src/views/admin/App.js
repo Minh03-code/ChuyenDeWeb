@@ -17,6 +17,10 @@ import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
+import EditPasswordAdmin from './EditPasswordAdmin.js';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <BrowserRouter>
@@ -51,9 +55,26 @@ function App() {
               </Route>
               <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
               </Route>
+
+              <Route path="/editpassword/:id" element={<EditPasswordAdmin />}>
+              </Route>
             </Routes>
           </main>
         </div>
+        <ToastContainer
+position="top-right"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
+{/* Same as */}
+<ToastContainer />
       </div>
     </BrowserRouter>
   );
