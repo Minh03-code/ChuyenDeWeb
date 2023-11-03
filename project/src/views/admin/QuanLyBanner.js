@@ -1,6 +1,7 @@
 import React from "react";
 import { baseURL } from "../../services/my-axios";
 import { getAllBannerApi } from "../../services/admin/PhucService";
+import { Link } from "react-router-dom";
 class QuanLyBanner extends React.Component {
   state = {
     listAllBanner: [],
@@ -58,9 +59,12 @@ class QuanLyBanner extends React.Component {
                               />
                             </td>
                             <td className="d-none d-md-table-cell">
-                              <a href="#" className="btn btn-primary">
+                              <Link
+                                to={`/editbanner/${item.id}`}
+                                className="btn btn-primary"
+                              >
                                 Chỉnh sửa
-                              </a>
+                              </Link>
                             </td>
                           </tr>
                         );
