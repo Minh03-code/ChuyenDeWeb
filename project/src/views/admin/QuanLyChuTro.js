@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 class QuanLyChuTro extends React.Component {
-
+    
     state = {
         listMotelRoom: []
     }
@@ -18,6 +18,7 @@ class QuanLyChuTro extends React.Component {
     }
 
     render() {
+        console.log(sessionStorage.getItem("id"));
         let { listMotelRoom } = this.state;
         return (
             <>
