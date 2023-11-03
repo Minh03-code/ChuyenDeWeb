@@ -11,8 +11,7 @@ const EditBanner = () => {
   let { id } = useParams();
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
-  const inputRef = 
-  useEffect(() => {
+  const inputRef = useEffect(() => {
     async function getDataAPI() {
       setResult(await getBannerById(id));
       setLoading(true);
@@ -25,14 +24,50 @@ const EditBanner = () => {
   return loading == true ? (
     <>
       <div className="main">
-        <img
-          src={baseURL + result.hinhBanner}
-          alt={baseURL + result.hinhBanner}
-          width="100px"
-          height="100px"
-        />
-
-        <button type="file" onClick={handleOnClickChooseFIle}>Choose File</button>
+        <main className="content">
+          <div className="container-fluid p-0">
+            <div className="card flex-fill">
+              <div className="card-header">
+                <div className="row">
+                  <div className="col-md-3">
+                    <h5 className="card-title mb-0">Quản lý chủ trọ</h5>
+                  </div>
+                </div>
+              </div>
+              <table className="table table-hover my-0">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th className="d-none d-xl-table-cell">Hình</th>
+                    <th className="d-none d-md-table-cell">Chức năng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="d-none d-xl-table-cell">
+                      <img
+                        src={baseURL + result.hinhBanner}
+                        alt={baseURL + result.hinhBanner}
+                        width="100px"
+                        height="100px"
+                      />
+                    </td>
+                    <td className="d-none d-md-table-cell">
+                      {/* <NavLink to={`/editbanner/${item.id}`}>
+                                <button
+                                  type="button"
+                                  className="btn btn-primary bbt"
+                                >
+                                  Chỉnh sửa
+                                </button>
+                              </NavLink> */}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
       </div>
     </>
   ) : (
