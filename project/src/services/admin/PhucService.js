@@ -7,5 +7,12 @@ const getAllBannerApi = () => {
 const getBannerById = (id) => {
   return myAxios.get(`api/banner/chitiet?id=${id}`);
 };
-// export { multiple };
-export { getAllBannerApi, getBannerById };
+
+const config = {
+  headers: { "content-type": "multipart/form-data" },
+};
+const editBanner = (id, hinh) => {
+  return myAxios.post(`api/banner/chitiet`, { id: id, hinh: hinh }, config);
+};
+
+export { getAllBannerApi, getBannerById, editBanner };
