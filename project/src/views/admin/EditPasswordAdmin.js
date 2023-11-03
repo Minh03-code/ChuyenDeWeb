@@ -1,10 +1,10 @@
 import React, { version } from 'react';
 import './styleNghiem.css';
 import {  baseURL } from '../../services/my-axios.js';
-import { getProfileAdmin } from '../../services/admin/NghiemService';
+import { getProfileAdmin } from '../../services/admin/NghiemService.js';
 import { NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { getAccountById, updatePassword } from '../../services/admin/NghiemService';
+import { getAccountById, updatePassword } from '../../services/admin/NghiemService.js';
 class EditPasswordAdmin extends React.Component {
     state ={
         admin:{},
@@ -13,7 +13,8 @@ class EditPasswordAdmin extends React.Component {
         mkXacNhan:""
     }
     async componentDidMount(){
-        let res = await getProfileAdmin(1);
+        let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
+        let res = await getProfileAdmin(idTaiKhoan);
         if (res != null) {
             this.setState({
                 admin: res
@@ -43,7 +44,8 @@ class EditPasswordAdmin extends React.Component {
         return true;
     }
     async kiemTraMkHienTai(){
-        let res = await getAccountById(1);
+        let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
+        let res = await getAccountById(idTaiKhoan);
         if (res != null) {
             if(res.matKhau===this.state.mkHienTai){
                 return true;
@@ -69,7 +71,8 @@ class EditPasswordAdmin extends React.Component {
         if(this.kiemTraRong()){
             if(this.kiemTraMatKhauMoi()){
                 if(this.kiemTraMkHienTai()){
-                    let res = await updatePassword(1,this.state.mkMoi);
+                    let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
+                    let res = await updatePassword(idTaiKhoan,this.state.mkMoi);
                     if (res != null) {
                         toast.success("Đổi Thành Công!");
                         this.setDuLieuLaiRong();
@@ -88,14 +91,14 @@ class EditPasswordAdmin extends React.Component {
     }
     render() {
         let {admin, mkHienTai, mkMoi,mkXacNhan} = this.state;
-        let stringAnh = baseURL+admin.hinh;
+        let isObject = Object.keys(admin).length === 0
         return (
             <>
                 <div className="main">
                     <main className="content">
                     <div className="manhinhadmin">
 
-                    <img src={stringAnh} class="img-fluid avt"/>
+                    <img  src={isObject===false?baseURL+admin.hinh:""} className="img-fluid avt"/>
                     <div className="bg_admin">
                     
                     </div>
@@ -123,8 +126,6 @@ class EditPasswordAdmin extends React.Component {
                       
                     </div>
                     </div>
-
-
                     </div>
    
                     </main>
