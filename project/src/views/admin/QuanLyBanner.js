@@ -45,7 +45,10 @@ class QuanLyBanner extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {listAllBanner &&
+                    {listAllBanner.length == 0 ? (
+                      <h3 className="null">Chưa có thông tin</h3>
+                    ) : (
+                      listAllBanner &&
                       listAllBanner.length > 0 &&
                       listAllBanner.map((item, index) => {
                         return (
@@ -69,7 +72,8 @@ class QuanLyBanner extends React.Component {
                             </td>
                           </tr>
                         );
-                      })}
+                      })
+                    )}
                   </tbody>
                 </table>
               </div>
