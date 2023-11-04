@@ -119,7 +119,7 @@ class EditPasswordAdmin extends React.Component {
                             <input  value={mkXacNhan} onChange={(event)=>this.thayDoiMkXacNhan(event)} type="password" id="xacNhanMatKhau" name="xacNhanMatKhau" placeholder="Xác Nhận Mật Khẩu Mới..." className="form-control"/>
                         </div>
                         <button type="button" className="btn btn-primary bbt" onClick={()=>this.capNhat()}>Đồng Ý</button>
-                        <NavLink to="/thongtintaikhoan">
+                        <NavLink to="/admin/thongtintaikhoan">
                         <button type="button" className="btn btn-warning bbt" >Quay lại</button>
                         </NavLink>
                       </form>
