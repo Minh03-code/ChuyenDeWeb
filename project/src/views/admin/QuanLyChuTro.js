@@ -9,8 +9,11 @@ class QuanLyChuTro extends React.Component {
         listMotelRoom: []
     }
     hideLoader = () => console.log(1);;
-    async componentDidMount() {
+    async componentDidMount()
+    {  
+
         let res = await getAllMotelRoomOwnerCallAPI();
+        //adsdw
         if (res != null) {
             this.setState({
                 listMotelRoom: res
