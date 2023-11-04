@@ -2,6 +2,7 @@ import React from "react";
 import { baseURL } from "../../services/my-axios";
 import { getAllBannerApi } from "../../services/admin/PhucService";
 import { Link } from "react-router-dom";
+import AppUpLoad from "./upload";
 class QuanLyBanner extends React.Component {
   state = {
     listAllBanner: [],
@@ -20,6 +21,7 @@ class QuanLyBanner extends React.Component {
     return (
       <>
         <div className="main">
+          <AppUpLoad />
           <main className="content">
             <div className="container-fluid p-0">
               <div className="card flex-fill">

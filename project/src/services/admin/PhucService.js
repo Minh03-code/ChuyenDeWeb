@@ -12,7 +12,7 @@ const config = {
   headers: { "content-type": "multipart/form-data" },
 };
 const editBanner = (id, hinh) => {
-  return myAxios.post(`api/banner/chitiet`, { id: id, hinh: hinh }, config);
+  return myAxios.post(`api/banner/edit`, { id: id, hinh: hinh }, config);
 };
 
 export { getAllBannerApi, getBannerById, editBanner };

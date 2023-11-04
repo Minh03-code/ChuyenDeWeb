@@ -1,17 +1,19 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { baseURL } from "../../services/my-axios.js";
-import { NavLink } from "react-router-dom";
 import { editBanner, getBannerById } from "../../services/admin/PhucService.js";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { getAllBannerApi } from "../../services/admin/PhucService.js";
-import { async } from "q";
+import { useParams, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditBanner = () => {
+  let nav = useNavigate();
   let { id } = useParams();
-  const [hinh, setHinh] = useState("");
   const [result, setResult] = useState({});
+  const [file, setFile] = useState({});
+  const [data, setData] = useState({});
+  const [checkChooseFile, setCheckChooseFile] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const inputRef = useEffect(() => {
     async function getDataAPI() {
@@ -20,18 +22,35 @@ const EditBanner = () => {
     }
     getDataAPI();
   }, []);
-
-  async function editData(){
-    setResult(await editBanner(id,hinh));
-  }
-
+  console.log("check file:", file);
   const ChangeImage = (event) => {
-    const file = event.target.files[0];
-    setHinh(event.target.files[0]);
+    setCheckChooseFile(true);
+    setFile(event.target.files[0]);
+    console.log("check file:", file);
+  };
+
+  const onClickUpdate = () => {
+    if (file.name != null) {
+      async function updateData() {
+        setData(await editBanner(id, file));
+        if (data == 0) {
+          alert("loi duoong dan");
+        }
+      }
+
+      updateData();
+      // alert("Upload thanh cong");
+      toast.success("Upload Thanh Cong!");
+      nav("/quanlybanner");
+    } else {
+      alert("Chon hinh di ba");
+    }
   };
 
   console.log(loading);
   console.log(result.hinhBanner);
+
+  checkChooseFile == true ? console.log("file: ", file) : console.log("");
   return loading == true ? (
     <>
       <div className="main">
@@ -56,29 +75,17 @@ const EditBanner = () => {
                 <tbody>
                   <tr>
                     <td className="d-none d-xl-table-cell">
-                      {hinh ? (
-                        <img
-                          src={baseURL + result.hinhBanner}
-                          alt=""
-                          width="100px"
-                          height="100px"
-                        />
-                      ) : (
-                        <img
-                          src={baseURL + result.hinhBanner}
-                          alt=""
-                          width="100px"
-                          height="100px"
-                        />
-                      )}
+                      <img
+                        src={baseURL + result.hinhBanner}
+                        alt=""
+                        width="100px"
+                        height="100px"
+                      />
                     </td>
                     <td className="d-none d-md-table-cell">
                       <div className="mb-3">
-                        <label htmlFor="hinh" className="form-label">
-                          Ảnh Admin
-                        </label>
                         <input
-                          onClick={ChangeImage}
+                          onChange={ChangeImage}
                           type="file"
                           id="hinh"
                           name="hinh"
@@ -86,30 +93,9 @@ const EditBanner = () => {
                           className="form-control"
                         />
                       </div>
-                      {/* <NavLink to={`/editbanner/${item.id}`}>
-                                <button
-                                  type="button"
-                                  className="btn btn-primary bbt"
-                                >
-                                  Chỉnh sửa
-                                </button>
-                              </NavLink> */}
                     </td>
                     <td className="d-none d-md-table-cell">
-                      <div className="mb-3">
-                        <label htmlFor="hinh" className="form-label">
-                          Ảnh Admin
-                        </label>
-                        <input
-                          onClick={ChangeImage}
-                          type="file"
-                          id="hinh"
-                          name="hinh"
-                          placeholder="Chọn Hình Đại Diện"
-                          className="form-control"
-                        />
-                      </div>
-                     
+                      <button onClick={onClickUpdate}>Update</button>
                     </td>
                   </tr>
                 </tbody>
