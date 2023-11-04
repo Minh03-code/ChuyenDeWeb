@@ -146,7 +146,7 @@ class EditProfileAdmin extends React.Component {
                             <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" placeholder="Chọn Hình Đại Diện" className="form-control"/>
                         </div>
                         <button type="button" className="btn btn-primary bbt" onClick={()=>this.kiemTraRong()}>Đồng Ý</button>
-                        <NavLink to="/thongtintaikhoan">
+                        <NavLink to="/admin/thongtintaikhoan">
                         <button type="button" className="btn btn-warning bbt" >Quay lại</button>
                         </NavLink>
                       </form>
