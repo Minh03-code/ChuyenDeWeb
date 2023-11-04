@@ -20,6 +20,8 @@ import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
 import LoginRegister from '../loginregister/FormLR.js';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -56,6 +58,18 @@ function Admin() {
               <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
               </Route>
             </Routes>
+            <ToastContainer
+              position="top-right"
+              autoClose={1000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
           </main>
         </div>
       </div>
