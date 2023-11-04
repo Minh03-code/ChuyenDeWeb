@@ -37,8 +37,8 @@ class ThongTinTaiKhoan extends React.Component {
                     <div><b className="labeladmin">Số Tài Khoản Ngân Hàng:</b> {admin.soTaiKhoanNganHang}</div>
                     <div><b className="labeladmin">Tên Chủ Tài Khoản Ngân Hàng:</b> {admin.tenChuTaiKhoan}</div>
                     <div className="dieuhuong">
-                    <NavLink to={`/admin/editprofileadmin`}><button type="button" className="btn btn-primary bbt">Sửa Thông Tin</button></NavLink>
-                        <NavLink to={`/admin/editpassword`}><button type="button" className="btn btn-warning bbt">Đổi Mật Khẩu</button></NavLink>
+                    <NavLink  to={`/admin/editprofileadmin`} ><button type="button" className="btn btn-primary bbt">Sửa Thông Tin</button></NavLink>
+                        <NavLink  to={`/admin/editpassword`} ><button type="button" className="btn btn-warning bbt">Đổi Mật Khẩu</button></NavLink>
                         <button type="button" className="btn btn-dark bbt">Đăng Xuất</button>
                         </div>
                         </div>
