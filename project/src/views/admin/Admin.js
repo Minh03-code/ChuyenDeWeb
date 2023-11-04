@@ -67,7 +67,10 @@ function Admin() {
               <Route path="/editbanner/:id" element={<EditBanner />}>
               </Route>
             </Routes>
-            <ToastContainer
+            
+          </main>
+        </div>
+        <ToastContainer
               position="top-right"
               autoClose={1000}
               hideProgressBar={false}
@@ -79,8 +82,6 @@ function Admin() {
               pauseOnHover
               theme="dark"
             />
-          </main>
-        </div>
       </div>
     </>
     :<NotFound/>
