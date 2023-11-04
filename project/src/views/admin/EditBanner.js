@@ -33,17 +33,13 @@ const EditBanner = () => {
     if (file.name != null) {
       async function updateData() {
         setData(await editBanner(id, file));
-        if (data == 0) {
-          alert("loi duoong dan");
-        }
       }
 
       updateData();
-      // alert("Upload thanh cong");
-      toast.success("Upload Thanh Cong!");
+      toast.success("Update banner thành công");
       nav("/quanlybanner");
     } else {
-      alert("Chon hinh di ba");
+      toast.error("Chưa chọn file ảnh!!!");
     }
   };
 

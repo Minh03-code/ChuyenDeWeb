@@ -21,7 +21,6 @@ class QuanLyBanner extends React.Component {
     return (
       <>
         <div className="main">
-          <AppUpLoad />
           <main className="content">
             <div className="container-fluid p-0">
               <div className="card flex-fill">
