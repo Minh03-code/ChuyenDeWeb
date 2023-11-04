@@ -17,6 +17,7 @@ import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
+import DetailDichVu from './DetailDichVu.js';
 function App() {
   return (
     <BrowserRouter>
@@ -43,13 +44,15 @@ function App() {
               </Route>
               <Route path="/quanlykhuvuc" element={<QuanLyKhuVuc />}>
               </Route>
-              <Route path="/addKhuVuc" element={<AddKhuVuc/>}>
+              <Route path="/addKhuVuc" element={<AddKhuVuc />}>
               </Route>
-              <Route path="/listPhuong" element={<ListPhuong/>}>
+              <Route path="/listPhuong" element={<ListPhuong />}>
               </Route>
               <Route path="/quanlybanner" element={<QuanLyBanner />}>
               </Route>
               <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
+              </Route>
+              <Route path="/chiTietDichVu/:id" element={<DetailDichVu />}>
               </Route>
             </Routes>
           </main>
