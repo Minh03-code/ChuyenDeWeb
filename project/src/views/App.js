@@ -19,8 +19,8 @@ function App() {
         </Route>
         <Route path="/chutro/*" element={<ChuTro />}>
         </Route>
-        <Route path="/nguoithue/*" element={<NguoiThue />}>
-        </Route>
+        {/* <Route path="/nguoithue/*" element={<NguoiThue />}>
+        </Route> */}
       </Routes>
     </BrowserRouter>
   );
