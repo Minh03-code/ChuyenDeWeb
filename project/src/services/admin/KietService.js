@@ -6,5 +6,8 @@ const getAllMotelRoomOwnerCallAPI = () => {
 const getAllServiceCallAPI = () => {
     return myAxios.get("api/goi/all");
 }
+const getDetailServiceCallAPI = (id) => {
+    return myAxios.get(`api/goi/chitiet?id=${id}`);
+}
 // export { multiple };
-export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI };
+export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI };
