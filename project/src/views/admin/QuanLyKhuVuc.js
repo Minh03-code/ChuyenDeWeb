@@ -5,12 +5,12 @@ import ListPhuong from './ListPhuong';
 class QuanLyKhuVuc extends React.Component {
     state = {
         listQuan: [],
-        idQuan:""
+        idQuan: ""
     }
-    onChangeDataIdQuan(id){
-       this.setState({
-        idQuan:id
-       })
+    onChangeDataIdQuan(id) {
+        this.setState({
+            idQuan: id
+        })
     }
     async componentDidMount() {
         let res = await axios.get('http://127.0.0.1:8000/api/laytatcaquan');
@@ -22,10 +22,10 @@ class QuanLyKhuVuc extends React.Component {
             console.log(res);
         }
     }
-   
+
     render() {
         let { listQuan } = this.state;
-        <ListPhuong idQuan={this.state.idQuan}/>
+        <ListPhuong idQuan={this.state.idQuan} />
         return (
             <>
 
@@ -63,7 +63,7 @@ class QuanLyKhuVuc extends React.Component {
                                                     <td className="d-none d-xl-table-cell">{item.tenQuan}</td>
                                                     {/* <td className="d-none d-xl-table-cell">{item.trangThai}</td> */}
                                                     <td className="d-none d-md-table-cell">
-                                                        <a href="listPhuong" className="btn btn-primary" onClick={()=>this.onChangeDataIdQuan(item.id)}>Xem phường</a>
+                                                        <a href="listPhuong" className="btn btn-primary" onClick={() => this.onChangeDataIdQuan(item.id)}>Xem phường</a>
                                                     </td>
                                                     <td className="d-none d-md-table-cell">
                                                         <a href="#" className="btn btn-primary">Sửa</a>

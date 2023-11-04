@@ -1,5 +1,8 @@
 import React from 'react';
+import { baseURL } from "../../services/my-axios";
 import { getAllTienIchCallAPI } from '../../services/admin/DungService';
+import { NavLink } from 'react-router-dom';
+
 class QuanLyTienIch extends React.Component {
     state = {
         listTienIch: []
@@ -13,6 +16,7 @@ class QuanLyTienIch extends React.Component {
             })
         }
     }
+
     render() {
         let { listTienIch } = this.state;
         return (
@@ -29,7 +33,7 @@ class QuanLyTienIch extends React.Component {
                                             <h5 className="card-title mb-0">Quản lý tiện ích</h5>
                                         </div>
                                         <div className="col-md-9">
-                                            <a href="ThemTienIch" className="btn btn-primary">Thêm</a>
+                                            <a href="/ThemTienIch" className="btn btn-primary">Thêm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -48,9 +52,14 @@ class QuanLyTienIch extends React.Component {
                                                 <tr>
                                                     <td>{item.id}</td>
                                                     <td className="d-none d-xl-table-cell">{item.ten}</td>
-                                                    <td className="d-none d-xl-table-cell">{item.hinh}</td>
+                                                    <td className="d-none d-xl-table-cell"><img
+                                                        src={baseURL + item.hinh}
+                                                        alt={baseURL + item.hinh}
+                                                        width="200px"
+                                                        height="100px"
+                                                    /></td>
                                                     <td className="d-none d-md-table-cell">
-                                                        <a href="#" className="btn btn-primary">EDIT</a>
+                                                        <NavLink to={`/SuaTienIch/${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
                                                         <a href="#" className="btn btn-danger">DELETE</a>
                                                     </td>
                                                 </tr>

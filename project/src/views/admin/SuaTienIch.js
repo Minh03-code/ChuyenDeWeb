@@ -1,0 +1,71 @@
+import React from 'react';
+import { layTienIchTheoId } from '../../services/admin/DungService.js';
+import { baseURL } from "../../services/my-axios";
+import { useParams } from 'react-router-dom';
+
+function LayId() {
+    const { id } = useParams("id");
+    return id;
+}
+
+class SuaTienIch extends React.Component {
+
+    state = {
+        id: "",
+        ten: "",
+        hinh: null,
+    }
+    async componentDidMount() {
+        let res = await layTienIchTheoId();
+        if (res != null) {
+            this.setState({
+                id: res.id,
+                ten: res.ten,
+                hinh: res.hinh,
+            })
+        }
+    }
+
+    render() {
+        let { id, ten, hinh } = this.state;
+
+        return (
+            <form className="form-control">
+                <LayId />
+                <div className="main">
+                    <main className="content">
+                        <div className="container-fluid p-0">
+                            <div className="card flex-fill">
+                                <div className="card-header">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <h5 className="card-title mb-0">EDIT tiện ích</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="form-control form-control-lg" type="text" >{id}</label>
+                                <input class="form-control form-control-lg" type="text" value={ten} placeholder="Nhập tên tiện ích mới"></input>
+                                <td className="d-none d-xl-table-cell">
+                                    <img
+                                        src={baseURL + hinh}
+                                        alt={baseURL + hinh}
+                                        width="400px"
+                                        height="200px"
+                                    />
+                                </td>
+                                <div class="mb-3">
+                                    <label id="hinh" name="hinh" class="form-label">Doi Hình</label>
+                                    <input class="form-control" type="file" id="formFile"></input>
+                                </div>
+                                <div className="col-md">
+                                    <button className="btn btn-primary">EDIT</button>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </form>
+        )
+    }
+}
+export default SuaTienIch;

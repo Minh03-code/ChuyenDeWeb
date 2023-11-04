@@ -16,6 +16,7 @@ import QuanLyBanner from './QuanLyBanner.js';
 import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
+import SuaTienIch from './SuaTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
 import EditPasswordAdmin from './EditPasswordAdmin.js';
 import EditProfileAdmin from './EditProfileAdmin.js';
@@ -40,6 +41,8 @@ function App() {
               </Route>
               <Route path="/ThemTienIch" element={<ThemTienIch />}>
               </Route>
+              <Route path="/SuaTienIch/:id" element={<SuaTienIch />}>
+              </Route>
 
               <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
               </Route>
@@ -47,9 +50,9 @@ function App() {
               </Route>
               <Route path="/quanlykhuvuc" element={<QuanLyKhuVuc />}>
               </Route>
-              <Route path="/addKhuVuc" element={<AddKhuVuc/>}>
+              <Route path="/addKhuVuc" element={<AddKhuVuc />}>
               </Route>
-              <Route path="/listPhuong" element={<ListPhuong/>}>
+              <Route path="/listPhuong" element={<ListPhuong />}>
               </Route>
               <Route path="/quanlybanner" element={<QuanLyBanner />}>
               </Route>
@@ -64,17 +67,17 @@ function App() {
           </main>
         </div>
         <ToastContainer
-position="top-right"
-autoClose={1000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
     </BrowserRouter>
   );
