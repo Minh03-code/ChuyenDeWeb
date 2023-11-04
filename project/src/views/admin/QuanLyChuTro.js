@@ -1,24 +1,24 @@
 import React from 'react';
 import axios from 'axios';
-import { baseURL } from "../../services/my-axios";
-import { getAllMotelRoomOwnerCallAPI } from '../../services/admin/KietService'
 
 class QuanLyChuTro extends React.Component {
-
+    
     state = {
         listMotelRoom: []
     }
-    hideLoader = () => console.log(1);;
     async componentDidMount() {
-        let res = await getAllMotelRoomOwnerCallAPI();
-        if (res != null) {
+        let res = await axios.get('http://127.0.0.1:8000/api/chutro/all');
+        if (res.data != null) {
             this.setState({
-                listMotelRoom: res
+                listMotelRoom: res.data
             })
+            console.log(this.state.listMotelRoom);
+            console.log(res);
         }
     }
 
     render() {
+        console.log(sessionStorage.getItem("id"));
         let { listMotelRoom } = this.state;
         return (
             <>
@@ -38,47 +38,34 @@ class QuanLyChuTro extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                {
-                                    listMotelRoom.length == 0 ? <div className='null'>rỗng</div> :
-                                        <table className="table table-hover my-0">
-                                            <thead>
+                                <table className="table table-hover my-0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th className="d-none d-xl-table-cell">Tên</th>
+                                            <th className="d-none d-xl-table-cell">Số điện thoại</th>
+                                            <th>Trang thái</th>
+                                            <th className="d-none d-md-table-cell">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {listMotelRoom && listMotelRoom.length > 0 && listMotelRoom.map((item, index) => {
+                                            return (
                                                 <tr>
-                                                    <th>ID</th>
-                                                    <th className="d-none d-xl-table-cell">Hình</th>
-                                                    <th className="d-none d-xl-table-cell">Tên</th>
-                                                    <th className="d-none d-xl-table-cell">Số điện thoại</th>
-                                                    <th className="d-none d-xl-table-cell">Xác thực</th>
-                                                    <th className="d-none d-xl-table-cell">Gói đang dùng</th>
-                                                    <th className="d-none d-md-table-cell">Chức năng</th>
+                                                    <td>{item.id}</td>
+                                                    <td className="d-none d-xl-table-cell">{item.ten}</td>
+                                                    <td className="d-none d-xl-table-cell">{item.soDienThoai}</td>
+                                                    <td>
+                                                        {item.xacThuc = 1 ? <>Đang hoạt động <a href="#" className="btn btn-danger">Khóa</a></> : <>Đã khóa <a href="#" className="btn btn-success">Mở khóa</a></>}
+                                                    </td>
+                                                    <td className="d-none d-md-table-cell">
+                                                        <a href="#" className="btn btn-primary">Chỉnh sửa</a>
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                {
-                                                    listMotelRoom && listMotelRoom.length > 0 && listMotelRoom.map((item, index) => {
-                                                        return (
-                                                            <tr>
-                                                                <td>{item.id}</td>
-                                                                <td className="d-none d-xl-table-cell">
-                                                                    <img className='img-main' src={baseURL + item.hinh} alt={item.hinh} />
-                                                                </td>
-                                                                <td className="d-none d-xl-table-cell">{item.ten}</td>
-                                                                <td className="d-none d-xl-table-cell">{item.soDienThoai}</td>
-                                                                <td>
-                                                                    {item.xacThuc == 1 ? <div className='txt_green'>Đã xác thực</div> : <div className='txt_red'>Chưa xác thực</div>}
-                                                                </td>
-                                                                <td className="d-none d-xl-table-cell">{item.idGoi}</td>
-                                                                <td className="d-none d-md-table-cell">
-                                                                    <a href="#" className="btn btn-primary">Xem thông tin</a>
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    })
-                                                }
-
-                                            </tbody>
-                                        </table>
-                                }
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </main>

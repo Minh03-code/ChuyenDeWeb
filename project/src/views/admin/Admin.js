@@ -1,11 +1,13 @@
 import React from 'react';
 import Navigation from './Navigation.js';
 import {
+  useNavigate,
   BrowserRouter,
   Routes,
   Route,
   Link
 } from "react-router-dom";
+import NotFound from "../NotFound/NotFound.js";
 import QuanLyChuTro from './QuanLyChuTro.js';
 import QuanLyGoiDangKy from './QuanLyGoiDangKy.js';
 import QuanLyYeuCauXacNhanChuTro from './QuanLyYeuCauXacNhanChuTro.js';
@@ -17,9 +19,12 @@ import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
-function App() {
+import LoginRegister from '../loginregister/FormLR.js';
+function Admin() {
+  console.log(sessionStorage.getItem('accountId'));
   return (
-    <BrowserRouter>
+    sessionStorage.getItem('accountType') == 2 ?
+    <>
       <div className="wrapper">
         <Navigation />
 
@@ -27,11 +32,10 @@ function App() {
 
           <main className="content">
             <Routes>
-              <Route path="/" exact element={<QuanLyChuTro />}>
+              <Route path="/quanlychutro" exact element={<QuanLyChuTro />}>
               </Route>
               <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
               </Route>
-
               <Route path="/quanlytienich" element={<QuanLyTienIch />}>
               </Route>
               <Route path="/ThemTienIch" element={<ThemTienIch />}>
@@ -55,8 +59,9 @@ function App() {
           </main>
         </div>
       </div>
-    </BrowserRouter>
+    </>
+    :<NotFound/>
   );
 }
 
-export default App;
+export default Admin;

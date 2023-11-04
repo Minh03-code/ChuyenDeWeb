@@ -1,23 +1,26 @@
 import React from 'react';
 import { baseURL } from "../../services/my-axios";
 import { getAllMotelRoomOwnerAuthenticationCallAPI } from '../../services/admin/MinhService';
+import Loading from "../loading/Loading.js";
 
 class QuanLyYeuCauXacNhanChuTro extends React.Component {
     state = {
-        listMotelRoomOwnerAuthentication: []
+        listMotelRoomOwnerAuthentication: [],
+        loading: false
     }
-    hideLoader = () => console.log(1);;
     async componentDidMount() {
         let res = await getAllMotelRoomOwnerAuthenticationCallAPI();
         if (res != null) {
             this.setState({
-                listMotelRoomOwnerAuthentication: res
+                listMotelRoomOwnerAuthentication: res,
+                loading: true
             })
         }
     }
     render() {
-        let { listMotelRoomOwnerAuthentication } = this.state
+        let { listMotelRoomOwnerAuthentication, loading } = this.state
         return (
+            loading == true ?
             <>
                 <div className="main">
 
@@ -58,7 +61,7 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
                                                                 <td className="d-none d-xl-table-cell">{item.chuTro.ten}</td>
                                                                 <td className="d-none d-xl-table-cell">{item.chuTro.soDienThoai}</td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <a href="#" className="btn btn-primary">Xem thông tin</a>
+                                                                    <a href="#" className="btn btn-primary">Xem dddthông tin</a>
                                                                 </td>
                                                             </tr>
                                                         )
@@ -77,6 +80,8 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
                     </main>
                 </div>
             </>
+            :
+            <Loading/>
         )
     }
 }
