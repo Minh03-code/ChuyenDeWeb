@@ -1,19 +1,24 @@
 .manhinhadmin{
-    background: black;
+   background: #222e3c;
     width: 100%;
     height: 700px;
+    border-radius: 10%;
     position: relative;
+    box-shadow: 10px 10px #7d8793;
 }
 .bg_admin{
-    background-image: red;
     width: 100%;
     height: 20%;
 }
+.title_admin{
+    margin-left: 50px;
+}
 .thongtin_content{
-    border: solid 10px greenyellow;
+    border: solid 10px #222e3c;
     background: white;
     width: 100%;
     height: 80%;
+    border-radius: 10%;
 }
 .avt{
     position: absolute;
@@ -41,3 +46,4 @@
 .bbt{
     margin-right: 10px;
 }
+

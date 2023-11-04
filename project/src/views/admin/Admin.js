@@ -20,6 +20,8 @@ import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
 import LoginRegister from '../loginregister/FormLR.js';
+import EditPasswordAdmin from './EditPasswordAdmin.js';
+import EditProfileAdmin from './EditProfileAdmin.js';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function Admin() {
@@ -56,6 +58,11 @@ function Admin() {
               <Route path="/quanlybanner" element={<QuanLyBanner />}>
               </Route>
               <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
+              </Route>
+
+              <Route path="/editpassword" element={<EditPasswordAdmin />}>
+              </Route>
+              <Route path="/editprofileadmin" element={<EditProfileAdmin />}>
               </Route>
             </Routes>
             <ToastContainer
