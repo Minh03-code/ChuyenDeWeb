@@ -8,7 +8,7 @@ import {
 import LoginRegister from './loginregister/FormLR.js';
 import Admin from './admin/Admin.js';
 import ChuTro from './chutro/ChuTro.js';
-import NguoiThue from './NguoiThue/NguoiThue.js';
+import NguoiThue from './NguoiThue/NguoiThue.js';//
 function App() {
   return (
     <BrowserRouter>
