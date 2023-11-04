@@ -49,10 +49,13 @@ class LoginRegister extends React.Component {
         if (this.state.account != "") {
             sessionStorage.setItem("accountId", this.state.account.id);
             sessionStorage.setItem("accountType", this.state.account.loaiTaiKhoan);
-            window.location.href='/admin'
+            if (this.state.account.loaiTaiKhoan == 2) { window.location.href = '/admin' }
+            else if (this.state.account.loaiTaiKhoan == 1) { window.location.href = '/chutro' }
+            else if (this.state.account.loaiTaiKhoan == 0) { window.location.href = '/nguoithue' }
+
         }
-        else{
-            window.location.href='/'
+        else {
+            window.location.href = '/'
         }
     }
 
@@ -91,7 +94,7 @@ class LoginRegister extends React.Component {
                                         </a>
                                     </div>
 
-                                    { fail == true ? <p className='fail-login'>Tài khoản mật khẩu không chính xác</p>: <p className='fail-login'></p>}
+                                    {fail == true ? <p className='fail-login'>Tài khoản mật khẩu không chính xác</p> : <p className='fail-login'></p>}
 
                                     <div className="container-login100-form-btn">
                                         <div className="wrap-login100-form-btn">

@@ -12,7 +12,7 @@ function NguoiThue() {
   return (
     sessionStorage.getItem('accountType') == 0 ?
     <>
-      Chủ trọ
+      Người thuê
     </>
     :<NotFound/>
   );

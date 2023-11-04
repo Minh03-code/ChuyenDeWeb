@@ -6,5 +6,8 @@ const getAllMotelRoomOwnerAuthenticationCallAPI = () => {
 const checkAccountAPI = (username, password) => {
     return myAxios.get(`api/kiemtradangnhap?tenTaiKhoan=${username}&matKhau=${password}`);
 }
+const getAllYeuCauDangKyDichVuAPI = () => {
+    return myAxios.get("api/yeucaudangky/all");
+}
 // export { multiple };
-export {getAllMotelRoomOwnerAuthenticationCallAPI, checkAccountAPI};
+export {getAllMotelRoomOwnerAuthenticationCallAPI, checkAccountAPI, getAllYeuCauDangKyDichVuAPI};
