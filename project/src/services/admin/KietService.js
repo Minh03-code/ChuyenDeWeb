@@ -18,5 +18,8 @@ const unLockServiceCallAPI = (id) => {
 const editServiceCallAPI = (id, thoiHan, soLuongPhongToiDa, gia) => {
     return myAxios.put(`api/goi/update?id=${id}&thoiHan=${thoiHan}&soLuongPhongToiDa=${soLuongPhongToiDa}&gia=${gia}`)
 }
+const addServiceCallAPI = (thoiHan, soLuongPhongToiDa, gia) => {
+    return myAxios.post(`api/goi/add?thoiHan=${thoiHan}&soLuongPhongToiDa=${soLuongPhongToiDa}&gia=${gia}`)
+}
 // export { multiple };
-export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI, editServiceCallAPI };
+export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI, editServiceCallAPI, addServiceCallAPI };

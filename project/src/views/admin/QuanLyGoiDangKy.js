@@ -35,7 +35,7 @@ class QuanLyGoiDangKy extends React.Component {
                                             <h5 className="card-title mb-0">Quản lý gói dịch vụ</h5>
                                         </div>
                                         <div className="col-md-9">
-                                            <a href="add-product.html" className="btn btn-primary">Thêm</a>
+                                            <NavLink to={`/admin/themDichVu`} className="btn btn-primary">Thêm</NavLink>
                                         </div>
                                     </div>
                                 </div>
