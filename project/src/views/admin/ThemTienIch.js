@@ -27,12 +27,14 @@ class QuanLyTienIch extends React.Component {
     kiemTraRong() {
 
         if (this.state.ten !== "") {
-            console.log(this.state.ten);
-            if (this.capNhat()) {
-                toast.success("Cập Nhật Thông Tin Thành Công!");
-            }
-            else {
-                toast.error("Cập Nhật Thất Bại!");
+            if (this.state.hinh !== "") {
+                console.log(this.state.ten);
+                if (this.capNhat()) {
+                    toast.success("Cập Nhật Thông Tin Thành Công!");
+                }
+                else {
+                    toast.error("Cập Nhật Thất Bại!");
+                }
             }
         }
         else {
