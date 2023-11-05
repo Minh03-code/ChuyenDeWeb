@@ -41,7 +41,7 @@ function App() {
               </Route>
               <Route path="/ThemTienIch" element={<ThemTienIch />}>
               </Route>
-              <Route path="/SuaTienIch/:id" element={<SuaTienIch />}>
+              <Route path="/SuaTienIch" element={<SuaTienIch />}>
               </Route>
 
               <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>

@@ -59,7 +59,7 @@ class QuanLyTienIch extends React.Component {
                                                         height="100px"
                                                     /></td>
                                                     <td className="d-none d-md-table-cell">
-                                                        <NavLink to={`/SuaTienIch/${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
+                                                        <NavLink to={`/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
                                                         <a href="#" className="btn btn-danger">DELETE</a>
                                                     </td>
                                                 </tr>

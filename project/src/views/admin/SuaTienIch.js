@@ -2,11 +2,7 @@ import React from 'react';
 import { layTienIchTheoId } from '../../services/admin/DungService.js';
 import { baseURL } from "../../services/my-axios";
 import { useParams } from 'react-router-dom';
-
-function LayId() {
-    const { id } = useParams("id");
-    return id;
-}
+import { Value } from 'sass';
 
 class SuaTienIch extends React.Component {
 
@@ -16,7 +12,10 @@ class SuaTienIch extends React.Component {
         hinh: null,
     }
     async componentDidMount() {
-        let res = await layTienIchTheoId();
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const id = params.get('id');
+        let res = await layTienIchTheoId(id);
         if (res != null) {
             this.setState({
                 id: res.id,
@@ -31,7 +30,6 @@ class SuaTienIch extends React.Component {
 
         return (
             <form className="form-control">
-                <LayId />
                 <div className="main">
                     <main className="content">
                         <div className="container-fluid p-0">
@@ -44,7 +42,7 @@ class SuaTienIch extends React.Component {
                                     </div>
                                 </div>
                                 <label class="form-control form-control-lg" type="text" >{id}</label>
-                                <input class="form-control form-control-lg" type="text" value={ten} placeholder="Nhập tên tiện ích mới"></input>
+                                <input class="form-control form-control-lg" type="text" Value={ten} placeholder="Nhập tên tiện ích"></input>
                                 <td className="d-none d-xl-table-cell">
                                     <img
                                         src={baseURL + hinh}
