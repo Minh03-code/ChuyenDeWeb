@@ -26,6 +26,7 @@ import EditBanner from './EditBanner.js';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DetailDichVu from './DetailDichVu.js';
+import EditDichVu from './EditDichVu.js';
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -70,6 +71,8 @@ function Admin() {
                 </Route>
 
                 <Route path="/chiTietDichVu" element={<DetailDichVu />}>
+                </Route>
+                <Route path="/suaDichVu" element={<EditDichVu />}>
                 </Route>
               </Routes>
               <ToastContainer

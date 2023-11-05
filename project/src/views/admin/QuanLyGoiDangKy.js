@@ -67,7 +67,6 @@ class QuanLyGoiDangKy extends React.Component {
                                                                 </td>
                                                                 <td className="d-none d-md-table-cell">
                                                                     <NavLink to={`/admin/chiTietDichVu?id=${item.id}`} className="btn btn-primary">Chỉnh sửa</NavLink>
-                                                                    {/* <a href="#" className="btn btn-primary">Chỉnh sửa</a> */}
                                                                 </td>
                                                             </tr>
                                                         )
