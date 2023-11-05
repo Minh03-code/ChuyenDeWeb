@@ -2,7 +2,7 @@ import React from 'react';
 import './styleKiet.css';
 import { NavLink, useParams } from "react-router-dom";
 import { baseURL } from "../../services/my-axios";
-import { getDetailServiceCallAPI } from '../../services/admin/KietService';
+import { getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI } from '../../services/admin/KietService';
 
 function LayId() {
     let { id } = useParams("id");
@@ -18,7 +18,12 @@ class DetailDichVu extends React.Component {
         trangThai: ""
     }
     async componentDidMount() {
-        let resDetailService = await getDetailServiceCallAPI(<LayId />);
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const kitu = params.get('id');
+        console.log(kitu);
+
+        let resDetailService = await getDetailServiceCallAPI(kitu);
         if (resDetailService != null) {
             this.setState({
                 id: resDetailService.id,
@@ -31,12 +36,26 @@ class DetailDichVu extends React.Component {
         console.log(resDetailService);
     }
 
+    async khoaDichVu() {
+        if (window.confirm("Xác nhận khóa dịch vụ số " + (this.state.id))) {
+            await lockServiceCallAPI(this.state.id);
+            this.componentDidMount();
+        }
+    }
+
+    async moKhoaDichVu() {
+        if (window.confirm("Xác nhận mở khóa dịch vụ số " + (this.state.id))) {
+            await unLockServiceCallAPI(this.state.id);
+            this.componentDidMount();
+        }
+
+    }
+
     render() {
         let { id, thoiHan, soLuongPhongToiDa, gia, trangThai } = this.state
 
         return (
             <>
-
                 <div className="main">
                     <main className="content">
                         <div className="container-fluid p-0">
@@ -46,35 +65,46 @@ class DetailDichVu extends React.Component {
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">Chi Tiết dịch vụ</h5>
+                                            <h5 className="card-title mb-0">Chi Tiết dịch vụ số {id}</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">{id}</h5>
+                                            <h5 className="card-title mb-0">Thời hạn: {thoiHan} ngày</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">{thoiHan}</h5>
+                                            <h5 className="card-title mb-0">Số phòng tối đa: {soLuongPhongToiDa} phòng</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">{soLuongPhongToiDa}</h5>
+                                            <h5 className="card-title mb-0">Giá gói: {gia} đồng</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">{gia}</h5>
+                                            <h5 className="card-title mb-0">Trạng thái: {trangThai == 1 ? <span className='txt_red'>Đã khóa</span> : <span className='txt_green'>Đang hoạt động</span>}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="card-header">
+                                    <div>
+                                        <div className="col-md-3">
+                                            <h5 className="card-title mb-0">
+                                                {trangThai == 1 ? <button className="btn btn-success" onClick={() => this.moKhoaDichVu()}>Mở khóa dịch vụ</button> : <button className="btn btn-danger" onClick={() => this.khoaDichVu()}>Khóa dịch vụ</button>}
+                                                <button className="btn btn-warning btn_margin_left" onClick={() => this.suaDichVu()}>Sửa dịch vụ</button>
+
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>

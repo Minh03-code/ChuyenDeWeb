@@ -22,66 +22,73 @@ import AddKhuVuc from './AddKhuVuc.js';
 import LoginRegister from '../loginregister/FormLR.js';
 import EditPasswordAdmin from './EditPasswordAdmin.js';
 import EditProfileAdmin from './EditProfileAdmin.js';
+import EditBanner from './EditBanner.js';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import DetailDichVu from './DetailDichVu.js';
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
   return (
     sessionStorage.getItem('accountType') == 2 ?
-    <>
-      <div className="wrapper">
-        <Navigation />
+      <>
+        <div className="wrapper">
+          <Navigation />
 
-        <div className="main">
+          <div className="main">
 
-          <main className="content">
-            <Routes>
-              <Route path="/quanlychutro" exact element={<QuanLyChuTro />}>
-              </Route>
-              <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
-              </Route>
-              <Route path="/quanlytienich" element={<QuanLyTienIch />}>
-              </Route>
-              <Route path="/ThemTienIch" element={<ThemTienIch />}>
-              </Route>
+            <main className="content">
+              <Routes>
+                <Route path="/quanlychutro" exact element={<QuanLyChuTro />}>
+                </Route>
+                <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
+                </Route>
+                <Route path="/quanlytienich" element={<QuanLyTienIch />}>
+                </Route>
+                <Route path="/ThemTienIch" element={<ThemTienIch />}>
+                </Route>
 
-              <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
-              </Route>
-              <Route path="/xacthucgoidangky" element={<QuanLyYeuCauXacNhanGoi />}>
-              </Route>
-              <Route path="/quanlykhuvuc" element={<QuanLyKhuVuc />}>
-              </Route>
-              <Route path="/addKhuVuc" element={<AddKhuVuc/>}>
-              </Route>
-              <Route path="/listPhuong" element={<ListPhuong/>}>
-              </Route>
-              <Route path="/quanlybanner" element={<QuanLyBanner />}>
-              </Route>
-              <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
-              </Route>
+                <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
+                </Route>
+                <Route path="/xacthucgoidangky" element={<QuanLyYeuCauXacNhanGoi />}>
+                </Route>
+                <Route path="/quanlykhuvuc" element={<QuanLyKhuVuc />}>
+                </Route>
+                <Route path="/addKhuVuc" element={<AddKhuVuc />}>
+                </Route>
+                <Route path="/listPhuong" element={<ListPhuong />}>
+                </Route>
+                <Route path="/quanlybanner" element={<QuanLyBanner />}>
+                </Route>
+                <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
+                </Route>
 
-              <Route path="/editpassword" element={<EditPasswordAdmin />}>
-              </Route>
-              <Route path="/editprofileadmin" element={<EditProfileAdmin />}>
-              </Route>
-            </Routes>
-            <ToastContainer
-              position="top-right"
-              autoClose={1000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-            />
-          </main>
+                <Route path="/editpassword" element={<EditPasswordAdmin />}>
+                </Route>
+                <Route path="/editprofileadmin" element={<EditProfileAdmin />}>
+                </Route>
+                <Route path="/editbanner/:id" element={<EditBanner />}>
+                </Route>
+
+                <Route path="/chiTietDichVu" element={<DetailDichVu />}>
+                </Route>
+              </Routes>
+              <ToastContainer
+                position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+              />
+            </main>
+          </div>
         </div>
-      </div>
-    </>
-    :<NotFound/>
+      </>
+      : <NotFound />
   );
 }
 

@@ -64,7 +64,7 @@ class QuanLyBanner extends React.Component {
                             </td>
                             <td className="d-none d-md-table-cell">
                               <Link
-                                to={`/editbanner/${item.id}`}
+                                to={`/admin/editbanner/${item.id}`}
                                 className="btn btn-primary"
                               >
                                 Chỉnh sửa

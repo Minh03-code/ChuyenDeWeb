@@ -9,5 +9,11 @@ const getAllServiceCallAPI = () => {
 const getDetailServiceCallAPI = (id) => {
     return myAxios.get(`api/goi/chitiet?id=${id}`);
 }
+const lockServiceCallAPI = (id) => {
+    return myAxios.get(`api/goi/lock?id=${id}`);
+}
+const unLockServiceCallAPI = (id) => {
+    return myAxios.get(`api/goi/unLock?id=${id}`);
+}
 // export { multiple };
-export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI };
+export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI };

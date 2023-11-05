@@ -3,7 +3,6 @@ import './styleKiet.css';
 import { NavLink, useParams } from "react-router-dom";
 import { baseURL } from "../../services/my-axios";
 import { getAllServiceCallAPI } from '../../services/admin/KietService';
-import DetailDichVu from './DetailDichVu';
 
 class QuanLyGoiDangKy extends React.Component {
     state = {
@@ -67,7 +66,7 @@ class QuanLyGoiDangKy extends React.Component {
                                                                     {item.trangThai == 1 ? <div className='txt_red'>Đã khóa</div> : <div className='txt_green'>Đang hoạt động</div>}
                                                                 </td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <NavLink to={`/chiTietDichVu/${item.id}`} className="btn btn-primary">Chỉnh sửa</NavLink>
+                                                                    <NavLink to={`/admin/chiTietDichVu?id=${item.id}`} className="btn btn-primary">Chỉnh sửa</NavLink>
                                                                     {/* <a href="#" className="btn btn-primary">Chỉnh sửa</a> */}
                                                                 </td>
                                                             </tr>
