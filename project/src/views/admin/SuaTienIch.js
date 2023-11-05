@@ -41,8 +41,17 @@ class SuaTienIch extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <label class="form-control form-control-lg" type="text" >{id}</label>
-                                <input class="form-control form-control-lg" type="text" Value={ten} placeholder="Nhập tên tiện ích"></input>
+                                <div class="row g-2 align-items-center">
+                                    <label class="form-label">ID: {id}</label>
+                                    <label id="hinh" name="hinh" class="form-label">Tiện Ích: {ten}</label>
+                                    <div class="col-auto">
+                                        <label class="col-form-label">Tên Tiện Ích Mới:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input class="col-form-label" Value={ten}></input>
+                                    </div>
+                                </div>
+                                <label class="form-label">Hình Cũ</label>
                                 <td className="d-none d-xl-table-cell">
                                     <img
                                         src={baseURL + hinh}
@@ -52,7 +61,7 @@ class SuaTienIch extends React.Component {
                                     />
                                 </td>
                                 <div class="mb-3">
-                                    <label id="hinh" name="hinh" class="form-label">Doi Hình</label>
+                                    <label class="form-label">UpLoad Hình Mới</label>
                                     <input class="form-control" type="file" id="formFile"></input>
                                 </div>
                                 <div className="col-md">
