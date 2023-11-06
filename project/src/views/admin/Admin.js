@@ -28,6 +28,7 @@ import "react-toastify/dist/ReactToastify.css";
 import DetailDichVu from './DetailDichVu.js';
 import EditDichVu from './EditDichVu.js';
 import AddDichvu from './AddDichVu.js';
+import DetailChuTro from './DetailChuTro.js';
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -76,6 +77,8 @@ function Admin() {
                 <Route path="/suaDichVu" element={<EditDichVu />}>
                 </Route>
                 <Route path="/themDichVu" element={<AddDichvu />}>
+                </Route>
+                <Route path="/chiTietChuTro" element={<DetailChuTro />}>
                 </Route>
               </Routes>
               <ToastContainer

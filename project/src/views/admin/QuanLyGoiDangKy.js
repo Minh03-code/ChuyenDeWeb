@@ -66,7 +66,7 @@ class QuanLyGoiDangKy extends React.Component {
                                                                     {item.trangThai == 1 ? <div className='txt_red'>Đã khóa</div> : <div className='txt_green'>Đang hoạt động</div>}
                                                                 </td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <NavLink to={`/admin/chiTietDichVu?id=${item.id}`} className="btn btn-primary">Chỉnh sửa</NavLink>
+                                                                    <NavLink to={`/admin/chiTietDichVu?id=${item.id}`} className="btn btn-primary">Xem thông tin</NavLink>
                                                                 </td>
                                                             </tr>
                                                         )

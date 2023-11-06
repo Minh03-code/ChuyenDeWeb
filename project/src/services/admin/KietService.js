@@ -21,5 +21,11 @@ const editServiceCallAPI = (id, thoiHan, soLuongPhongToiDa, gia) => {
 const addServiceCallAPI = (thoiHan, soLuongPhongToiDa, gia) => {
     return myAxios.post(`api/goi/add?thoiHan=${thoiHan}&soLuongPhongToiDa=${soLuongPhongToiDa}&gia=${gia}`)
 }
+const getDetailMotelRoomOwnerCallAPI = (idTaiKhoan) => {
+    return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`)
+}
+const capNhatTrangThaiMotelRoomOwnerCallAPI = (id) => {
+    return myAxios.patch(`api/capnhattrangthai?id=${id}`)
+}
 // export { multiple };
-export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI, editServiceCallAPI, addServiceCallAPI };
+export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI, editServiceCallAPI, addServiceCallAPI, getDetailMotelRoomOwnerCallAPI, capNhatTrangThaiMotelRoomOwnerCallAPI };
