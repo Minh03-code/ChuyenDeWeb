@@ -1,18 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import { baseURL } from '../../services/my-axios';
+import { NavLink, useParams } from "react-router-dom";
 import { getAllKhuVucApi } from '../../services/admin/ThinhService';
-import ListPhuong from './ListPhuong';
+
 
 class QuanLyKhuVuc extends React.Component {
     state = {
-        listQuan: [],
-        idQuan: ""
-    }
-    onChangeDataIdQuan(id) {
-        this.setState({
-            idQuan: id
-        })
+        listQuan: []
     }
     hideLoader = () => console.log(1);;
     async componentDidMount() {
@@ -27,7 +22,6 @@ class QuanLyKhuVuc extends React.Component {
 
     render() {
         let { listQuan } = this.state;
-        <ListPhuong idQuan={this.state.idQuan} />
         return (
             <>
 
@@ -65,9 +59,8 @@ class QuanLyKhuVuc extends React.Component {
                                                         <tr>
                                                             <td>{item.id}</td>
                                                             <td className="d-none d-xl-table-cell">{item.tenQuan}</td>
-                                                            {/* <td className="d-none d-xl-table-cell">{item.trangThai}</td> */}
                                                             <td className="d-none d-md-table-cell">
-                                                                <a href="listPhuong" className="btn btn-primary" onClick={() => this.onChangeDataIdQuan(item.id)}>Xem phường</a>
+                                                                <NavLink to={`/listPhuong?id=${item.id}`} ><span className="btn btn-primary">Xem chi tiết</span></NavLink>
                                                             </td>
                                                             <td className="d-none d-md-table-cell">
                                                                 <a href="#" className="btn btn-primary">Sửa</a>

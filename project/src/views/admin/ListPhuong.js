@@ -6,8 +6,12 @@ class ListPhuong extends React.Component {
         listPhuong: []
     }
     async componentDidMount() {
-        alert(this.props.idQuan);
-        let res = await axios.get(`http://127.0.0.1:8000/api/phuong/layphuongtheoquan?idQuan=${this.props.idQuan}`);
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const kitu = params.get('id');
+        
+        
+        let res = await axios.get(`http://127.0.0.1:8000/api/phuong/layphuongtheoquan?idQuan=${kitu}`);
         if (res.data != null) {
             this.setState({
                 listPhuong: res.data
@@ -16,7 +20,7 @@ class ListPhuong extends React.Component {
             console.log(res);
         }
     }
-    
+
 
     render() {
         let { listPhuong } = this.state;
@@ -33,7 +37,7 @@ class ListPhuong extends React.Component {
                                         <div className="col-md-3">
                                             <h5 className="card-title mb-0">Quản lý khu vực</h5>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                                 <table className="table table-hover my-0">
@@ -46,7 +50,7 @@ class ListPhuong extends React.Component {
                                             {/* <th className="d-none d-md-table-cell">Chức năng</th> */}
                                         </tr>
                                     </thead>
-                                    
+
                                     <tbody>
                                         {listPhuong && listPhuong.length > 0 && listPhuong.map((item, index) => {
                                             return (
