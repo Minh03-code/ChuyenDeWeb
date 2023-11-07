@@ -12,5 +12,11 @@ const config = {
 const addnewTienIch = (ten, hinh) => {
     return myAxios.post(`api/themtienich`, { ten: ten, hinh: hinh }, config);
 }
+const editTienIch = (id, ten, hinh) => {
+    return myAxios.patch(`api/capnhattienich`, { id, ten: ten, hinh: hinh }, config);
+}
+const khoaTienIchTheoId = (id) => {
+    return myAxios.delete(`api/khoatienich?id=${id}`);
+};
 // export { multiple };
-export { getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId };
+export { getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch };

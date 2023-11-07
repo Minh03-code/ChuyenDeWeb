@@ -15,4 +15,4 @@ myAxios.interceptors.response.use(function (response) {
   return alert("Yêu cầu quá hạn \nKiểm tra kết nối mạng");
   // return Promise.reject(error);
 });
-export {myAxios, baseURL};
+export { myAxios, baseURL };

@@ -1,8 +1,9 @@
 import React from 'react';
-import { layTienIchTheoId } from '../../services/admin/DungService.js';
+import { layTienIchTheoId, editTienIch } from '../../services/admin/DungService.js';
 import { baseURL } from "../../services/my-axios";
+import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import { Value } from 'sass';
 
 class SuaTienIch extends React.Component {
 
@@ -10,6 +11,7 @@ class SuaTienIch extends React.Component {
         id: "",
         ten: "",
         hinh: null,
+        trangthai: 1,
     }
     async componentDidMount() {
         const search = window.location.search;
@@ -25,11 +27,42 @@ class SuaTienIch extends React.Component {
         }
     }
 
+    thayDoiTen(event) {
+        this.setState({
+            ten: event.target.value
+        })
+    }
+    thayDoiHinh(event) {
+        this.setState({
+            hinh: event.target.files[0]
+        })
+    }
+    async kiemTraRong() {
+        if (this.state.ten !== "") {
+            if (this.state.hinh !== "") {
+                let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh);
+                console.log(res);
+                if (res != null) {
+                    toast.success("Thêm Tiện Ích Thành Công!");
+                }
+                else {
+                    toast.error("Thêm Tiện Ích Thất Bại!");
+                }
+            }
+            else {
+                toast.warning("Không Được Bỏ Trống Hình!");
+            }
+        }
+        else {
+            toast.warning("Không Được Bỏ Trống Tên!");
+        }
+    }
+
     render() {
         let { id, ten, hinh } = this.state;
 
         return (
-            <form className="form-control">
+            <form className="form-control" action='#' encType="multipart/form-data" method="post">
                 <div className="main">
                     <main className="content">
                         <div className="container-fluid p-0">
@@ -48,7 +81,7 @@ class SuaTienIch extends React.Component {
                                         <label class="col-form-label">Tên Tiện Ích Mới:</label>
                                     </div>
                                     <div class="col-auto">
-                                        <input class="col-form-label" Value={ten}></input>
+                                        <input class="form-control form-control-lg" Value={ten} onChange={(event) => this.thayDoiTen(event)} type="text" id="ten" name="ten" placeholder="Nhập tên tiện ích"></input>
                                     </div>
                                 </div>
                                 <label class="form-label">Hình Cũ</label>
@@ -62,10 +95,10 @@ class SuaTienIch extends React.Component {
                                 </td>
                                 <div class="mb-3">
                                     <label class="form-label">UpLoad Hình Mới</label>
-                                    <input class="form-control" type="file" id="formFile"></input>
+                                    <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                                 </div>
                                 <div className="col-md">
-                                    <button className="btn btn-primary">EDIT</button>
+                                    <NavLink to={`/quanlytienich`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Sửa</button></NavLink>
                                 </div>
                             </div>
                         </div>
