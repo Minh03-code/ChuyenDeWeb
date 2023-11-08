@@ -1,7 +1,8 @@
 import React from 'react';
 import { baseURL } from "../../services/my-axios";
-import { getAllTienIchCallAPI } from '../../services/admin/DungService';
+import { getAllTienIchCallAPI, capNhatTrangThaiTienIch } from '../../services/admin/DungService';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 class QuanLyTienIch extends React.Component {
     state = {
@@ -16,6 +17,17 @@ class QuanLyTienIch extends React.Component {
             })
         }
     }
+    async update(id) {
+        if (this.state.hinh != "") {
+            let res = await capNhatTrangThaiTienIch(id);
+            if (res != null) {
+                toast.success("Khoa Tiện Ích Thành Công!");
+            }
+            else {
+                toast.error("Mo Tiện Ích Thất Bại!");
+            }
+        }
+    }
 
     render() {
         let { listTienIch } = this.state;
@@ -24,8 +36,6 @@ class QuanLyTienIch extends React.Component {
                 <div className="main">
                     <main className="content">
                         <div className="container-fluid p-0">
-
-
                             <div className="card flex-fill">
                                 <div className="card-header">
                                     <div className="row">
@@ -60,7 +70,7 @@ class QuanLyTienIch extends React.Component {
                                                     /></td>
                                                     <td className="d-none d-md-table-cell">
                                                         <NavLink to={`/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
-                                                        <a href="#" className="btn btn-danger">Khoá</a>
+                                                        {(item.trangThai === 0) ? <a onClick={() => this.update(item.id)} className="btn btn-action">Khoá</a> : <a onClick={() => this.update(item.id)} className="btn btn-danger">Mo</a>}
                                                     </td>
                                                 </tr>
                                             )

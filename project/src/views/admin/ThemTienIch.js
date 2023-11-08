@@ -18,10 +18,11 @@ class ThemTienIch extends React.Component {
         })
     }
     async kiemTraRong() {
-        if (this.state.ten !== "") {
-            if (this.state.hinh !== "") {
+        if (this.state.ten != "") {
+            if (this.state.hinh != "") {
                 let res = await addnewTienIch(this.state.ten, this.state.hinh);
                 if (res != null) {
+
                     toast.success("Thêm Tiện Ích Thành Công!");
                 }
                 else {
@@ -57,7 +58,7 @@ class ThemTienIch extends React.Component {
                                         <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                                     </div>
                                     <div className="col-md">
-                                        <NavLink to={`/quanlytienich`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Thêm</button></NavLink>
+                                        <button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Thêm</button>
                                     </div>
                                 </div>
                             </div>

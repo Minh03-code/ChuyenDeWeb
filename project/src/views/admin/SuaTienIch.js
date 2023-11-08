@@ -1,9 +1,8 @@
-import React from 'react';
-import { layTienIchTheoId, editTienIch } from '../../services/admin/DungService.js';
+import React, { useState } from 'react';
+import { layTienIchTheoId, editTienIch, editTienIchkhonghinh } from '../../services/admin/DungService.js';
 import { baseURL } from "../../services/my-axios";
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useParams } from 'react-router-dom';
 
 class SuaTienIch extends React.Component {
 
@@ -11,7 +10,7 @@ class SuaTienIch extends React.Component {
         id: "",
         ten: "",
         hinh: null,
-        trangthai: 1,
+        trangthai: 0,
     }
     async componentDidMount() {
         const search = window.location.search;
@@ -40,17 +39,19 @@ class SuaTienIch extends React.Component {
     async kiemTraRong() {
         if (this.state.ten !== "") {
             if (this.state.hinh !== "") {
-                let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh);
-                console.log(res);
+                let res = await editTienIchkhonghinh(this.state.id, this.state.ten, this.state.trangthai);
                 if (res != null) {
-                    toast.success("Thêm Tiện Ích Thành Công!");
+                    toast.success("Sua Tiện Ích Thành Công!");
                 }
                 else {
-                    toast.error("Thêm Tiện Ích Thất Bại!");
+                    let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh, this.state.trangthai);
+                    if (res != null) {
+                        toast.success("Sua Tiện Ích Thành Công!");
+                    }
+                    else {
+                        toast.error("Sua Tiện Ích Thất Bại!");
+                    }
                 }
-            }
-            else {
-                toast.warning("Không Được Bỏ Trống Hình!");
             }
         }
         else {
@@ -60,7 +61,6 @@ class SuaTienIch extends React.Component {
 
     render() {
         let { id, ten, hinh } = this.state;
-
         return (
             <form className="form-control" action='#' encType="multipart/form-data" method="post">
                 <div className="main">
@@ -76,7 +76,6 @@ class SuaTienIch extends React.Component {
                                 </div>
                                 <div class="row g-2 align-items-center">
                                     <label class="form-label">ID: {id}</label>
-                                    <label id="hinh" name="hinh" class="form-label">Tiện Ích: {ten}</label>
                                     <div class="col-auto">
                                         <label class="col-form-label">Tên Tiện Ích Mới:</label>
                                     </div>
@@ -93,9 +92,9 @@ class SuaTienIch extends React.Component {
                                         height="200px"
                                     />
                                 </td>
-                                <div class="mb-3">
+                                <div class="col-auto">
                                     <label class="form-label">UpLoad Hình Mới</label>
-                                    <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
+                                    <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control form-control-lg" />
                                 </div>
                                 <div className="col-md">
                                     <NavLink to={`/quanlytienich`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Sửa</button></NavLink>
