@@ -22,8 +22,8 @@ class ThemTienIch extends React.Component {
             if (this.state.hinh != "") {
                 let res = await addnewTienIch(this.state.ten, this.state.hinh);
                 if (res != null) {
-
                     toast.success("Thêm Tiện Ích Thành Công!");
+                    window.location.reload();
                 }
                 else {
                     toast.error("Thêm Tiện Ích Thất Bại!");

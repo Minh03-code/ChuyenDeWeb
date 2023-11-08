@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 class SuaTienIch extends React.Component {
 
     state = {
+        list: [],
         id: "",
         ten: "",
         hinh: null,
@@ -19,9 +20,7 @@ class SuaTienIch extends React.Component {
         let res = await layTienIchTheoId(id);
         if (res != null) {
             this.setState({
-                id: res.id,
-                ten: res.ten,
-                hinh: res.hinh,
+                list: res,
             })
         }
     }
@@ -41,12 +40,14 @@ class SuaTienIch extends React.Component {
             if (this.state.hinh !== "") {
                 let res = await editTienIchkhonghinh(this.state.id, this.state.ten, this.state.trangthai);
                 if (res != null) {
-                    toast.success("Sua Tiện Ích Thành Công!");
+                    toast.success("Sửa Tiện Ích Thành Công!");
+                    window.location.reload();
                 }
                 else {
                     let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh, this.state.trangthai);
                     if (res != null) {
-                        toast.success("Sua Tiện Ích Thành Công!");
+                        toast.success("Sửa Tiện Ích Thành Công!");
+                        window.location.reload();
                     }
                     else {
                         toast.error("Sua Tiện Ích Thất Bại!");
@@ -61,6 +62,7 @@ class SuaTienIch extends React.Component {
 
     render() {
         let { id, ten, hinh } = this.state;
+        let { list } = this.state;
         return (
             <form className="form-control" action='#' encType="multipart/form-data" method="post">
                 <div className="main">
@@ -75,19 +77,20 @@ class SuaTienIch extends React.Component {
                                     </div>
                                 </div>
                                 <div class="row g-2 align-items-center">
-                                    <label class="form-label">ID: {id}</label>
+                                    <label class="form-label">ID: {list.id}</label>
+                                    <label class="form-label">Tên Cũ: {list.ten}</label>
                                     <div class="col-auto">
                                         <label class="col-form-label">Tên Tiện Ích Mới:</label>
                                     </div>
                                     <div class="col-auto">
-                                        <input class="form-control form-control-lg" Value={ten} onChange={(event) => this.thayDoiTen(event)} type="text" id="ten" name="ten" placeholder="Nhập tên tiện ích"></input>
+                                        <input class="form-control form-control-lg" Value={list.ten} onChange={(event) => this.thayDoiTen(event)} type="text" id="ten" name="ten" placeholder="Nhập tên tiện ích"></input>
                                     </div>
                                 </div>
                                 <label class="form-label">Hình Cũ</label>
                                 <td className="d-none d-xl-table-cell">
                                     <img
-                                        src={baseURL + hinh}
-                                        alt={baseURL + hinh}
+                                        src={baseURL + list.hinh}
+                                        alt={baseURL + list.hinh}
                                         width="400px"
                                         height="200px"
                                     />

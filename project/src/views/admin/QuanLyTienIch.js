@@ -8,7 +8,6 @@ class QuanLyTienIch extends React.Component {
     state = {
         listTienIch: []
     }
-    hideLoader = () => console.log(1);;
     async componentDidMount() {
         let res = await getAllTienIchCallAPI();
         if (res != null) {
@@ -17,14 +16,22 @@ class QuanLyTienIch extends React.Component {
             })
         }
     }
-    async update(id) {
-        if (this.state.hinh != "") {
+    async update(id, trangThai) {
+        if (trangThai === 0) {
             let res = await capNhatTrangThaiTienIch(id);
             if (res != null) {
-                toast.success("Khoa Tiện Ích Thành Công!");
+                toast.success("Khoá Tiện Ích Thành Công!");
+                window.location.reload();
+            } else {
+                toast.error("Khoá Tiện Ích Thất Bại!");
             }
-            else {
-                toast.error("Mo Tiện Ích Thất Bại!");
+        } else {
+            let res = await capNhatTrangThaiTienIch(id);
+            if (res != null) {
+                toast.success("Mở Tiện Ích Thành Công!");
+                window.location.reload();
+            } else {
+                toast.error("Mở Tiện Ích Thất Bại!");
             }
         }
     }
@@ -70,7 +77,7 @@ class QuanLyTienIch extends React.Component {
                                                     /></td>
                                                     <td className="d-none d-md-table-cell">
                                                         <NavLink to={`/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
-                                                        {(item.trangThai === 0) ? <a onClick={() => this.update(item.id)} className="btn btn-action">Khoá</a> : <a onClick={() => this.update(item.id)} className="btn btn-danger">Mo</a>}
+                                                        {(item.trangThai === 0) ? <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-success">Mo</a>}
                                                     </td>
                                                 </tr>
                                             )
@@ -78,8 +85,6 @@ class QuanLyTienIch extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-
-
                         </div>
                     </main>
                 </div>
