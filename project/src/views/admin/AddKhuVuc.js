@@ -1,9 +1,54 @@
 import React from 'react';
 import axios from 'axios';
+import { NavLink, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import { addQuanCallAPI } from '../../services/admin/ThinhService';
+import QuanLyKhuVuc from './QuanLyKhuVuc';
 
 class AddKhuVuc extends React.Component {
+    state = {
+        id: "",
+        tenQuan: "",
+        image: "",
+        trangThai: ""
+    }
+
+    thayTenQuan(e) {
+        this.setState({
+            tenQuan: e.target.value
+        })
+    }
+    thayHinh(e) {
+        this.setState({
+            image: e.target.value
+        })
+    }
+
+    kiemTraRong() {
+        if (this.state.tenQuan === "" || this.state.image === "") {
+            return false;
+        }
+        return true;
+    }
+    async themQuan() {
+        if (window.confirm("Xác nhận thêm quận")) {
+            if (this.kiemTraRong()) {
+                let res = await addQuanCallAPI(this.state.tenQuan, this.state.image);
+                if (res != null) {
+                    toast.success("Thêm Thành Công!");
+                }
+            }
+            else {
+                toast.warning("Không Được Để Rỗng!");
+            }
+        }
+        
+
+    }
 
     render() {
+        console.log(this.themQuan);
+        let { id, tenQuan, image, trangThai } = this.state
 
         return (
             <>
@@ -35,24 +80,26 @@ class AddKhuVuc extends React.Component {
 
                                     </thead> */}
                                     <tbody>
+
                                         <div>
-                                            <label for="STT" class="form-label">Id</label>
-                                            <input type="STT" class="form-control"></input>
+                                            <label class="form-label">Tên Quận</label>
+                                            <input type="text" class="form-control" Value={tenQuan} onChange={(e) => this.thayTenQuan(e)}></input>
                                         </div>
                                         <div>
-                                            <label for="tenquan" class="form-label">Tên Quận</label>
-                                            <input type="tenquan" class="form-control"></input>
-                                        </div>
-                                        <div>
-                                            <label for="trangThai" class="form-label">Trạng Thái</label>
-                                            <input type="trangThai" class="form-control"></input>
-                                        </div>
-                                        <div>
-                                            <label for="formFileLg" class="form-label">Hình ảnh</label>
-                                            <input class="form-control form-control-lg" id="formFileLg" type="file" />
+                                            <label class="form-label">Hình ảnh</label>
+                                            <input type="file" class="form-control" Value={image} onChange={(e) => this.thayHinh(e)}></input>
                                         </div>
                                        
-                                        <a href="#" className="btn btn-primary">Thêm</a>
+                                        <div className="card-header">
+                                            <div>
+                                                <div>
+                                                    <h5 className="card-title mb-0">
+                                                        <button className="btn btn-primary btn_margin_left" onClick={() => this.themQuan()}>Thêm Quận</button>
+                                
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tbody>
 
 
