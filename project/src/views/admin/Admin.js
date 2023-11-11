@@ -22,7 +22,12 @@ import AddKhuVuc from './AddKhuVuc.js';
 import LoginRegister from '../loginregister/FormLR.js';
 import EditPasswordAdmin from './EditPasswordAdmin.js';
 import EditProfileAdmin from './EditProfileAdmin.js';
+import EditBanner from './EditBanner.js';
 import { ToastContainer, toast } from "react-toastify";
+import DetailDichVu from './DetailDichVu.js';
+import EditDichVu from './EditDichVu.js';
+import AddDichvu from './AddDichVu.js';
+import DetailChuTro from './DetailChuTro.js';
 import "react-toastify/dist/ReactToastify.css";
 import EditBanner from './EditBanner.js';
 function Admin() {
@@ -66,6 +71,14 @@ function Admin() {
               </Route>
               <Route path="/editbanner/:id" element={<EditBanner />}>
               </Route>
+              <Route path="/chiTietDichVu" element={<DetailDichVu />}>
+                </Route>
+                <Route path="/suaDichVu" element={<EditDichVu />}>
+                </Route>
+                <Route path="/themDichVu" element={<AddDichvu />}>
+                </Route>
+                <Route path="/chiTietChuTro" element={<DetailChuTro />}>
+                </Route>
             </Routes>
             
           </main>
