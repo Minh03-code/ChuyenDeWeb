@@ -19,7 +19,6 @@ import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
-import LoginRegister from '../loginregister/FormLR.js';
 import EditPasswordAdmin from './EditPasswordAdmin.js';
 import EditProfileAdmin from './EditProfileAdmin.js';
 import EditBanner from './EditBanner.js';
