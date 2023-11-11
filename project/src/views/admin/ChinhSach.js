@@ -5,8 +5,6 @@ import { getProfileAdmin } from '../../services/admin/NghiemService.js';
 import { NavLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import {getChinhSach,capNhatChinhSach } from '../../services/admin/NghiemService.js';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 class ChinhSach extends React.Component {
     state ={
         admin:{},
