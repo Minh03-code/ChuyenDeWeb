@@ -17,6 +17,12 @@ const updateProfileAdmin1 = (id, ten, soDienThoai,soTaiKhoanNganHang,tenChuTaiKh
 const updateProfileAdmin2 = (id, ten, soDienThoai,soTaiKhoanNganHang,tenChuTaiKhoan)=>{
     return myAxios.post(`api/capnhatthongtinadmin2`,{id:id,ten:ten,soDienThoai:soDienThoai,soTaiKhoanNganHang:soTaiKhoanNganHang,tenChuTaiKhoan:tenChuTaiKhoan});
 }
+const getChinhSach =(id)=>{
+    return myAxios.get(`api/chinhsach?id=${id}`)
+}
+const capNhatChinhSach=(id,noiDungChinhSach)=>{
+    return myAxios.post(`api/capnhatchinhsach2`,{id:id,noiDungChinhSach:noiDungChinhSach})
+}
 
 // export { multiple };
-export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1};
+export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach};
