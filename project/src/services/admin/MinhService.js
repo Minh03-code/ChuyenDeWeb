@@ -9,5 +9,8 @@ const checkAccountAPI = (username, password) => {
 const getAllYeuCauDangKyDichVuAPI = () => {
     return myAxios.get("api/yeucaudangky/all");
 }
+const layThongTinChiTietYeuCauXacThucAPI = (idChuTro) => {
+    return myAxios.get(`api/xacthucchutro/chitiet?idChuTro=${idChuTro}`);
+}
 // export { multiple };
-export {getAllMotelRoomOwnerAuthenticationCallAPI, checkAccountAPI, getAllYeuCauDangKyDichVuAPI};
+export {getAllMotelRoomOwnerAuthenticationCallAPI, checkAccountAPI, getAllYeuCauDangKyDichVuAPI, layThongTinChiTietYeuCauXacThucAPI};

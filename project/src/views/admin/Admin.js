@@ -30,6 +30,7 @@ import AddDichvu from './AddDichVu.js';
 import DetailChuTro from './DetailChuTro.js';
 import "react-toastify/dist/ReactToastify.css";
 import EditBanner from './EditBanner.js';
+import XemThongTinChiTietYeuCauXacNhanChuTro from './XemThongTinChiTietYeuCauXacNhanChuTro.js';
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -79,6 +80,8 @@ function Admin() {
                 </Route>
                 <Route path="/chiTietChuTro" element={<DetailChuTro />}>
                 </Route>
+                <Route path="/chitietyeucauxacthucchutro" element={<XemThongTinChiTietYeuCauXacNhanChuTro />}>
+              </Route>
             </Routes>
             
           </main>
