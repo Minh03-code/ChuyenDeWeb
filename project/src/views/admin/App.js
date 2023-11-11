@@ -17,6 +17,7 @@ import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
+import EditQuan from './EditQuan.js';
 function App() {
   return (
     <BrowserRouter>
@@ -46,6 +47,8 @@ function App() {
               <Route path="/addKhuVuc" element={<AddKhuVuc/>}>
               </Route>
               <Route path="/listPhuong" element={<ListPhuong/>}>
+              </Route>
+              <Route path="/editquan" element={<EditQuan/>}>
               </Route>
               <Route path="/quanlybanner" element={<QuanLyBanner />}>
               </Route>
