@@ -11,7 +11,7 @@ class SuaTienIch extends React.Component {
         id: "",
         ten: "",
         hinh: null,
-        trangthai: 0,
+        trangthai: null,
     }
     async componentDidMount() {
         const search = window.location.search;
@@ -21,6 +21,9 @@ class SuaTienIch extends React.Component {
         if (res != null) {
             this.setState({
                 list: res,
+                id: res.id,
+                ten: res.ten,
+                trangthai: res.trangThai
             })
         }
     }
@@ -35,19 +38,28 @@ class SuaTienIch extends React.Component {
             hinh: event.target.files[0]
         })
     }
+
+    kiemTraRong11() {
+        if (this.state.ten === "") {
+            return false;
+        }
+        return true;
+    }
     async kiemTraRong() {
-        if (this.state.ten !== "") {
+        console.log(this.state.ten)
+        if (this.kiemTraRong11()) {
             if (this.state.hinh !== "") {
                 let res = await editTienIchkhonghinh(this.state.id, this.state.ten, this.state.trangthai);
+                console.log(res)
                 if (res != null) {
                     toast.success("Sửa Tiện Ích Thành Công!");
-                    window.location.reload();
+                    //window.location.reload();
                 }
                 else {
                     let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh, this.state.trangthai);
                     if (res != null) {
                         toast.success("Sửa Tiện Ích Thành Công!");
-                        window.location.reload();
+                        //window.location.reload();
                     }
                     else {
                         toast.error("Sua Tiện Ích Thất Bại!");
@@ -83,7 +95,7 @@ class SuaTienIch extends React.Component {
                                         <label class="col-form-label">Tên Tiện Ích Mới:</label>
                                     </div>
                                     <div class="col-auto">
-                                        <input class="form-control form-control-lg" Value={list.ten} onChange={(event) => this.thayDoiTen(event)} type="text" id="ten" name="ten" placeholder="Nhập tên tiện ích"></input>
+                                        <input class="form-control form-control-lg" value={ten} onChange={(event) => this.thayDoiTen(event)} type="text" id="ten" name="ten" placeholder="Nhập tên tiện ích"></input>
                                     </div>
                                 </div>
                                 <label class="form-label">Hình Cũ</label>
