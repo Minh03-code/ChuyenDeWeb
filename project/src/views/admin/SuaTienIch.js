@@ -46,24 +46,23 @@ class SuaTienIch extends React.Component {
         return true;
     }
     async kiemTraRong() {
-        console.log(this.state.ten)
         if (this.kiemTraRong11()) {
             if (this.state.hinh !== "") {
-                let res = await editTienIchkhonghinh(this.state.id, this.state.ten, this.state.trangthai);
-                console.log(res)
+                let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh, this.state.trangthai);
                 if (res != null) {
                     toast.success("Sửa Tiện Ích Thành Công!");
-                    //window.location.reload();
+                    window.location.reload();
                 }
                 else {
-                    let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh, this.state.trangthai);
-                    if (res != null) {
-                        toast.success("Sửa Tiện Ích Thành Công!");
-                        //window.location.reload();
-                    }
-                    else {
-                        toast.error("Sua Tiện Ích Thất Bại!");
-                    }
+                    toast.error("Sua Tiện Ích Thất Bại!");
+                }
+            } else {
+                let res = await editTienIchkhonghinh(this.state.id, this.state.ten, this.state.trangthai);
+                if (res != null) {
+                    toast.success("Sửa Tiện Ích Thành Công!");
+                    window.location.reload();
+                } else {
+                    toast.error("Sua Tiện Ích Thất Bại!");
                 }
             }
         }
