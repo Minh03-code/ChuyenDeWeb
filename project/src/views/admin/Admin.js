@@ -22,10 +22,16 @@ import AddKhuVuc from './AddKhuVuc.js';
 import LoginRegister from '../loginregister/FormLR.js';
 import EditPasswordAdmin from './EditPasswordAdmin.js';
 import EditProfileAdmin from './EditProfileAdmin.js';
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import EditBanner from './EditBanner.js';
-import ChinhSach from './ChinhSach.js';
+import { ToastContainer, toast } from "react-toastify";
+import DetailDichVu from './DetailDichVu.js';
+import EditDichVu from './EditDichVu.js';
+import AddDichvu from './AddDichVu.js';
+import DetailChuTro from './DetailChuTro.js';
+import "react-toastify/dist/ReactToastify.css";
+import XemThongTinChiTietYeuCauXacNhanChuTro from './XemThongTinChiTietYeuCauXacNhanChuTro.js';
+// import ChinhSach from './ChinhSach.js';
+
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -67,8 +73,18 @@ function Admin() {
               </Route>
               <Route path="/editbanner/:id" element={<EditBanner />}>
               </Route>
-              <Route path="/chinhsach" element={<ChinhSach />}>
+              <Route path="/chiTietDichVu" element={<DetailDichVu />}>
+                </Route>
+                <Route path="/suaDichVu" element={<EditDichVu />}>
+                </Route>
+                <Route path="/themDichVu" element={<AddDichvu />}>
+                </Route>
+                <Route path="/chiTietChuTro" element={<DetailChuTro />}>
+                </Route>
+                <Route path="/chitietyeucauxacthucchutro" element={<XemThongTinChiTietYeuCauXacNhanChuTro />}>
               </Route>
+              {/* <Route path="/chinhsach" element={<ChinhSach />}>
+              </Route> */}
             </Routes>
             
           </main>

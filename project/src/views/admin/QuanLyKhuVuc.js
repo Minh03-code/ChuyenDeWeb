@@ -1,31 +1,27 @@
 import React from 'react';
 import axios from 'axios';
-import ListPhuong from './ListPhuong';
+import { baseURL } from '../../services/my-axios';
+import { NavLink, useParams } from "react-router-dom";
+import { getAllKhuVucApi } from '../../services/admin/ThinhService';
+
 
 class QuanLyKhuVuc extends React.Component {
     state = {
-        listQuan: [],
-        idQuan:""
+        listQuan: []
     }
-    onChangeDataIdQuan(id){
-       this.setState({
-        idQuan:id
-       })
-    }
+    hideLoader = () => console.log(1);;
     async componentDidMount() {
-        let res = await axios.get('http://127.0.0.1:8000/api/laytatcaquan');
-        if (res.data != null) {
+        let res = await getAllKhuVucApi();
+        if (res != null) {
             this.setState({
-                listQuan: res.data
+                listQuan: res
             })
-            console.log(this.state.listQuan);
-            console.log(res);
         }
     }
-   
+
+
     render() {
         let { listQuan } = this.state;
-        <ListPhuong idQuan={this.state.idQuan}/>
         return (
             <>
 
@@ -46,34 +42,40 @@ class QuanLyKhuVuc extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <table className="table table-hover my-0">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th className="d-none d-xl-table-cell">Quận</th>
-                                            <th className="d-none d-md-table-cell">Xem phường</th>
-                                            <th className="d-none d-md-table-cell">Chức năng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {listQuan && listQuan.length > 0 && listQuan.map((item, index) => {
-                                            return (
+                                {
+                                    listQuan.length == 0 ? <div className='null'>rỗng</div> :
+                                        <table className="table table-hover my-0">
+                                            <thead>
                                                 <tr>
-                                                    <td>{item.id}</td>
-                                                    <td className="d-none d-xl-table-cell">{item.tenQuan}</td>
-                                                    {/* <td className="d-none d-xl-table-cell">{item.trangThai}</td> */}
-                                                    <td className="d-none d-md-table-cell">
-                                                        <a href="listPhuong" className="btn btn-primary" onClick={()=>this.onChangeDataIdQuan(item.id)}>Xem phường</a>
-                                                    </td>
-                                                    <td className="d-none d-md-table-cell">
-                                                        <a href="#" className="btn btn-primary">Sửa</a>
-                                                        <a href="#" className="btn btn-secondary">Xóa</a>
-                                                    </td>
+                                                    <th>ID</th>
+                                                    <th className="d-none d-xl-table-cell">Quận</th>
+                                                    <th className="d-none d-xl-table-cell">Hình</th>
+                                                    <th className="d-none d-md-table-cell">Xem phường</th>
+                                                    <th className="d-none d-md-table-cell">Chức năng</th>
                                                 </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
+                                            </thead>
+                                            <tbody>
+                                                {listQuan && listQuan.length > 0 && listQuan.map((item, index) => {
+                                                    return (
+                                                        <tr>
+                                                            <td>{item.id}</td>
+                                                            <td className="d-none d-xl-table-cell">{item.tenQuan}</td>
+                                                            <td className="d-none d-xl-table-cell">
+                                                                <img src={baseURL + item.hinh} width="200px" height="150px"/>
+                                                            </td>
+                                                            <td className="d-none d-md-table-cell">
+                                                                <NavLink to={`/listPhuong?id=${item.id}`} ><span className="btn btn-primary">Xem chi tiết</span></NavLink>
+                                                            </td>
+                                                            <td className="d-none d-md-table-cell">
+                                                                <a href="#" className="btn btn-primary">Sửa</a>
+                                                                <a href="#" className="btn btn-secondary">Xóa</a>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
+                                }
                             </div>
 
 

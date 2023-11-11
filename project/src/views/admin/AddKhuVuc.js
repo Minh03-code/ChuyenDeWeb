@@ -1,71 +1,74 @@
 import React from 'react';
-import axios from 'axios';
-
+import { addnewQuan } from '../../services/admin/ThinhService';
+import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
 class AddKhuVuc extends React.Component {
-
+    state = {
+        tenQuan: "",
+        hinh: null,
+    }
+    thayDoiTen(event) {
+        this.setState({
+            tenQuan: event.target.value
+        })
+    }
+    thayDoiHinh(event) {
+        this.setState({
+            hinh: event.target.files[0]
+        })
+    }
+    async kiemTraRong() {
+        if (this.state.tenQuan !== "") {
+            if (this.state.hinh !== "") {
+                let res = await addnewQuan(this.state.tenQuan, this.state.hinh);
+                if (res != null) {
+                    toast.success("Thêm quận Thành Công!");
+                    window.location.reload();
+                }
+                else {
+                    toast.error("Thêm quận Thất Bại!");
+                }
+            }
+            else {
+                toast.warning("Không Được Bỏ Trống Hình!");
+            }
+        }
+        else {
+            toast.warning("Không Được Bỏ Trống Tên!");
+        }
+    }
     render() {
-
         return (
-            <>
-                <div className="main">
-                    <main className="content">
-                        <div className="container-fluid p-0">
-
-
-                            <div className="card flex-fill">
-                                <div className="card-header">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <h5 className="card-title mb-0">Thêm Quận</h5>
+            <form className="form-control" action='#' encType="multipart/form-data" method="post">
+                <>
+                    <div className="main">
+                        <main className="content">
+                            <div className="container-fluid p-0">
+                                <div className="card flex-fill">
+                                    <div className="card-header">
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <h5 className="card-title mb-0">Thêm quận</h5>
+                                            </div>
                                         </div>
-
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="hinh" className="form-label">Tên Quận</label>
+                                        <input class="form-control form-control-lg" onChange={(event) => this.thayDoiTen(event)} type="text" id="tenQuan" name="tenQuan" placeholder="Nhập tên quận mới"></input>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="hinh" className="form-label">Hình</label>
+                                        <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
+                                    </div>
+                                    <div className="col-md">
+                                        <NavLink to={`/quanlykhuvuc`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Thêm</button></NavLink>
                                     </div>
                                 </div>
-                                <table className="table table-hover my-0">
-                                    {/* <thead>
-                                        <tr>
-                                            <input placeholder='Nhap STT' name="myInput" />
-                                        </tr>
-                                        <tr>
-                                            <input placeholder='Nhap ID QUẬN' name="myInput" />
-                                        </tr>
-                                        <tr>
-                                            <input placeholder='Nhap Phường' name="myInput" />
-                                        </tr>
-
-                                    </thead> */}
-                                    <tbody>
-                                        <div>
-                                            <label for="STT" class="form-label">Id</label>
-                                            <input type="STT" class="form-control"></input>
-                                        </div>
-                                        <div>
-                                            <label for="tenquan" class="form-label">Tên Quận</label>
-                                            <input type="tenquan" class="form-control"></input>
-                                        </div>
-                                        <div>
-                                            <label for="trangThai" class="form-label">Trạng Thái</label>
-                                            <input type="trangThai" class="form-control"></input>
-                                        </div>
-                                        <div>
-                                            <label for="formFileLg" class="form-label">Hình ảnh</label>
-                                            <input class="form-control form-control-lg" id="formFileLg" type="file" />
-                                        </div>
-                                       
-                                        <a href="#" className="btn btn-primary">Thêm</a>
-                                    </tbody>
-
-
-
-
-                                </table>
                             </div>
-
-
-                        </div>
-                    </main>
-                </div>
-            </>
+                        </main>
+                    </div>
+                </>
+            </form>
         )
     }
 }

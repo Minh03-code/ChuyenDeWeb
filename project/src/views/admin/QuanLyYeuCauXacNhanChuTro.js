@@ -1,5 +1,6 @@
 import React from 'react';
 import { baseURL } from "../../services/my-axios";
+import {  Link} from "react-router-dom";
 import { getAllMotelRoomOwnerAuthenticationCallAPI } from '../../services/admin/MinhService';
 import Loading from "../loading/Loading.js";
 
@@ -61,7 +62,7 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
                                                                 <td className="d-none d-xl-table-cell">{item.chuTro.ten}</td>
                                                                 <td className="d-none d-xl-table-cell">{item.chuTro.soDienThoai}</td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <a href="#" className="btn btn-primary">Xem dddthông tin</a>
+                                                                    <Link to={`/admin/chitietyeucauxacthucchutro?idChuTro=${item.chuTro.id}`} className="btn btn-primary">Xem thông tin</Link>
                                                                 </td>
                                                             </tr>
                                                         )
