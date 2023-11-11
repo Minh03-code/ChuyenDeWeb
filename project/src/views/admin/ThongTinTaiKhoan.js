@@ -39,6 +39,7 @@ class ThongTinTaiKhoan extends React.Component {
                     <div className="dieuhuong">
                     <NavLink  to={`/admin/editprofileadmin`} ><button type="button" className="btn btn-primary bbt">Sửa Thông Tin</button></NavLink>
                         <NavLink  to={`/admin/editpassword`} ><button type="button" className="btn btn-warning bbt">Đổi Mật Khẩu</button></NavLink>
+                        <NavLink  to={`/admin/chinhsach`} ><button type="button" className="btn btn-success bbt">Xem Chính Sách</button></NavLink>
                         <button type="button" className="btn btn-dark bbt">Đăng Xuất</button>
                         </div>
                         </div>

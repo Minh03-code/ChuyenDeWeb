@@ -25,6 +25,7 @@ import EditProfileAdmin from './EditProfileAdmin.js';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditBanner from './EditBanner.js';
+import ChinhSach from './ChinhSach.js';
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -65,6 +66,8 @@ function Admin() {
               <Route path="/editprofileadmin" element={<EditProfileAdmin />}>
               </Route>
               <Route path="/editbanner/:id" element={<EditBanner />}>
+              </Route>
+              <Route path="/chinhsach" element={<ChinhSach />}>
               </Route>
             </Routes>
             
