@@ -23,7 +23,7 @@ class AddKhuVuc extends React.Component {
                 let res = await addnewQuan(this.state.tenQuan, this.state.hinh);
                 if (res != null) {
                     toast.success("Thêm quận Thành Công!");
-                    window.location.reload();   
+                    window.location.reload();
                 }
                 else {
                     toast.error("Thêm quận Thất Bại!");
@@ -52,9 +52,12 @@ class AddKhuVuc extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <input class="form-control form-control-lg" onChange={(event) => this.thayDoiTen(event)} type="text" id="tenQuan" name="tenQuan" placeholder="Nhập tên quận mới"></input>
                                     <div className="mb-3">
-                                        <label htmlFor="hinh" className="form-label">Thêm Hình</label>
+                                        <label htmlFor="hinh" className="form-label">Tên Quận</label>
+                                        <input class="form-control form-control-lg" onChange={(event) => this.thayDoiTen(event)} type="text" id="tenQuan" name="tenQuan" placeholder="Nhập tên quận mới"></input>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="hinh" className="form-label">Hình</label>
                                         <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                                     </div>
                                     <div className="col-md">
