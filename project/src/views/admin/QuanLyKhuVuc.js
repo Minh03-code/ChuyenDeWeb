@@ -49,6 +49,7 @@ class QuanLyKhuVuc extends React.Component {
                                                 <tr>
                                                     <th>ID</th>
                                                     <th className="d-none d-xl-table-cell">Quận</th>
+                                                    <th className="d-none d-xl-table-cell">Hình</th>
                                                     <th className="d-none d-md-table-cell">Xem phường</th>
                                                     <th className="d-none d-md-table-cell">Chức năng</th>
                                                 </tr>
@@ -59,6 +60,9 @@ class QuanLyKhuVuc extends React.Component {
                                                         <tr>
                                                             <td>{item.id}</td>
                                                             <td className="d-none d-xl-table-cell">{item.tenQuan}</td>
+                                                            <td className="d-none d-xl-table-cell">
+                                                                <img src={baseURL + item.hinh} width="200px" height="150px"/>
+                                                            </td>
                                                             <td className="d-none d-md-table-cell">
                                                                 <NavLink to={`/listPhuong?id=${item.id}`} ><span className="btn btn-primary">Xem chi tiết</span></NavLink>
                                                             </td>

@@ -1,118 +1,71 @@
 import React from 'react';
-import axios from 'axios';
-import { NavLink, useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import { addQuanCallAPI } from '../../services/admin/ThinhService';
-import QuanLyKhuVuc from './QuanLyKhuVuc';
-
+import { addnewQuan } from '../../services/admin/ThinhService';
+import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
 class AddKhuVuc extends React.Component {
     state = {
-        id: "",
         tenQuan: "",
-        image: "",
-        trangThai: ""
+        hinh: null,
     }
-
-    thayTenQuan(e) {
+    thayDoiTen(event) {
         this.setState({
-            tenQuan: e.target.value
+            tenQuan: event.target.value
         })
     }
-    thayHinh(e) {
+    thayDoiHinh(event) {
         this.setState({
-            image: e.target.value
+            hinh: event.target.files[0]
         })
     }
-
-    kiemTraRong() {
-        if (this.state.tenQuan === "" || this.state.image === "") {
-            return false;
-        }
-        return true;
-    }
-    async themQuan() {
-        if (window.confirm("Xác nhận thêm quận")) {
-            if (this.kiemTraRong()) {
-                let res = await addQuanCallAPI(this.state.tenQuan, this.state.image);
+    async kiemTraRong() {
+        if (this.state.tenQuan !== "") {
+            if (this.state.hinh !== "") {
+                let res = await addnewQuan(this.state.tenQuan, this.state.hinh);
                 if (res != null) {
-                    toast.success("Thêm Thành Công!");
+                    toast.success("Thêm quận Thành Công!");
+                    window.location.reload();   
+                }
+                else {
+                    toast.error("Thêm quận Thất Bại!");
                 }
             }
             else {
-                toast.warning("Không Được Để Rỗng!");
+                toast.warning("Không Được Bỏ Trống Hình!");
             }
         }
-        
-
+        else {
+            toast.warning("Không Được Bỏ Trống Tên!");
+        }
     }
-
     render() {
-        console.log(this.themQuan);
-        let { id, tenQuan, image, trangThai } = this.state
-
         return (
-            <>
-                <div className="main">
-                    <main className="content">
-                        <div className="container-fluid p-0">
-
-
-                            <div className="card flex-fill">
-                                <div className="card-header">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <h5 className="card-title mb-0">Thêm Quận</h5>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <table className="table table-hover my-0">
-                                    {/* <thead>
-                                        <tr>
-                                            <input placeholder='Nhap STT' name="myInput" />
-                                        </tr>
-                                        <tr>
-                                            <input placeholder='Nhap ID QUẬN' name="myInput" />
-                                        </tr>
-                                        <tr>
-                                            <input placeholder='Nhap Phường' name="myInput" />
-                                        </tr>
-
-                                    </thead> */}
-                                    <tbody>
-
-                                        <div>
-                                            <label class="form-label">Tên Quận</label>
-                                            <input type="text" class="form-control" Value={tenQuan} onChange={(e) => this.thayTenQuan(e)}></input>
-                                        </div>
-                                        <div>
-                                            <label class="form-label">Hình ảnh</label>
-                                            <input type="file" class="form-control" Value={image} onChange={(e) => this.thayHinh(e)}></input>
-                                        </div>
-                                       
-                                        <div className="card-header">
-                                            <div>
-                                                <div>
-                                                    <h5 className="card-title mb-0">
-                                                        <button className="btn btn-primary btn_margin_left" onClick={() => this.themQuan()}>Thêm Quận</button>
-                                
-                                                    </h5>
-                                                </div>
+            <form className="form-control" action='#' encType="multipart/form-data" method="post">
+                <>
+                    <div className="main">
+                        <main className="content">
+                            <div className="container-fluid p-0">
+                                <div className="card flex-fill">
+                                    <div className="card-header">
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <h5 className="card-title mb-0">Thêm quận</h5>
                                             </div>
                                         </div>
-                                    </tbody>
-
-
-
-
-                                </table>
+                                    </div>
+                                    <input class="form-control form-control-lg" onChange={(event) => this.thayDoiTen(event)} type="text" id="tenQuan" name="tenQuan" placeholder="Nhập tên quận mới"></input>
+                                    <div className="mb-3">
+                                        <label htmlFor="hinh" className="form-label">Thêm Hình</label>
+                                        <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
+                                    </div>
+                                    <div className="col-md">
+                                        <NavLink to={`/quanlykhuvuc`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Thêm</button></NavLink>
+                                    </div>
+                                </div>
                             </div>
-
-
-                        </div>
-                    </main>
-                </div>
-            </>
+                        </main>
+                    </div>
+                </>
+            </form>
         )
     }
 }
