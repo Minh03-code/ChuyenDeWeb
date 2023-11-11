@@ -29,7 +29,6 @@ import EditDichVu from './EditDichVu.js';
 import AddDichvu from './AddDichVu.js';
 import DetailChuTro from './DetailChuTro.js';
 import "react-toastify/dist/ReactToastify.css";
-import EditBanner from './EditBanner.js';
 import XemThongTinChiTietYeuCauXacNhanChuTro from './XemThongTinChiTietYeuCauXacNhanChuTro.js';
 import ChinhSach from './ChinhSach.js';
 
