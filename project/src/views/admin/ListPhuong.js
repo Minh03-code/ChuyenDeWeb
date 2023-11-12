@@ -43,7 +43,7 @@ class ListPhuong extends React.Component {
                                 <table className="table table-hover my-0">
                                     <thead>
                                         <tr>
-                                            <th>STT</th>
+                                            <th>ID</th>
                                             <th className="d-none d-xl-table-cell">IDQuận</th>
                                             <th className="d-none d-md-table-cell">Phường</th>
                                             <th className="d-none d-md-table-cell">Chức năng</th>

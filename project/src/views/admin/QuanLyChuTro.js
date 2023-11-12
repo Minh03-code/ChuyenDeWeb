@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
+import { NavLink, useParams } from "react-router-dom";
 import { getAllMotelRoomOwnerCallAPI } from '../../services/admin/KietService'
 
 class QuanLyChuTro extends React.Component {
@@ -10,7 +11,9 @@ class QuanLyChuTro extends React.Component {
     }
     hideLoader = () => console.log(1);;
     async componentDidMount() {
+
         let res = await getAllMotelRoomOwnerCallAPI();
+        //adsdw
         if (res != null) {
             this.setState({
                 listMotelRoom: res
@@ -69,7 +72,7 @@ class QuanLyChuTro extends React.Component {
                                                                 </td>
                                                                 <td className="d-none d-xl-table-cell">{item.idGoi}</td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <a href="#" className="btn btn-primary">Xem thông tin</a>
+                                                                    <NavLink to={`/admin/chiTietChuTro?idTaiKhoan=${item.idTaiKhoan}`} className="btn btn-primary">Xem thông tin</NavLink>
                                                                 </td>
                                                             </tr>
                                                         )

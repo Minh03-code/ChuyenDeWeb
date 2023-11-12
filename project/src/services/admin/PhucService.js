@@ -3,5 +3,16 @@ import { myAxios } from "../my-axios";
 const getAllBannerApi = () => {
   return myAxios.get("api/banner/all");
 };
-// export { multiple };
-export { getAllBannerApi };
+
+const getBannerById = (id) => {
+  return myAxios.get(`api/banner/chitiet?id=${id}`);
+};
+
+const config = {
+  headers: { "content-type": "multipart/form-data" },
+};
+const editBanner = (id, hinh) => {
+  return myAxios.post(`api/banner/edit`, { id: id, hinh: hinh }, config);
+};
+
+export { getAllBannerApi, getBannerById, editBanner };

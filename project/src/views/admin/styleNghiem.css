@@ -1,43 +1,109 @@
 .manhinhadmin{
-    background: black;
+    background: #222e3c;
+     width: 100%;
+     height: 700px;
+     border-radius: 10%;
+     position: relative;
+     box-shadow: 10px 10px #7d8793;
+ }
+ .bg_admin{
+     width: 100%;
+     height: 20%;
+ }
+ .title_admin{
+     margin-left: 50px;
+ }
+ .thongtin_content{
+     border: solid 10px #222e3c;
+     background: white;
+     width: 100%;
+     height: 80%;
+     border-radius: 10%;
+     z-index: -1;
+  
+ }
+ .avt{
+     position: absolute;
+     width: 20%;
+     height: 30%;
+     border-radius: 50%;
+     border: 10px solid black;
+     margin-top: 3%;
+     margin-left: 70%;
+     z-index: 1;
+ }
+ .title_admin{
+     font-weight: bold;
+     font-size: 2em;
+ }
+ .noidung_content{
+    
+     width: 60%;
+     height: 80%;
+     padding: 10px;
+
+ }
+ .labeladmin{
+     font-size: 1.2em;
+     font-weight: bold;
+ }
+ .bbt{
+     margin-right: 10px;
+ }
+ .btnChinhSua{
+    margin-left: 50%;
+ }
+
+
+  /* The Modal (background) */
+  .modal {
+    display: none; /* mặc định được ẩn đi */
+    position: fixed; /* vị trí cố định */
+    z-index: 2; /* Ưu tiên hiển thị trên cùng */
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
     width: 100%;
-    height: 700px;
-    position: relative;
-}
-.bg_admin{
-    background-image: red;
-    width: 100%;
-    height: 20%;
-}
-.thongtin_content{
-    border: solid 10px greenyellow;
-    background: white;
+    height: 100%; 
+    overflow: auto;
+    border-radius: 10%;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    height: 90%;
+    border-radius: 10%;
+    text-align: center;
+  }
+.form_edit_chinh_sach{
+    margin: 0 auto;
     width: 100%;
     height: 80%;
+    background: yellow;
+    border: #000 solid 10px;
+    padding: 10px;
+    border-radius: 5%;
 }
-.avt{
-    position: absolute;
-    width: 20%;
-    height: 30%;
-    border-radius: 50%;
-    border: 10px solid black;
-    margin-top: 3%;
-    margin-left: 70%;
+.form_chinhsach{
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    background: yellow;
+    padding: 5px;
+    margin-left: 10px;
+    border: solid #000 2px;
 }
-.title_admin{
+.tieudechinhsach{
+    color: #000;
     font-weight: bold;
     font-size: 2em;
+    font-family: Arial, Helvetica, sans-serif;
 }
-.noidung_content{
-   
-    width: 60%;
-    height: 20%;
-    padding: 10px;
-}
-.labeladmin{
-    font-size: 1.2em;
-    font-weight: bold;
-}
-.bbt{
-    margin-right: 10px;
-}
+

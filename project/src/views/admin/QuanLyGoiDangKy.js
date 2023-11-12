@@ -1,5 +1,6 @@
 import React from 'react';
 import './styleKiet.css';
+import { NavLink, useParams } from "react-router-dom";
 import { baseURL } from "../../services/my-axios";
 import { getAllServiceCallAPI } from '../../services/admin/KietService';
 
@@ -15,7 +16,6 @@ class QuanLyGoiDangKy extends React.Component {
                 listService: res
             })
         }
-        console.log(res);
     }
 
     render() {
@@ -35,7 +35,7 @@ class QuanLyGoiDangKy extends React.Component {
                                             <h5 className="card-title mb-0">Quản lý gói dịch vụ</h5>
                                         </div>
                                         <div className="col-md-9">
-                                            <a href="add-product.html" className="btn btn-primary">Thêm</a>
+                                            <NavLink to={`/admin/themDichVu`} className="btn btn-primary">Thêm</NavLink>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@ class QuanLyGoiDangKy extends React.Component {
                                                                     {item.trangThai == 1 ? <div className='txt_red'>Đã khóa</div> : <div className='txt_green'>Đang hoạt động</div>}
                                                                 </td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <a href="#" className="btn btn-primary">Chỉnh sửa</a>
+                                                                    <NavLink to={`/admin/chiTietDichVu?id=${item.id}`} className="btn btn-primary">Xem thông tin</NavLink>
                                                                 </td>
                                                             </tr>
                                                         )
