@@ -30,6 +30,8 @@ import DetailChuTro from './DetailChuTro.js';
 import "react-toastify/dist/ReactToastify.css";
 import XemThongTinChiTietYeuCauXacNhanChuTro from './XemThongTinChiTietYeuCauXacNhanChuTro.js';
 import ChinhSach from './ChinhSach.js';
+import EditQuan from './EditQuan.js';
+import EditPhuong from './EditPhuong.js';
 
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
@@ -56,12 +58,18 @@ function Admin() {
               </Route>
               <Route path="/xacthucgoidangky" element={<QuanLyYeuCauXacNhanGoi />}>
               </Route>
+
               <Route path="/quanlykhuvuc" element={<QuanLyKhuVuc />}>
               </Route>
               <Route path="/addKhuVuc" element={<AddKhuVuc/>}>
               </Route>
               <Route path="/listPhuong" element={<ListPhuong/>}>
               </Route>
+              <Route path="/editquan" element={<EditQuan/>}>
+              </Route>
+              <Route path="/editphuong" element={<EditPhuong/>}>
+              </Route>
+
               <Route path="/quanlybanner" element={<QuanLyBanner />}>
               </Route>
               <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>

@@ -38,7 +38,7 @@ class QuanLyKhuVuc extends React.Component {
                                             {/* <button className="btn btn-primary"
                                                 onClick={() => this.handleAddNewKhuVuc(this)}><i className='fas fa-plus'></i> Thêm mới khu vực
                                             </button> */}
-                                            <a href="addKhuVuc" className="btn btn-primary">Thêm Khu Vực</a>
+                                            <a href="addKhuVuc" className="btn btn-primary">Thêm quận</a>
                                         </div>
                                     </div>
                                 </div>
@@ -64,12 +64,12 @@ class QuanLyKhuVuc extends React.Component {
                                                                 <img src={baseURL + item.hinh} width="200px" height="150px"/>
                                                             </td>
                                                             <td className="d-none d-md-table-cell">
-                                                                <NavLink to={`/listPhuong?id=${item.id}`} ><span className="btn btn-primary">Xem chi tiết</span></NavLink>
+                                                                <NavLink to={`/admin/listPhuong?id=${item.id}`} ><span className="btn btn-primary">Xem phường</span></NavLink>
                                                             </td>
                                                             <td className="d-none d-md-table-cell">
-                                                                <a href="#" className="btn btn-primary">Sửa</a>
-                                                                <a href="#" className="btn btn-secondary">Xóa</a>
+                                                                <NavLink to={`/admin/editquan?id=${item.id}`} ><span className="btn btn-primary">Sửa</span></NavLink>
                                                             </td>
+                                                            
                                                         </tr>
                                                     )
                                                 })}
