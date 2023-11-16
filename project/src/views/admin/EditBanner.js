@@ -5,6 +5,7 @@ import { editBanner, getBannerById } from "../../services/admin/PhucService.js";
 import { useParams, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import logo from "../../images/logo.png";
 
 const EditBanner = () => {
   let nav = useNavigate();
@@ -15,6 +16,7 @@ const EditBanner = () => {
   const [checkChooseFile, setCheckChooseFile] = useState(false);
 
   const [loading, setLoading] = useState(false);
+
   const inputRef = useEffect(() => {
     async function getDataAPI() {
       setResult(await getBannerById(id));
@@ -22,7 +24,7 @@ const EditBanner = () => {
     }
     getDataAPI();
   }, []);
-  
+
   console.log("check file:", file);
   const ChangeImage = (event) => {
     setCheckChooseFile(true);
@@ -47,7 +49,11 @@ const EditBanner = () => {
   console.log(loading);
   console.log(result.hinhBanner);
 
-  checkChooseFile == true ? console.log("file: ", file) : console.log("");
+  checkChooseFile == true ? (
+    console.log("file: ", file)
+  ) : (
+    <img src={logo} alt="" />
+  );
   return loading == true ? (
     <>
       <div className="main">

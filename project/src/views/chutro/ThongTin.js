@@ -8,7 +8,8 @@ import {
 } from "../../services/admin/PhucService";
 const ThongTin = () => {
   let { idTaiKhoan } = useParams();
-  const [id, setId] = useState(2);
+  const [id, setId] = useState(window.sessionStorage.getItem("accountId"));
+  console.log(id);
   const [result, setResult] = useState({});
   useEffect(() => {
     const fetchBanner = async () => {
@@ -38,10 +39,7 @@ const ThongTin = () => {
           <div class="row">
             <div class="col-lg-6">
               <div class="left-image">
-                <img 
-                  src={baseURL + result.hinh}
-                  alt={baseURL + result.hinh}
-                />
+                <img src={baseURL + result.hinh} alt={baseURL + result.hinh} />
               </div>
             </div>
             <div class="col-lg-6 align-self-center">

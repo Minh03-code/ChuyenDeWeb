@@ -1,8 +1,13 @@
 import React from "react";
 import { baseURL } from "../../services/my-axios";
-import { getAllBannerApi } from "../../services/admin/PhucService";
+import {
+  deleteBanner,
+  getAllBannerApi,
+} from "../../services/admin/PhucService";
 import { Link } from "react-router-dom";
 import AppUpLoad from "./upload";
+import "./stylePhuc.css";
+import { Button } from "bootstrap";
 class QuanLyBanner extends React.Component {
   state = {
     listAllBanner: [],
@@ -30,9 +35,9 @@ class QuanLyBanner extends React.Component {
                       <h5 className="card-title mb-0">Quản lý chủ trọ</h5>
                     </div>
                     <div className="col-md-9">
-                      <a href="add-product.html" className="btn btn-primary">
+                      <Link to={`/admin/addbanner`} className="btn btn-primary">
                         Thêm
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -40,8 +45,12 @@ class QuanLyBanner extends React.Component {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th className="d-none d-xl-table-cell">Hình</th>
-                      <th className="d-none d-md-table-cell">Chức năng</th>
+                      <th className="d-none d-xl-table-cell btn-banner">
+                        Hình
+                      </th>
+                      <th className="d-none d-md-table-cell btn-banner">
+                        Chức năng
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -54,7 +63,7 @@ class QuanLyBanner extends React.Component {
                         return (
                           <tr>
                             <td>#{item.id}</td>
-                            <td className="d-none d-xl-table-cell">
+                            <td className="hinh-banner">
                               <img
                                 src={baseURL + item.hinhBanner}
                                 alt={baseURL + item.hinhBanner}
@@ -62,8 +71,12 @@ class QuanLyBanner extends React.Component {
                                 height="100px"
                               />
                             </td>
+
                             <td className="d-none d-md-table-cell">
-                              <Link to={`/admin/editbanner/${item.id}`} className="btn btn-primary">
+                              <Link
+                                to={`/admin/editbanner/${item.id}`}
+                                className="btn btn-primary"
+                              >
                                 Chỉnh sửa
                               </Link>
                             </td>
