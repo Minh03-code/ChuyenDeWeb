@@ -19,31 +19,31 @@ import GoiDangDung from './GoiDangDung';
 import ThongBao from './ThongBao';
 import ThongTin from './ThongTin';
 import DangXuat from './DangXuat';
+import TinNhan from './TinNhan.js';
 function ChuTro() {
   console.log(sessionStorage.getItem('accountId'));
   return (
     sessionStorage.getItem('accountType') == 1 ?
       <>
         <Navigation />
-        <div class="page-heading header-text">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12">
-                <h3>Our Shop</h3>
-                <span class="breadcrumb"><a href="#">Home</a> Our Shop</span>
-              </div>
-            </div>
-          </div>
-        </div>
         <Routes>
-          <Route path='/quanlyphong' exact element={<QuanLyPhong/>}>
+          <Route path='*'  element={<QuanLyPhong/>}></Route>
+          <Route path='/quanlyphong'  element={<QuanLyPhong/>}>
             
           </Route>
           <Route path='/goidangdung' element={<GoiDangDung/>}></Route>
           <Route path='/thongbao' element={<ThongBao/>}></Route>
           <Route path='/thongtin' element={ <ThongTin/>}></Route>
+          <Route path='/tinnhan' element={ <TinNhan/>}></Route>
           <Route path='/dangxuat' element={<DangXuat/>}></Route>
         </Routes>
+        <footer>
+    <div className="container">
+      <div className="col-lg-12">
+        <p>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo</a></p>
+      </div>
+    </div>
+  </footer>
       </>
       : <NotFound />
   );

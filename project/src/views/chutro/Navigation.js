@@ -15,10 +15,11 @@ class Navigation extends React.Component {
                                         <img src="assets/images/logo.png" alt="" style={{width: 158 +"px"}}/>
                                     </a>
                                     <ul class="nav">
-                                        <li><NavLink to='/chutro/quanlyphong' className={(navData) => (navData.isActive ? "active" : '')}>Quản lý phòng trọ</NavLink></li>
-                                        <li><NavLink to='/chutro/goidangdung' className={(navData) => (navData.isActive ? "active" : '')}>Gói đang dùng</NavLink></li>
-                                        <li><NavLink to='/chutro/thongbao' className={(navData) => (navData.isActive ? "active" : '')}>Thông báo</NavLink></li>
-                                        <li><NavLink to='/chutro/thongtin' className={(navData) => (navData.isActive ? "active" : '')}>Thông tin</NavLink></li>
+                                        <li><NavLink to='/chutro/quanlyphong' exact="true" className={(navData) => (navData.isActive ? "active" : '')}>Danh Sách Phòng Trọ</NavLink></li>
+                                        <li><NavLink to='/chutro/goidangdung' className={(navData) => (navData.isActive ? "active" : '')}>Gói Đăng Kí</NavLink></li>
+                                        <li><NavLink to='/chutro/thongbao' className={(navData) => (navData.isActive ? "active" : '')}>Thông Báo</NavLink></li>
+                                        <li><NavLink to='/chutro/tinnhan' className={(navData) => (navData.isActive ? "active" : '')}>Tin Nhắn</NavLink></li>
+                                        <li><NavLink to='/chutro/thongtin' className={(navData) => (navData.isActive ? "active" : '')}>Thông Tin</NavLink></li>
                                        
                                         <li><Link to="/chutro/dangxuat">Đăng xuất</Link></li>
                                     </ul>
