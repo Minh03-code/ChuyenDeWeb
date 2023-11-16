@@ -22,6 +22,7 @@ const EditBanner = () => {
     }
     getDataAPI();
   }, []);
+  
   console.log("check file:", file);
   const ChangeImage = (event) => {
     setCheckChooseFile(true);

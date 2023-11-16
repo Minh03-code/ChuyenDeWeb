@@ -15,4 +15,8 @@ const editBanner = (id, hinh) => {
   return myAxios.post(`api/banner/edit`, { id: id, hinh: hinh }, config);
 };
 
-export { getAllBannerApi, getBannerById, editBanner };
+const getDetailChuTro = (idTaiKhoan) => {
+  return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+};
+
+export { getAllBannerApi, getBannerById, editBanner, getDetailChuTro };
