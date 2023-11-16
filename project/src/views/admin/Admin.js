@@ -43,6 +43,7 @@ function Admin() {
 
           <main className="content">
             <Routes>
+            <Route path='*'  element={<QuanLyChuTro/>}></Route>
               <Route path="/quanlychutro" exact element={<QuanLyChuTro />}>
               </Route>
               <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
