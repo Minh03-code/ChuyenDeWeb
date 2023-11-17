@@ -1,9 +1,7 @@
 import React from 'react';
-import axios from 'axios';
-import './styleKiet.css';
-import { NavLink, useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import { editPhuongCallAPI,getEditPhuongCallAPI } from '../../services/admin/ThinhService';
+import { NavLink} from "react-router-dom";
+import { toast } from 'react-toastify';
+import { getDetailPhuongCallAPI, editPhuongCallAPI } from '../../services/admin/ThinhService';
 
 class EditPhuong extends React.Component {
     state = {
@@ -18,17 +16,17 @@ class EditPhuong extends React.Component {
         const kitu = params.get('id');
         console.log(kitu);
 
-        let resEditPhuong = await getEditPhuongCallAPI(kitu);
-        if (resEditPhuong != null) {
+        let resDetailService = await getDetailPhuongCallAPI(kitu);
+        if (resDetailService != null) {
             this.setState({
-                id: resEditPhuong.id,
-                tenPhuong: resEditPhuong.tenPhuong,
-                idQuan: resEditPhuong.idQuan,
-                trangThai: resEditPhuong.trangThai
+                id: resDetailService.id,
+                tenPhuong: resDetailService.tenPhuong,
+                idQuan: resDetailService.idQuan,
+                trangThai: resDetailService.trangThai
             })
         }
     }
-    thayDoiTen(e) {
+    thayDoiTenPhuong(e) {
         this.setState({
             tenPhuong: e.target.value
         })
@@ -38,7 +36,7 @@ class EditPhuong extends React.Component {
             idQuan: e.target.value
         })
     }
-   
+    
     kiemTraRong() {
         if (this.state.tenPhuong === "" || this.state.idQuan === "") {
             return false;
@@ -46,7 +44,7 @@ class EditPhuong extends React.Component {
         return true;
     }
     async capNhatPhuong() {
-        if (window.confirm("Xác nhận sửa dịch vụ số " + (this.state.id))) {
+        if (window.confirm("Xác nhận sửa phuong " + (this.state.id))) {
             if (this.kiemTraRong()) {
                 const search = window.location.search;
                 const params = new URLSearchParams(search);
@@ -78,7 +76,7 @@ class EditPhuong extends React.Component {
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">Sửa dịch vụ số {id}</h5>
+                                            <h5 className="card-title mb-0">Sửa Phuong co ID: {id}</h5>
                                         </div>
 
                                     </div>
@@ -87,22 +85,20 @@ class EditPhuong extends React.Component {
                                     <tbody>
 
                                         <div>
-                                            <label class="form-label">Tên phường mới</label>
-                                            <input type="text" class="form-control" Value={tenPhuong} onChange={(e) => this.thayDoiTen(e)}></input>
+                                            <label class="form-label">Ten Phuong</label>
+                                            <input type="text" class="form-control" Value={tenPhuong} onChange={(e) => this.thayDoiTenPhuong(e)}></input>
                                         </div>
                                         <div>
-                                            <label class="form-label">ID quận</label>
+                                            <label class="form-label">ID Quan</label>
                                             <input type="text" class="form-control" Value={idQuan} onChange={(e) => this.thayDoiIDQuan(e)}></input>
                                         </div>
-                                       
-
-
+                                        
                                         <div className="card-header">
                                             <div>
                                                 <div>
                                                     <h5 className="card-title mb-0">
                                                         <button className="btn btn-warning" onClick={() => this.capNhatPhuong()}>Sửa</button>
-                                                        <NavLink to={`/admin/listPhuong`} ><button className="btn btn-primary btn_margin_left">Trở lại dach sách</button></NavLink>
+                                                        <NavLink to={`/admin/quanlykhuvuc`} ><button className="btn btn-primary btn_margin_left">Trở lại dach sách Quan</button></NavLink>
                                                     </h5>
                                                 </div>
                                             </div>

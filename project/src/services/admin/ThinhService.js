@@ -18,15 +18,16 @@ const editQuan = (id, tenQuan, hinh, trangThai) => {
 const editQuankhonghinh = (id, tenQuan, trangThai) => {
   return myAxios.post(`api/capnhatquan`, { id, tenQuan: tenQuan, trangThai: trangThai }, config);
 }
-const getEditPhuongCallAPI = (id) => {
-  return myAxios.get(`api/phuong/layphuongtheoquan?id=${id}`);
+const getDetailPhuongCallAPI = (id) => {
+  return myAxios.get(`api/layphuongtheoid?id=${id}`);
 }
-const editPhuongCallAPI = (id, tenPhuong, idQuan) => {
+const editPhuongCallAPI = (id, tenPhuong, idQuan, trangThai) => {
   return myAxios.put(`api/capnhatphuong?id=${id}&tenPhuong=${tenPhuong}&idQuan=${idQuan}`)
 }
 
 
 
 
+
 // export { multiple };
-export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getEditPhuongCallAPI, editPhuongCallAPI};
+export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh,getDetailPhuongCallAPI, editPhuongCallAPI};
