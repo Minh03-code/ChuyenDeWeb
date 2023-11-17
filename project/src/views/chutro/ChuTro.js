@@ -12,6 +12,7 @@ import style2 from "../../styles/chutro/assets/css/templatemo-lugx-gaming.css";
 import style4 from "../../styles/chutro/assets/css/animate.css";
 // import style5 from "https://unpkg.com/swiper@7/swiper-bundle.min.css";
 import style6 from "../../styles/chutro/vendor/bootstrap/css/bootstrap.min.css";
+// import style7 from "../../styles/chutro/library/css/template.min.css";
 import Navigation from './Navigation.js';
 import NotFound from "../NotFound/NotFound.js";
 import QuanLyPhong from './QuanLyPhong';
@@ -20,6 +21,7 @@ import ThongBao from './ThongBao';
 import ThongTin from './ThongTin';
 import DangXuat from './DangXuat';
 import TinNhan from './TinNhan.js';
+
 function ChuTro() {
   console.log(sessionStorage.getItem('accountId'));
   return (
