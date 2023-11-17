@@ -23,6 +23,12 @@ const getChinhSach =(id)=>{
 const capNhatChinhSach=(id,noiDungChinhSach)=>{
     return myAxios.post(`api/capnhatchinhsach2`,{id:id,noiDungChinhSach:noiDungChinhSach})
 }
+const getProfileChuTro = (idTaiKhoan) =>{
+    return myAxios.get(`api/chutro/thongtinchitiet?idTaiKhoan=${idTaiKhoan}`);
+}
+const getListTinNhan = (idTaiKhoan)=>{
+    return myAxios.get(`api/danhsachtinnhantheoidtaikhoan?idTaiKhoan=${idTaiKhoan}`);
+}
 
 // export { multiple };
-export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach};
+export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach,getProfileChuTro,getListTinNhan};

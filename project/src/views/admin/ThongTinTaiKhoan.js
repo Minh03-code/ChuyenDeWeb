@@ -8,8 +8,7 @@ class ThongTinTaiKhoan extends React.Component {
         admin:{}
     }
     async componentDidMount(){
-        sessionStorage.setItem("idTaiKhoan",1);
-        let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
+        let idTaiKhoan = sessionStorage.getItem("accountId");
         let res = await getProfileAdmin(idTaiKhoan);
         if (res != null) {
             this.setState({

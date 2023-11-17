@@ -25,8 +25,6 @@ class QuanLyTienIch extends React.Component {
                                     <a href="" className="btn btn-primary">Thêm</a>
                                 </div>
                             </div>
-
-
                         </div>
                     </main>
                 </div>
