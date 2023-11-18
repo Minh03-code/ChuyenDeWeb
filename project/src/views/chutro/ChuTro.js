@@ -23,7 +23,6 @@ import DangXuat from './DangXuat';
 import TinNhan from './TinNhan.js';
 
 function ChuTro() {
-  console.log(sessionStorage.getItem('accountId'));
   return (
     sessionStorage.getItem('accountType') == 1 ?
       <>

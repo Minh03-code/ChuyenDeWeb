@@ -28,12 +28,12 @@ class TinNhan extends React.Component {
         let isObject = Object.keys(chuTro).length === 0
         return (
                 <>
-                <div class="page-heading header-text">
-                        <div class="container">
-                            <div class="row">
-                            <div class="col-lg-12">
+                <div className="page-heading header-text">
+                        <div className="container">
+                            <div className="row">
+                            <div className="col-lg-12">
                                 <h3>Tin Nhắn</h3>
-                                <span class=""><a href="#">Chủ Trọ: </a>{isObject===false?chuTro.ten:"Chưa Có Dữ Liệu"} </span>
+                                <span className=""><a href="#">Chủ Trọ: </a>{isObject===false?chuTro.ten:"Chưa Có Dữ Liệu"} </span>
                             </div>
                             </div>
                         </div>
@@ -72,7 +72,6 @@ class TinNhan extends React.Component {
                                                             </div>
                                                         </div>
                                                     </div>
-
                                             )
                                         })
 
@@ -103,18 +102,58 @@ class TinNhan extends React.Component {
                                    <div className='col-8 hien_thi_tin_nhan'>
                                         <div className='tieu_de_ten_nguoi_nhan'>
                                         <div className='img_doi_phuong'>
-                                                <img className='src_avt_doi_phuong' src={baseURL+chuTro.hinh}/>
+                                                <img className='src_avt_doi_phuong' src={isObject===false?baseURL+chuTro.hinh:""}/>
                                         </div>
                                         <div className='ten_doi_phuong'>
                                                 {chuTro.ten}
                                         </div>
                                         </div>
+                                        <div className='vung_hien_thi_tin_nhan'>
+                                            <div className='card_view_send'>
+                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_receive'>
+                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_send'>
+                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_receive'>
+                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_send'>
+                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_receive'>
+                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_send'>
+                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_receive'>
+                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_send'>
+                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            <div className='card_view_receive'>
+                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
+                                            </div>
+                                            
+                                           
+                                        </div>
+
+
+
+
+
+
                                         <div className='vung_gui_tin_nhan'>
                                             <textarea type="text" className='input_tin_nhan' rows={1} placeholder='Nhập tin nhắn...'/>
 
                                             <button className='btn_send'>
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
                                             </svg>
                                             </button>
