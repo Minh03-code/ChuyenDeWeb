@@ -18,6 +18,7 @@ import QuanLyBanner from './QuanLyBanner.js';
 import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
+import SuaTienIch from './SuaTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
 import EditPasswordAdmin from './EditPasswordAdmin.js';
 import EditProfileAdmin from './EditProfileAdmin.js';
@@ -52,6 +53,8 @@ function Admin() {
               </Route>
               <Route path="/ThemTienIch" element={<ThemTienIch />}>
               </Route>
+              <Route path="/SuaTienIch" element={<SuaTienIch />}>
+              </Route>
 
               <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
               </Route>
@@ -67,6 +70,7 @@ function Admin() {
               </Route>
               <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
               </Route>
+
               <Route path="/editpassword" element={<EditPasswordAdmin />}>
               </Route>
               <Route path="/editprofileadmin" element={<EditProfileAdmin />}>
