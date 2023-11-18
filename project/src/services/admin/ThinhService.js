@@ -9,9 +9,9 @@ const config = {
 const addnewQuan = (tenQuan, hinh) => {
   return myAxios.post(`api/themquan`, { tenQuan: tenQuan, hinh: hinh }, config);
 }
-const getThongBaoDetailByIdAPI = (id) => {
+const getDetailThongBaoCallAPI = (id) => {
   return myAxios.get(`api/thongbao/chitiet?id=${id}`)
 }
 
 // export { multiple };
-export { getAllKhuVucApi, addnewQuan, getThongBaoDetailByIdAPI };
+export { getAllKhuVucApi, addnewQuan, getDetailThongBaoCallAPI };

@@ -2,25 +2,34 @@ import React from 'react';
 import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
-import chitietanh from "../../images/avt1.jpg"
-import { getThongBaoDetailByIdAPI } from '../../services/admin/ThinhService'
+import {getDetailThongBaoCallAPI} from '../../services/admin/ThinhService';
+
 
 class ThongBaoDetail extends React.Component {
     state = {
-        listThongBaoDetailById: []
+        id: "",
+        noiDung: "",
+        trangThai: ""
     }
-    hideLoader = () => console.log(1);;
     async componentDidMount() {
-        let res = await getThongBaoDetailByIdAPI(4);
-        if (res != null) {
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const kitu = params.get('id');
+        console.log(kitu);
+
+        let resDetailThongBao = await getDetailThongBaoCallAPI(kitu);
+        if (resDetailThongBao != null) {
             this.setState({
-                listThongBaoById: res
+                id: resDetailThongBao.id,
+                noiDung: resDetailThongBao.noiDung,
+                trangThai: resDetailThongBao.trangThai
             })
         }
+        console.log(resDetailThongBao);
     }
-
+   
     render() {
-        let { listThongBaoDetailById } = this.state
+        let { id, noiDung, trangThai } = this.state
         return (
             <>
                 <div class="page-heading header-text">
@@ -37,38 +46,16 @@ class ThongBaoDetail extends React.Component {
                     <div class="container">
                         <div class="row trending-box">
                             {
-                                listThongBaoDetailById.length == 0 ? <div className='null'>rỗng</div> :
-                                    <div>
-                                        {listThongBaoDetailById && listThongBaoDetailById.length > 0 && listThongBaoDetailById.map((item, index) => {
-                                            return (
-
-                                                <div class="single-product section">
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="left-image">
-                                                                    <img src={chitietanh} alt="" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 align-self-center">
-
-                                                                <div class="down-content">
-                                                                    <h3>Nội dung</h3>
-                                                                    <span class="category">{item.noiDung}</span>
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <div class="sep"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            )
-                                        })
-                                        }
+                                <div class="col-lg-12 col-md-6 align-self-center mb-30 trending-items col-md-6">
+                                <div class="item">
+                                    <div class="down-content">
+                                        <h3>Nội dung</h3>
+                                        <span class="category">{noiDung}</span>
+                                        {/* <span class="category">{nguoiGui.ten}</span> */}
+                                       
                                     </div>
+                                </div>
+                            </div>
                             }
                             {/* <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 str">
                                 <div class="item">

@@ -34,7 +34,7 @@ function ChuTro() {
           </Route>
           <Route path='/goidangdung' element={<GoiDangDung />}></Route>
           <Route path='/thongbao' element={<ThongBao />}></Route>
-          <Route path='/thongbaodetail/:id  ' element={<ThongBaoDetail />}></Route>
+          <Route path='/thongbaodetail' element={<ThongBaoDetail />}></Route>
           <Route path='/thongtin' element={<ThongTin />}></Route>
           <Route path='/tinnhan' element={<TinNhan />}></Route>
           <Route path='/dangxuat' element={<DangXuat />}></Route>
