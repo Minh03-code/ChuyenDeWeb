@@ -20,6 +20,7 @@ import ThongBao from './ThongBao';
 import ThongTin from './ThongTin';
 import DangXuat from './DangXuat';
 import TinNhan from './TinNhan.js';
+import ThongBaoDetail from './ThongBaoDetail.js';
 function ChuTro() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -27,23 +28,24 @@ function ChuTro() {
       <>
         <Navigation />
         <Routes>
-          <Route path='*'  element={<QuanLyPhong/>}></Route>
-          <Route path='/quanlyphong'  element={<QuanLyPhong/>}>
-            
+          <Route path='*' element={<QuanLyPhong />}></Route>
+          <Route path='/quanlyphong' element={<QuanLyPhong />}>
+
           </Route>
-          <Route path='/goidangdung' element={<GoiDangDung/>}></Route>
-          <Route path='/thongbao' element={<ThongBao/>}></Route>
-          <Route path='/thongtin' element={ <ThongTin/>}></Route>
-          <Route path='/tinnhan' element={ <TinNhan/>}></Route>
-          <Route path='/dangxuat' element={<DangXuat/>}></Route>
+          <Route path='/goidangdung' element={<GoiDangDung />}></Route>
+          <Route path='/thongbao' element={<ThongBao />}></Route>
+          <Route path='/thongbaodetail/:id  ' element={<ThongBaoDetail />}></Route>
+          <Route path='/thongtin' element={<ThongTin />}></Route>
+          <Route path='/tinnhan' element={<TinNhan />}></Route>
+          <Route path='/dangxuat' element={<DangXuat />}></Route>
         </Routes>
         <footer>
-    <div className="container">
-      <div className="col-lg-12">
-        <p>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo</a></p>
-      </div>
-    </div>
-  </footer>
+          <div className="container">
+            <div className="col-lg-12">
+              <p>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo</a></p>
+            </div>
+          </div>
+        </footer>
       </>
       : <NotFound />
   );
