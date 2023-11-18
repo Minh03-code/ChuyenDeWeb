@@ -40,6 +40,7 @@ class EditQuan extends React.Component {
     }
     async kiemTraRong() {
         if (this.state.tenQuan !== "") {
+            //let res = await editQuankhonghinh(this.state.id, this.state.tenQuan, this.state.trangThai);
             if (this.state.hinh !== "") {
                 let res = await editQuan(this.state.id, this.state.tenQuan, this.state.hinh, this.state.trangThai);
                 if (res != null) {

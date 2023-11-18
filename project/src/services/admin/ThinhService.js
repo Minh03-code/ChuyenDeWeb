@@ -16,7 +16,7 @@ const editQuan = (id, tenQuan, hinh, trangThai) => {
   return myAxios.post(`api/capnhatquan`, { id, tenQuan: tenQuan, hinh: hinh, trangThai: trangThai }, config);
 }
 const editQuankhonghinh = (id, tenQuan, trangThai) => {
-  return myAxios.post(`api/capnhatquan`, { id, tenQuan: tenQuan, trangThai: trangThai }, config);
+  return myAxios.post(`api/capnhatquan`, { id, tenQuan: tenQuan, trangThai: trangThai });
 }
 const getDetailPhuongCallAPI = (id) => {
   return myAxios.get(`api/layphuongtheoid?id=${id}`);
@@ -30,4 +30,4 @@ const editPhuongCallAPI = (id, tenPhuong, idQuan, trangThai) => {
 
 
 // export { multiple };
-export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh,getDetailPhuongCallAPI, editPhuongCallAPI};
+export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI, editPhuongCallAPI };
