@@ -17,7 +17,7 @@ class EditProfileAdmin extends React.Component {
     }
     async componentDidMount(){
        
-        let idTaiKhoanSession = sessionStorage.getItem("idTaiKhoan");
+        let idTaiKhoanSession = sessionStorage.getItem("accountId");
         let res = await getProfileAdmin(idTaiKhoanSession);
         if (res != null) {
             this.setState({

@@ -4,7 +4,8 @@ import { baseURL } from '../../services/my-axios.js';
 class TinNhan extends React.Component {
     state={
         listNguoiNhanTin:[],
-        chuTro:{}
+        chuTro:{},
+        doiTuongChat:{}
     }
     async componentDidMount(){
         let idTaiKhoan = sessionStorage.getItem("accountId");
@@ -22,9 +23,12 @@ class TinNhan extends React.Component {
             })
         }
     }
+    openChat(doiTuong){
+        // this
+    }
 
     render() {
-        let{listNguoiNhanTin,chuTro} = this.state;
+        let{listNguoiNhanTin,chuTro,doiTuongChat} = this.state;
         let isObject = Object.keys(chuTro).length === 0
         return (
                 <>
@@ -53,7 +57,7 @@ class TinNhan extends React.Component {
                                         listNguoiNhanTin && listNguoiNhanTin.length>0&& listNguoiNhanTin.map((item,index)=>{
 
                                             return(
-                                                <div className="card_nhan_tin" key={index}>
+                                                <div className="card_nhan_tin" key={index} onClick={item.chuTro===null?()=>this.openChat(item.nguoiThue):()=>this.openChat(item.chuTro)}>
                                     
                                                         <div className='img_card_nhan_tin col-md-3'>
                                                             <img className='img_avt_nhan_tin' src={ item.chuTro===null?baseURL+item.nguoiThue.hinh:baseURL+item.chuTro.hinh}/>

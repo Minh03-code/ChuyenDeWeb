@@ -12,7 +12,7 @@ class ChinhSach extends React.Component {
         text:""
     }
     async componentDidMount(){
-        let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
+        let idTaiKhoan = sessionStorage.getItem("accountId");
         let res = await getProfileAdmin(idTaiKhoan);
         if (res != null) {
             this.setState({
