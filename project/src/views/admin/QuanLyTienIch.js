@@ -50,7 +50,7 @@ class QuanLyTienIch extends React.Component {
                                             <h5 className="card-title mb-0">Quản lý tiện ích</h5>
                                         </div>
                                         <div className="col-md-9">
-                                            <a href="/ThemTienIch" className="btn btn-primary">Thêm</a>
+                                            <a href="/admin/ThemTienIch" className="btn btn-primary">Thêm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +76,8 @@ class QuanLyTienIch extends React.Component {
                                                         height="100px"
                                                     /></td>
                                                     <td className="d-none d-md-table-cell">
-                                                        <NavLink to={`/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
-                                                        {(item.trangThai === 0) ? <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-success">Mo</a>}
+                                                        <NavLink to={`/admin/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
+                                                        {(item.trangThai === 0) ? <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-success">Mở</a>}
                                                     </td>
                                                 </tr>
                                             )
