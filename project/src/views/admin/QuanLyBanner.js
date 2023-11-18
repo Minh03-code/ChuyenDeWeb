@@ -8,17 +8,30 @@ import { Link } from "react-router-dom";
 import AppUpLoad from "./upload";
 import "./stylePhuc.css";
 import { Button } from "bootstrap";
+import { addBanner } from "../../services/admin/PhucService";
+import { toast } from "react-toastify";
 class QuanLyBanner extends React.Component {
   state = {
     listAllBanner: [],
   };
-  async componentDidMount() {
+
+  async loadData() {
     let res = await getAllBannerApi();
     if (res != null) {
       this.setState({
         listAllBanner: res,
       });
     }
+  }
+
+  async componentDidMount() {
+    await this.loadData();
+  }
+
+  async onClickDeleteBanner(id, item) {
+    let res = await deleteBanner(id);
+    toast.success("Xóa banner thành công");
+    await this.loadData();
   }
 
   render() {
@@ -63,12 +76,11 @@ class QuanLyBanner extends React.Component {
                         return (
                           <tr>
                             <td>#{item.id}</td>
-                            <td className="hinh-banner">
+                            <td>
                               <img
+                                className="hinh-banner"
                                 src={baseURL + item.hinhBanner}
                                 alt={baseURL + item.hinhBanner}
-                                width="100px"
-                                height="100px"
                               />
                             </td>
 
@@ -79,6 +91,15 @@ class QuanLyBanner extends React.Component {
                               >
                                 Chỉnh sửa
                               </Link>
+
+                              <button
+                                className="btn btn-danger"
+                                onClick={() =>
+                                  this.onClickDeleteBanner(item.id, item)
+                                }
+                              >
+                                Xóa
+                              </button>
                             </td>
                           </tr>
                         );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import avt from "../../images/avt1.jpg";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { baseURL } from "../../services/my-axios";
 import {
   getAllBannerApi,
@@ -64,10 +64,14 @@ const ThongTin = () => {
                   <b>Số Tài Khoản Ngân Hàng:</b> {result.tenChuTaiKhoanNganHang}
                 </div>
 
-                <button className="btn btn-primary bbt">Chỉnh Sửa</button>
+                <Link
+                  className="btn btn-primary bbt"
+                  to={`/chutro/editthongtinchutro/${result.id}`}
+                >
+                  Chỉnh Sửa
+                </Link>
                 <button className="btn btn-warning bbt">Đổi Mật Khẩu</button>
                 <button className="btn btn-success bbt">Xác Thực</button>
-                <button className="btn btn-danger bbt">Đăng Xuất</button>
               </div>
             </div>
             <div class="col-lg-12">

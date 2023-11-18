@@ -79,6 +79,7 @@ const EditBanner = () => {
                   <tr>
                     <td className="d-none d-xl-table-cell">
                       <img
+                        className="hinh-banner"
                         src={baseURL + result.hinhBanner}
                         alt=""
                         width="100px"
