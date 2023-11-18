@@ -1,9 +1,10 @@
 import React from 'react';
-import { getProfileChuTro,getListTinNhan } from '../../services/admin/NghiemService';
+import { getProfileChuTro,getListTinNhan ,getListNoiDungTinNhan} from '../../services/admin/NghiemService';
 import { baseURL } from '../../services/my-axios.js';
 class TinNhan extends React.Component {
     state={
         listNguoiNhanTin:[],
+        listTinNhan:[],
         chuTro:{},
         doiTuongChat:{}
     }
@@ -23,13 +24,27 @@ class TinNhan extends React.Component {
             })
         }
     }
-    openChat(doiTuong){
-        // this
+
+    async openDoanChat(idPhong){
+        let res = await getListNoiDungTinNhan(idPhong);
+        if(res!=null){
+            this.setState({
+                listTinNhan:res
+            })
+        }
+    }
+    async openChat(doiTuong,idPhong){
+        this.setState({
+            doiTuongChat:doiTuong
+        })
+         this.openDoanChat(idPhong)
     }
 
     render() {
-        let{listNguoiNhanTin,chuTro,doiTuongChat} = this.state;
+        let{listNguoiNhanTin,listTinNhan,chuTro,doiTuongChat
+        } = this.state;
         let isObject = Object.keys(chuTro).length === 0
+        let isObject1 = Object.keys(doiTuongChat).length === 0
         return (
                 <>
                 <div className="page-heading header-text">
@@ -37,7 +52,7 @@ class TinNhan extends React.Component {
                             <div className="row">
                             <div className="col-lg-12">
                                 <h3>Tin Nhắn</h3>
-                                <span className=""><a href="#">Chủ Trọ: </a>{isObject===false?chuTro.ten:"Chưa Có Dữ Liệu"} </span>
+                                <span className="cl"><a href="#">Chủ Trọ: </a>{isObject===false?chuTro.ten:"Chưa Có Dữ Liệu"} </span>
                             </div>
                             </div>
                         </div>
@@ -46,7 +61,7 @@ class TinNhan extends React.Component {
                             <div className="row man_hinh_nhan_tin">
 
                                     {
-                                        listNguoiNhanTin.length!=0?
+                                        listNguoiNhanTin.length!==0?
                                         <>
                                         <div className='col-4 list_nguoi_nhan_tin'>
                                     <div className='tieude_tinNhan'>
@@ -57,10 +72,10 @@ class TinNhan extends React.Component {
                                         listNguoiNhanTin && listNguoiNhanTin.length>0&& listNguoiNhanTin.map((item,index)=>{
 
                                             return(
-                                                <div className="card_nhan_tin" key={index} onClick={item.chuTro===null?()=>this.openChat(item.nguoiThue):()=>this.openChat(item.chuTro)}>
+                                                <div className="card_nhan_tin" key={index} onClick={item.chuTro===null?()=>this.openChat(item.nguoiThue,item.id):()=>this.openChat(item.chuTro,item.id)}>
                                     
                                                         <div className='img_card_nhan_tin col-md-3'>
-                                                            <img className='img_avt_nhan_tin' src={ item.chuTro===null?baseURL+item.nguoiThue.hinh:baseURL+item.chuTro.hinh}/>
+                                                            <img className='img_avt_nhan_tin' src={ item.chuTro===null?baseURL+item.nguoiThue.hinh:baseURL+item.chuTro.hinh} alt={item.chuTro===null?"Chưa Có Dữ Liệu":baseURL+item.chuTro.hinh}/>
                                                         </div>
                                                         <div className='content_card_nhan_tin col-md-9'>
                                                             <div className='content_top_nhan_tin'>
@@ -106,52 +121,50 @@ class TinNhan extends React.Component {
                                    <div className='col-8 hien_thi_tin_nhan'>
                                         <div className='tieu_de_ten_nguoi_nhan'>
                                         <div className='img_doi_phuong'>
-                                                <img className='src_avt_doi_phuong' src={isObject===false?baseURL+chuTro.hinh:""}/>
+                                                <img className='src_avt_doi_phuong' src={isObject===false?baseURL+doiTuongChat.hinh:"Chưa Có Dữ Liệu"} alt={isObject===false?baseURL+doiTuongChat.hinh:"Chưa Có Dữ Liệu"}/>
                                         </div>
                                         <div className='ten_doi_phuong'>
-                                                {chuTro.ten}
+                                        {isObject1===false?doiTuongChat.ten:"Chưa Có Dữ Liệu"}
                                         </div>
                                         </div>
                                         <div className='vung_hien_thi_tin_nhan'>
-                                            <div className='card_view_send'>
-                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_receive'>
-                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_send'>
-                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_receive'>
-                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_send'>
-                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_receive'>
-                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_send'>
-                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_receive'>
-                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_send'>
-                                                <div className='card_view_item_send'>Hello Bạn Trẻ</div>
-                                            </div>
-                                            <div className='card_view_receive'>
-                                                <div className='card_view_item_receive'>Hello Bạn Trẻ</div>
-                                            </div>
+                                            {
+                                                listTinNhan.length>0?<>
+                                                {
+                                                    listTinNhan&&listTinNhan.length>0&&
+                                                    listTinNhan.map((item,index)=>{
+                                                        return(
+                                                            item.idTaiKhoan === chuTro.idTaiKhoan ? <div className='card_view_send' key={index}>
+                                                            <div className='card_view_item_send'>{item.noiDung}</div>
+                                                            </div>:
+                                                            <div className='card_view_receive' key={index}>
+                                                            <div className='card_view_item_receive'>{item.noiDung}</div>
+                                                             </div>
+                                                        )
+                                                    })
+                                                    //     return(
+                                                    //         item.idTaiKhoan!=chuTro.idTaiKhoan? 
+                                                    //         
+                                                    //         :
+                                                            
+
+                                                    //     )
+                                                    // })
+                                                   
+                                                }
+                                                
+                                                
+                                                </>:"Rỗng"
+
+                                            }
+
+
                                             
                                            
+                                            
+
+
                                         </div>
-
-
-
-
-
-
                                         <div className='vung_gui_tin_nhan'>
                                             <textarea type="text" className='input_tin_nhan' rows={1} placeholder='Nhập tin nhắn...'/>
 

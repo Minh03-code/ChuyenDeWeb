@@ -125,6 +125,10 @@
     -ms-overflow-style: none;
 
 }
+
+.card_nhan_tin:hover{
+    cursor: pointer;
+}
 .card_nhan_tin{
     margin-top: 15px;
     background: #fff;

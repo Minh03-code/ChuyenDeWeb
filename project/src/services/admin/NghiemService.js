@@ -29,6 +29,9 @@ const getProfileChuTro = (idTaiKhoan) =>{
 const getListTinNhan = (idTaiKhoan)=>{
     return myAxios.get(`api/danhsachtinnhantheoidtaikhoan?idTaiKhoan=${idTaiKhoan}`);
 }
+const getListNoiDungTinNhan = (idPhong)=>{
+    return myAxios.get(`api/danhsachtinnhan?idPhong=${idPhong}`);
+}
 
 // export { multiple };
-export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach,getProfileChuTro,getListTinNhan};
+export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach,getProfileChuTro,getListTinNhan,getListNoiDungTinNhan};
