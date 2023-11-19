@@ -69,12 +69,10 @@ class EditProfileAdmin extends React.Component {
             if(this.state.soDienThoai!==""){
                 if(this.state.soTaiKhoanNganHang!==""){
                     if(this.state.tenChuTaiKhoanNganHang!==""){
-                        if(this.capNhat()){
-                            toast.success("Cập Nhật Thông Tin Thành Công!");
-                        }
-                        else{
-                            toast.error("Cập Nhật Thất Bại!");
-                        }
+                      this.capNhat()
+                           
+                        
+                       
                     }else{
                         toast.warning("Không Được Bỏ Trống Tên Chủ Tài Khoản Ngân Hàng!");
                     }
@@ -95,21 +93,23 @@ class EditProfileAdmin extends React.Component {
    
     async capNhat(){
         console.log(this.state.hinh);
-        let isObject = Object.keys(this.state.hinh).length === 0;
-        if(isObject!==null){
+        // let isObject = Object.keys(this.state.hinh).length === 0;
+        if(this.state.hinh!=null){
             let res = await updateProfileAdmin1(this.state.idTaiKhoan,this.state.ten,this.state.soDienThoai,this.state.soTaiKhoanNganHang,this.state.tenChuTaiKhoanNganHang,this.state.hinh);
             if (res != null) {
-                console.log(this.state.hinh)
-                return true;
+                toast.success("Cập Nhật Thông Tin Thành Công!");
+            }else{
+                toast.error("Cập Nhật Thất Bại!");
             }
         }else{
             let res = await updateProfileAdmin2(this.state.idTaiKhoan,this.state.ten,this.state.soDienThoai,this.state.soTaiKhoanNganHang,this.state.tenChuTaiKhoanNganHang);
             if (res != null) {
-                console.log("2 "+res)
-                return true;
+                toast.success("Cập Nhật Thông Tin Thành Công!");
+            }else{
+                toast.error("Cập Nhật Thất Bại!");
             }
         }
-        return false;
+       
     }
     render() {
         let {admin, ten, hinh, soDienThoai,soTaiKhoanNganHang,tenChuTaiKhoanNganHang} = this.state;
