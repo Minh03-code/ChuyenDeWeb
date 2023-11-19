@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import avt from "../../images/avt1.jpg";
 import { getDetailThongBaoCallAPI } from '../../services/admin/ThinhService';
 
@@ -30,10 +31,8 @@ class ThongBaoDetail extends React.Component {
         }
         console.log(resDetailThongBao);
     }
-    state = {
-        listThongBaoById: []
-    }
-
+    
+    
 
     render() {
         let { id, ten, noiDung, trangThai } = this.state
@@ -60,7 +59,7 @@ class ThongBaoDetail extends React.Component {
                             </div>
                             <div class="col-lg-6 align-self-center">
                                 <div className='thongtinthongbao'>
-                                    <h2 className='ten'>Tên: {ten}</h2>
+                                    <h2 className='ten'>Tên:{ten}</h2>
                                     <div className='chutro_info'><b>Nội dung: </b> {noiDung}</div>
                                 </div>
                             </div>
