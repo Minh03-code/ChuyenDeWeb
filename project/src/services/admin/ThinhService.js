@@ -13,5 +13,6 @@ const getDetailThongBaoCallAPI = (id) => {
   return myAxios.get(`api/thongbao/chitiet?id=${id}`)
 }
 
+
 // export { multiple };
 export { getAllKhuVucApi, addnewQuan, getDetailThongBaoCallAPI };
