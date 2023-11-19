@@ -8,9 +8,18 @@ class TinNhan extends React.Component {
         chuTro:{},
         doiTuongChat:{}
     }
+    cuon() {
+        let vung_hien_thi_tin_nhan = document.querySelector(".vung_hien_thi_tin_nhan");
+        vung_hien_thi_tin_nhan.scrollTop= Number.MAX_SAFE_INTEGER;
+    }
+
+    componentDidUpdate(){
+        if(this.state.listTinNhan.length!=0){
+            this.cuon()
+        }
+    }
     async componentDidMount(){
         let idTaiKhoan = sessionStorage.getItem("accountId");
-        
          let res = await getProfileChuTro(idTaiKhoan);
         if(res!=null){
             this.setState({
@@ -121,13 +130,15 @@ class TinNhan extends React.Component {
                                    <div className='col-8 hien_thi_tin_nhan'>
                                         <div className='tieu_de_ten_nguoi_nhan'>
                                         <div className='img_doi_phuong'>
-                                                <img className='src_avt_doi_phuong' src={isObject===false?baseURL+doiTuongChat.hinh:"Chưa Có Dữ Liệu"} alt={isObject===false?baseURL+doiTuongChat.hinh:"Chưa Có Dữ Liệu"}/>
+                                                <img className='src_avt_doi_phuong' src={isObject1===false?baseURL+doiTuongChat.hinh:"Chưa Có Dữ Liệu"} alt={isObject1===false?baseURL+doiTuongChat.hinh:"Chưa Có Dữ Liệu"}/>
                                         </div>
                                         <div className='ten_doi_phuong'>
                                         {isObject1===false?doiTuongChat.ten:"Chưa Có Dữ Liệu"}
                                         </div>
                                         </div>
                                         <div className='vung_hien_thi_tin_nhan'>
+                                            <div className='vung_hien_thi_tin_nhan_child'>
+
                                             {
                                                 listTinNhan.length>0?<>
                                                 {
@@ -142,6 +153,7 @@ class TinNhan extends React.Component {
                                                              </div>
                                                         )
                                                     })
+                                                    
                                                     //     return(
                                                     //         item.idTaiKhoan!=chuTro.idTaiKhoan? 
                                                     //         
@@ -154,21 +166,15 @@ class TinNhan extends React.Component {
                                                 }
                                                 
                                                 
-                                                </>:"Rỗng"
+                                                </>:<div>Chưa có tin nhắn!</div>
 
                                             }
-
-
-                                            
-                                           
-                                            
-
-
+                                            </div>
                                         </div>
                                         <div className='vung_gui_tin_nhan'>
                                             <textarea type="text" className='input_tin_nhan' rows={1} placeholder='Nhập tin nhắn...'/>
 
-                                            <button className='btn_send'>
+                                            <button className='btn_send' onClick={()=>this.cuon()}>
 
                                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>

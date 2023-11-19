@@ -16,13 +16,16 @@ class EditProfileAdmin extends React.Component {
         tenChuTaiKhoanNganHang:""
     }
     async componentDidMount(){
-       
         let idTaiKhoanSession = sessionStorage.getItem("accountId");
         let res = await getProfileAdmin(idTaiKhoanSession);
         if (res != null) {
             this.setState({
                 admin: res,
-                idTaiKhoan:idTaiKhoanSession
+                idTaiKhoan:idTaiKhoanSession,
+                ten:res.ten,
+                soDienThoai:res.soDienThoai,
+                soTaiKhoanNganHang:res.soTaiKhoanNganHang,
+                tenChuTaiKhoanNganHang:res.tenChuTaiKhoan
             })
         }
     }
@@ -91,8 +94,8 @@ class EditProfileAdmin extends React.Component {
    
    
     async capNhat(){
+        console.log(this.state.hinh);
         let isObject = Object.keys(this.state.hinh).length === 0;
-       
         if(isObject!==null){
             let res = await updateProfileAdmin1(this.state.idTaiKhoan,this.state.ten,this.state.soDienThoai,this.state.soTaiKhoanNganHang,this.state.tenChuTaiKhoanNganHang,this.state.hinh);
             if (res != null) {
