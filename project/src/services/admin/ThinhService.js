@@ -12,7 +12,10 @@ const addnewQuan = (tenQuan, hinh) => {
 const getDetailThongBaoCallAPI = (id) => {
   return myAxios.get(`api/thongbao/chitiet?id=${id}`)
 }
+const getNguoiGui = (idTaiKhoan) => {
+  return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+}
 
 
 // export { multiple };
-export { getAllKhuVucApi, addnewQuan, getDetailThongBaoCallAPI };
+export { getAllKhuVucApi, addnewQuan, getDetailThongBaoCallAPI, getNguoiGui };
