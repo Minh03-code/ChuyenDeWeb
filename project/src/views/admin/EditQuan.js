@@ -45,7 +45,7 @@ class EditQuan extends React.Component {
                 let res = await editQuan(this.state.id, this.state.tenQuan, this.state.hinh, this.state.trangThai);
                 if (res != null) {
                     toast.success("Sua quận Thành Công!");
-                    window.location.reload()
+                    
                 }
                 else {
                     toast.error("Sua quận Thất Bại!");
