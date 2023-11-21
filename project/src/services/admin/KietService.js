@@ -27,11 +27,14 @@ const getDetailMotelRoomOwnerCallAPI = (idTaiKhoan) => {
 const capNhatTrangThaiMotelRoomOwnerCallAPI = (id) => {
     return myAxios.patch(`api/capnhattrangthai?id=${id}`)
 }
-const getListThongBaoByIdAPI = (idChuTro) => {
+const getListThongBaoByIdCallAPI = (idChuTro) => {
     return myAxios.get(`api/thongbao/all?idTaiKhoanNhan=${idChuTro}`)
 }
-const getListNguoiThueTheoIdPhong = (idPhong) => {
+const getListNguoiThueTheoIdPhongCallAPI = (idPhong) => {
     return myAxios.get(`api/phongnguoithue/all?idPhong=${idPhong}`)
 }
+const getChiTietnguoiThueCallAPI = (id) => {
+    return myAxios.get(`api/nguoithue/chitiet?id=${id}`)
+}
 // export { multiple };
-export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI, editServiceCallAPI, addServiceCallAPI, getDetailMotelRoomOwnerCallAPI, capNhatTrangThaiMotelRoomOwnerCallAPI, getListThongBaoByIdAPI, getListNguoiThueTheoIdPhong };
+export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI, editServiceCallAPI, addServiceCallAPI, getDetailMotelRoomOwnerCallAPI, capNhatTrangThaiMotelRoomOwnerCallAPI, getListThongBaoByIdCallAPI, getListNguoiThueTheoIdPhongCallAPI, getChiTietnguoiThueCallAPI };

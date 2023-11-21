@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
-import { getListNguoiThueTheoIdPhong } from '../../services/admin/KietService'
+import { getListNguoiThueTheoIdPhongCallAPI } from '../../services/admin/KietService'
 
 class DanhSachNguoiThueTro extends React.Component {
     state = {
@@ -11,7 +11,7 @@ class DanhSachNguoiThueTro extends React.Component {
     }
     hideLoader = () => console.log(1);;
     async componentDidMount() {
-        let res = await getListNguoiThueTheoIdPhong(2);
+        let res = await getListNguoiThueTheoIdPhongCallAPI(2);
         if (res != null) {
             this.setState({
                 listNguoiThue: res,
@@ -66,7 +66,7 @@ class DanhSachNguoiThueTro extends React.Component {
                                                                     {item.nguoiThue.gioiTinh == 1 ? <div>Nam</div> : <div>Nữ</div>}
                                                                 </td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <NavLink to={`/chutro/chiTietNguoiThue?idTaiKhoan=${item.nguoiThue.id}`} className="btn btn-primary">Xem thông tin</NavLink>
+                                                                    <NavLink to={`/chutro/chitietnguoithue?id=${item.nguoiThue.id}`} className="btn btn-primary">Xem thông tin</NavLink>
                                                                 </td>
                                                             </tr>
                                                         )
