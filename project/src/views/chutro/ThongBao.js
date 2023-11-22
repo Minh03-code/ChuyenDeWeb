@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
-import { getListThongBaoByIdAPI } from '../../services/admin/KietService'
+import { getListThongBaoByIdCallAPI } from '../../services/admin/KietService'
 
 class ThongBao extends React.Component {
     state = {
@@ -10,7 +10,7 @@ class ThongBao extends React.Component {
     }
     hideLoader = () => console.log(1);;
     async componentDidMount() {
-        let res = await getListThongBaoByIdAPI(2);
+        let res = await getListThongBaoByIdCallAPI(2);
         if (res != null) {
             this.setState({
                 listThongBaoById: res
