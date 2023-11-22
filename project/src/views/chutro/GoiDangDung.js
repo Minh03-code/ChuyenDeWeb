@@ -1,7 +1,23 @@
 import React from 'react';
-import chitietanh from "../../images/avt1.jpg"
+import { baseURL } from "../../services/my-axios";
+import { getAllGoiDangKyCallAPI } from '../../services/admin/ThinhService';
+
 class GoiDangDung extends React.Component {
+  state = {
+    listGoiDangKy: []
+  }
+  hideLoader = () => console.log(1);;
+  async componentDidMount() {
+    let res = await getAllGoiDangKyCallAPI();
+    if (res != null) {
+      this.setState({
+        listGoiDangKy: res
+      })
+    }
+    console.log(res);
+  }
   render() {
+    let { listGoiDangKy } = this.state
     return (
       <>
         <div class="page-heading header-text">
@@ -16,37 +32,57 @@ class GoiDangDung extends React.Component {
         </div>
         <div class="single-product section">
           <div class="container">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="left-image">
-                  <img src={chitietanh} alt="" />
-                </div>
-              </div>
-              <div class="col-lg-6 align-self-center">
-                <h4>Gói Cho Thuê 10 Phòng 1 Tháng</h4>
+            <div class="col-lg-6 align-self-center">
+              {
+                listGoiDangKy.length == 0 ? <div className='null'>rỗng</div> :
+                  <table className="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th className="d-none d-xl-table-cell">Số lượng phòng tối đa</th>
+                        <th className="d-none d-xl-table-cell">Thời hạn thuê</th>
+                        <th className="d-none d-xl-table-cell">Giá thuê</th>
+                        <th className="d-none d-xl-table-cell">Hình</th>
+                        <th className="d-none d-xl-table-cell">Tên chủ trọ</th>
+                        <th className="d-none d-xl-table-cell">Số điện thoại</th>
+                        <th className="d-none d-xl-table-cell">Số tài khoản</th>
+                        <th className="d-none d-xl-table-cell">Tên người thụ hưởng</th>
+                        <th className="d-none d-xl-table-cell">Trạng thái</th>
+                      </tr>
+                    </thead>
+                    <tbody>
 
+                      {
+                        listGoiDangKy && listGoiDangKy.length > 0 && listGoiDangKy.map((item, index) => {
+                          return (
+                            <tr>
+                              <td>{item.goi.soLuongPhongToiDa	}</td>
+                              <td>{item.goi.thoiHan}</td>
+                              <td>{item.goi.gia}</td>
+                              <td>{item.chuTro.hinh}</td>
+                              <td>{item.chuTro.ten}</td>
+                              <td className="d-none d-xl-table-cell">{item.chuTro.soDienThoai}</td>
+                              <td className="d-none d-xl-table-cell">{item.chuTro.soTaiKhoanNganHang}</td>
+                              <td className="d-none d-xl-table-cell">{item.chuTro.tenChuTaiKhoanNganHang}</td>
+                              <td>
+                                {item.trangThai == 1 ? <div className='txt_red'>Đã khóa</div> : <div className='txt_green'>Đang hoạt động</div>}
+                              </td>
+                              <td className="d-none d-md-table-cell">
+                                <button className='btn btn-primary bbt'>Đăng Ký gói</button>
+                                {/* <button className='btn btn-warning bbt'>Đổi Mật Khẩu</button>
+                                <button className='btn btn-success bbt'>Xác Thực</button> */}
+                              </td>
+                            </tr>
+                          )
+                        })
+                      }
 
-                <div className='chitietgoidangki'>
-                  <h2 className='ten_chu_tro'>Nguyễn Gia Nghiêm</h2>
-                  <div className='chutro_info'><b>Trạng Thái: </b> Chưa Xác Thực</div>
-                  <div className='chutro_info'><b>Số Điện Thoại: </b>C111111111111</div>
-                  <div className='chutro_info'><b>Số Tài Khoản:</b> 1111111111111</div>
-                  <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b> 1111111111111</div>
-                  <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> NGUYEN GIA NGHIEM</div>
-                  <button className='btn btn-primary bbt'>Chỉnh Sửa</button>
-                  <button className='btn btn-warning bbt'>Đổi Mật Khẩu</button>
-                  <button className='btn btn-success bbt'>Xác Thực</button>
-                  <button className='btn btn-danger bbt'>Đăng Xuất</button>
-
-
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="sep"></div>
-              </div>
+                    </tbody>
+                  </table>
+              }
             </div>
           </div>
         </div>
+        {/* </div> */}
 
       </>
     )
