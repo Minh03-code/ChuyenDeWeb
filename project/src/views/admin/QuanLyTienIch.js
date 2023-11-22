@@ -3,12 +3,14 @@ import { baseURL } from "../../services/my-axios";
 import { getAllTienIchCallAPI, capNhatTrangThaiTienIch } from '../../services/admin/DungService';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { async } from 'q';
 
 class QuanLyTienIch extends React.Component {
     state = {
         listTienIch: []
     }
-    async componentDidMount() {
+
+    async loadData() {
         let res = await getAllTienIchCallAPI();
         if (res != null) {
             this.setState({
@@ -16,12 +18,23 @@ class QuanLyTienIch extends React.Component {
             })
         }
     }
+
+    async componentDidMount() {
+        await this.loadData();
+        // let res = await getAllTienIchCallAPI();
+        // if (res != null) {
+        //     this.setState({
+        //         listTienIch: res
+        //     })
+        // }
+    }
     async update(id, trangThai) {
         if (trangThai === 0) {
             let res = await capNhatTrangThaiTienIch(id);
             if (res != null) {
                 toast.success("Khoá Tiện Ích Thành Công!");
-                window.location.reload();
+                await this.loadData();
+                // window.location.reload();
             } else {
                 toast.error("Khoá Tiện Ích Thất Bại!");
             }
@@ -29,7 +42,8 @@ class QuanLyTienIch extends React.Component {
             let res = await capNhatTrangThaiTienIch(id);
             if (res != null) {
                 toast.success("Mở Tiện Ích Thành Công!");
-                window.location.reload();
+                //window.location.reload();
+                await this.loadData();
             } else {
                 toast.error("Mở Tiện Ích Thất Bại!");
             }
