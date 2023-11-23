@@ -153,7 +153,6 @@ class EditProfileAdmin extends React.Component {
                         <button type="button" className="btn btn-warning bbt" >Quay lại</button>
                         </NavLink>
                       </form>
-                      
                     </div>
                     </div>
                     </div>

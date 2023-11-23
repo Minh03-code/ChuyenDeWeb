@@ -33,5 +33,13 @@ const getListNoiDungTinNhan = (idPhong)=>{
     return myAxios.get(`api/danhsachtinnhan?idPhong=${idPhong}`);
 }
 
+const dangKiTaiKhoanChuTro=(ten, tenTaiKhoan, matKhau, email)=>{
+    return myAxios.post(`api/taotaikhoanchutro`,{ten:ten,tenTaiKhoan:tenTaiKhoan,matKhau:matKhau,email:email});
+}
+const layTatCataiKhoan = ()=>{
+    return myAxios.get(`api/tatcataikhoan`);
+}
+
 // export { multiple };
-export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach,getProfileChuTro,getListTinNhan,getListNoiDungTinNhan};
+export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach,getProfileChuTro,getListTinNhan,
+    getListNoiDungTinNhan,dangKiTaiKhoanChuTro,layTatCataiKhoan};
