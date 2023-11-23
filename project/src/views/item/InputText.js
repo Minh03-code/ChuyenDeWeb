@@ -4,7 +4,7 @@ function InputText(props) {
     
     const changeText = (e)=>{
         setText(e.target.value)
-        props.parentCallback(text)
+        props.changeValue(e.target.value);
     }
     return (
         <>
