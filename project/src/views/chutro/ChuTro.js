@@ -10,6 +10,7 @@ import style1 from "../../styles/chutro/assets/css/fontawesome.css";
 import style2 from "../../styles/chutro/assets/css/templatemo-lugx-gaming.css";
 // import style3 from "../../styles/chutro/assets/css/owl.css";
 import style4 from "../../styles/chutro/assets/css/animate.css";
+import "../../styles/global.css";
 // import style5 from "https://unpkg.com/swiper@7/swiper-bundle.min.css";
 import style6 from "../../styles/chutro/vendor/bootstrap/css/bootstrap.min.css";
 import Navigation from './Navigation.js';
@@ -20,6 +21,7 @@ import ThongBao from './ThongBao';
 import ThongTin from './ThongTin';
 import DangXuat from './DangXuat';
 import TinNhan from './TinNhan.js';
+import AddRoom from './AddRoom';
 function ChuTro() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -36,6 +38,7 @@ function ChuTro() {
           <Route path='/thongtin' element={ <ThongTin/>}></Route>
           <Route path='/tinnhan' element={ <TinNhan/>}></Route>
           <Route path='/dangxuat' element={<DangXuat/>}></Route>
+          <Route path='/themphong' element={<AddRoom/>}></Route>
         </Routes>
         <footer>
     <div className="container">

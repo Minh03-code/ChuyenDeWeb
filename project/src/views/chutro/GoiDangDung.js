@@ -1,5 +1,5 @@
 import React from 'react';
-import chitietanh from "../../images/chitietphongtro.jpg"
+import chitietanh from "../../images/anhnhatro.jpg"
 class GoiDangDung extends React.Component {
     render() {
         return (
