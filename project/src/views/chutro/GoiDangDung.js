@@ -32,12 +32,13 @@ class GoiDangDung extends React.Component {
         </div>
         <div class="single-product section">
           <div class="container">
-            <div class="col-lg-6 align-self-center">
+            <div class="align-self-center">
               {
                 listGoiDangKy.length == 0 ? <div className='null'>rỗng</div> :
                   <table className="table table-bordered">
                     <thead>
                       <tr>
+                        <th className="d-none d-xl-table-cell">Id</th>
                         <th className="d-none d-xl-table-cell">Số lượng phòng tối đa</th>
                         <th className="d-none d-xl-table-cell">Thời hạn thuê</th>
                         <th className="d-none d-xl-table-cell">Giá thuê</th>
@@ -55,6 +56,7 @@ class GoiDangDung extends React.Component {
                         listGoiDangKy && listGoiDangKy.length > 0 && listGoiDangKy.map((item, index) => {
                           return (
                             <tr>
+                              <td>{item.id	}</td>
                               <td>{item.goi.soLuongPhongToiDa	}</td>
                               <td>{item.goi.thoiHan}</td>
                               <td>{item.goi.gia}</td>
