@@ -16,7 +16,7 @@ const getNguoiGui = (idTaiKhoan) => {
   return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
 }
 const getAllGoiDangKyCallAPI = () => {
-  return myAxios.get("api/yeucaudangky/all");
+  return myAxios.get("api/goi/all");
 }
 
 

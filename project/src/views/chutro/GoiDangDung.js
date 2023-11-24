@@ -1,7 +1,7 @@
 import React from 'react';
+import { NavLink, useParams } from "react-router-dom";
 import { baseURL } from "../../services/my-axios";
 import { getAllGoiDangKyCallAPI } from '../../services/admin/ThinhService';
-
 class GoiDangDung extends React.Component {
   state = {
     listGoiDangKy: []
@@ -31,60 +31,87 @@ class GoiDangDung extends React.Component {
           </div>
         </div>
         <div class="single-product section">
+          {/* <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="left-image">
+                  <img src={chitietanh} alt="" />
+                </div>
+              </div>
+              <div class="col-lg-6 align-self-center">
+                <h4>Gói Cho Thuê 10 Phòng 1 Tháng</h4>
+
+
+                <div className='chitietgoidangki'>
+                  <h2 className='ten_chu_tro'>Nguyễn Gia Nghiêm</h2>
+                  <div className='chutro_info'><b>Trạng Thái: </b> Chưa Xác Thực</div>
+                  <div className='chutro_info'><b>Số Điện Thoại: </b>C111111111111</div>
+                  <div className='chutro_info'><b>Số Tài Khoản:</b> 1111111111111</div>
+                  <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b> 1111111111111</div>
+                  <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> NGUYEN GIA NGHIEM</div>
+                  <button className='btn btn-primary bbt'>Chỉnh Sửa</button>
+                  <button className='btn btn-warning bbt'>Đổi Mật Khẩu</button>
+                  <button className='btn btn-success bbt'>Xác Thực</button>
+                  <button className='btn btn-danger bbt'>Đăng Xuất</button>
+
+
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="sep"></div>
+              </div>
+            </div>
+          </div> */}
           <div class="container">
-            <div class="align-self-center">
+            <div class="row trending-box">
               {
                 listGoiDangKy.length == 0 ? <div className='null'>rỗng</div> :
-                  <table className="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th className="d-none d-xl-table-cell">Id</th>
-                        <th className="d-none d-xl-table-cell">Số lượng phòng tối đa</th>
-                        <th className="d-none d-xl-table-cell">Thời hạn thuê</th>
-                        <th className="d-none d-xl-table-cell">Giá thuê</th>
-                        <th className="d-none d-xl-table-cell">Hình</th>
-                        <th className="d-none d-xl-table-cell">Tên chủ trọ</th>
-                        <th className="d-none d-xl-table-cell">Số điện thoại</th>
-                        <th className="d-none d-xl-table-cell">Số tài khoản</th>
-                        <th className="d-none d-xl-table-cell">Tên người thụ hưởng</th>
-                        <th className="d-none d-xl-table-cell">Trạng thái</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                  <div>
+                    {listGoiDangKy && listGoiDangKy.length > 0 && listGoiDangKy.map((item, index) => {
+                      return (
+                        <div class="col-lg-12 col-md-6 align-self-center mb-30 trending-items col-md-6 ">
+                          <div class="item">
+                            <div class="down-content">
+                            <h4>Gói Cho Thuê {item.soLuongPhongToiDa} Phòng {item.thoiHan} Tháng</h4>
+                            <button className='btn btn-primary bbt' >Đăng Ký gói</button>
+                            
+                            
 
-                      {
-                        listGoiDangKy && listGoiDangKy.length > 0 && listGoiDangKy.map((item, index) => {
-                          return (
-                            <tr>
-                              <td>{item.id	}</td>
-                              <td>{item.goi.soLuongPhongToiDa	}</td>
-                              <td>{item.goi.thoiHan}</td>
-                              <td>{item.goi.gia}</td>
-                              <td>{item.chuTro.hinh}</td>
-                              <td>{item.chuTro.ten}</td>
-                              <td className="d-none d-xl-table-cell">{item.chuTro.soDienThoai}</td>
-                              <td className="d-none d-xl-table-cell">{item.chuTro.soTaiKhoanNganHang}</td>
-                              <td className="d-none d-xl-table-cell">{item.chuTro.tenChuTaiKhoanNganHang}</td>
-                              <td>
-                                {item.trangThai == 1 ? <div className='txt_red'>Đã khóa</div> : <div className='txt_green'>Đang hoạt động</div>}
-                              </td>
-                              <td className="d-none d-md-table-cell">
-                                <button className='btn btn-primary bbt'>Đăng Ký gói</button>
-                                {/* <button className='btn btn-warning bbt'>Đổi Mật Khẩu</button>
-                                <button className='btn btn-success bbt'>Xác Thực</button> */}
-                              </td>
-                            </tr>
-                          )
-                        })
-                      }
-
-                    </tbody>
-                  </table>
+                              {/* <span class="category">{item.noiDung}</span>
+                              <h4>{item.nguoiGui.ten}</h4> */}
+                              {/* <NavLink to={`/chutro/thongbaodetail?id=${item.id}`} ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                              </svg></NavLink> */}
+                              {/* <a href="product-details.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                                            </svg></a> */}
+                            </div>
+                           
+                          </div>
+                         
+                        </div>
+                        
+                      )
+                    })
+                    }
+                  </div>
               }
+              {/* <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 str">
+                                <div class="item">
+
+                                    <div class="down-content">
+                                        <span class="category">Thanh toán thành...</span>
+                                        <h4>Admin</h4>
+                                        <a href="product-details.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                        </svg></a>
+                                    </div>
+                                </div>
+                            </div> */}
+
             </div>
           </div>
         </div>
-        {/* </div> */}
 
       </>
     )
