@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import "./main.css";
 import "./util.css";
-import "./styleNghiem.css";
 import { getChinhSach,dangKiTaiKhoanChuTro,layTatCataiKhoan } from '../../services/admin/NghiemService';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

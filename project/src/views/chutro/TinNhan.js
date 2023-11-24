@@ -1,12 +1,27 @@
 import React from 'react';
-import { getProfileChuTro,getListTinNhan ,getListNoiDungTinNhan} from '../../services/admin/NghiemService';
+import { getProfileChuTro,getListTinNhan ,getListNoiDungTinNhan,guiTinNhan,capNhatTinNhanMoiNhat} from '../../services/admin/NghiemService';
 import { baseURL } from '../../services/my-axios.js';
 class TinNhan extends React.Component {
     state={
         listNguoiNhanTin:[],
         listTinNhan:[],
         chuTro:{},
-        doiTuongChat:{}
+        doiTuongChat:{},
+        tinNhan:"",
+        idPhongTinNhan:"",
+    }
+    setUpLucDau(){
+        let btn_send = document.querySelector(".btn_send");
+        btn_send.style.display="none";
+    }
+    setUpHienThiButton(){
+        let btn_send = document.querySelector(".btn_send");
+        btn_send.style.display="unset";
+    }
+    thayDoiTinNhan(event){
+        this.setState({
+            tinNhan:event.target.value
+        })
     }
     cuon() {
         let vung_hien_thi_tin_nhan = document.querySelector(".vung_hien_thi_tin_nhan");
@@ -32,25 +47,76 @@ class TinNhan extends React.Component {
                 listNguoiNhanTin:resTn
             })
         }
+        this.setUpLucDau()
     }
 
     async openDoanChat(idPhong){
         let res = await getListNoiDungTinNhan(idPhong);
         if(res!=null){
             this.setState({
+                tinNhan:"",
                 listTinNhan:res
             })
+            this.setUpHienThiButton();
         }
     }
     async openChat(doiTuong,idPhong){
         this.setState({
-            doiTuongChat:doiTuong
+            doiTuongChat:doiTuong,
+            idPhongTinNhan:idPhong
         })
          this.openDoanChat(idPhong)
     }
+    kiemTraRong(){
+        if(this.state.tinNhan===""){
+            return false;
+        }
+        let chuoi = this.state.tinNhan.trim();
+        if(chuoi===""){
+            return false;
+        }
+        return true;
+    }
+    tstampHienTai(){
+        let date = new Date();
+        let gio = date.getHours();
+        let phut  = date.getMinutes();
+        return gio+":"+phut;
+    }
+    async guiTinNhan(){
+        let idTaiKhoanSend = sessionStorage.getItem("accountId");
+        let res = await guiTinNhan(this.state.idPhongTinNhan,idTaiKhoanSend,this.state.tinNhan);
+        if(res!=null){
+
+            let resmn = await capNhatTinNhanMoiNhat(
+                idTaiKhoanSend,
+                this.state.idPhongTinNhan,
+                this.state.tinNhan,
+                this.tstampHienTai()
+                )
+            if(resmn!=null){
+                let listCopy = [...this.state.listTinNhan];
+                if(listCopy.length!=0){
+                    let tinNhan = {idPhong:this.state.idPhongTinNhan,idTaiKhoan:+idTaiKhoanSend,noiDung:this.state.tinNhan}
+                    listCopy[listCopy.length]= tinNhan
+                    this.setState({
+                        listTinNhan:listCopy,
+                        tinNhan:""
+                    })
+                }
+            }
+        }
+    }
+
+    async setSuKienGuiTinNhanVaCapNhatTinNhanMoiNhat(){
+        if(this.kiemTraRong()){
+            this.guiTinNhan();
+        }
+    }
 
     render() {
-        let{listNguoiNhanTin,listTinNhan,chuTro,doiTuongChat
+        let{listNguoiNhanTin,listTinNhan,chuTro,doiTuongChat,
+            tinNhan
         } = this.state;
         let isObject = Object.keys(chuTro).length === 0
         let isObject1 = Object.keys(doiTuongChat).length === 0
@@ -172,9 +238,9 @@ class TinNhan extends React.Component {
                                             </div>
                                         </div>
                                         <div className='vung_gui_tin_nhan'>
-                                            <textarea type="text" className='input_tin_nhan' rows={1} placeholder='Nhập tin nhắn...'/>
+                                            <textarea type="text" className='input_tin_nhan' rows={1} value={tinNhan} placeholder='Nhập tin nhắn...' onChange={(e)=>this.thayDoiTinNhan(e)}/>
 
-                                            <button className='btn_send' onClick={()=>this.cuon()}>
+                                            <button className='btn_send' onClick={()=>this.setSuKienGuiTinNhanVaCapNhatTinNhanMoiNhat()} >
 
                                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
