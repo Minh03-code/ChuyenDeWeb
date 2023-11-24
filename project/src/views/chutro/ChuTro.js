@@ -21,6 +21,7 @@ import ThongTin from './ThongTin';
 import DangXuat from './DangXuat';
 import TinNhan from './TinNhan.js';
 import ThongBaoDetail from './ThongBaoDetail.js';
+import ListGoiDangKy from './ListGoiDangKy.js';
 function ChuTro() {
   console.log(sessionStorage.getItem('accountId'));
   return (
@@ -33,6 +34,7 @@ function ChuTro() {
 
           </Route>
           <Route path='/goidangdung' element={<GoiDangDung />}></Route>
+          <Route path='/listgoidangky' element={<ListGoiDangKy />}></Route>
           <Route path='/thongbao' element={<ThongBao />}></Route>
           <Route path='/thongbaodetail' element={<ThongBaoDetail />}></Route>
           <Route path='/thongtin' element={<ThongTin />}></Route>
