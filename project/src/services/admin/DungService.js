@@ -24,5 +24,8 @@ const editTienIchkhonghinh = (id, ten, trangThai) => {
 const capNhatTrangThaiTienIch = (id) => {
     return myAxios.patch(`api/capnhattrangthaitienich?id=${id}`);
 };
+const addPhuong = (tenPhuong, idQuan) => {
+    return myAxios.post(`api/themphuong`, { tenPhuong: tenPhuong, idQuan: idQuan }, config);
+}
 // export { multiple };
-export {getGoiCallAPI, getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch, capNhatTrangThaiTienIch, editTienIchkhonghinh };
+export { addPhuong, getGoiCallAPI, getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch, capNhatTrangThaiTienIch, editTienIchkhonghinh };
