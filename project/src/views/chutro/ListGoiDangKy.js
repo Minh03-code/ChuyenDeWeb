@@ -74,6 +74,7 @@ class ListGoiDangKy extends React.Component {
                             <div class="down-content">
                             <h4>Gói Cho Thuê {item.soLuongPhongToiDa} Phòng {item.thoiHan} Tháng</h4>
                             <button className='btn btn-primary bbt' >Đăng Ký gói</button>
+                            <button className='btn btn-primary bbt' >Nâng cấp gói</button>
                             
                             
 
