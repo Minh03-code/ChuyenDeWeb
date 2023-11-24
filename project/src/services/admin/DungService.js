@@ -27,5 +27,8 @@ const capNhatTrangThaiTienIch = (id) => {
 const addPhuong = (tenPhuong, idQuan) => {
     return myAxios.post(`api/themphuong`, { tenPhuong: tenPhuong, idQuan: idQuan }, config);
 }
+const getAllGoiDangKyCallAPI = () => {
+    return myAxios.get("api/goi/all");
+  }
 // export { multiple };
-export { addPhuong, getGoiCallAPI, getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch, capNhatTrangThaiTienIch, editTienIchkhonghinh };
+export { getAllGoiDangKyCallAPI, addPhuong, getGoiCallAPI, getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch, capNhatTrangThaiTienIch, editTienIchkhonghinh };
