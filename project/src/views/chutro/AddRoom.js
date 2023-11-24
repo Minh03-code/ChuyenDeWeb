@@ -218,7 +218,6 @@ function AddRoom() {
                             label={"Chọn hình:"}
                             onChangeFile={onChangeImages}
                         />
-                        <CheckBox />
                         <div className="d-grid gap-2">
                             <Button
                                 label={"Thêm phòng"}
