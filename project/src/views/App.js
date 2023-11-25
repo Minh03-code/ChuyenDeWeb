@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -9,7 +9,13 @@ import LoginRegister from './loginregister/FormLR.js';
 import Admin from './admin/Admin.js';
 import ChuTro from './chutro/ChuTro.js';
 import NguoiThue from './NguoiThue/NguoiThue.js';//
+import firebase from '../firebase/firebase.js';
 function App() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
