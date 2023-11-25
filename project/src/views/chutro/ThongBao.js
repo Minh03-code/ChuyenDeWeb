@@ -2,24 +2,39 @@ import React from 'react';
 import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
-import { getListThongBaoByIdCallAPI } from '../../services/admin/KietService'
+import { getListThongBaoByIdCallAPI } from '../../services/admin/KietService';
+import { getProfileChuTro} from '../../services/admin/NghiemService';
+
 
 class ThongBao extends React.Component {
     state = {
-        listThongBaoById: []
+        listThongBaoById: [],
+        tenChuTro: ""
     }
+
     hideLoader = () => console.log(1);;
+
+
     async componentDidMount() {
-        let res = await getListThongBaoByIdCallAPI(2);
+        let idTaiKhoan = sessionStorage.getItem("accountId");
+        console.log(idTaiKhoan);
+        let res = await getListThongBaoByIdCallAPI(idTaiKhoan);
         if (res != null) {
             this.setState({
                 listThongBaoById: res
             })
         }
+
+        let resChuTro = await getProfileChuTro(idTaiKhoan);
+        if (resChuTro != null) {
+            this.setState({
+                tenChuTro: resChuTro.ten
+            })
+        }
     }
 
     render() {
-        let { listThongBaoById } = this.state
+        let { listThongBaoById, tenChuTro } = this.state
         return (
             <>
                 <div class="page-heading header-text">
@@ -27,7 +42,7 @@ class ThongBao extends React.Component {
                         <div class="row">
                             <div class="col-lg-12">
                                 <h3>Thông Báo</h3>
-                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>Nguyễn Gia Nghiêm </span>
+                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>{tenChuTro}</span>
                             </div>
                         </div>
                     </div>
@@ -36,7 +51,7 @@ class ThongBao extends React.Component {
                     <div class="container">
                         <div class="row trending-box">
                             {
-                                listThongBaoById.length == 0 ? <div className='null'>rỗng</div> :
+                                listThongBaoById.length == 0 ? <div className='null'>Chưa có thông báo</div> :
                                     <div>
                                         {listThongBaoById && listThongBaoById.length > 0 && listThongBaoById.map((item, index) => {
                                             return (
