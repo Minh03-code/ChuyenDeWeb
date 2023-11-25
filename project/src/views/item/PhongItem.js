@@ -7,7 +7,7 @@ function PhongItem(props) {
             <div className="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 adv">
                 <div className="item">
                     <div className="thumb">
-                        <a href="product-details.html"><img src={props.hinh} alt={props.hinh} /></a>
+                        <a href="product-details.html"><img src={props.hinh} alt={props.hinh} style={{height: 200}} /></a>
                         <span className="price">{props.gia} vnd</span>
                     </div>
                     <div className="down-content">
