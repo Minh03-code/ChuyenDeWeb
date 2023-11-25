@@ -24,6 +24,8 @@ import TinNhan from './TinNhan.js';
 import DanhSachNguoiThueTro from './DanhSachNguoiThueTro.js';
 import ChiTietNguoiThueTro from './ChiTietNguoiThueTro.js';
 import AddRoom from './AddRoom';
+import ThongBaoDetail from './ThongBaoDetail.js';
+import ListGoiDangKy from './ListGoiDangKy.js';
 function ChuTro() {
  
   return (
@@ -31,9 +33,9 @@ function ChuTro() {
       <>
         <Navigation />
         <Routes>
-          <Route path='*'  element={<QuanLyPhong/>}></Route>
-          <Route path='/quanlyphong'  element={<QuanLyPhong/>}>
-            
+          <Route path='*' element={<QuanLyPhong />}></Route>
+          <Route path='/quanlyphong' element={<QuanLyPhong />}>
+
           </Route>
           <Route path='/goidangdung' element={<GoiDangDung/>}></Route>
           <Route path='/thongbao' element={<ThongBao/>}></Route>
@@ -43,15 +45,16 @@ function ChuTro() {
           <Route path='/danhsachnguoithue' element={<DanhSachNguoiThueTro/>}></Route>
           <Route path='/chitietnguoithue' element={<ChiTietNguoiThueTro/>}></Route>
           <Route path='/themphong' element={<AddRoom/>}></Route>
-
+          <Route path='/listgoidangky' element={<ListGoiDangKy />}></Route>
+          <Route path='/thongbaodetail' element={<ThongBaoDetail />}></Route>
         </Routes>
         <footer>
-    <div className="container">
-      <div className="col-lg-12">
-        <p>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo</a></p>
-      </div>
-    </div>
-  </footer>
+          <div className="container">
+            <div className="col-lg-12">
+              <p>Copyright © 2048 LUGX Gaming Company. All rights reserved. &nbsp;&nbsp; <a rel="nofollow" href="https://templatemo.com" target="_blank">Design: TemplateMo</a></p>
+            </div>
+          </div>
+        </footer>
       </>
       : <NotFound />
   );
