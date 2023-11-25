@@ -8,9 +8,14 @@ class ThongBao extends React.Component {
     state = {
         listThongBaoById: []
     }
+
     hideLoader = () => console.log(1);;
+
+
     async componentDidMount() {
-        let res = await getListThongBaoByIdCallAPI(2);
+        let idTaiKhoan = sessionStorage.getItem("accountId");
+        console.log(idTaiKhoan);
+        let res = await getListThongBaoByIdCallAPI(idTaiKhoan);
         if (res != null) {
             this.setState({
                 listThongBaoById: res
@@ -36,7 +41,7 @@ class ThongBao extends React.Component {
                     <div class="container">
                         <div class="row trending-box">
                             {
-                                listThongBaoById.length == 0 ? <div className='null'>rỗng</div> :
+                                listThongBaoById.length == 0 ? <div className='null'>Chưa có thông báo</div> :
                                     <div>
                                         {listThongBaoById && listThongBaoById.length > 0 && listThongBaoById.map((item, index) => {
                                             return (
