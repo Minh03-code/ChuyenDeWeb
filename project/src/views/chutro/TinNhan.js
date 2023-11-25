@@ -1,10 +1,12 @@
 import React from 'react';
 import { getProfileChuTro,getListTinNhan ,getListNoiDungTinNhan,guiTinNhan,capNhatTinNhanMoiNhat} from '../../services/admin/NghiemService';
 import { baseURL } from '../../services/my-axios.js';
+
 class TinNhan extends React.Component {
+  
     state={
         listNguoiNhanTin:[],
-        listTinNhan:[],
+        listTinNhan:[], 
         chuTro:{},
         doiTuongChat:{},
         tinNhan:"",
@@ -48,8 +50,11 @@ class TinNhan extends React.Component {
             })
         }
         this.setUpLucDau()
+        // Set Up RealTime Database
+      
     }
 
+    
     async openDoanChat(idPhong){
         let res = await getListNoiDungTinNhan(idPhong);
         if(res!=null){
