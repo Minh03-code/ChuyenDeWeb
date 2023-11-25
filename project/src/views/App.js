@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -12,7 +12,24 @@ import NguoiThue from './NguoiThue/NguoiThue.js';//
 import DangKiTaiKhoanChuTro from './loginregister/DangKiTaiKhoanChuTro.js';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import firebase from '../firebase/firebase.js';
+import { getDatabase, ref, onValue } from "firebase/database";
 function App() {
+  const [data, setData] = useState(null);
+  const fetchData = async () => {
+    const db = getDatabase();
+    const starCountRef = ref(db, 'login');
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+    });
+  };
+  useEffect(() => {
+
+    fetchData();
+
+  }, []);
+
   return (
     <>
     <BrowserRouter>
