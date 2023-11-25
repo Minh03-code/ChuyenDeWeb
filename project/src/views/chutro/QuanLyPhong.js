@@ -48,6 +48,7 @@ class QuanLyPhong extends React.Component {
                                                     soPhong={item.phongTro != null ? item.phongTro.soPhong : "Rỗng"}
                                                     linkEdit={`/chutro/editroom?id=${item.phongTro != null ? item.phongTro.id : -1}`}
                                                     inkDelete={`/chutro/editroom?id=${item.phongTro != null ? item.phongTro.id : -1}`}
+                                                    
                                                 />
                                             )
                                         })

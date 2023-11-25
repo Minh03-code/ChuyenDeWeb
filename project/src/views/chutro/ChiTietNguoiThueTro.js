@@ -2,13 +2,16 @@ import React from 'react';
 import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
-import { getChiTietnguoiThueCallAPI } from '../../services/admin/KietService'
+import { getChiTietnguoiThueCallAPI, getChiTietTaiKhoanTheoIdCallAPI } from '../../services/admin/KietService'
 class ChiTietNguoiThueTro extends React.Component {
     state = {
+        idTaiKhoan: "",
         hinh: "",
         ten: "",
         soDienThoai: "",
-        gioiTinh: ""
+        gioiTinh: "",
+        loaiTaiKhoan: "",
+        email: ""
     }
     async componentDidMount() {
         const search = window.location.search;
@@ -16,19 +19,31 @@ class ChiTietNguoiThueTro extends React.Component {
         const kitu = params.get('id');
         console.log(kitu);
 
-        let res = await getChiTietnguoiThueCallAPI(kitu);
-        if (res != null) {
+        let resNguoiThue = await getChiTietnguoiThueCallAPI(kitu);
+        if (resNguoiThue != null) {
             this.setState({
-                hinh: res.hinh,
-                ten: res.ten,
-                soDienThoai: res.soDienThoai,
-                gioiTinh: res.gioiTinh
+                idTaiKhoan: resNguoiThue.idTaiKhoan,
+                hinh: resNguoiThue.hinh,
+                ten: resNguoiThue.ten,
+                soDienThoai: resNguoiThue.soDienThoai,
+                gioiTinh: resNguoiThue.gioiTinh
             })
         }
-        console.log(res);
+        let idTaiKhoan = this.state.idTaiKhoan;
+
+        let resTaiKhoan = await getChiTietTaiKhoanTheoIdCallAPI(idTaiKhoan);
+        if (resTaiKhoan != null) {
+            this.setState({
+                email: resTaiKhoan.email,
+                loaiTaiKhoan: resTaiKhoan.loaiTaiKhoan
+            })
+        }
+
+
     }
+
     render() {
-        let { hinh, ten, soDienThoai, gioiTinh } = this.state
+        let { hinh, ten, soDienThoai, gioiTinh, email, loaiTaiKhoan } = this.state
         return (
             <>
                 <div class="page-heading header-text">
@@ -51,9 +66,12 @@ class ChiTietNguoiThueTro extends React.Component {
                             </div>
                             <div class="col-lg-6 align-self-center">
                                 <div className='thongtinchutro'>
-                                    <h2 className='ten_chu_tro'>{ten}</h2>
-                                    <div className='chutro_info'>{soDienThoai}</div>
-                                    <div className='chutro_info'>{gioiTinh == 1 ? <>Nam</> : <>Nữ</>}</div>
+                                    <h2 className='ten_chu_tro'>Tên: {ten}</h2>
+                                    <div className='chutro_info'>SĐT: {soDienThoai}</div>
+                                    <div className='chutro_info'>Giới tính: {gioiTinh == 1 ? <>Nam</> : <>Nữ</>}</div>
+                                    <div className='chutro_info'>Email: {email}</div>
+                                    <div className='chutro_info'>Loại: {loaiTaiKhoan == 1 ? <>Chủ trọ</> : <>Người thuê</>}</div>
+                                    <NavLink to={``} ><button className='btn btn-primary bbt'>Nhắn tin</button></NavLink>
                                     <NavLink to={`/chutro/danhsachnguoithue`} ><button className='btn btn-primary bbt'>Quay lại</button></NavLink>
 
                                 </div>
