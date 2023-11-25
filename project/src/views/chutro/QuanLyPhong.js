@@ -30,11 +30,11 @@ class QuanLyPhong extends React.Component {
                         tenManHinh={"Màn hình danh sách phòng"}
                         tenChuTro={"Nguyễn Đức Minh"}
                     />
-                    <div class="section trending">
-                        <div class="container">
+                    <div className="section trending">
+                        <div className="container">
                             <Link to={`/chutro/themphong`} className="btn btn-primary">Thêm phòng</Link>
                             {list != null ?
-                                <div class="row trending-box">
+                                <div className="row trending-box">
                                     {
                                         list && list.length > 0 && list.map((item, index) => {
                                             if (item.phongTro) {
@@ -59,12 +59,12 @@ class QuanLyPhong extends React.Component {
                                 <h1>Rỗng</h1>
                             }
 
-                            {/* <div class="row">
-                            <div class="col-lg-12">
-                                <ul class="pagination">
+                            {/* <div className="row">
+                            <div className="col-lg-12">
+                                <ul className="pagination">
                                     <li><a href="#"> &lt; </a></li>
                                     <li><a href="#">1</a></li>
-                                    <li><a class="is_active" href="#">2</a></li>
+                                    <li><a className="is_active" href="#">2</a></li>
                                     <li><a href="#">3</a></li>
                                     <li><a href="#"> &gt; </a></li>
                                 </ul>

@@ -77,8 +77,8 @@ class LoginRegister extends React.Component {
                                     </span>
 
                                     <div className="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                                        <span className="label-input100">Tên tài khoản</span>
-                                        <input className="input100" type="text" value={username} onChange={(e) => this.handleOnChangeUsername(e)} placeholder="Nhập tài khoản của bạn" />
+                                        <span className="label-input100">Email</span>
+                                        <input className="input100" type="text" value={username} onChange={(e) => this.handleOnChangeUsername(e)} placeholder="Nhập email của bạn" />
                                         <span className="focus-input100" data-symbol="&#xf206;"></span>
                                     </div>
 
@@ -108,7 +108,9 @@ class LoginRegister extends React.Component {
                                     <div className="txt1 text-center p-t-54 p-b-20">
 
                                         <a href="#" className="txt2">
+                                            <Link to="/dangkitaikhoanchutro">
                                             Đăng ký
+                                            </Link>
                                         </a>
                                     </div>
 

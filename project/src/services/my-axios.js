@@ -2,7 +2,7 @@ import axios from "axios";
 const baseURL = "http://192.168.2.30/3t/laravel/public/";
 const myAxios = axios.create({
   baseURL: baseURL,
-  timeout: 1000*60,
+  timeout: 1000*120,
 });
 // Add a response interceptor
 myAxios.interceptors.response.use(function (response) {

@@ -16,13 +16,16 @@ class EditProfileAdmin extends React.Component {
         tenChuTaiKhoanNganHang:""
     }
     async componentDidMount(){
-       
-        let idTaiKhoanSession = sessionStorage.getItem("idTaiKhoan");
+        let idTaiKhoanSession = sessionStorage.getItem("accountId");
         let res = await getProfileAdmin(idTaiKhoanSession);
         if (res != null) {
             this.setState({
                 admin: res,
-                idTaiKhoan:idTaiKhoanSession
+                idTaiKhoan:idTaiKhoanSession,
+                ten:res.ten,
+                soDienThoai:res.soDienThoai,
+                soTaiKhoanNganHang:res.soTaiKhoanNganHang,
+                tenChuTaiKhoanNganHang:res.tenChuTaiKhoan
             })
         }
     }
@@ -66,12 +69,10 @@ class EditProfileAdmin extends React.Component {
             if(this.state.soDienThoai!==""){
                 if(this.state.soTaiKhoanNganHang!==""){
                     if(this.state.tenChuTaiKhoanNganHang!==""){
-                        if(this.capNhat()){
-                            toast.success("Cập Nhật Thông Tin Thành Công!");
-                        }
-                        else{
-                            toast.error("Cập Nhật Thất Bại!");
-                        }
+                      this.capNhat()
+                           
+                        
+                       
                     }else{
                         toast.warning("Không Được Bỏ Trống Tên Chủ Tài Khoản Ngân Hàng!");
                     }
@@ -91,22 +92,24 @@ class EditProfileAdmin extends React.Component {
    
    
     async capNhat(){
-        let isObject = Object.keys(this.state.hinh).length === 0;
-       
-        if(isObject!==null){
+        console.log(this.state.hinh);
+        // let isObject = Object.keys(this.state.hinh).length === 0;
+        if(this.state.hinh!=null){
             let res = await updateProfileAdmin1(this.state.idTaiKhoan,this.state.ten,this.state.soDienThoai,this.state.soTaiKhoanNganHang,this.state.tenChuTaiKhoanNganHang,this.state.hinh);
             if (res != null) {
-                console.log(this.state.hinh)
-                return true;
+                toast.success("Cập Nhật Thông Tin Thành Công!");
+            }else{
+                toast.error("Cập Nhật Thất Bại!");
             }
         }else{
             let res = await updateProfileAdmin2(this.state.idTaiKhoan,this.state.ten,this.state.soDienThoai,this.state.soTaiKhoanNganHang,this.state.tenChuTaiKhoanNganHang);
             if (res != null) {
-                console.log("2 "+res)
-                return true;
+                toast.success("Cập Nhật Thông Tin Thành Công!");
+            }else{
+                toast.error("Cập Nhật Thất Bại!");
             }
         }
-        return false;
+       
     }
     render() {
         let {admin, ten, hinh, soDienThoai,soTaiKhoanNganHang,tenChuTaiKhoanNganHang} = this.state;
@@ -150,7 +153,6 @@ class EditProfileAdmin extends React.Component {
                         <button type="button" className="btn btn-warning bbt" >Quay lại</button>
                         </NavLink>
                       </form>
-                      
                     </div>
                     </div>
                     </div>

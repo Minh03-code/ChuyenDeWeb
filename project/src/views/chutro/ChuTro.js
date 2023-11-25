@@ -25,7 +25,7 @@ import DanhSachNguoiThueTro from './DanhSachNguoiThueTro.js';
 import ChiTietNguoiThueTro from './ChiTietNguoiThueTro.js';
 import AddRoom from './AddRoom';
 function ChuTro() {
-  console.log(sessionStorage.getItem('accountId'));
+ 
   return (
     sessionStorage.getItem('accountType') == 1 ?
       <>
