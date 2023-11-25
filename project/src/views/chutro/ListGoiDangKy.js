@@ -1,29 +1,37 @@
 import React from 'react';
 import { getAllGoiDangKyCallAPI } from '../../services/admin/ThinhService';
+import { getProfileChuTro } from '../../services/admin/NghiemService';
 class ListGoiDangKy extends React.Component {
   state = {
-    listGoiDangKy: []
+    listGoiDangKy: [],
+    tenChuTro: ""
   }
   hideLoader = () => console.log(1);;
   async componentDidMount() {
+    let idTaiKhoan = sessionStorage.getItem("accountId");
     let res = await getAllGoiDangKyCallAPI();
     if (res != null) {
       this.setState({
         listGoiDangKy: res
       })
     }
-    console.log(res);
+    let resChuTro = await getProfileChuTro(idTaiKhoan);
+    if (resChuTro != null) {
+      this.setState({
+        tenChuTro: resChuTro.ten
+      })
+    }
   }
   render() {
-    let { listGoiDangKy } = this.state
+    let { listGoiDangKy, tenChuTro } = this.state
     return (
       <>
         <div class="page-heading header-text">
           <div class="container">
             <div class="row">
               <div class="col-lg-12">
-                <h3>Danh Sách Gói Đăng Kí</h3>
-                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>Nguyễn Gia Nghiêm </span>
+                <h3>DANH SÁCH GÓI ĐĂNG KÝ</h3>
+                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>{tenChuTro}</span>
               </div>
             </div>
           </div>
@@ -39,14 +47,14 @@ class ListGoiDangKy extends React.Component {
                         <div class="col-lg-12 col-md-6 align-self-center mb-30 trending-items col-md-6 ">
                           <div class="item">
                             <div class="down-content">
-                            <h4>Gói Cho Thuê {item.soLuongPhongToiDa} Phòng {item.thoiHan} Tháng</h4>
-                            <button className='btn btn-primary bbt' >Đăng Ký gói</button>
+                              <h4>Gói Cho Thuê {item.soLuongPhongToiDa} Phòng {item.thoiHan} Tháng</h4>
+                              <button className='btn btn-primary bbt' >Đăng Ký gói</button>
                             </div>
-                           
+
                           </div>
-                         
+
                         </div>
-                        
+
                       )
                     })
                     }

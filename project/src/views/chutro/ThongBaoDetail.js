@@ -4,6 +4,7 @@ import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { getDetailThongBaoCallAPI, getChiTietTaiKhoanTheoIdCallAPI } from '../../services/admin/ThinhService';
+import { getProfileChuTro} from '../../services/admin/NghiemService';
 
 
 class ThongBaoDetail extends React.Component {
@@ -12,6 +13,7 @@ class ThongBaoDetail extends React.Component {
         hinh: "",
         ten: "",
         noiDung: "",
+        tenChuTro: ""
        
     }
 
@@ -21,7 +23,7 @@ class ThongBaoDetail extends React.Component {
         const params = new URLSearchParams(search);
         const kitu = params.get('id');
         console.log(kitu);
-
+        let idTaiKhoan = sessionStorage.getItem("accountId");
         let resDetailThongBao = await getDetailThongBaoCallAPI(kitu);
         if (resDetailThongBao != null) {
             this.setState({
@@ -32,20 +34,27 @@ class ThongBaoDetail extends React.Component {
                 
             })
         }
+
+        let resChuTro = await getProfileChuTro(idTaiKhoan);
+        if (resChuTro != null) {
+            this.setState({
+                tenChuTro: resChuTro.ten
+            })
+        }
         
     }
 
     render() {
-        let { hinh, ten,noiDung} = this.state
+        let { hinh, ten,noiDung, tenChuTro} = this.state
 
         return (
             <>
                 <div class="page-heading header-text">
                     <div class="container">
-                        <div class="row">
+                    <div class="row">
                             <div class="col-lg-12">
                                 <h3>Thông Báo</h3>
-                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>Nguyễn Gia Nghiêm </span>
+                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>{tenChuTro}</span>
                             </div>
                         </div>
                     </div>
