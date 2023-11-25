@@ -12,7 +12,7 @@ class ChinhSach extends React.Component {
         text:""
     }
     async componentDidMount(){
-        let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
+        let idTaiKhoan = sessionStorage.getItem("accountId");
         let res = await getProfileAdmin(idTaiKhoan);
         if (res != null) {
             this.setState({
@@ -58,6 +58,9 @@ class ChinhSach extends React.Component {
       if(this.kiemTraRong()){
         let res = await capNhatChinhSach(1,this.state.text);
         if(res!=null){
+          this.setState({
+            chinhSach: this.state.text
+          })
           toast.success("Cập Nhật Thành Công!")
         }
       }else{

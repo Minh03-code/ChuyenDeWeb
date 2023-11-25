@@ -3,6 +3,9 @@ import { myAxios } from "../my-axios";
 const getAllTienIchCallAPI = () => {
     return myAxios.get("api/laytatcatienich");
 }
+const getGoiCallAPI = (id) => {
+    return myAxios.get(`api/goi/chitiet?id=${id}`);
+}
 const layTienIchTheoId = (id) => {
     return myAxios.get(`api/laytienichtheoid?id=${id}`);
 };
@@ -21,5 +24,11 @@ const editTienIchkhonghinh = (id, ten, trangThai) => {
 const capNhatTrangThaiTienIch = (id) => {
     return myAxios.patch(`api/capnhattrangthaitienich?id=${id}`);
 };
+const addPhuong = (tenPhuong, idQuan) => {
+    return myAxios.post(`api/themphuong`, { tenPhuong: tenPhuong, idQuan: idQuan }, config);
+}
+const getAllGoiDangKyCallAPI = () => {
+    return myAxios.get("api/goi/all");
+  }
 // export { multiple };
-export { getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch, capNhatTrangThaiTienIch, editTienIchkhonghinh };
+export { getAllGoiDangKyCallAPI, addPhuong, getGoiCallAPI, getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch, capNhatTrangThaiTienIch, editTienIchkhonghinh };

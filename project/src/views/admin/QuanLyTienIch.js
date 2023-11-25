@@ -3,12 +3,13 @@ import { baseURL } from "../../services/my-axios";
 import { getAllTienIchCallAPI, capNhatTrangThaiTienIch } from '../../services/admin/DungService';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { async } from 'q';
 
 class QuanLyTienIch extends React.Component {
     state = {
         listTienIch: []
     }
-    async componentDidMount() {
+    async loadData() {
         let res = await getAllTienIchCallAPI();
         if (res != null) {
             this.setState({
@@ -16,12 +17,16 @@ class QuanLyTienIch extends React.Component {
             })
         }
     }
+
+    async componentDidMount() {
+        await this.loadData();
+    }
     async update(id, trangThai) {
         if (trangThai === 0) {
             let res = await capNhatTrangThaiTienIch(id);
             if (res != null) {
                 toast.success("Khoá Tiện Ích Thành Công!");
-                window.location.reload();
+                await this.loadData();
             } else {
                 toast.error("Khoá Tiện Ích Thất Bại!");
             }
@@ -29,7 +34,7 @@ class QuanLyTienIch extends React.Component {
             let res = await capNhatTrangThaiTienIch(id);
             if (res != null) {
                 toast.success("Mở Tiện Ích Thành Công!");
-                window.location.reload();
+                await this.loadData();
             } else {
                 toast.error("Mở Tiện Ích Thất Bại!");
             }
@@ -50,7 +55,7 @@ class QuanLyTienIch extends React.Component {
                                             <h5 className="card-title mb-0">Quản lý tiện ích</h5>
                                         </div>
                                         <div className="col-md-9">
-                                            <a href="/ThemTienIch" className="btn btn-primary">Thêm</a>
+                                            <a href="/admin/ThemTienIch" className="btn btn-primary">Thêm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -58,8 +63,8 @@ class QuanLyTienIch extends React.Component {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th className="d-none d-xl-table-cell">Hình</th>
                                             <th className="d-none d-xl-table-cell">Tên tiện ích</th>
+                                            <th className="d-none d-xl-table-cell">Hình</th>
                                             <th className="d-none d-md-table-cell">Chức năng</th>
                                         </tr>
                                     </thead>
@@ -69,15 +74,16 @@ class QuanLyTienIch extends React.Component {
                                                 <tr>
                                                     <td>{item.id}</td>
                                                     <td className="d-none d-xl-table-cell">{item.ten}</td>
-                                                    <td className="d-none d-xl-table-cell"><img
-                                                        src={baseURL + item.hinh}
-                                                        alt={baseURL + item.hinh}
+                                                    <td className="d-none d-xl-table-cell"
                                                         width="200px"
-                                                        height="100px"
-                                                    /></td>
+                                                        height="100px"><img
+                                                            src={baseURL + item.hinh}
+                                                            alt={baseURL + item.hinh}
+
+                                                        /></td>
                                                     <td className="d-none d-md-table-cell">
-                                                        <NavLink to={`/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
-                                                        {(item.trangThai === 0) ? <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-success">Mo</a>}
+                                                        <NavLink to={`/admin/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
+                                                        {(item.trangThai === 0) ? <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-success">Mở</a>}
                                                     </td>
                                                 </tr>
                                             )
