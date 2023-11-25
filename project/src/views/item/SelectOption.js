@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 function SelectOption(props) {
+    const {convertName} = props;
+    const {convertID} = props;
+    const {label} = props;
+    const {list} = props;
+    const {changeValue} = props;
     const [text, setText] = useState();
+    useEffect(() =>{
+
+    },[]);
     const changeText = (e) => {
         setText(e.target.value);
-        props.changeValue(e.target.value);
+        changeValue(e.target.value);
     }
     return (
         <>
             <div className="form-floating">
                 <select value={text} onChange={changeText} className="form-select" aria-label="Default select example">
+                <option selected>{label}</option>
                     {
-                        props.list && props.list.length > 0 && props.list.map((item, index) => {
+                        list && list.length > 0 && list.map((item, index) => {
                             return (
-                                <option value={item.value}>{item.ten}</option>
+                                <option value={convertID? convertID(item) : item.id}>{convertName ? convertName(item) : item.value}</option>
                             )
                         })
                     }
                 </select>
-                <label for="floatingSelect">{props.label}</label>
+                <label for="floatingSelect">{label}</label>
             </div>
         </>
     )
