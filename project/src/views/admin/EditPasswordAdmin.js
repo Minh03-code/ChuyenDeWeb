@@ -10,10 +10,12 @@ class EditPasswordAdmin extends React.Component {
         admin:{},
         mkHienTai:"",
         mkMoi:"",
-        mkXacNhan:""
+        mkXacNhan:"",
+        kiemTra:true
+      
     }
     async componentDidMount(){
-        let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
+        let idTaiKhoan = sessionStorage.getItem("accountId");
         let res = await getProfileAdmin(idTaiKhoan);
         if (res != null) {
             this.setState({
@@ -44,15 +46,34 @@ class EditPasswordAdmin extends React.Component {
         return true;
     }
     async kiemTraMkHienTai(){
-        let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
+        let idTaiKhoan = sessionStorage.getItem("accountId");
         let res = await getAccountById(idTaiKhoan);
         if (res != null) {
+            // console.log("Mật Khẩu Nhập: "+this.state.mkHienTai+" Mật Khẩu Api: "+res.matKhau)
             if(res.matKhau===this.state.mkHienTai){
-                return true;
+                        let res = await updatePassword(idTaiKhoan,this.state.mkMoi);
+                        if (res != null) {
+                            toast.success("Đổi Thành Công!");
+                            this.setDuLieuLaiRong();
+                        }
+                this.setState({
+                    kiemTra:true
+                   
+                })
             }
-            return false;
+            else{
+                toast.warning("Mật Khẩu Hiện Tại Không Đúng! ");
+                this.setState({
+                    kiemTra:false
+                })
+            }
         }
-        return false;
+        else{
+            this.setState({
+                kiemTra:false
+              
+            })
+        }
     }
     kiemTraMatKhauMoi(){
         if(this.state.mkMoi===this.state.mkXacNhan){
@@ -70,17 +91,17 @@ class EditPasswordAdmin extends React.Component {
     async capNhat(){
         if(this.kiemTraRong()){
             if(this.kiemTraMatKhauMoi()){
-                if(this.kiemTraMkHienTai()){
-                    let idTaiKhoan = sessionStorage.getItem("idTaiKhoan");
-                    let res = await updatePassword(idTaiKhoan,this.state.mkMoi);
-                    if (res != null) {
-                        toast.success("Đổi Thành Công!");
-                        this.setDuLieuLaiRong();
-                    }
-                    
-                }else{
-                    toast.warning("Mật Khẩu Hiện Tại Không Đúng!");
-                }
+                // let kiemTra = true;
+                 this.kiemTraMkHienTai();
+        
+                    // if(this.state.kiemTra===true){
+                        
+                       
+                    // }else {
+                       
+                    // }
+                 
+                
             }else{
                 toast.warning("Mật Khẩu Mới Và Xác Nhận Không Trùng Nhau!");
             }

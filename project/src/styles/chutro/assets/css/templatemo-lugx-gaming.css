@@ -1701,4 +1701,11 @@ body {
   border-radius: 20px;
   padding: 20px;
 }
+.layout_messenger_chutro{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.list_nguoi_nhan_tin{
+  width: 600px;
+}
 /* End Nghiem Style */
