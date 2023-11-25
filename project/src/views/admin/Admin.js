@@ -31,6 +31,7 @@ import DetailChuTro from './DetailChuTro.js';
 import "react-toastify/dist/ReactToastify.css";
 import XemThongTinChiTietYeuCauXacNhanChuTro from './XemThongTinChiTietYeuCauXacNhanChuTro.js';
 import ChinhSach from './ChinhSach.js';
+import ThemPhuong from './ThemPhuong.js';
 
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
@@ -65,6 +66,8 @@ function Admin() {
               <Route path="/addKhuVuc" element={<AddKhuVuc/>}>
               </Route>
               <Route path="/listPhuong" element={<ListPhuong/>}>
+              </Route>
+              <Route path="/themPhuong" element={<ThemPhuong />}>
               </Route>
               <Route path="/quanlybanner" element={<QuanLyBanner />}>
               </Route>
