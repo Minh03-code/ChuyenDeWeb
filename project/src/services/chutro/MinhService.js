@@ -15,9 +15,11 @@ const layTatCaTienIchHoatDong = () => {
     return myAxios.get(`api/tienich/all/hoatdong`);
 }
 const themPhong = (idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages) => {
+    const data  = {idChuTro: idChuTro ,soPhong: soPhong, gia:gia, dienTich:dienTich, moTa:moTa, diaChiChiTiet: diaChiChiTiet, soLuongToiDa:soLuongToiDa, tienCoc: tienCoc, tienDien: tienDien, tienNuoc: tienNuoc, gioiTinh:gioiTinh, idQuan: idQuan, idPhuong: idPhuong, hinh: listImages, tienIch: listTienIch};
+    console.log(data);
     return myAxios.post(
         `api/phongtro/web/themphong`, 
-        {idChuTro: idChuTro ,soPhong: soPhong, gia:gia, dienTich:dienTich, moTa:moTa, diaChiChiTiet: diaChiChiTiet, soLuongToiDa:soLuongToiDa, tienCoc: tienCoc, tienDien: tienDien, tienNuoc: tienNuoc, gioiTinh:gioiTinh, idQuan: idQuan, idPhuong: idPhuong, hinh: listImages, tienIch: listTienIch} ,
+         data,
         config);
 }
 

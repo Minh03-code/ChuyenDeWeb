@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://192.168.177.1/3t/laravel/public/";
+const baseURL = "http://127.0.0.1:8000/";
 const myAxios = axios.create({
   baseURL: baseURL,
   timeout: 1000*120,
@@ -12,7 +12,8 @@ myAxios.interceptors.response.use(function (response) {
 }, function (error) {
   // Any status codes that falls outside the range of 2xx cause this function to trigger
   // Do something with response error
-  return alert("Yêu cầu quá hạn \nKiểm tra kết nối mạng");
+  return alert("Yêu cầu quá hạn \nKiểm tra kết nối mạng"+error);
+  console.log(error);
   // return Promise.reject(error);
 });
 export { myAxios, baseURL };
