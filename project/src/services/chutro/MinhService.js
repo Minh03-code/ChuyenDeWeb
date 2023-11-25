@@ -1,5 +1,7 @@
 import {myAxios} from "../my-axios";
-
+const config = {
+    headers: { "content-type": "multipart/form-data" },
+  };
 const layTatCaPhongCuaChuTro = (idChuTro) => {
     return myAxios.get(`api/phongtrochutro/all?idChuTro=${idChuTro}`);
 }
@@ -12,6 +14,12 @@ const layTatCaPhuongThuocQuanHoatDong = (idQuan) => {
 const layTatCaTienIchHoatDong = () => {
     return myAxios.get(`api/tienich/all/hoatdong`);
 }
+const themPhong = (idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages) => {
+    return myAxios.post(
+        `api/phongtro/web/themphong`, 
+        {idChuTro: idChuTro ,soPhong: soPhong, gia:gia, dienTich:dienTich, moTa:moTa, diaChiChiTiet: diaChiChiTiet, soLuongToiDa:soLuongToiDa, tienCoc: tienCoc, tienDien: tienDien, tienNuoc: tienNuoc, gioiTinh:gioiTinh, idQuan: idQuan, idPhuong: idPhuong, hinh: listImages, tienIch: listTienIch} ,
+        config);
+}
 
 // export { multiple };
-export {layTatCaPhongCuaChuTro, layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong};
+export {layTatCaPhongCuaChuTro, layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong};

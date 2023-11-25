@@ -6,7 +6,7 @@ import SelectOption from '../item/SelectOption';
 import Button from '../item/Button';
 import InputMultipleFile from '../item/InputMultipleFile';
 import CheckBox from '../item/CheckBox';
-import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong } from '../../services/chutro/MinhService.js';
+import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong } from '../../services/chutro/MinhService.js';
 function AddRoom() {
     const [listQuan, setListQuan] = useState([]);
     const [listPhuong, setListPhuong] = useState([]);
@@ -14,18 +14,19 @@ function AddRoom() {
     const [soPhong, setSoPhong] = useState('');
     const [gia, setGia] = useState('');
     const [dienTich, setDienTich] = useState('');
-    const [mota, setMoTa] = useState('');
+    const [moTa, setMoTa] = useState('');
     const [diaChiChiTiet, setDiaChiChiTiet] = useState('');
     const [soLuong, setSoLuong] = useState('');
     const [tienCoc, setTienCoc] = useState('');
     const [tienDien, setTienDien] = useState('');
     const [tienNuoc, setTienNuoc] = useState('');
     const [listGioiTinh, setListGioiTinh] = useState([{ id: 0, value: "Tất cả" }, { id: 1, value: "Nam" }, { id: 2, value: "Nữ" }]);
-    const [gioiTinh, setGioiTinh] = useState();
-    const [quan, setQuan] = useState();
-    const [phuong, setPhuong] = useState();
+    const [gioiTinh, setGioiTinh] = useState('');
+    const [quan, setQuan] = useState('');
+    const [phuong, setPhuong] = useState('');
     const [tienIch, setTienIch] = useState([]);
     const [files, setFiles] = useState();
+    const [resAdd, setResAdd] = useState();
     const fetchDataQuan = async () => {
         try {
             const res = await layTatCaQuanHoatDong();
@@ -46,6 +47,14 @@ function AddRoom() {
         try {
             const res = await layTatCaPhuongThuocQuanHoatDong(idQuan);
             setListPhuong(res);
+        } catch (error) {
+            console.log('Error fetching data:', error);
+        }
+    };
+    const fetchThemPhong = async (idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages) => {
+        try {
+            const res = await themPhong(idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages);
+            setResAdd(res);
         } catch (error) {
             console.log('Error fetching data:', error);
         }
@@ -102,7 +111,14 @@ function AddRoom() {
         setFiles(files);
     }
     const onClickButtonAdd = () => {
-        alert(tienDien + " dc: " + diaChiChiTiet + " gt: " + gioiTinh);
+        console.log(tienIch);
+        if(soPhong != ""&& gia != ""&& dienTich != ""&& moTa != ""&& diaChiChiTiet != ""&& soLuong != ""&& tienCoc != ""&& tienDien != ""&& tienNuoc != ""&& gioiTinh != ""&& quan  != ""&& phuong != ""){
+            fetchThemPhong(2, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files);
+            
+        }
+        else {
+            alert("Hãy nhập đủ thông tin có đấu *");
+        }
     }
     return (
         <>
@@ -114,55 +130,55 @@ function AddRoom() {
                 <div className="container">
                     <form>
                         <InputText
-                            label={"Số phòng:"}
+                            label={"Số phòng*:"}
                             type={"number"}
                             placeholder={"Nhập số phòng"}
                             changeValue={onChangeSoPhong}
                         />
                         <InputText
-                            label={"Giá:"}
+                            label={"Giá*:"}
                             type={"number"}
                             placeholder={"Nhập giá"}
                             changeValue={onChangeGia}
                         />
                         <InputText
-                            label={"Diện tích:"}
+                            label={"Diện tích*:"}
                             type={"number"}
                             placeholder={"Nhập diện tích"}
                             changeValue={onChangeDienTich}
                         />
                         <InputText
-                            label={"Mô Tả:"}
+                            label={"Mô Tả*:"}
                             type={"text"}
                             placeholder={"Nhập mô tả"}
                             changeValue={onChangeMoTa}
                         />
                         <InputText
-                            label={"Địa chỉ chi tiết:"}
+                            label={"Địa chỉ chi tiết*:"}
                             type={"text"}
                             placeholder={"Nhập địa chỉ chi tiết"}
                             changeValue={onChangeDiaChiChiTiet}
                         />
                         <InputText
-                            label={"Số lượng tối đa:"}
+                            label={"Số lượng tối đa*:"}
                             type={"number"}
                             placeholder={"Nhập số lượng tối đa"}
                             changeValue={onChangeSoLuong}
                         />
                         <InputText
-                            label={"Tiền cọc:"}
+                            label={"Tiền cọc*:"}
                             type={"number"}
                             placeholder={"Nhập tiền cọc"}
                             changeValue={onChangeTienCoc}
                         />
                         <InputText
-                            label={"Tiền điện:"}
+                            label={"Tiền điện*:"}
                             type={"number"}
                             placeholder={"Nhập tiền điện"}
                             changeValue={onChangeDien}
                         />
                         <InputText
-                            label={"Tiền nước:"}
+                            label={"Tiền nước*:"}
                             type={"number"}
                             placeholder={"Nhập tiền nước"}
                             changeValue={onChangeNuoc}
@@ -177,7 +193,7 @@ function AddRoom() {
                                     })
                                 }
                             </select>
-                            <label for="floatingSelect">Chọn giới tính</label>
+                            <label for="floatingSelect">Chọn giới tính*</label>
                         </div>
                         <div className="form-floating">
                             <select value={quan} onChange={onChangeQuan} className="form-select" aria-label="Default select example">
@@ -190,7 +206,7 @@ function AddRoom() {
                                     })
                                 }
                             </select>
-                            <label for="floatingSelect">Chọn quận</label>
+                            <label for="floatingSelect">Chọn quận*</label>
                         </div>
                         <div className="form-floating">
                             <select value={phuong} onChange={onChangePhuong} className="form-select" aria-label="Default select example">
@@ -202,7 +218,7 @@ function AddRoom() {
                                     })
                                 }
                             </select>
-                            <label for="floatingSelect">Chọn phường</label>
+                            <label for="floatingSelect">Chọn phường*</label>
                         </div>
                         <label for="floatingSelect">Chọn tiện ích</label>
                         <select className="form-select" onChange={onChangeTienIch} multiple aria-label="Multiple select example">
