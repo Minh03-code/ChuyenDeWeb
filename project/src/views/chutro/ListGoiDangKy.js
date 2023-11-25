@@ -1,6 +1,4 @@
 import React from 'react';
-import { NavLink, useParams } from "react-router-dom";
-import { baseURL } from "../../services/my-axios";
 import { getAllGoiDangKyCallAPI } from '../../services/admin/ThinhService';
 class ListGoiDangKy extends React.Component {
   state = {
@@ -43,7 +41,6 @@ class ListGoiDangKy extends React.Component {
                             <div class="down-content">
                             <h4>Gói Cho Thuê {item.soLuongPhongToiDa} Phòng {item.thoiHan} Tháng</h4>
                             <button className='btn btn-primary bbt' >Đăng Ký gói</button>
-                            <button className='btn btn-primary bbt' >Nâng cấp gói</button>
                             </div>
                            
                           </div>
