@@ -51,7 +51,6 @@ class SuaTienIch extends React.Component {
                 let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh, this.state.trangthai);
                 if (res != null) {
                     toast.success("Sửa Tiện Ích Thành Công!");
-                    window.location.reload();
                 }
                 else {
                     toast.error("Sua Tiện Ích Thất Bại!");
@@ -60,7 +59,6 @@ class SuaTienIch extends React.Component {
                 let res = await editTienIchkhonghinh(this.state.id, this.state.ten, this.state.trangthai);
                 if (res != null) {
                     toast.success("Sửa Tiện Ích Thành Công!");
-                    window.location.reload();
                 } else {
                     toast.error("Sua Tiện Ích Thất Bại!");
                 }
