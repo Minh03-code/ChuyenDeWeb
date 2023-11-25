@@ -3,15 +3,16 @@ import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-import { getDetailThongBaoCallAPI, getNguoiGui } from '../../services/admin/ThinhService';
+import { getDetailThongBaoCallAPI, getChiTietTaiKhoanTheoIdCallAPI } from '../../services/admin/ThinhService';
 
 
 class ThongBaoDetail extends React.Component {
     state = {
-        id: "",
-        nguoiGui: "",
+        idTaiKhoan: "",
+        hinh: "",
+        ten: "",
         noiDung: "",
-        trangThai: "",
+       
     }
 
 
@@ -24,17 +25,18 @@ class ThongBaoDetail extends React.Component {
         let resDetailThongBao = await getDetailThongBaoCallAPI(kitu);
         if (resDetailThongBao != null) {
             this.setState({
-                id: resDetailThongBao.id,
-                nguoiGui: await getNguoiGui(resDetailThongBao.idTaiKhoanGui),
+                idTaiKhoan: resDetailThongBao.idTaiKhoan,
+                hinh: resDetailThongBao.hinh,
+                ten: resDetailThongBao.ten,
                 noiDung: resDetailThongBao.noiDung,
-                trangThai: resDetailThongBao.trangThai
+                
             })
         }
-        console.log(resDetailThongBao);
+        
     }
 
     render() {
-        let { id, ten, noiDung, trangThai, nguoiGui } = this.state
+        let { hinh, ten,noiDung} = this.state
 
         return (
             <>
@@ -53,14 +55,14 @@ class ThongBaoDetail extends React.Component {
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="left-image">
-                                    <img src={baseURL + nguoiGui.hinh} alt="" />
+                                <img src={baseURL + hinh} alt="" />
                                 </div>
                             </div>
                             <div class="col-lg-6 align-self-center">
                                 <div className='thongtinthongbao'>
 
-                                    <h2 className='ten'>Tên:{nguoiGui.ten}</h2>
-                                    <div className='chutro_info'><b>Nội dung: </b> {noiDung}</div>
+                                <h2 className='ten_chu_tro'>Tên: {ten}</h2>
+                                    <div className='chutro_info'><b>Nội dung: </b>{noiDung}</div>
                                 </div>
                             </div>
                         </div>
