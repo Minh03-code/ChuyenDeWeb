@@ -69,9 +69,7 @@ class TinNhanRealTime extends React.Component {
         set(ref(db, 'thongBaoReset/'+idObject), 
             message
         );
-        set(ref(db, 'thongBaoReset/'+this.state.sender.idTaiKhoan), 
-            message
-        );
+        this.loadListUser(this.state.sender.idTaiKhoan)
     }
 
     realTime(idAccount){
