@@ -21,7 +21,6 @@ function App() {
     const starCountRef = ref(db, 'login');
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
     });
   };
   useEffect(() => {

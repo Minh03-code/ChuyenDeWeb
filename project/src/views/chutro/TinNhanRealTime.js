@@ -1,16 +1,18 @@
 import React from 'react';
-import { getProfileChuTro,getListTinNhan ,getListNoiDungTinNhan,guiTinNhan,capNhatTinNhanMoiNhat} from '../../services/admin/NghiemService';
+import { getProfileChuTro,getListTinNhan ,getListNoiDungTinNhan,guiTinNhan,capNhatTinNhanMoiNhat} from '../../services/admin/NghiemService.js';
 import { baseURL } from '../../services/my-axios.js';
-import { getDatabase, ref, onValue } from "firebase/database";
-class TinNhan extends React.Component {
+import { getDatabase, ref, onValue,set } from "firebase/database";
+class TinNhanRealTime extends React.Component {
     state={
-        listNguoiNhanTin:[],
-        listTinNhan:[],
-        chuTro:{},
-        doiTuongChat:{},
-        tinNhan:"",
-        idPhongTinNhan:"",
+        listUser:[],
+        listMessage:[],
+        sender:{},
+        receiver:{},
+        message:"",
+        idRoomMessage:"",
     }
+
+    // Giữ Lại Ban Đầu
     setUpLucDau(){
         let btn_send = document.querySelector(".btn_send");
         btn_send.style.display="none";
@@ -19,85 +21,130 @@ class TinNhan extends React.Component {
         let btn_send = document.querySelector(".btn_send");
         btn_send.style.display="unset";
     }
-    thayDoiTinNhan(event){
+    onChangeMessage(event){
         this.setState({
-            tinNhan:event.target.value
+            message:event.target.value
         })
     }
     cuon() {
         let vung_hien_thi_tin_nhan = document.querySelector(".vung_hien_thi_tin_nhan");
         vung_hien_thi_tin_nhan.scrollTop= Number.MAX_SAFE_INTEGER;
     }
-
     componentDidUpdate(){
-
-        if(this.state.listTinNhan.length!=0){
+        if(this.state.listMessage.length!=0){
             this.cuon()
         }
     }
+     // Giữ Lại Ban Đầu
     async componentDidMount(){
-        let idTaiKhoan = sessionStorage.getItem("accountId");
-         let res = await getProfileChuTro(idTaiKhoan);
-        if(res!=null){
-            this.setState({
-                chuTro: res
-            })
+        let idAccount = sessionStorage.getItem("accountId");
+        let typeAccount = sessionStorage.getItem("accountType");
+        // Trang Chủ Trọ Nên Load Thông Tin Của Chủ Trọ
+        
+        if(+typeAccount===1){
+            let res = await getProfileChuTro(idAccount);
+            if(res!=null){
+                this.setState({
+                    sender: res
+                })
+            }
         }
-        let resTn = await getListTinNhan(idTaiKhoan);
-        if(res!=null){
+        // Ở đây else sẽ là người thuê
+        let resTn = await getListTinNhan(idAccount);
+        if(resTn!=null){
             this.setState({
-                listNguoiNhanTin:resTn
+                listUser:resTn
             })
         }
         this.setUpLucDau()
-        if(this.state.idPhongTinNhan!=""){
-            this.realTime(this.state.idPhongTinNhan)
-        }
-    }
-
-
-    realTime(idPhongNhanTin){
-        const data= getDatabase();
-        const starCountRef = ref(data, 'phongTinNhan/'+idPhongNhanTin);
-        if(idPhongNhanTin!=null){
-            onValue(starCountRef, (snapshot) => {
-                this.loadTinNhan(idPhongNhanTin)
-                console.log("Có Dữ Liệu Thay Đổi")
-                });
-        }
+        this.realTime(this.state.sender.idTaiKhoan)
         
     }
-    async loadTinNhan(idPhong){
-        let res = await getListNoiDungTinNhan(idPhong);
-        if(res!=null){
+
+   
+    broadcastRoomMessage(idRoomMessage,message,idObject){
+        const db = getDatabase();
+        set(ref(db, 'phongTinNhan/'+idRoomMessage), 
+            message
+        );
+        set(ref(db, 'thongBaoReset/'+idObject), 
+            message
+        );
+    }
+
+    realTime(idAccount,idRoomMessage){
+        const data= getDatabase();
+        if(idAccount!=""){
+            const starCountRef = ref(data, 'thongBaoReset/'+idAccount);
+            onValue(starCountRef, (snapshot) => {
+           
+                this.loadListUser(idAccount)
+                });
+        }
+       
+        if(this.state.idRoomMessage!=""){
+            const starCountRef = ref(data, 'phongTinNhan/'+this.state.idRoomMessage);
+            onValue(starCountRef, (snapshot) => {
+                
+                this.loadTinNhan(+this.state.idRoomMessage);
+                });
+        }
+    }
+    async loadListUser(idAccount){
+        let resTn = await getListTinNhan(idAccount);
+        if(resTn!=null){
             this.setState({
-                listTinNhan:res
+                listUser:resTn
             })
         }
     }
+    async loadTinNhan(idRoomMessage){
+        if(idRoomMessage!=""){
+            let res = await getListNoiDungTinNhan(idRoomMessage);
+            if(res!=null){
+                this.setState({
+                    listMessage:res
+                })
+            }
+        }
+    }
 
-    async openDoanChat(idPhong){
-        let res = await getListNoiDungTinNhan(idPhong);
+    // async openDoanChat(idPhong){
+    //     let res = await getListNoiDungTinNhan(idPhong);
+    //     if(res!=null){
+    //         this.setState({
+    //             tinNhan:"",
+    //             listTinNhan:res
+    //         })
+    //         this.setUpHienThiButton();
+    //     }
+    // }
+    getIdRoomMessage(object,idRoom){
+        this.setState({
+            receiver:object,
+            idRoomMessage:idRoom
+        })
+        console.log(this.state.receiver)
+    }
+    async openChat(object,idRoom){
+        this.getIdRoomMessage(object,idRoom)
+        let res = await getListNoiDungTinNhan(idRoom);
         if(res!=null){
             this.setState({
-                tinNhan:"",
-                listTinNhan:res
+                message:"",
+                listMessage:res
             })
             this.setUpHienThiButton();
         }
-    }
-    async openChat(doiTuong,idPhong){
-        this.setState({
-            doiTuongChat:doiTuong,
-            idPhongTinNhan:idPhong
-        })
-         this.openDoanChat(idPhong)
+
+        this.realTime(this.state.sender.idTaiKhoan,idRoom)
+        // }
     }
     kiemTraRong(){
-        if(this.state.tinNhan===""){
+        if(this.state.message===""){
             return false;
         }
-        let chuoi = this.state.tinNhan.trim();
+        let chuoi = this.state.message.trim();
         if(chuoi===""){
             return false;
         }
@@ -109,46 +156,44 @@ class TinNhan extends React.Component {
         let phut  = date.getMinutes();
         return gio+":"+phut;
     }
-    async guiTinNhan(){
-        let idTaiKhoanSend = sessionStorage.getItem("accountId");
-        let res = await guiTinNhan(this.state.idPhongTinNhan,idTaiKhoanSend,this.state.tinNhan);
-        if(res!=null){
 
-            let resmn = await capNhatTinNhanMoiNhat(
-                idTaiKhoanSend,
-                this.state.idPhongTinNhan,
-                this.state.tinNhan,
-                this.tstampHienTai()
-                )
-            if(resmn!=null){
-                let listCopy = [...this.state.listTinNhan];
-                if(listCopy.length!=0){
-                    let tinNhan = {idPhong:this.state.idPhongTinNhan,idTaiKhoan:+idTaiKhoanSend,noiDung:this.state.tinNhan}
-                    listCopy[listCopy.length]= tinNhan
-                    this.setState({
-                        listTinNhan:listCopy,
-                        tinNhan:""
-                    })
+    async eventSendMessage(){
+        if(this.kiemTraRong()){
+            let res = await guiTinNhan(this.state.idRoomMessage,this.state.sender.idTaiKhoan,this.state.message);
+            if(res!=null){
+                let resmn = await capNhatTinNhanMoiNhat(
+                    this.state.sender.idTaiKhoan,
+                    this.state.idRoomMessage,
+                    this.state.message,
+                    this.tstampHienTai()
+                    )
+                if(resmn!=null){
+                    let listCopy = [...this.state.listMessage];
+                    if(listCopy.length!=0){
+                        let tinNhan = {idPhong:this.state.idRoomMessage,idTaiKhoan:+this.state.sender.idTaiKhoan,noiDung:this.state.message}
+                        listCopy[listCopy.length]= tinNhan
+                        if(this.state.idRoomMessage!=""){
+                            this.broadcastRoomMessage(this.state.idRoomMessage,this.state.message,this.state.receiver.idTaiKhoan);
+                        }
+                        this.setState({
+                            listMessage:listCopy,
+                            message:""
+                        })
+                    }
                 }
             }
         }
     }
 
-    async setSuKienGuiTinNhanVaCapNhatTinNhanMoiNhat(){
-        if(this.kiemTraRong()){
-            this.guiTinNhan();
-        }
-    }
-
     render() {
-        let{listNguoiNhanTin,
-            listTinNhan,
-            chuTro,
-            doiTuongChat,
-            tinNhan
+        let{listUser,
+            listMessage,
+            sender,
+            receiver,
+            message
         } = this.state;
-        let isObject = Object.keys(chuTro).length === 0
-        let isObject1 = Object.keys(doiTuongChat).length === 0
+        let isObjectSender = Object.keys(sender).length === 0
+        let isObjectReceiver = Object.keys(receiver).length === 0
         return (
                 <>
                 <div className="page-heading header-text">
@@ -156,7 +201,7 @@ class TinNhan extends React.Component {
                             <div className="row">
                             <div className="col-lg-12">
                                 <h3>Tin Nhắn</h3>
-                                <span className="cl"><a href="#">Chủ Trọ: </a>{isObject===false?chuTro.ten:"Chưa Có Dữ Liệu"} </span>
+                                <span className="cl"><a href="#">Chủ Trọ: </a>{isObjectSender===false?sender.ten:"Chưa Có Dữ Liệu"} </span>
                             </div>
                             </div>
                         </div>
@@ -164,7 +209,7 @@ class TinNhan extends React.Component {
                         <div className='section'>
                             <div className="row man_hinh_nhan_tin">
                                     {
-                                        listNguoiNhanTin.length!==0?
+                                        listUser.length!==0?
                                         <>
                                         <div className='col-4 list_nguoi_nhan_tin'>
                                     <div className='tieude_tinNhan'>
@@ -172,13 +217,14 @@ class TinNhan extends React.Component {
                                     </div>
 
                                     {
-                                        listNguoiNhanTin && listNguoiNhanTin.length>0&& listNguoiNhanTin.map((item,index)=>{
+                                        listUser && listUser.length>0&& listUser.map((item,index)=>{
 
                                             return(
+                                                
                                                 <div className="card_nhan_tin" key={index} onClick={item.chuTro===null?()=>this.openChat(item.nguoiThue,item.id):()=>this.openChat(item.chuTro,item.id)}>
                                     
                                                         <div className='img_card_nhan_tin col-md-3'>
-                                                            <img className='img_avt_nhan_tin' src={ item.chuTro===null?baseURL+item.nguoiThue.hinh:baseURL+item.chuTro.hinh} alt={item.chuTro===null?"Chưa Có Dữ Liệu":baseURL+item.chuTro.hinh}/>
+                                                            <img className='img_avt_nhan_tin' src={ item.chuTro===null?baseURL+item.nguoiThue.hinh:baseURL+item.chuTro.hinh} alt={item.chuTro!=null?baseURL+item.chuTro.hinh:(item.nguoiThue!=null?baseURL+item.nguoiThue.hinh:"Chưa Có Dữ Liệu")}/>
                                                         </div>
                                                         <div className='content_card_nhan_tin col-md-9'>
                                                             <div className='content_top_nhan_tin'>
@@ -224,51 +270,38 @@ class TinNhan extends React.Component {
                                    <div className='col-8 hien_thi_tin_nhan'>
                                         <div className='tieu_de_ten_nguoi_nhan'>
                                         <div className='img_doi_phuong'>
-                                                <img className='src_avt_doi_phuong' src={isObject1===false?baseURL+doiTuongChat.hinh:"Chưa Có Dữ Liệu"} alt={isObject1===false?baseURL+doiTuongChat.hinh:"Chưa Có Dữ Liệu"}/>
+                                                <img className='src_avt_doi_phuong' src={isObjectReceiver===false?baseURL+receiver.hinh:"Chưa Có Dữ Liệu"} alt={isObjectReceiver===false?baseURL+receiver.hinh:"Chưa Có Dữ Liệu"}/>
                                         </div>
                                         <div className='ten_doi_phuong'>
-                                        {isObject1===false?doiTuongChat.ten:"Chưa Có Dữ Liệu"}
+                                        {isObjectReceiver===false?receiver.ten:"Chưa Có Dữ Liệu"}
                                         </div>
                                         </div>
                                         <div className='vung_hien_thi_tin_nhan'>
                                             <div className='vung_hien_thi_tin_nhan_child'>
-
                                             {
-                                                listTinNhan.length>0?<>
+                                                listMessage.length>0?<>
                                                 {
-                                                    listTinNhan&&listTinNhan.length>0&&
-                                                    listTinNhan.map((item,index)=>{
+                                                    listMessage&&listMessage.length>0&&
+                                                    listMessage.map((item,index)=>{
+                                                        
                                                         return(
-                                                            item.idTaiKhoan === chuTro.idTaiKhoan ? <div className='card_view_send' key={index}>
+                                                            item.idTaiKhoan === sender.idTaiKhoan ? <div className='card_view_send' key={index}>
                                                             <div className='card_view_item_send'>{item.noiDung}</div>
-                                                            </div>:
+                                                            </div>: 
                                                             <div className='card_view_receive' key={index}>
                                                             <div className='card_view_item_receive'>{item.noiDung}</div>
                                                              </div>
                                                         )
                                                     })
-                                                    
-                                                    //     return(
-                                                    //         item.idTaiKhoan!=chuTro.idTaiKhoan? 
-                                                    //         
-                                                    //         :
-                                                            
-
-                                                    //     )
-                                                    // })
-                                                   
                                                 }
-                                                
-                                                
                                                 </>:<div>Chưa có tin nhắn!</div>
-
                                             }
                                             </div>
                                         </div>
                                         <div className='vung_gui_tin_nhan'>
-                                            <textarea type="text" className='input_tin_nhan' rows={1} value={tinNhan} placeholder='Nhập tin nhắn...' onChange={(e)=>this.thayDoiTinNhan(e)}/>
+                                            <textarea type="text" className='input_tin_nhan' rows={1} value={message} placeholder='Nhập tin nhắn...' onChange={(e)=>this.onChangeMessage(e)}/>
 
-                                            <button className='btn_send' onClick={()=>this.setSuKienGuiTinNhanVaCapNhatTinNhanMoiNhat()} >
+                                            <button className='btn_send' onClick={()=>this.eventSendMessage()} >
 
                                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
                                             <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
@@ -284,4 +317,4 @@ class TinNhan extends React.Component {
         )
     }
 }
-export default TinNhan;
+export default TinNhanRealTime;

@@ -26,6 +26,7 @@ import ChiTietNguoiThueTro from './ChiTietNguoiThueTro.js';
 import AddRoom from './AddRoom';
 import ThongBaoDetail from './ThongBaoDetail.js';
 import ListGoiDangKy from './ListGoiDangKy.js';
+import TinNhanRealTime from './TinNhanRealTime.js';
 function ChuTro() {
  
   return (
@@ -40,7 +41,7 @@ function ChuTro() {
           <Route path='/goidangdung' element={<GoiDangDung/>}></Route>
           <Route path='/thongbao' element={<ThongBao/>}></Route>
           <Route path='/thongtin' element={ <ThongTin/>}></Route>
-          <Route path='/tinnhan' element={ <TinNhan/>}></Route>
+          <Route path='/tinnhan' element={ <TinNhanRealTime/>}></Route>
           <Route path='/dangxuat' element={<DangXuat/>}></Route>
           <Route path='/danhsachnguoithue' element={<DanhSachNguoiThueTro/>}></Route>
           <Route path='/chitietnguoithue' element={<ChiTietNguoiThueTro/>}></Route>
