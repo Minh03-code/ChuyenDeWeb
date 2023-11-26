@@ -57,8 +57,7 @@ class TinNhanRealTime extends React.Component {
             })
         }
         this.setUpLucDau()
-        this.realTime(this.state.sender.idTaiKhoan)
-        
+        this.realTime(idAccount)
     }
 
    
@@ -70,9 +69,12 @@ class TinNhanRealTime extends React.Component {
         set(ref(db, 'thongBaoReset/'+idObject), 
             message
         );
+        set(ref(db, 'thongBaoReset/'+this.state.sender.idTaiKhoan), 
+            message
+        );
     }
 
-    realTime(idAccount,idRoomMessage){
+    realTime(idAccount){
         const data= getDatabase();
         if(idAccount!=""){
             const starCountRef = ref(data, 'thongBaoReset/'+idAccount);
@@ -124,7 +126,6 @@ class TinNhanRealTime extends React.Component {
             receiver:object,
             idRoomMessage:idRoom
         })
-        console.log(this.state.receiver)
     }
     async openChat(object,idRoom){
         this.getIdRoomMessage(object,idRoom)
