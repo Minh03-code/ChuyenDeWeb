@@ -7,6 +7,8 @@ import Button from '../item/Button';
 import InputMultipleFile from '../item/InputMultipleFile';
 import CheckBox from '../item/CheckBox';
 import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong } from '../../services/chutro/MinhService.js';
+import SelectMultipleOption from '../item/SelectMultipleOption';
+import InputFile from '../item/InputFile';
 function AddRoom() {
     const [listQuan, setListQuan] = useState([]);
     const [listPhuong, setListPhuong] = useState([]);
@@ -92,20 +94,19 @@ function AddRoom() {
     const onChangeNuoc = (text) => {
         setTienNuoc(text);
     }
-    const onChangeGioiTinh = (e) => {
-        setGioiTinh(e.target.value);
+    const onChangeGioiTinh = (text) => {
+        setGioiTinh(text);
     }
-    const onChangeQuan = (e) => {
-        fetchDataPhuong(e.target.value);
-        setQuan(e.target.value);
+    const onChangeQuan = (value) => {
+        fetchDataPhuong(value? value:1);
+        setQuan(value);
     }
-    const onChangePhuong = (e) => {
-        setPhuong(e.target.value);
+    const onChangePhuong = (value) => {
+        setPhuong(value);
     }
-    const onChangeTienIch = (e) => {
-        let value = Array.from(e.target.selectedOptions, option => parseInt(option.value));
-        setTienIch(value);
-        console.log(value);
+    const onChangeTienIch = (res) => {
+        
+        setTienIch(res);
     }
     const onChangeImages = (files) => {
         setFiles(files);
@@ -183,44 +184,31 @@ function AddRoom() {
                             placeholder={"Nhập tiền nước"}
                             changeValue={onChangeNuoc}
                         />
-                        <div className="form-floating">
-                            <select value={gioiTinh} onChange={onChangeGioiTinh} className="form-select" aria-label="Default select example">
-                                {
-                                    listGioiTinh && listGioiTinh.length > 0 && listGioiTinh.map((item, index) => {
-                                        return (
-                                            <option value={item.id}>{item.value}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                            <label for="floatingSelect">Chọn giới tính*</label>
-                        </div>
-                        <div className="form-floating">
-                            <select value={quan} onChange={onChangeQuan} className="form-select" aria-label="Default select example">
-                            <option value={0} selected>Chọn quận</option>
-                                {
-                                    listQuan && listQuan.length > 0 && listQuan.map((item, index) => {
-                                        return (
-                                            <option value={item.id}>{item.tenQuan}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                            <label for="floatingSelect">Chọn quận*</label>
-                        </div>
-                        <div className="form-floating">
-                            <select value={phuong} onChange={onChangePhuong} className="form-select" aria-label="Default select example">
-                                {
-                                    listPhuong && listPhuong.length > 0 && listPhuong.map((item, index) => {
-                                        return (
-                                            <option value={item.id}>{item.tenPhuong}</option>
-                                        )
-                                    })
-                                }
-                            </select>
-                            <label for="floatingSelect">Chọn phường*</label>
-                        </div>
-                        <label for="floatingSelect">Chọn tiện ích</label>
+                        <SelectOption 
+                        label={"Chọn giới tính*"}
+                        list={listGioiTinh}
+                        changeValue={onChangeGioiTinh}
+                        convertName={(e) => e.value}
+                        />
+                        <SelectOption 
+                        label={"Chọn quận*"}
+                        list={listQuan}
+                        changeValue={onChangeQuan}
+                        convertName={(item) => item.tenQuan}
+                        />
+                        <SelectOption 
+                        label={"Chọn phường*"}
+                        list={listPhuong}
+                        changeValue={onChangePhuong}
+                        convertName={(item) => item.tenPhuong}
+                        />
+                       <SelectMultipleOption
+                       label={"Chọn tiện ích"}
+                       list={listTienIch}
+                       changeValue={onChangeTienIch}
+                       convertName={(item)=>item.ten}
+                       />
+                        {/* <label for="floatingSelect">Chọn tiện ích</label>
                         <select className="form-select" onChange={onChangeTienIch} multiple aria-label="Multiple select example">
                             {
                                 listTienIch && listTienIch.length > 0 && listTienIch.map((item, index) => {
@@ -229,7 +217,7 @@ function AddRoom() {
                                     )
                                 })
                             }
-                        </select>
+                        </select> */}
                         <InputMultipleFile
                             label={"Chọn hình:"}
                             onChangeFile={onChangeImages}

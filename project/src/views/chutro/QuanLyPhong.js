@@ -7,6 +7,7 @@ import { layTatCaPhongCuaChuTro } from '../../services/chutro/MinhService';
 import { baseURL } from '../../services/my-axios';
 import PhongItem from '../item/PhongItem';
 import Header from '../item/Header';
+
 class QuanLyPhong extends React.Component {
     state = {
         list: [],
@@ -48,6 +49,7 @@ class QuanLyPhong extends React.Component {
                                                     soPhong={item.phongTro != null ? item.phongTro.soPhong : "Rỗng"}
                                                     linkEdit={`/chutro/editroom?id=${item.phongTro != null ? item.phongTro.id : -1}`}
                                                     inkDelete={`/chutro/editroom?id=${item.phongTro != null ? item.phongTro.id : -1}`}
+                                                    
                                                 />
                                             )
                                         })

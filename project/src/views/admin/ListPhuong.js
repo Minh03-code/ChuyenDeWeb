@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 import QuanLyKhuVuc from './QuanLyKhuVuc';
 class ListPhuong extends React.Component {
     state = {
@@ -9,8 +10,8 @@ class ListPhuong extends React.Component {
         const search = window.location.search;
         const params = new URLSearchParams(search);
         const kitu = params.get('id');
-        
-        
+
+
         let res = await axios.get(`http://127.0.0.1:8000/api/phuong/layphuongtheoquan?idQuan=${kitu}`);
         if (res.data != null) {
             this.setState({
@@ -59,8 +60,7 @@ class ListPhuong extends React.Component {
                                                     <td className="d-none d-xl-table-cell">{item.idQuan}</td>
                                                     <td className="d-none d-xl-table-cell">{item.tenPhuong}</td>
                                                     <td className="d-none d-md-table-cell">
-                                                        <a href="#" className="btn btn-primary">Sửa</a>
-                                                        <a href="#" className="btn btn-secondary">Xoá</a>
+                                                        <NavLink to={`/admin/editphuong?id=${item.id}`} ><span className="btn btn-primary">Sửa</span></NavLink>
                                                     </td>
                                                 </tr>
                                             )

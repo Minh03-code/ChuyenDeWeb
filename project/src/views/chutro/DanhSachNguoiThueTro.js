@@ -2,34 +2,43 @@ import React from 'react';
 import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
-import { getListNguoiThueTheoIdPhongCallAPI } from '../../services/admin/KietService'
+import { getListNguoiThueTheoIdPhongCallAPI } from '../../services/admin/KietService';
+import { getProfileChuTro } from '../../services/admin/NghiemService';
 
 class DanhSachNguoiThueTro extends React.Component {
     state = {
         listNguoiThue: [],
-        idPhong: null
+        tenChuTro: ""
     }
     hideLoader = () => console.log(1);;
     async componentDidMount() {
+        let idTaiKhoan = sessionStorage.getItem("accountId");
+
         let res = await getListNguoiThueTheoIdPhongCallAPI(2);
         if (res != null) {
             this.setState({
-                listNguoiThue: res,
-                idPhong: res.idPhong
+                listNguoiThue: res
+            })
+        }
+
+        let resChuTro = await getProfileChuTro(idTaiKhoan);
+        if (resChuTro != null) {
+            this.setState({
+                tenChuTro: resChuTro.ten
             })
         }
     }
 
     render() {
-        let { listNguoiThue, idPhong } = this.state
+        let { listNguoiThue, tenChuTro } = this.state
         return (
             <>
                 <div class="page-heading header-text">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h3>Thông Báo</h3>
-                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>Nguyễn Gia Nghiêm </span>
+                                <h3>DANH SÁCH NGƯỜI THUÊ</h3>
+                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>{tenChuTro}</span>
                             </div>
                         </div>
                     </div>
@@ -40,7 +49,6 @@ class DanhSachNguoiThueTro extends React.Component {
                             {
                                 listNguoiThue.length == 0 ? <div className='null'>Chưa có người thuê</div> :
                                     <>
-                                        <div className='null'>Danh sách người thuê mã phòng số {idPhong}</div>
                                         <table className="table table-hover my-0">
                                             <thead>
                                                 <tr>
