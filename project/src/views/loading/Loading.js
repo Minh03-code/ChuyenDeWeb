@@ -10,10 +10,10 @@ import {
 function loading() {
   return (
     <div className='loading'>
-    <div className="ring">
-		loading
-		<span className='loading'></span>
-	</div>
+      <div className="ring">
+        loading
+        <span className='loading'></span>
+      </div>
     </div>
   );
 }

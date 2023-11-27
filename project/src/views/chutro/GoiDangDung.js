@@ -1,14 +1,18 @@
 import React from 'react';
 import chitietanh from "../../images/avt1.jpg"
 import { getGoiCallAPI } from "../../services/admin/DungService"
+import { getProfileChuTro } from "../../services/admin/NghiemService.js"
 class GoiDangDung extends React.Component {
   state = {
     thoihan: "",
     soLuongPhong: "",
     gia: "",
+    ten: "",
+    hinh: "",
   };
   async getThongTin() {
     let idTaiKhoan = sessionStorage.getItem("accountId");
+
     let goi = await getGoiCallAPI(idTaiKhoan);
     console.log(goi);
     if (goi != null) {
