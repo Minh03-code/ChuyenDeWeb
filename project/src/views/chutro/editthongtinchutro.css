@@ -17,6 +17,9 @@
 /* body::-webkit-scrollbar {
     display: none;
 } */
+.cha{
+    text-align: center;
+}
 
 .wrapperp {
     max-width: 800px;

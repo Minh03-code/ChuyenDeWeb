@@ -1,10 +1,17 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./editthongtinchutro.css";
 
 const EditThongTinChuTro = () => {
   let params = useParams();
   console.log("check id chu tro", params.id);
+
+  let nav = useNavigate();
+  let [result, setResult] = useState({});
+  const [file, setFile] = useState({});
+  const [data, setData] = useState({});
+  const [checkChooseFile, setCheckChooseFile] = useState(false);
+
 
   return (
     <>
@@ -22,63 +29,43 @@ const EditThongTinChuTro = () => {
         </div>
       </div>
       <div class="wrapperp rounded bg-white">
-        <div class="h3">Registration Form</div>
+        <div className="cha">
+          <img className="hinh-banner" alt="" width="100px" height="100px" />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="hinh" className="form-label">
+            Ảnh chủ trọ
+          </label>
+          <input
+            type="file"
+            id="hinh"
+            name="hinh"
+            placeholder="Chọn Hình Đại Diện"
+            className="form-control"
+          />
+        </div>
 
         <div class="form">
           <div class="row">
             <div class="col-md-6 mt-md-0 mt-3">
-              <label>First Name</label>
+              <label>Tên</label>
               <input type="text" class="form-control" required />
             </div>
             <div class="col-md-6 mt-md-0 mt-3">
-              <label>Last Name</label>
+              <label>Số điện thoại</label>
               <input type="text" class="form-control" required />
             </div>
-          </div>
+          </div>{" "}
           <div class="row">
             <div class="col-md-6 mt-md-0 mt-3">
-              <label>Birthday</label>
-              <input type="date" class="form-control" required />
+              <label>Số tài khoản ngân hàng</label>
+              <input type="text" class="form-control" required />
             </div>
             <div class="col-md-6 mt-md-0 mt-3">
-              <label>Gender</label>
-              <div class="d-flex align-items-center mt-2">
-                <label class="option">
-                  {/* <input type="radio" name="radio">
-                    Male
-                  </input> */}
-                  <span class="checkmark"></span>
-                </label>
-                <label class="option ms-4">
-                  {/* <input type="radio" name="radio">
-                    Female
-                  </input> */}
-                  <span class="checkmark"></span>
-                </label>
-              </div>
+              <label>Tên chủ tài khoản ngân hàng</label>
+              <input type="text" class="form-control" required />
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 mt-md-0 mt-3">
-              <label>Email</label>
-              <input type="email" class="form-control" required />
-            </div>
-            <div class="col-md-6 mt-md-0 mt-3">
-              <label>Phone Number</label>
-              <input type="tel" class="form-control" required />
-            </div>
-          </div>
-          <div class=" my-md-2 my-3">
-            <label>Subject</label>
-            <select id="sub" required>
-              <option value="" selected hidden>
-                Choose Option
-              </option>
-              <option value="Maths">Maths</option>
-              <option value="Science">Science</option>
-              <option value="Social">Social</option>
-              <option value="Hindi">Hindi</option>
-            </select>
           </div>
           <div class="btn btn-primary mt-3">Submit</div>
         </div>
