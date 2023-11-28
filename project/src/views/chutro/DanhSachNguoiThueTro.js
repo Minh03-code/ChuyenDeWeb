@@ -12,9 +12,13 @@ class DanhSachNguoiThueTro extends React.Component {
     }
     hideLoader = () => console.log(1);;
     async componentDidMount() {
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const kitu = params.get('idPhong');
+        console.log(kitu);
         let idTaiKhoan = sessionStorage.getItem("accountId");
 
-        let res = await getListNguoiThueTheoIdPhongCallAPI(2);
+        let res = await getListNguoiThueTheoIdPhongCallAPI(kitu);
         if (res != null) {
             this.setState({
                 listNguoiThue: res
