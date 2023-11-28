@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
-import { layTienIchTheoId, editTienIch, editTienIchkhonghinh } from '../../services/admin/DungService.js';
+import { layQuanTheoId, editQuan, editQuankhonghinh } from '../../services/admin/ThinhService';
 import { baseURL } from "../../services/my-axios";
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-class SuaTienIch extends React.Component {
+class EditQuan extends React.Component {
 
     state = {
         list: [],
         id: "",
-        ten: "",
+        tenQuan: "",
         hinh: null,
-        trangthai: null,
+        trangThai: 0,
     }
     async componentDidMount() {
         const search = window.location.search;
         const params = new URLSearchParams(search);
         const id = params.get('id');
-        let res = await layTienIchTheoId(id);
+        let res = await layQuanTheoId(id);
         if (res != null) {
             this.setState({
                 list: res,
                 id: res.id,
-                ten: res.ten,
+                tenQuan: res.tenQuan,
                 trangthai: res.trangThai
             })
         }
@@ -30,7 +30,7 @@ class SuaTienIch extends React.Component {
 
     thayDoiTen(event) {
         this.setState({
-            ten: event.target.value
+            tenQuan: event.target.value
         })
     }
     thayDoiHinh(event) {
@@ -38,29 +38,17 @@ class SuaTienIch extends React.Component {
             hinh: event.target.files[0]
         })
     }
-
-    kiemTraRong11() {
-        if (this.state.ten === "") {
-            return false;
-        }
-        return true;
-    }
     async kiemTraRong() {
-        if (this.kiemTraRong11()) {
+        if (this.state.tenQuan !== "") {
+            //let res = await editQuankhonghinh(this.state.id, this.state.tenQuan, this.state.trangThai);
             if (this.state.hinh !== "") {
-                let res = await editTienIch(this.state.id, this.state.ten, this.state.hinh, this.state.trangthai);
+                let res = await editQuan(this.state.id, this.state.tenQuan, this.state.hinh, this.state.trangThai);
                 if (res != null) {
-                    toast.success("Sửa Tiện Ích Thành Công!");
+                    toast.success("Sua quận Thành Công!");
+                    
                 }
                 else {
-                    toast.error("Sua Tiện Ích Thất Bại!");
-                }
-            } else {
-                let res = await editTienIchkhonghinh(this.state.id, this.state.ten, this.state.trangthai);
-                if (res != null) {
-                    toast.success("Sửa Tiện Ích Thành Công!");
-                } else {
-                    toast.error("Sua Tiện Ích Thất Bại!");
+                    toast.error("Sua quận Thất Bại!");
                 }
             }
         }
@@ -70,7 +58,7 @@ class SuaTienIch extends React.Component {
     }
 
     render() {
-        let { id, ten, hinh } = this.state;
+        let { id, tenQuan, hinh } = this.state;
         let { list } = this.state;
         return (
             <form className="form-control" action='#' encType="multipart/form-data" method="post">
@@ -81,25 +69,24 @@ class SuaTienIch extends React.Component {
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">EDIT tiện ích</h5>
+                                            <h5 className="card-title mb-0">EDIT quận</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row g-2 align-items-center">
-                                    <label class="form-label">ID: {list.id}</label>
-                                    <label class="form-label">Tên Cũ: {list.ten}</label>
+                                    <label class="form-label">ID: {id}</label>
                                     <div class="col-auto">
-                                        <label class="col-form-label">Tên Tiện Ích Mới:</label>
+                                        <label class="col-form-label">Tên quận Mới:</label>
                                     </div>
                                     <div class="col-auto">
-                                        <input class="form-control form-control-lg" value={ten} onChange={(event) => this.thayDoiTen(event)} type="text" id="ten" name="ten" placeholder="Nhập tên tiện ích"></input>
+                                        <input class="form-control form-control-lg" Value={tenQuan} onChange={(event) => this.thayDoiTen(event)} type="text" id="tenQuan" name="tenQuan" placeholder="Nhập tên quận"></input>
                                     </div>
                                 </div>
                                 <label class="form-label">Hình Cũ</label>
                                 <td className="d-none d-xl-table-cell">
                                     <img
                                         src={baseURL + list.hinh}
-                                        alt={baseURL + list.hinh}
+                                        alt={baseURL + hinh}
                                         width="400px"
                                         height="200px"
                                     />
@@ -109,7 +96,7 @@ class SuaTienIch extends React.Component {
                                     <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control form-control-lg" />
                                 </div>
                                 <div className="col-md">
-                                    <NavLink to={`/admin/quanlytienich`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Sửa</button></NavLink>
+                                    <NavLink to={`/admin/quanlykhuvuc`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Sửa</button></NavLink>
                                 </div>
                             </div>
                         </div>
@@ -119,4 +106,4 @@ class SuaTienIch extends React.Component {
         )
     }
 }
-export default SuaTienIch;
+export default EditQuan;

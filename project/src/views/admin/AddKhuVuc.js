@@ -61,7 +61,7 @@ class AddKhuVuc extends React.Component {
                                         <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                                     </div>
                                     <div className="col-md">
-                                        <NavLink to={`/quanlykhuvuc`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Thêm</button></NavLink>
+                                        <NavLink to={`/admin/quanlykhuvuc`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Thêm</button></NavLink>
                                     </div>
                                 </div>
                             </div>
