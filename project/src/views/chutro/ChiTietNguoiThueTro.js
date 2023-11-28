@@ -18,7 +18,6 @@ class ChiTietNguoiThueTro extends React.Component {
         const params = new URLSearchParams(search);
         const kitu = params.get('id');
         console.log(kitu);
-
         let resNguoiThue = await getChiTietnguoiThueCallAPI(kitu);
         if (resNguoiThue != null) {
             this.setState({
@@ -43,7 +42,7 @@ class ChiTietNguoiThueTro extends React.Component {
     }
 
     render() {
-        let { hinh, ten, soDienThoai, gioiTinh, email, loaiTaiKhoan } = this.state
+        let { idTaiKhoan,hinh, ten, soDienThoai, gioiTinh, email, loaiTaiKhoan } = this.state
         return (
             <>
                 <div class="page-heading header-text">
@@ -71,7 +70,7 @@ class ChiTietNguoiThueTro extends React.Component {
                                     <div className='chutro_info'>Giới tính: {gioiTinh == 1 ? <>Nam</> : <>Nữ</>}</div>
                                     <div className='chutro_info'>Email: {email}</div>
                                     <div className='chutro_info'>Loại: {loaiTaiKhoan == 1 ? <>Chủ trọ</> : <>Người thuê</>}</div>
-                                    <NavLink to={`/chutro/tinnhan`} ><button className='btn btn-primary bbt'>Nhắn tin</button></NavLink>
+                                    <NavLink to={`/chutro/tinnhan?id=${idTaiKhoan}`} ><button className='btn btn-primary bbt'>Nhắn tin</button></NavLink>
                                     <NavLink to={`/chutro/danhsachnguoithue`} ><button className='btn btn-primary bbt'>Quay lại</button></NavLink>
 
                                 </div>

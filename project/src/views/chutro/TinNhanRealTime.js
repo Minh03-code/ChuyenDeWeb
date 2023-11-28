@@ -1,5 +1,5 @@
 import React from 'react';
-import { getProfileChuTro,getListTinNhan ,getListNoiDungTinNhan,guiTinNhan,capNhatTinNhanMoiNhat} from '../../services/admin/NghiemService.js';
+import { getProfileChuTro,getProfileReceiver,getListTinNhan,taoPhongTinNhan,layIdPhongTinNhan ,getListNoiDungTinNhan,guiTinNhan,capNhatTinNhanMoiNhat} from '../../services/admin/NghiemService.js';
 import { baseURL } from '../../services/my-axios.js';
 import { getDatabase, ref, onValue,set } from "firebase/database";
 class TinNhanRealTime extends React.Component {
@@ -11,7 +11,6 @@ class TinNhanRealTime extends React.Component {
         message:"",
         idRoomMessage:"",
     }
-
     // Giữ Lại Ban Đầu
     setUpLucDau(){
         let btn_send = document.querySelector(".btn_send");
@@ -37,10 +36,12 @@ class TinNhanRealTime extends React.Component {
     }
      // Giữ Lại Ban Đầu
     async componentDidMount(){
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const idReceiver = params.get('id');
         let idAccount = sessionStorage.getItem("accountId");
         let typeAccount = sessionStorage.getItem("accountType");
-        // Trang Chủ Trọ Nên Load Thông Tin Của Chủ Trọ
-        
+          // Trang Chủ Trọ Nên Load Thông Tin Của Chủ Trọ
         if(+typeAccount===1){
             let res = await getProfileChuTro(idAccount);
             if(res!=null){
@@ -49,6 +50,42 @@ class TinNhanRealTime extends React.Component {
                 })
             }
         }
+        if(idReceiver!=null){
+            let res = await getProfileReceiver(idReceiver);
+            if(res!=null){
+                this.setState({
+                    receiver: res
+                })
+            }
+
+            
+           
+        }
+        let isObject = Object.keys(this.state.receiver).length === 0
+        if(isObject===false){
+            let resPhong = await layIdPhongTinNhan(this.state.sender.idTaiKhoan,this.state.receiver.idTaiKhoan);
+            if(resPhong!=null){
+                if(resPhong==-1){
+                    let result = await taoPhongTinNhan(this.state.sender.idTaiKhoan,this.state.receiver.idTaiKhoan);
+                    if(result!=null){
+                        this.setState({
+                            idRoomMessage:result.id
+                        })
+                    }
+                }else{
+                    let res = await getListNoiDungTinNhan(resPhong);
+                    if(res!=null){
+                        this.setState({
+                            listMessage:res,
+                            idRoomMessage:resPhong
+                        })
+                    }
+                }
+            }
+            this.setUpHienThiButton()
+        }else{
+            this.setUpLucDau()
+        }
         // Ở đây else sẽ là người thuê
         let resTn = await getListTinNhan(idAccount);
         if(resTn!=null){
@@ -56,11 +93,10 @@ class TinNhanRealTime extends React.Component {
                 listUser:resTn
             })
         }
-        this.setUpLucDau()
+        
         this.realTime(idAccount)
     }
 
-   
     broadcastRoomMessage(idRoomMessage,message,idObject){
         const db = getDatabase();
         set(ref(db, 'phongTinNhan/'+idRoomMessage), 
@@ -160,6 +196,7 @@ class TinNhanRealTime extends React.Component {
         if(this.kiemTraRong()){
             let res = await guiTinNhan(this.state.idRoomMessage,this.state.sender.idTaiKhoan,this.state.message);
             if(res!=null){
+                
                 let resmn = await capNhatTinNhanMoiNhat(
                     this.state.sender.idTaiKhoan,
                     this.state.idRoomMessage,
@@ -168,7 +205,7 @@ class TinNhanRealTime extends React.Component {
                     )
                 if(resmn!=null){
                     let listCopy = [...this.state.listMessage];
-                    if(listCopy.length!=0){
+                    
                         let tinNhan = {idPhong:this.state.idRoomMessage,idTaiKhoan:+this.state.sender.idTaiKhoan,noiDung:this.state.message}
                         listCopy[listCopy.length]= tinNhan
                         if(this.state.idRoomMessage!=""){
@@ -178,7 +215,7 @@ class TinNhanRealTime extends React.Component {
                             listMessage:listCopy,
                             message:""
                         })
-                    }
+                    
                 }
             }
         }
