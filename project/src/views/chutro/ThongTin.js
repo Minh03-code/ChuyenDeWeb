@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import avt from "../../images/avt1.jpg";
 import { Link, useParams } from "react-router-dom";
 import { baseURL } from "../../services/my-axios";
+import { ToastContainer, toast } from "react-toastify";
+import "./editthongtinchutro.css";
 import {
   getAllBannerApi,
   getDetailChuTro,
@@ -35,12 +37,26 @@ const ThongTin = () => {
         </div>
       </div>
       <div class="single-product section">
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
-              <div class="left-image">
-                <img src={baseURL + result.hinh} alt={baseURL + result.hinh} />
-              </div>
+              <img
+                className="hinh-banner2"
+                src={baseURL + result.hinh}
+                alt={baseURL + result.hinh}
+              />
             </div>
             <div class="col-lg-6 align-self-center">
               <div className="thongtinchutro">
@@ -73,9 +89,6 @@ const ThongTin = () => {
                 <button className="btn btn-warning bbt">Đổi Mật Khẩu</button>
                 <button className="btn btn-success bbt">Xác Thực</button>
               </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="sep"></div>
             </div>
           </div>
         </div>

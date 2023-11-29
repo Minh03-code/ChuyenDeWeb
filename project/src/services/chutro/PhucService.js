@@ -17,11 +17,11 @@ const updateThongTinChuTroCoHinh = (
     `api/capnhatthongtinchutrocohinh`,
     {
       idTaiKhoan: idTaiKhoan,
+      hinh: hinh,
       ten: ten,
       soDienThoai: soDienThoai,
       soTaiKhoanNganHang: soTaiKhoanNganHang,
       tenChuTaiKhoanNganHang: tenChuTaiKhoanNganHang,
-      hinh: hinh,
     },
     config
   );
