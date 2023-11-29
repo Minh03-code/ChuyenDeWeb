@@ -39,7 +39,7 @@ const EditBanner = () => {
       }
 
       updateData();
-      toast.success("Update banner thành công");
+  
       nav("/admin/quanlybanner");
     } else {
       toast.error("Chưa chọn file ảnh!!!");
