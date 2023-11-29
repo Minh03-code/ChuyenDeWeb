@@ -85,12 +85,25 @@ class DetailChuTro extends React.Component {
                                     </div>
                                     <div className="card-header">
                                         <div className="row">
-                                            <div className="col-md-6">
-                                                <img className='img-fluid avt' class="img-fluid" src={baseURL + result.yeuCauXacThuc.cccdMatTruoc} alt='cccdmattrucoc' />
+                                            {result.yeuCauXacThuc != null ? <><div className="col-md-6">
+                                                {result.yeuCauXacThuc.cccdMatTruoc != null ? <img className='img-fluid avt' class="img-fluid" src={baseURL + result.yeuCauXacThuc.cccdMatTruoc} alt='cccdmattruoc' /> : <div>Không có ảnh căn cước công dân mặt trước</div>}
+
                                             </div>
-                                            <div className="col-md-6">
-                                                <img className='img-fluid avt' class="img-fluid" src={baseURL + result.yeuCauXacThuc.cccdMatSau} alt='cccdmatsau' />
-                                            </div>
+                                                <div className="col-md-6">
+                                                    {result.yeuCauXacThuc.cccdMatSau != null ? <img className='img-fluid avt' class="img-fluid" src={baseURL + result.yeuCauXacThuc.cccdMatSau} alt='cccdmatsau' /> : <div>Không có ảnh căn cước công dân mặt sau</div>}
+
+                                                </div></>
+                                                :
+                                                <><div className="col-md-6">
+                                                    Không có ảnh căn cước công dân mặt trước
+
+                                                </div>
+                                                    <div className="col-md-6">
+                                                        Không có ảnh căn cước công dân mặt sau
+
+                                                    </div></>
+                                            }
+
                                         </div>
                                     </div>
                                     <div className="card-header">

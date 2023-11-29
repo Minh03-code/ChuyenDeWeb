@@ -18,6 +18,7 @@ import QuanLyBanner from './QuanLyBanner.js';
 import QuanLyTienIch from './QuanLyTienIch.js';
 import ListPhuong from './ListPhuong.js';
 import ThemTienIch from './ThemTienIch.js';
+import SuaTienIch from './SuaTienIch.js';
 import AddKhuVuc from './AddKhuVuc.js';
 import EditPasswordAdmin from './EditPasswordAdmin.js';
 import EditProfileAdmin from './EditProfileAdmin.js';
@@ -30,6 +31,9 @@ import DetailChuTro from './DetailChuTro.js';
 import "react-toastify/dist/ReactToastify.css";
 import XemThongTinChiTietYeuCauXacNhanChuTro from './XemThongTinChiTietYeuCauXacNhanChuTro.js';
 import ChinhSach from './ChinhSach.js';
+import ThemPhuong from './ThemPhuong.js';
+import EditQuan from './EditQuan.js';
+import EditPhuong from './EditPhuong.js';
 import AddBanner from './AddBanner.js';
 
 function Admin() {
@@ -53,21 +57,32 @@ function Admin() {
               </Route>
               <Route path="/ThemTienIch" element={<ThemTienIch />}>
               </Route>
+              <Route path="/SuaTienIch" element={<SuaTienIch />}>
+              </Route>
 
               <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
               </Route>
               <Route path="/xacthucgoidangky" element={<QuanLyYeuCauXacNhanGoi />}>
               </Route>
+
               <Route path="/quanlykhuvuc" element={<QuanLyKhuVuc />}>
               </Route>
               <Route path="/addKhuVuc" element={<AddKhuVuc/>}>
               </Route>
               <Route path="/listPhuong" element={<ListPhuong/>}>
               </Route>
+              <Route path="/themPhuong" element={<ThemPhuong />}>
+              </Route>
+              <Route path="/editquan" element={<EditQuan/>}>
+              </Route>
+              <Route path="/editphuong" element={<EditPhuong/>}>
+              </Route>
+
               <Route path="/quanlybanner" element={<QuanLyBanner />}>
               </Route>
               <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
               </Route>
+
               <Route path="/editpassword" element={<EditPasswordAdmin />}>
               </Route>
               <Route path="/editprofileadmin" element={<EditProfileAdmin />}>

@@ -1119,11 +1119,11 @@ footer {
   background-image: url(../images/footer-bg.jpg);
   min-height: 150px;
   border-radius: 150px 150px 0px 0px;
+  padding: 25px;
 }
 
 footer p {
   text-align: center;
-  line-height: 90px;
   color: #fff;
   font-size: 16px;
   font-weight: 400;
@@ -1700,5 +1700,12 @@ body {
   height: auto;
   border-radius: 20px;
   padding: 20px;
+}
+.layout_messenger_chutro{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.list_nguoi_nhan_tin{
+  width: 600px;
 }
 /* End Nghiem Style */
