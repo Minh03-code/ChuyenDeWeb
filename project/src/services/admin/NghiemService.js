@@ -36,6 +36,9 @@ const getListNoiDungTinNhan = (idPhong)=>{
 const dangKiTaiKhoanChuTro=(ten, tenTaiKhoan, matKhau, email)=>{
     return myAxios.post(`api/taotaikhoanchutro`,{ten:ten,tenTaiKhoan:tenTaiKhoan,matKhau:matKhau,email:email});
 }
+const dangKiTaiKhoanNguoiThue=(ten, tenTaiKhoan, matKhau, email,gioiTinh)=>{
+    return myAxios.post(`api/taotaikhoannguoithue`,{ten:ten,tenTaiKhoan:tenTaiKhoan,matKhau:matKhau,email:email,gioiTinh:gioiTinh});
+}
 const layTatCataiKhoan = ()=>{
     return myAxios.get(`api/tatcataikhoan`);
 }
@@ -57,4 +60,5 @@ const layIdPhongTinNhan = (idTaiKhoan1, idTaiKhoan2)=>{
 // export { multiple };
 export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach,getProfileChuTro,getListTinNhan,
     getListNoiDungTinNhan,dangKiTaiKhoanChuTro,layTatCataiKhoan,
-    guiTinNhan,capNhatTinNhanMoiNhat, getProfileReceiver,taoPhongTinNhan,layIdPhongTinNhan};
+    guiTinNhan,capNhatTinNhanMoiNhat, getProfileReceiver,taoPhongTinNhan,layIdPhongTinNhan,
+dangKiTaiKhoanNguoiThue};

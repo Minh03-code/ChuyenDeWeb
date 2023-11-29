@@ -108,7 +108,7 @@ class LoginRegister extends React.Component {
                                     <div className="txt1 text-center p-t-54 p-b-20">
 
                                         <a href="#" className="txt2">
-                                            <Link to="/dangkitaikhoanchutro">
+                                            <Link to="/chonloaitaikhoan">
                                             Đăng ký
                                             </Link>
                                         </a>

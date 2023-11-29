@@ -205,7 +205,6 @@ class TinNhanRealTime extends React.Component {
                     )
                 if(resmn!=null){
                     let listCopy = [...this.state.listMessage];
-                    
                         let tinNhan = {idPhong:this.state.idRoomMessage,idTaiKhoan:+this.state.sender.idTaiKhoan,noiDung:this.state.message}
                         listCopy[listCopy.length]= tinNhan
                         if(this.state.idRoomMessage!=""){
