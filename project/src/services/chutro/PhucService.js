@@ -45,8 +45,23 @@ const updateThongTinChuTroKhongCoHinh = (
     config
   );
 };
+
+const updatePassWord = (id, matKhaucu, matKhaumoi) => {
+  return myAxios.patch(`api/taikhoan/doimatkhau`, {
+    id: id,
+    matKhaucu: matKhaucu,
+    matKhaumoi: matKhaumoi,
+  });
+};
+
+const getAccountById = (id) => {
+  return myAxios.get(`api/taikhoan?id=${id}`);
+};
+
 export {
   getChuTroById,
   updateThongTinChuTroCoHinh,
   updateThongTinChuTroKhongCoHinh,
+  updatePassWord,
+  getAccountById,
 };

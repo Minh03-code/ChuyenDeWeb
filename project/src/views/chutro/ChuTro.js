@@ -28,6 +28,7 @@ import ThongBaoDetail from "./ThongBaoDetail.js";
 import ListGoiDangKy from "./ListGoiDangKy.js";
 import Footer from "../item/Footer";
 import EditThongTinChuTro from "./EditThongTinChuTro.js";
+import EditPasswordChuTro from "./EditPassWordChutro.js";
 
 function ChuTro() {
   console.log(sessionStorage.getItem("accountId"));
@@ -56,6 +57,10 @@ function ChuTro() {
         <Route
           path="/editthongtinchutro/:id"
           element={<EditThongTinChuTro />}
+        ></Route>
+        <Route
+          path="/editpasswordchutro"
+          element={<EditPasswordChuTro />}
         ></Route>
       </Routes>
 

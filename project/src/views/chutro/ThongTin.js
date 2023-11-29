@@ -86,7 +86,12 @@ const ThongTin = () => {
                 >
                   Chỉnh Sửa
                 </Link>
-                <button className="btn btn-warning bbt">Đổi Mật Khẩu</button>
+                <Link
+                  className="btn btn-warning bbt"
+                  to={`/chutro/editpasswordchutro`}
+                >
+                  Đổi mật khẩu
+                </Link>
                 <button className="btn btn-success bbt">Xác Thực</button>
               </div>
             </div>
