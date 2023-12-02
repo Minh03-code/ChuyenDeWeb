@@ -29,6 +29,7 @@ import ListGoiDangKy from "./ListGoiDangKy.js";
 import Footer from "../item/Footer";
 import EditThongTinChuTro from "./EditThongTinChuTro.js";
 import EditPasswordChuTro from "./EditPassWordChutro.js";
+import TinNhanRealTime from './TinNhanRealTime.js';
 
 function ChuTro() {
   console.log(sessionStorage.getItem("accountId"));
@@ -41,7 +42,7 @@ function ChuTro() {
         <Route path="/goidangdung" element={<GoiDangDung />}></Route>
         <Route path="/thongbao" element={<ThongBao />}></Route>
         <Route path="/thongtin" element={<ThongTin />}></Route>
-        <Route path="/tinnhan" element={<TinNhan />}></Route>
+        <Route path="/tinnhan" element={<TinNhanRealTime />}></Route>
         <Route path="/dangxuat" element={<DangXuat />}></Route>
         <Route
           path="/danhsachnguoithue"

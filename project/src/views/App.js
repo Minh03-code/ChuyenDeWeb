@@ -14,6 +14,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import firebase from '../firebase/firebase.js';
 import { getDatabase, ref, onValue } from "firebase/database";
+import ChonLoaiTaiKhoan from './loginregister/ChonLoaiTaiKhoan.js';
+import DangKiTaiKhoanNguoiThue from './loginregister/DangKiTaiKhoanNguoiThue.js';
 function App() {
   const [data, setData] = useState(null);
   const fetchData = async () => {
@@ -21,7 +23,6 @@ function App() {
     const starCountRef = ref(db, 'login');
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
     });
   };
   useEffect(() => {
@@ -37,7 +38,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginRegister />}>
         </Route>
+        <Route path="/chonloaitaikhoan" element={<ChonLoaiTaiKhoan />}>
+        </Route>
         <Route path="/dangkitaikhoanchutro" element={<DangKiTaiKhoanChuTro />}>
+        </Route>
+        <Route path="/dangkitaikhoannguoithue" element={<DangKiTaiKhoanNguoiThue />}>
         </Route>
         <Route path="/admin/*" element={<Admin />}>
         </Route>

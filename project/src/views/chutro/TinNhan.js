@@ -1,6 +1,7 @@
 import React from 'react';
 import { getProfileChuTro,getListTinNhan ,getListNoiDungTinNhan,guiTinNhan,capNhatTinNhanMoiNhat} from '../../services/admin/NghiemService';
 import { baseURL } from '../../services/my-axios.js';
+import { getDatabase, ref, onValue } from "firebase/database";
 class TinNhan extends React.Component {
     state={
         listNguoiNhanTin:[],
@@ -29,6 +30,7 @@ class TinNhan extends React.Component {
     }
 
     componentDidUpdate(){
+
         if(this.state.listTinNhan.length!=0){
             this.cuon()
         }
@@ -48,6 +50,30 @@ class TinNhan extends React.Component {
             })
         }
         this.setUpLucDau()
+        if(this.state.idPhongTinNhan!=""){
+            this.realTime(this.state.idPhongTinNhan)
+        }
+    }
+
+
+    realTime(idPhongNhanTin){
+        const data= getDatabase();
+        const starCountRef = ref(data, 'phongTinNhan/'+idPhongNhanTin);
+        if(idPhongNhanTin!=null){
+            onValue(starCountRef, (snapshot) => {
+                this.loadTinNhan(idPhongNhanTin)
+                console.log("Có Dữ Liệu Thay Đổi")
+                });
+        }
+        
+    }
+    async loadTinNhan(idPhong){
+        let res = await getListNoiDungTinNhan(idPhong);
+        if(res!=null){
+            this.setState({
+                listTinNhan:res
+            })
+        }
     }
 
     async openDoanChat(idPhong){
@@ -115,7 +141,10 @@ class TinNhan extends React.Component {
     }
 
     render() {
-        let{listNguoiNhanTin,listTinNhan,chuTro,doiTuongChat,
+        let{listNguoiNhanTin,
+            listTinNhan,
+            chuTro,
+            doiTuongChat,
             tinNhan
         } = this.state;
         let isObject = Object.keys(chuTro).length === 0
@@ -134,7 +163,6 @@ class TinNhan extends React.Component {
                         </div>
                         <div className='section'>
                             <div className="row man_hinh_nhan_tin">
-
                                     {
                                         listNguoiNhanTin.length!==0?
                                         <>
