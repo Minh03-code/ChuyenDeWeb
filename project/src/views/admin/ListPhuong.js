@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import { listPhuongCallAPI} from '../../services/admin/ThinhService';
 import QuanLyKhuVuc from './QuanLyKhuVuc';
 class ListPhuong extends React.Component {
     state = {
@@ -12,15 +13,16 @@ class ListPhuong extends React.Component {
         const kitu = params.get('id');
 
 
-        let res = await axios.get(`http://127.0.0.1:8000/api/phuong/layphuongtheoquan?idQuan=${kitu}`);
-        if (res.data != null) {
+        let res = await listPhuongCallAPI(kitu);
+        if (res != null) {
             this.setState({
-                listPhuong: res.data
+                listPhuong: res,
+                id: kitu
             })
             console.log(this.state.listPhuong);
-            console.log(res);
         }
     }
+
 
 
     render() {
