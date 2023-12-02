@@ -21,7 +21,7 @@ class Navigation extends React.Component {
                                         <li><NavLink to='/chutro/tinnhan' className={(navData) => (navData.isActive ? "active" : '')}>Tin Nhắn</NavLink></li>
                                         <li><NavLink to='/chutro/thongtin' className={(navData) => (navData.isActive ? "active" : '')}>Thông Tin</NavLink></li>
                                        
-                                        <li><Link to="/">Đăng xuất</Link></li>
+                                        <li><Link to="/chutro/dangxuat">Đăng xuất</Link></li>
                                     </ul>
                                     <a className='menu-trigger'>
                                         <span>Menu</span>
