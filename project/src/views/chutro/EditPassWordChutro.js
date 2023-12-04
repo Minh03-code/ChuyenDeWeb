@@ -59,6 +59,7 @@ function EditPassWordChuTro() {
   };
   const changePassNow = (text) => {
     setPassNow(text);
+    console.log(">>>" + text);
   };
   const changePassNew = (text) => {
     setPassNew(text);
@@ -107,18 +108,21 @@ function EditPassWordChuTro() {
             <InputText
               label={"Mật khẩu hiện tại"}
               type={"password"}
+              value={""}
               changeValue={changePassNow}
             />
 
             <InputText
               label={"Mật khẩu mới"}
               type={"password"}
+              value={""}
               changeValue={changePassNew}
             />
 
             <InputText
               label={"Nhập lại mật khẩu"}
               type={"password"}
+              value={""}
               changeValue={changePassConfirm}
             />
           </div>
