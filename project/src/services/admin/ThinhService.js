@@ -6,6 +6,10 @@ const getAllKhuVucApi = () => {
 const config = {
   headers: { 'content-type': 'multipart/form-data' }
 }
+const listPhuong = (id) => {
+  return myAxios.get(`api/phuong/layphuongtheoquan?idQuan=${id}`);
+}
+
 const addnewQuan = (tenQuan, hinh) => {
   return myAxios.post(`api/themquan`, { tenQuan: tenQuan, hinh: hinh }, config);
 }
@@ -39,7 +43,7 @@ const getAllGoiDangKyCallAPI = () => {
 
 
 // export { multiple };
-export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI, editPhuongCallAPI , getDetailThongBaoCallAPI, getNguoiGui, getAllGoiDangKyCallAPI};
+export {listPhuong, getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI, editPhuongCallAPI, getDetailThongBaoCallAPI, getNguoiGui, getAllGoiDangKyCallAPI };
 
 
 

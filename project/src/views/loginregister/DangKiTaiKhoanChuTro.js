@@ -218,7 +218,7 @@ class DangKiTaiKhoanChuTro extends React.Component {
                             </textarea>
                             <button className='btn btn-danger bbt' onClick={()=>this.dongModal()}>Đóng</button>
                         </div>
-                    </div>
+                        </div>
 
 
 

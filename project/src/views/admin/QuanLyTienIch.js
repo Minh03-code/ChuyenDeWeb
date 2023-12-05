@@ -4,7 +4,6 @@ import { getAllTienIchCallAPI, capNhatTrangThaiTienIch } from '../../services/ad
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from '../loading/Loading';
-import loading from '../loading/Loading';
 
 class QuanLyTienIch extends React.Component {
     state = {
@@ -25,30 +24,35 @@ class QuanLyTienIch extends React.Component {
     async componentDidMount() {
         await this.loadData();
     }
-    async update(id, trangThai) {
+    async update(name, id, trangThai) {
         if (trangThai === 0) {
-            let res = await capNhatTrangThaiTienIch(id);
-            if (res != null) {
-                toast.success("Khoá Tiện Ích Thành Công!");
-                await this.loadData();
-            } else {
-                toast.error("Khoá Tiện Ích Thất Bại!");
+            if (window.confirm("Xác nhận Khoá tiện ích " + name)) {
+                let res = await capNhatTrangThaiTienIch(id);
+                if (res != null) {
+                    toast.success("Khoá Tiện Ích Thành Công!");
+                    await this.loadData();
+                } else {
+                    toast.error("Khoá Tiện Ích Thất Bại!");
+                }
             }
         } else {
-            let res = await capNhatTrangThaiTienIch(id);
-            if (res != null) {
-                toast.success("Mở Tiện Ích Thành Công!");
-                await this.loadData();
-            } else {
-                toast.error("Mở Tiện Ích Thất Bại!");
+            if (window.confirm("Xác nhận Mở tiện ích " + name)) {
+                let res = await capNhatTrangThaiTienIch(id);
+                if (res != null) {
+                    toast.success("Mở Tiện Ích Thành Công!");
+                    await this.loadData();
+                } else {
+                    toast.error("Mở Tiện Ích Thất Bại!");
+                }
             }
         }
     }
 
+
     render() {
         let { listTienIch, loading } = this.state;
         return (
-                loading == true ?
+            loading == true ?
                 <>
                     <div className="main">
                         <main className="content">
@@ -88,7 +92,7 @@ class QuanLyTienIch extends React.Component {
                                                             /></td>
                                                         <td className="d-none d-md-table-cell">
                                                             <NavLink to={`/admin/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
-                                                            {(item.trangThai === 0) ? <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-success">Mở</a>}
+                                                            {(item.trangThai === 0) ? <a onClick={() => this.update(item.ten, item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-success">Mở</a>}
                                                         </td>
                                                     </tr>
                                                 )

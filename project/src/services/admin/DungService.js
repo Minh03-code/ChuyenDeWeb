@@ -29,6 +29,14 @@ const addPhuong = (tenPhuong, idQuan) => {
 }
 const getAllGoiDangKyCallAPI = () => {
     return myAxios.get("api/goi/all");
-  }
+}
+const guiYeuCauDangKyGoi = (idChuTro, idGoi, hinhAnhChuyenKhoan) => {
+    return myAxios.post(`api/yeucaudangkygoi/create`, { idChuTro: idChuTro, idGoi: idGoi, hinhAnhChuyenKhoan: hinhAnhChuyenKhoan }, config);
+}
+const xoaGoiDichVuChuTroTheoIDTaiKhoanAPI = (id) => {
+    return myAxios.patch(`api/chutro/xoadichvu?idTaiKhoan=${id}`);
+}
+
+
 // export { multiple };
-export { getAllGoiDangKyCallAPI, addPhuong, getGoiCallAPI, getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch, capNhatTrangThaiTienIch, editTienIchkhonghinh };
+export { xoaGoiDichVuChuTroTheoIDTaiKhoanAPI, guiYeuCauDangKyGoi, getAllGoiDangKyCallAPI, addPhuong, getGoiCallAPI, getAllTienIchCallAPI, addnewTienIch, layTienIchTheoId, editTienIch, capNhatTrangThaiTienIch, editTienIchkhonghinh };

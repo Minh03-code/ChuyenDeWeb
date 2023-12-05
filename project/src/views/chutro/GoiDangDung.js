@@ -1,20 +1,79 @@
 import React from 'react';
-import chitietanh from "../../images/avt1.jpg"
-import { getGoiCallAPI } from "../../services/admin/DungService"
-import { getProfileChuTro } from "../../services/admin/NghiemService.js"
+import { getGoiCallAPI, guiYeuCauDangKyGoi, xoaGoiDichVuChuTroTheoIDTaiKhoanAPI } from "../../services/admin/DungService"
+import { getProfileChuTro, getProfileAdmin } from "../../services/admin/NghiemService.js"
+import { getAllGoiDangKyCallAPI } from '../../services/admin/ThinhService';
+import { baseURL } from '../../services/my-axios.js';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+
 class GoiDangDung extends React.Component {
   state = {
+    // Lay thong tin chu tro
+    idCT: "",
+    tenCT: "",
+    hinh: "",
+    goi: 0,
+    sdtCT: "",
+    STK: "",
+    tenTK: "",
+
+    // lay thong tin goi bang cach chuyen vao id goi
     thoihan: "",
     soLuongPhong: "",
     gia: "",
-    ten: "",
-    hinh: "",
+
+    // list goi nang cap
+    listGoiDangKy: [],
+
+    // thong tin admin
+    tenAdmin: "",
+    sdt: "",
+    stkAdmins: "",
+    tenSTKAdmin: "",
+
+    // thong tin goi nang cap
+    goiNangCapGia: 0,
+    goiNangCapPhong: 0,
+    goiNangCapThoiGian: 0,
+    idGoiNangCap: 0,
+
+    // hinh anh chuyen khoan
+    hinhChuyenKhoan: null,
   };
+  async componentDidMount() {
+    this.getThongTin();
+  }
   async getThongTin() {
     let idTaiKhoan = sessionStorage.getItem("accountId");
 
-    let goi = await getGoiCallAPI(idTaiKhoan);
-    console.log(goi);
+    //thong tin chu tro
+    let resChuTro = await getProfileChuTro(idTaiKhoan);
+    if (resChuTro != null) {
+      this.setState({
+        idCT: resChuTro.id,
+        ten: resChuTro.ten,
+        hinh: resChuTro.hinh,
+        goi: resChuTro.idGoi,
+        sdtCT: resChuTro.soDienThoai,
+        STK: resChuTro.soTaiKhoanNganHang,
+        tenTK: resChuTro.tenChuTaiKhoanNganHang
+      })
+    }
+
+    //thong tin admin
+    let res = await getProfileAdmin(1);
+    // console.log(res);
+    if (res != null) {
+      this.setState({
+        tenAdmin: res.ten,
+        sdt: res.soDienThoai,
+        tenSTk: res.tenChuTaiKhoan,
+        stkAdmins: res.soTaiKhoanNganHang,
+      })
+    }
+
+    // thong tin goi chu tro dang su dung
+    let goi = await getGoiCallAPI(this.state.goi);
     if (goi != null) {
       this.setState({
         thoihan: goi.thoiHan,
@@ -22,11 +81,19 @@ class GoiDangDung extends React.Component {
         gia: goi.gia,
       })
     }
-  }
-  async guiThanhToanGoi(){
+
+    // lay tat ca cac goi 
+    let allGoi = await getAllGoiDangKyCallAPI();
+    if (this.state.goi !== 0) {
+      let listGoiCopy = allGoi.filter(item => item.id !== this.state.goi);
+      this.setState({
+        listGoiDangKy: listGoiCopy
+      })
+    }
+
+
 
   }
-
 
   // dong mo giao dien
   moModal() {
@@ -34,7 +101,6 @@ class GoiDangDung extends React.Component {
     let formG = document.querySelector(".chitietgoidangki");
     modal.style.display = "block"
     formG.style.display = "none"
-
   }
   dongModal() {
     let modal = document.querySelector(".modal1");
@@ -44,29 +110,80 @@ class GoiDangDung extends React.Component {
     formG.style.display = "block"
     modal1.style.display = "none"
   }
-  moThanhToan() {
+
+
+
+  // nut huy goi
+  moHuyGoi() {
+    let modal = document.querySelector(".modal_huy");
+    let modal1 = document.querySelector(".anime");
+    modal.style.display = "block"
+    modal1.style.display = "none"
+  }
+
+  async huyGoi() {
+    // if (window.confirm("Xác nhận huỷ gói đang đăng kí \nĐiều này sẽ huỷ gói bạn đang sử dụng yêu cầu này sẽ không được hoàn tác lại !!!")) {
+    //   let res = await xoaGoiDichVuChuTroTheoIDTaiKhoanAPI(2);
+    //   if (res !== null) {
+    //     toast.success("Huỷ gói Thành Công!");
+
+    //   } else {
+    //     toast.success("Huỷ gói Thất Bại!!!");
+    //   }
+    // }
+    this.moHuyGoi();
+  }
+
+  dongModalHuyGoi() {
+    let modal = document.querySelector(".modal_huy");
+    modal.style.display = "none"
+  }
+
+  xacNhanHuyGoi() {
+    let modal = document.querySelector(".modal_huy");
+    modal.style.display = "none"
+  }
+
+  // man hinh nang cap goi
+  moThanhToan(id, gia, phong, thoigian) {
     let modal = document.querySelector(".modal1");
     let modal1 = document.querySelector(".modal3");
     modal.style.display = "none"
     modal1.style.display = "block"
+    this.setState({
+      goiNangCapGia: gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }),
+      goiNangCapPhong: phong,
+      goiNangCapThoiGian: thoigian,
 
+      idGoiNangCap: id
+    })
   }
 
-
-  
-  async componentDidMount() {
-    this.getThongTin();
+  // nut thanh toan goi
+  thayDoiHinh(event) {
+    this.setState({
+      hinhChuyenKhoan: event.target.files[0]
+    })
   }
+
+  async guiThanhToanGoi() {
+    let res = await guiYeuCauDangKyGoi(this.state.idCT, this.state.idGoiNangCap, this.state.hinhChuyenKhoan);
+  }
+
   render() {
     let { thoihan, soLuongPhong, gia } = this.state;
+    let { ten, hinh, goi, tenTK, STK, sdtCT } = this.state;
+    let { listGoiDangKy, tenAdmin, sdt, stkAdmins, tenSTk } = this.state;
+    let { goiNangCapGia, goiNangCapPhong, goiNangCapThoiGian, idGoiNangCap } = this.state;
+
     return (
       <>
         <div class="page-heading header-text">
           <div class="container">
-            <div class="row">
+            <div class="row anime">
               <div class="col-lg-12">
-                <h3>Thông Tin Gói Đăng Kí</h3>
-                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>Nguyễn Gia Nghiêm </span>
+                <h3>Thông Tin Gói Đăng Ký</h3>
+                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>{ten} </span>
               </div>
             </div>
           </div>
@@ -76,24 +193,21 @@ class GoiDangDung extends React.Component {
             <div class="row">
               <div class="col-lg-6">
                 <div class="left-image">
-                  <img src={chitietanh} alt="" />
+                  <img src={baseURL + hinh} alt="" />
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
-                <h4>Gói Cho Thuê {soLuongPhong} Phòng {thoihan} Tháng</h4>
+                <h4>Gói Cho Thuê {soLuongPhong} Phòng / {thoihan} Tháng</h4>
 
                 <div className='chitietgoidangki'>
-                  <h2 className='ten_chu_tro'>Chủ Trọ: Nguyễn Gia Nghiêm</h2>
-                  <div className='chutro_info'><b>Giá Gói: </b>{gia}</div>
-                  <div className='chutro_info'><b>Số Điện Thoại: </b>C111111111111</div>
-                  <div className='chutro_info'><b>Số Tài Khoản:</b> 1111111111111</div>
-                  <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b> 1111111111111</div>
-                  <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> NGUYEN G IA NGHIEM</div>
-<button className='btn btn-primary bbt'>Nâng Cấp Gói</button>
-                  <button className='btn btn-success bbt' onClick={() => this.moModal()}>Gia Hạn Gói</button>
-                  <button className='btn btn-danger bbt'>Huỷ Gói</button>
+                  <h2 className='ten_chu_tro fs-2'>Chủ Trọ: {ten}</h2>
+                  <div className='chutro_info fs-2'>Giá Gói: {gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                  <button className='btn btn-primary bbt' onClick={() => this.moModal()}>Nâng Cấp Gói</button>
+                  <button className='btn btn-success bbt'>Gia Hạn Gói</button>
+                  <button className='btn btn-danger bbt' onClick={() => this.huyGoi()}>Huỷ Gói</button>
                 </div>
               </div>
+
 
               {/* giao dien list gói */}
 
@@ -103,16 +217,19 @@ class GoiDangDung extends React.Component {
                 </div>
                 <div className="modal-content1">
 
-                  <div class="card container">
-                    <div className="row">
-                      <div class="card-body col-9">
-                        This is some text within a card body.
+                  {listGoiDangKy && listGoiDangKy.length > 0 && listGoiDangKy.map((item, index) => {
+                    return (
+                      <div class="card container">
+                        <div className="row">
+                          <div class="card-body col-9 text-center fs-2">
+                            Gói Cho Thuê {item.soLuongPhongToiDa} Phòng / {item.thoiHan} Tháng
+                          </div>
+                          <button type="button" class="col-3 btn btn-outline-info fs-2" onClick={() => this.moThanhToan(item.id, item.gia, item.soLuongPhongToiDa, item.thoiHan)}>Đăng Ký</button>
+                        </div>
                       </div>
-                      <button type="button" class="col-3 btn btn-outline-info" onClick={() => this.moThanhToan()}>Dang ki</button>
-                    </div>
-                  </div>
-
-
+                    )
+                  })
+                  }
                 </div>
 
               </div>
@@ -127,38 +244,62 @@ class GoiDangDung extends React.Component {
                   <div class="container">
                     <div class="row">
                       <div className='chitietgoidangki1 col-md-6 border border-5'>
-                        <h2 className='ten_chu_tro'>Chủ Trọ: Nguyễn Gia Nghiêm</h2>
-                        <div className='chutro_info'><b>Giá Gói: </b>{gia}</div>
-                        <div className='chutro_info'><b>Số Điện Thoại: </b>C111111111111</div>
-                        <div className='chutro_info'><b>Số Tài Khoản:</b> 1111111111111</div>
-                        <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b> 1111111111111</div>
-                        <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> NGUYEN G IA NGHIEM</div>
+                        <h2 className='ten_chu_tro'>Chủ Trọ: {ten}</h2>
+                        <h2 className='ten_chu_tro'>Thông Tin Gói Hiện Tại</h2>
+                        <div className='chutro_info'><b>Id Gói: </b>{goi}</div>
+                        <div className='chutro_info'><b>Giá Gói: </b>{gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                        <div className='chutro_info'><b>Thời Gian: </b>{thoihan} Tháng</div>
+                        <div className='chutro_info'><b>Phòng: </b>{soLuongPhong} Phòng</div>
+                        <div className='chutro_info'><b>Số Điện Thoại:</b> {sdtCT}</div>
+                        <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b> {STK}</div>
+                        <div className='chutro_info'><b>Tên Chủ Tài Khoản:</b> {tenTK}</div>
                       </div>
-                      {/* <div className='col-md-1' /> */}
 
-                      <div className='chitietgoidangki1 col-md-6 border border-5 border border-5'>
-                        <h2 className='ten_chu_tro'>Chủ Trọ: Nguyễn Gia Nghiêm</h2>
-                        <div className='chutro_info'><b>Giá Gói: </b>{gia}</div>
-                        <div className='chutro_info'><b>Số Điện Thoại: </b>C111111111111</div>
-                        <div className='chutro_info'><b>Số Tài Khoản:</b> 1111111111111</div>
-                        <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b> 1111111111111</div>
-                        <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> NGUYEN G IA NGHIEM</div>
+                      <div className='chitietgoidangki1 col-md-6 border border-5'>
+                        <h2 className='ten_chu_tro'>Admin: {tenAdmin}</h2>
+                        <h2 className='ten_chu_tro'>Thông Tin Gói Muốn Thay Đổi</h2>
+                        <div className='chutro_info'><b>Id Gói: </b>{idGoiNangCap}</div>
+                        <div className='chutro_info'><b>Giá Gói: </b>{goiNangCapGia}</div>
+                        <div className='chutro_info'><b>Thời Gian: </b>{goiNangCapThoiGian} Tháng</div>
+                        <div className='chutro_info'><b>Phòng: </b>{goiNangCapPhong} Phòng</div>
+                        <div className='chutro_info'><b>Số Điện Thoại: </b>{sdt}</div>
+                        <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b>{stkAdmins} </div>
+                        <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> {tenSTk}</div>
                       </div>
 
                       <div class="mb-3 col-12">
-                        <label for="formFile" class="form-label">Anh</label>
-                        <input class="form-control" type="file" id="formFile" />
+                        <label for="formFile" class="form-label">Ảnh Chuyển Khoản: </label>
+                        <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                       </div>
-                      <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi()}>Primary</button>
-
+                      <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi()}>Gửi Yêu Cầu Đăng Ký Gói</button>
                     </div>
                   </div>
                 </div>
               </div>
 
+
+              <div className="modal_huy">
+
+                <div className="modal-content_huy">
+                  <h2 className='ten_chu_tro'>Chủ Trọ: {ten}</h2>
+                  <h2 className='ten_chu_tro'>Thông Tin Gói Hiện Tại</h2>
+                  <div className='chitietgoidangki boder boder-5'>
+                    <h3><div className='chutro_info'><b>Id Gói: </b>{goi}</div>
+                      <div className='chutro_info'><b>Giá Gói: </b>{gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                      <div className='chutro_info'><b>Thời Gian: </b>{thoihan} Tháng</div>
+                      <div className='chutro_info'><b>Phòng: </b>{soLuongPhong} Phòng</div>
+                    </h3>
+                  </div>
+                  <h3>Bạn Có Chắc Muốn Huỷ Gói Đang Sử Dụng</h3>
+
+                  <Link to="/chutro/quanlyphong"><button className='btn btn-danger bbt' onClick={() => this.  xacNhanHuyGoi()}>Xac nhan</button></Link>
+                  <button className='btn btn-danger bbt' onClick={() => this.dongModalHuyGoi()}>Đóng</button>
+                </div>
+              </div>
+
             </div>
           </div>
-        </div>
+        </div >
       </>
     )
   }

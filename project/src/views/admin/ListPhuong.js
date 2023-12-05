@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import { listPhuong } from '../../services/admin/ThinhService.js';
 import QuanLyKhuVuc from './QuanLyKhuVuc';
 class ListPhuong extends React.Component {
     state = {
-        listPhuong: []
+        listPhuong: [],
+        id: 0
     }
     async componentDidMount() {
         const search = window.location.search;
@@ -12,19 +14,19 @@ class ListPhuong extends React.Component {
         const kitu = params.get('id');
 
 
-        let res = await axios.get(`http://127.0.0.1:8000/api/phuong/layphuongtheoquan?idQuan=${kitu}`);
-        if (res.data != null) {
+        let res = await listPhuong(kitu);
+        if (res != null) {
             this.setState({
-                listPhuong: res.data
+                listPhuong: res,
+                id: kitu
             })
             console.log(this.state.listPhuong);
-            console.log(res);
         }
     }
 
 
     render() {
-        let { listPhuong } = this.state;
+        let { listPhuong, id } = this.state;
         return (
             <>
                 <div className="main">
@@ -36,7 +38,10 @@ class ListPhuong extends React.Component {
                                 <div className="card-header">
                                     <div className="row">
                                         <div className="col-md-3">
-                                            <h5 className="card-title mb-0">Quản lý khu vực</h5>
+                                            <h5 className="card-title mb-0">Thêm tiện ích</h5>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <NavLink to={`/admin/ThemPhuong?id=${id}`}><a className="btn btn-primary">Thêm</a></NavLink>
                                         </div>
 
                                     </div>

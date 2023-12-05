@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   useNavigate,
   BrowserRouter,
   Routes,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
 import style1 from "../../styles/chutro/assets/css/fontawesome.css";
 import style2 from "../../styles/chutro/assets/css/templatemo-lugx-gaming.css";
@@ -26,9 +26,9 @@ import ChiTietNguoiThueTro from './ChiTietNguoiThueTro.js';
 import AddRoom from './AddRoom';
 import ThongBaoDetail from './ThongBaoDetail.js';
 import ListGoiDangKy from './ListGoiDangKy.js';
+import { getProfileChuTro } from "../../services/admin/NghiemService.js"
 import Footer from '../item/Footer';
 function ChuTro() {
- 
   return (
     sessionStorage.getItem('accountType') == 1 ?
       <>
@@ -38,22 +38,22 @@ function ChuTro() {
           <Route path='/quanlyphong' element={<QuanLyPhong />}>
 
           </Route>
-          <Route path='/goidangdung' element={<GoiDangDung/>}></Route>
-          <Route path='/thongbao' element={<ThongBao/>}></Route>
-          <Route path='/thongtin' element={ <ThongTin/>}></Route>
-          <Route path='/tinnhan' element={ <TinNhan/>}></Route>
-          <Route path='/dangxuat' element={<DangXuat/>}></Route>
-          <Route path='/danhsachnguoithue' element={<DanhSachNguoiThueTro/>}></Route>
-          <Route path='/chitietnguoithue' element={<ChiTietNguoiThueTro/>}></Route>
-          <Route path='/themphong' element={<AddRoom/>}></Route>
-          <Route path='/listgoidangky' element={<ListGoiDangKy />}></Route>
+          <Route path='/goidangdung' element={<GoiDangDung />}></Route>
+          <Route path='/thongbao' element={<ThongBao />}></Route>
+          <Route path='/thongtin' element={<ThongTin />}></Route>
+          <Route path='/tinnhan' element={<TinNhan />}></Route>
+          <Route path='/dangxuat' element={<DangXuat />}></Route>
+          <Route path='/danhsachnguoithue' element={<DanhSachNguoiThueTro />}></Route>
+          <Route path='/chitietnguoithue' element={<ChiTietNguoiThueTro />}></Route>
+          <Route path='/themphong' element={<AddRoom />}></Route>
+          <Route path='/ListGoiDangKy' element={<ListGoiDangKy />}></Route>
           <Route path='/thongbaodetail' element={<ThongBaoDetail />}></Route>
         </Routes>
-       <Footer
-        title={"Thông tin liên hệ"}
-        name={"Nguyễn Đức Minh"}
-        phoneNumber={"0123456789"}
-        email={"minh123@gmail.com"}/>
+        <Footer
+          title={"Thông tin liên hệ"}
+          name={"Nguyễn Đức Minh"}
+          phoneNumber={"0123456789"}
+          email={"minh123@gmail.com"} />
       </>
       : <NotFound />
   );
