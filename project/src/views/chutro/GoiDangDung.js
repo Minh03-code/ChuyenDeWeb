@@ -116,9 +116,16 @@ class GoiDangDung extends React.Component {
     let modal = document.querySelector(".modal1");
     let formG = document.querySelector(".chitietgoidangki");
     let modal1 = document.querySelector(".modal3");
+    let modal5 = document.querySelector(".modal5");
     modal.style.display = "none"
     formG.style.display = "block"
     modal1.style.display = "none"
+    modal5.style.display = "none"
+  }
+
+  moGiaHanGoi() {
+    let modal = document.querySelector(".modal5");
+    modal.style.display = "block"
   }
 
 
@@ -214,9 +221,11 @@ class GoiDangDung extends React.Component {
                     <div className='chitietgoidangki'>
                       <h2 className='ten_chu_tro fs-2'>Chủ Trọ: {ten}</h2>
                       <div className='chutro_info fs-2'>Giá Gói: {gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
-                      <button className='btn btn-primary bbt' onClick={() => this.moModal()}>Nâng Cấp Gói</button>
-                      <button className='btn btn-success bbt'>Gia Hạn Gói</button>
-                      <button className='btn btn-danger bbt' onClick={() => this.moHuyGoi()}>Huỷ Gói</button>
+                      <div className='row align-items-start gap-3'>
+                        <button className='btn btn-primary col' onClick={() => this.moModal()}>Nâng Cấp Gói</button>
+                        <button className='btn btn-success col' onClick={() => this.moGiaHanGoi()}>Gia Hạn Gói</button>
+                        <button className='btn btn-danger col' onClick={() => this.moHuyGoi()}>Huỷ Gói</button>
+                      </div>
                     </div>
                   </div>
 
@@ -225,7 +234,7 @@ class GoiDangDung extends React.Component {
 
                   <div className="modal1">
                     <div className='modal2 text-end'>
-                      <button type="button" class="col align-self-end btn btn-outline-danger" onClick={() => this.dongModal()} aria-label="Close">Cancel</button>
+                      <button type="button" class="col align-self-end btn btn-danger" onClick={() => this.dongModal()} aria-label="Close">Cancel</button>
                     </div>
                     <div className="modal-content1">
 
@@ -279,8 +288,52 @@ class GoiDangDung extends React.Component {
                             <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> {tenSTk}</div>
                           </div>
 
-                          <div class="mb-3 col-12">
-                            <label for="formFile" class="form-label">Ảnh Chuyển Khoản: </label>
+                          <div class="mb-3 col-12  text-center">
+                            <label for="formFile" class="form-label fs-2">Ảnh Chuyển Khoản: </label>
+                            <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
+                          </div>
+                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi()}>Gửi Yêu Cầu Đăng Ký Gói</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Model gia han goi */}
+
+                  <div className="modal5">
+                    <div className='modal4 text-end'>
+                      <button type="button" class="col align-self-end btn btn-outline-danger" onClick={() => this.dongModal()} aria-label="Close">Cancel</button>
+                    </div>
+                    <div className="modal-content2">
+                      <div class="container">
+                        <div class="row">
+                          <div className='text-center'>
+                            <h2>Gia Hạn Gói Hiện Tại</h2>
+                          </div>
+                          <div className='chitietgoidangki1 col-md-4 border border-5'>
+                            <h2 className='ten_chu_tro'>Chủ Trọ: {ten}</h2>
+                            <div className='chutro_info'><b>Số Điện Thoại:</b> {sdtCT}</div>
+                            <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b> {STK}</div>
+                            <div className='chutro_info'><b>Tên Chủ Tài Khoản:</b> {tenTK}</div>
+                          </div>
+
+                          <div className='chitietgoidangki1 col-md-4 border border-5'>
+                            <h2 className='ten_chu_tro'>Admin: {tenAdmin}</h2>
+                            <div className='chutro_info'><b>Số Điện Thoại: </b>{sdt}</div>
+                            <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b>{stkAdmins} </div>
+                            <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> {tenSTk}</div>
+                          </div>
+
+                          <div className='chitietgoidangki1 col-md-4 border border-5'>
+                            <h2 className='ten_chu_tro'>Thông Tin Gói Hiện Tại</h2>
+                            <div className='chutro_info'><b>Id Gói: </b>{goi}</div>
+                            <div className='chutro_info'><b>Giá Gói: </b>{gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                            <div className='chutro_info'><b>Thời Gian: </b>{thoihan} Tháng</div>
+                            <div className='chutro_info'><b>Phòng: </b>{soLuongPhong} Phòng</div>
+                          </div>
+
+                          <div class="mb-3 col-12  text-center">
+                            <label for="formFile" class="form-label fs-2">Ảnh Chuyển Khoản: </label>
                             <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                           </div>
                           <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi()}>Gửi Yêu Cầu Đăng Ký Gói</button>
