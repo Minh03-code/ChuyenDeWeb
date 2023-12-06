@@ -66,12 +66,15 @@ class TinNhanRealTime extends React.Component {
             let resPhong = await layIdPhongTinNhan(this.state.sender.idTaiKhoan,this.state.receiver.idTaiKhoan);
             if(resPhong!=null){
                 if(resPhong==-1){
+
+                   
                     let result = await taoPhongTinNhan(this.state.sender.idTaiKhoan,this.state.receiver.idTaiKhoan);
                     if(result!=null){
                         this.setState({
                             idRoomMessage:result.id
                         })
                     }
+                    console.log("phong: "+result)
                 }else{
                     let res = await getListNoiDungTinNhan(resPhong);
                     if(res!=null){
