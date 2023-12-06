@@ -107,8 +107,10 @@ function LoginRegister() {
                                 <div className="txt1 text-center p-t-54 p-b-20">
 
                                     <a href="#" className="txt2">
-                                        Đăng ký
-                                    </a>
+                                            <Link to="/chonloaitaikhoan">
+                                            Đăng ký
+                                            </Link>
+                                        </a>
                                 </div>
 
                             </form>

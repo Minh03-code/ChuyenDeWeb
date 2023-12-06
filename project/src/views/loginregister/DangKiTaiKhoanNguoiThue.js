@@ -8,17 +8,18 @@ import {
 } from "react-router-dom";
 import "./main.css";
 import "./util.css";
-import { getChinhSach,dangKiTaiKhoanChuTro,layTatCataiKhoan } from '../../services/admin/NghiemService';
+import { getChinhSach,layTatCataiKhoan, dangKiTaiKhoanNguoiThue } from '../../services/admin/NghiemService';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-class DangKiTaiKhoanChuTro extends React.Component {
+class DangKiTaiKhoanNguoiThue extends React.Component {
     state = {
         tatCataiKhoan:[],
         chinhSach:"",
         ten:"",
         email:"",
         matKhau:"",
+        gioiTinh:1,
         checkBox: false
     }
 
@@ -35,6 +36,11 @@ class DangKiTaiKhoanChuTro extends React.Component {
     thayDoiMatKhau(event){
         this.setState({
             matKhau:event.target.value
+        })
+    }
+    thayDoiGioiTinh(event){
+        this.setState({
+            gioiTinh:event.target.value
         })
     }
     thayDoiCheckBox(event){
@@ -109,16 +115,17 @@ class DangKiTaiKhoanChuTro extends React.Component {
             if(this.kiemTraDoDaiMatKhau()){
                 if(this.kiemTraCheckBox()){
                     if(this.kiemTraEmailDaCo()){
-                        let res = await dangKiTaiKhoanChuTro(this.state.ten,this.state.email,this.state.matKhau,this.state.email);
+                        let res = await dangKiTaiKhoanNguoiThue(this.state.ten,this.state.email,this.state.matKhau,this.state.email,this.state.gioiTinh);
                         if(res!=null){
                             toast.success("Đăng Kí Tài Khoản Thành Công!");
                             this.setState({
                                 ten:"",
                                 email:"",
                                 matKhau:"",
-                                checkBox:false
+                                checkBox:false,
+                                gioiTinh:1
                             })
-                       
+                            
 
                         }else{
                             toast.error("Đăng Kí Tài Khoản Thất Bại!")
@@ -164,7 +171,7 @@ class DangKiTaiKhoanChuTro extends React.Component {
                                         theme="dark"
                                     />
                                     <span className="login100-form-title p-b-49">
-                                        Đăng Kí Tài Khoản Chủ Trọ
+                                        Đăng Kí Tài Khoản Người Thuê
                                     </span>
 
                                     <div className="wrap-input100 validate-input m-b-23" data-validate="Tên là bắt buộc">
@@ -182,10 +189,16 @@ class DangKiTaiKhoanChuTro extends React.Component {
                                         <input className="input100" type="password"  placeholder="Nhập Mật Khẩu của bạn" value={matKhau} onChange={(e)=>this.thayDoiMatKhau(e)} />
                                         <span className="focus-input100" data-symbol="&#xf190;"></span>
                                     </div>
+                                        <span className="label-input100">Giới Tính</span>
+                                        <select className="form-select" value={this.state.gioiTinh} onChange={(e)=>this.thayDoiGioiTinh(e)}>
+                                            <option value={1}  >Nam</option>
+                                            <option value={2} >Nữ</option>
+                                            <option value={0} >Khác</option>
+                                        </select>
                                     <input type="checkbox" className='chinhSach' defaultChecked={checkBox} onClick={(event=>this.thayDoiCheckBox(event))}/>
                                     <label > Bạn Có Đồng Ý Với <b onClick={()=>this.openChinhSach()}> Chính Sách?  </b></label><br></br>
                                     <div className="text-right p-t-8 p-b-31">
-                                        
+                                    
                                     </div>
                                     <div className="container-login100-form-btn">
                                         <div className="wrap-login100-form-btn">
@@ -230,5 +243,4 @@ class DangKiTaiKhoanChuTro extends React.Component {
     }
 
 }
-
-export default DangKiTaiKhoanChuTro;
+export default DangKiTaiKhoanNguoiThue;
