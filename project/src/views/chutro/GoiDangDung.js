@@ -117,10 +117,15 @@ class GoiDangDung extends React.Component {
     let formG = document.querySelector(".chitietgoidangki");
     let modal1 = document.querySelector(".modal3");
     let modal5 = document.querySelector(".modal5");
+
     modal.style.display = "none"
     formG.style.display = "block"
     modal1.style.display = "none"
     modal5.style.display = "none"
+
+    this.setState({
+      hinhChuyenKhoan: null
+    })
   }
 
   moGiaHanGoi() {
@@ -179,8 +184,20 @@ class GoiDangDung extends React.Component {
     })
   }
 
-  async guiThanhToanGoi() {
-    let res = await guiYeuCauDangKyGoi(this.state.idCT, this.state.idGoiNangCap, this.state.hinhChuyenKhoan);
+
+  async guiThanhToanGoi(idCT, idGoi, hinh) {
+    if (hinh !== undefined) {
+      let res = await guiYeuCauDangKyGoi(idCT, idGoi, hinh);
+      if (res != null) {
+        toast.success("Gửi Yêu Cầu Thành Công!");
+        this.dongModal();
+      }
+      else {
+        toast.error("Gửi Yêu Cầu Thất Bại!");
+      }
+    } else {
+      toast.error("Không Được Bỏ Trống Ảnh !!!");
+    }
   }
 
   render() {
@@ -292,7 +309,7 @@ class GoiDangDung extends React.Component {
                             <label for="formFile" class="form-label fs-2">Ảnh Chuyển Khoản: </label>
                             <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                           </div>
-                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi()}>Gửi Yêu Cầu Đăng Ký Gói</button>
+                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi(this.state.idCT, this.state.idGoiNangCap, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
                         </div>
                       </div>
                     </div>
@@ -336,7 +353,7 @@ class GoiDangDung extends React.Component {
                             <label for="formFile" class="form-label fs-2">Ảnh Chuyển Khoản: </label>
                             <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                           </div>
-                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi()}>Gửi Yêu Cầu Đăng Ký Gói</button>
+                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi(this.state.idCT, this.state.goi, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
                         </div>
                       </div>
                     </div>
@@ -367,7 +384,7 @@ class GoiDangDung extends React.Component {
             </div >
 
             :
-            loading == true ?
+            loading === true ?
               <div class="single-product section">
                 <h2 className='text-center border border-5 border-white ' style={{ fontSize: 5 + "em" }}>Danh Sách Gói Đăng Kí</h2>
                 <div class="container">
