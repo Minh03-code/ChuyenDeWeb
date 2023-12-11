@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 function InputText(props) {
-    const [text, setText] = useState();
-    
+    const [text, setText] = useState(props.value !== "" ? props.value : "");
+    if (text !== "") {
+        props.changeValue(text);
+    }
     const changeText = (e)=>{
         setText(e.target.value)
         props.changeValue(e.target.value);

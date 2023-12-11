@@ -36,6 +36,9 @@ const getListNoiDungTinNhan = (idPhong)=>{
 const dangKiTaiKhoanChuTro=(ten, tenTaiKhoan, matKhau, email)=>{
     return myAxios.post(`api/taotaikhoanchutro`,{ten:ten,tenTaiKhoan:tenTaiKhoan,matKhau:matKhau,email:email});
 }
+const dangKiTaiKhoanNguoiThue=(ten, tenTaiKhoan, matKhau, email,gioiTinh)=>{
+    return myAxios.post(`api/taotaikhoannguoithue`,{ten:ten,tenTaiKhoan:tenTaiKhoan,matKhau:matKhau,email:email,gioiTinh:gioiTinh});
+}
 const layTatCataiKhoan = ()=>{
     return myAxios.get(`api/tatcataikhoan`);
 }
@@ -45,8 +48,17 @@ const guiTinNhan =(idPhong,idTaiKhoan,noiDung)=>{
 const capNhatTinNhanMoiNhat = (idTaiKhoan,idPhong,tinNhanMoiNhat,thoiGian)=>{
     return myAxios.post(`api/capnhattinnhanmoinhat`,{idTaiKhoan:idTaiKhoan,id:idPhong,tinNhanMoiNhat:tinNhanMoiNhat,thoiGian:thoiGian});
 }
-
+const getProfileReceiver = (idTaiKhoan)=>{
+    return myAxios.get(`api/profilereceiver?idTaiKhoan=${idTaiKhoan}`);
+}
+const taoPhongTinNhan = (idTaiKhoan1, idTaiKhoan2)=>{
+    return myAxios.post(`api/taophongtinnhan`,{idTaiKhoan1:idTaiKhoan1,idTaiKhoan2:idTaiKhoan2});
+}
+const layIdPhongTinNhan = (idTaiKhoan1, idTaiKhoan2)=>{
+    return myAxios.get(`api/phongtinnhan?idTaiKhoan1=${idTaiKhoan1}&idTaiKhoan2=${idTaiKhoan2}`);
+}
 // export { multiple };
 export {getProfileAdmin,getAccountById,updatePassword,updateProfileAdmin2,updateProfileAdmin1,getChinhSach,capNhatChinhSach,getProfileChuTro,getListTinNhan,
     getListNoiDungTinNhan,dangKiTaiKhoanChuTro,layTatCataiKhoan,
-    guiTinNhan,capNhatTinNhanMoiNhat};
+    guiTinNhan,capNhatTinNhanMoiNhat, getProfileReceiver,taoPhongTinNhan,layIdPhongTinNhan,
+dangKiTaiKhoanNguoiThue};
