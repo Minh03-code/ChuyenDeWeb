@@ -3,7 +3,7 @@ import { getGoiCallAPI, guiYeuCauDangKyGoi, xoaGoiDichVuChuTroTheoIDTaiKhoanAPI 
 import { getProfileChuTro, getProfileAdmin } from "../../services/admin/NghiemService.js"
 import { getAllGoiDangKyCallAPI } from '../../services/admin/ThinhService';
 import { baseURL } from '../../services/my-axios.js';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { Link } from 'react-router-dom';
 import Loading from '../loading/Loading';
 
@@ -220,7 +220,18 @@ class GoiDangDung extends React.Component {
             </div>
           </div>
         </div>
-
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <div>
           {goi !== 0 ?
 
