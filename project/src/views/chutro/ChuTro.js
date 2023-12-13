@@ -30,6 +30,7 @@ import Footer from "../item/Footer";
 import EditThongTinChuTro from "./EditThongTinChuTro.js";
 import EditPasswordChuTro from "./EditPassWordChutro.js";
 import TinNhanRealTime from './TinNhanRealTime.js';
+import VideoReviewManager from "./VideoReviewManager.js";
 
 function ChuTro() {
   console.log(sessionStorage.getItem("accountId"));
@@ -43,6 +44,7 @@ function ChuTro() {
         <Route path="/thongbao" element={<ThongBao />}></Route>
         <Route path="/thongtin" element={<ThongTin />}></Route>
         <Route path="/tinnhan" element={<TinNhanRealTime />}></Route>
+        <Route path="/videoreview" element={<VideoReviewManager />}></Route>
         <Route path="/dangxuat" element={<DangXuat />}></Route>
         <Route
           path="/danhsachnguoithue"

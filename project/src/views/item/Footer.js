@@ -7,7 +7,7 @@ function Footer(props) {
             <footer>
                 <div className="container">
                     <div className="col-lg-12">
-                        <p><h4>{title}</h4></p>
+                        <p>{title}</p>
                         <p>{name}</p>
                         <p>{phoneNumber}</p>
                         <p>{email}</p>
