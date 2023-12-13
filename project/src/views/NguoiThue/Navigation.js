@@ -12,15 +12,15 @@ class Navigation extends React.Component {
                             <div className="col-12">
                                 <nav className="main-nav">
                                     <a href="index.html" className="logo">
-                                        <img src="assets/images/logo.png" alt="" style={{width: 158 +"px"}}/>
+                                        <img src="assets/images/logo.png" alt="" style={{ width: 158 + "px" }} />
                                     </a>
                                     <ul className="nav">
-                                        <li><NavLink to='/chutro/quanlyphong' exact="true" className={(navData) => (navData.isActive ? "active" : '')}>Danh Sách Phòng Trọ</NavLink></li>
-                                        <li><NavLink to='/chutro/goidangdung' className={(navData) => (navData.isActive ? "active" : '')}>Gói Đăng Kí</NavLink></li>
-                                        <li><NavLink to='/chutro/thongbao' className={(navData) => (navData.isActive ? "active" : '')}>Thông Báo</NavLink></li>
-                                        <li><NavLink to='/chutro/tinnhan' className={(navData) => (navData.isActive ? "active" : '')}>Tin Nhắn</NavLink></li>
-                                        <li><NavLink to='/chutro/thongtin' className={(navData) => (navData.isActive ? "active" : '')}>Thông Tin</NavLink></li>
-                                       
+                                        <li><NavLink to='/nguoithue/quanlyphong' exact="true" className={(navData) => (navData.isActive ? "active" : '')}>Danh Sách Phòng Trọ</NavLink></li>
+                                        <li><NavLink to='/nguoithue/goidangdung' className={(navData) => (navData.isActive ? "active" : '')}>Gói Đăng Kí</NavLink></li>
+                                        <li><NavLink to='/nguoithue/thongbao' className={(navData) => (navData.isActive ? "active" : '')}>Thông Báo</NavLink></li>
+                                        <li><NavLink to='/nguoithue/tinnhan' className={(navData) => (navData.isActive ? "active" : '')}>Tin Nhắn</NavLink></li>
+                                        <li><NavLink to='/nguoithue/thongtin' className={(navData) => (navData.isActive ? "active" : '')}>Thông Tin</NavLink></li>
+
                                         <li><Link to="/">Đăng xuất</Link></li>
                                     </ul>
                                     <a className='menu-trigger'>
