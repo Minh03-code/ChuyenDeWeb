@@ -34,6 +34,7 @@ import ChinhSach from './ChinhSach.js';
 import ThemPhuong from './ThemPhuong.js';
 import EditQuan from './EditQuan.js';
 import EditPhuong from './EditPhuong.js';
+import AddBanner from './AddBanner.js';
 
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
@@ -99,6 +100,8 @@ function Admin() {
                 <Route path="/chitietyeucauxacthucchutro" element={<XemThongTinChiTietYeuCauXacNhanChuTro />}>
               </Route>
               <Route path="/chinhsach" element={<ChinhSach />}>
+              </Route>
+              <Route path="/addbanner" element={<AddBanner />}>
               </Route>
             </Routes>
             

@@ -15,4 +15,23 @@ const editBanner = (id, hinh) => {
   return myAxios.post(`api/banner/edit`, { id: id, hinh: hinh }, config);
 };
 
-export { getAllBannerApi, getBannerById, editBanner };
+const getDetailChuTro = (idTaiKhoan) => {
+  return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+};
+
+const deleteBanner = (id) => {
+  return myAxios.delete(`api/banner/delete?id=${id}`);
+};
+
+const addBanner = (hinh) => {
+  return myAxios.post(`api/banner/create`, { hinh: hinh }, config);
+};
+
+export {
+  getAllBannerApi,
+  getBannerById,
+  editBanner,
+  getDetailChuTro,
+  deleteBanner,
+  addBanner,
+};

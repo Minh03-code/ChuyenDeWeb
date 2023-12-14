@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     useNavigate,
     BrowserRouter,
@@ -10,121 +10,120 @@ import "./main.css";
 import "./util.css";
 import { checkAccountAPI } from "../../services/admin/MinhService";
 
-class LoginRegister extends React.Component {
-    state = {
-        username: "",
-        password: "",
-        account: {},
-        loading: false,
-        fail: false
+function LoginRegister() {
+    const navigate = useNavigate();
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    const [account, setAccount] = useState();
+    const [loading, setLoading] = useState(false);
+    const [fail, setFail] = useState(false);
+
+    const kiemTraTrangThaiDangNhap = () => {
+        console.log("OKKK");
+        if (sessionStorage.getItem("accountType") == 2) { navigate("/admin") }
+        else if (sessionStorage.getItem("accountType") == 1) { navigate("/chutro") }
+        else if (sessionStorage.getItem("accountType") == 0) { navigate("/nguoithue") }
     }
+    
+    useEffect(() => {
+        kiemTraTrangThaiDangNhap();
+    }, []);
 
 
-    handleOnChangeUsername(e) {
-        this.setState({ username: e.target.value })
+    const handleOnChangeUsername = (e) => {
+        setUsername(e.target.value);
     }
-    handleOnChangePassword(e) {
-        this.setState({ password: e.target.value })
+    const handleOnChangePassword = (e) => {
+        setPassword(e.target.value);
     }
 
-    async getData() {
-        this.setState({
-            fail: false,
-            loading: false,
-        });
-        let res = await checkAccountAPI(this.state.username, this.state.password);
+    const getData = async () => {
+        let res = await checkAccountAPI(username, password);
         if (res != null) {
-            this.setState({
-                account: res,
-                loading: true
-            });
+            setAccount(res);
+            console.log(res);
+            setLoading(true);
         }
         if (res == "") {
-            this.setState({
-                fail: true
-            });
+            setFail(true);
         }
     }
-    checkLogin = () => {
-        if (this.state.account != "") {
-            sessionStorage.setItem("accountId", this.state.account.id);
-            sessionStorage.setItem("accountType", this.state.account.loaiTaiKhoan);
-            if (this.state.account.loaiTaiKhoan == 2) { window.location.href = '/admin' }
-            else if (this.state.account.loaiTaiKhoan == 1) { window.location.href = '/chutro' }
-            else if (this.state.account.loaiTaiKhoan == 0) { window.location.href = '/nguoithue' }
+    const checkLogin = () => {
+        if (account != "") {
+            sessionStorage.setItem("accountId", account.id);
+            sessionStorage.setItem("accountType", account.loaiTaiKhoan);
+            if (account.loaiTaiKhoan == 2) { navigate("/admin") }
+            else if (account.loaiTaiKhoan == 1) { navigate("/chutro") }
+            else if (account.loaiTaiKhoan == 0) { navigate("/nguoithue") }
 
         }
         else {
-            window.location.href = '/'
+            navigate("/") 
         }
     }
 
 
 
+    return (
+        loading == true && fail == false ? checkLogin() :
+            <>
+                <div className="limiter">
+                    <div className="container-login100 my-background-lr">
+                        <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                            <form className="login100-form validate-form">
+                                <span className="login100-form-title p-b-49">
+                                    Đăng nhập
+                                </span>
 
-    render() {
-        let { username, password, account, loading, fail } = this.state
+                                <div className="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                                    <span className="label-input100">Tên tài khoản</span>
+                                    <input className="input100" type="text" value={username} onChange={handleOnChangeUsername} placeholder="Nhập tài khoản của bạn" />
+                                    <span className="focus-input100" data-symbol="&#xf206;"></span>
+                                </div>
 
-        return (
-            loading == true && fail == false ? this.checkLogin() :
-                <>
-                    <div className="limiter">
-                        <div className="container-login100 my-background-lr">
-                            <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-                                <form className="login100-form validate-form">
-                                    <span className="login100-form-title p-b-49">
-                                        Đăng nhập
-                                    </span>
+                                <div className="wrap-input100 validate-input" data-validate="Password is required">
+                                    <span className="label-input100">Mật khẩu</span>
+                                    <input className="input100" type="password" value={password} onChange={handleOnChangePassword} placeholder="Nhập mật khẩu của bạn" />
+                                    <span className="focus-input100" data-symbol="&#xf190;"></span>
+                                </div>
 
-                                    <div className="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
-                                        <span className="label-input100">Email</span>
-                                        <input className="input100" type="text" value={username} onChange={(e) => this.handleOnChangeUsername(e)} placeholder="Nhập email của bạn" />
-                                        <span className="focus-input100" data-symbol="&#xf206;"></span>
+                                <div className="text-right p-t-8 p-b-31">
+                                    <a href="#">
+                                        Quên mật khẩu?
+                                    </a>
+                                </div>
+
+                                {fail == true ? <p className='fail-login'>Tài khoản mật khẩu không chính xác</p> : <p className='fail-login'></p>}
+
+                                <div className="container-login100-form-btn">
+                                    <div className="wrap-login100-form-btn">
+                                        <div className="login100-form-bgbtn"></div>
+                                        <button className="login100-form-btn" type='button' onClick={getData}>
+                                            Đăng nhập
+                                        </button>
                                     </div>
+                                </div>
 
-                                    <div className="wrap-input100 validate-input" data-validate="Password is required">
-                                        <span className="label-input100">Mật khẩu</span>
-                                        <input className="input100" type="password" value={password} onChange={(e) => this.handleOnChangePassword(e)} placeholder="Nhập mật khẩu của bạn" />
-                                        <span className="focus-input100" data-symbol="&#xf190;"></span>
-                                    </div>
+                                <div className="txt1 text-center p-t-54 p-b-20">
 
-                                    <div className="text-right p-t-8 p-b-31">
-                                        <a href="#">
-                                            Quên mật khẩu?
-                                        </a>
-                                    </div>
-
-                                    {fail == true ? <p className='fail-login'>Tài khoản mật khẩu không chính xác</p> : <p className='fail-login'></p>}
-
-                                    <div className="container-login100-form-btn">
-                                        <div className="wrap-login100-form-btn">
-                                            <div className="login100-form-bgbtn"></div>
-                                            <button className="login100-form-btn" type='button' onClick={() => this.getData()}>
-                                                Đăng nhập
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div className="txt1 text-center p-t-54 p-b-20">
-
-                                        <a href="#" className="txt2">
-                                            <Link to="/dangkitaikhoanchutro">
+                                    <a href="#" className="txt2">
+                                            <Link to="/chonloaitaikhoan">
                                             Đăng ký
                                             </Link>
                                         </a>
-                                    </div>
+                                </div>
 
-                                </form>
-                            </div>
+                            </form>
                         </div>
                     </div>
+                </div>
 
 
 
-                </>
+            </>
 
-        )
-    }
+    )
+
 
 }
 

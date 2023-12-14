@@ -8,16 +8,24 @@ import { getProfileChuTro } from '../../services/admin/NghiemService';
 class DanhSachNguoiThueTro extends React.Component {
     state = {
         listNguoiThue: [],
-        tenChuTro: ""
+        tenChuTro: "",
+        loading: false
+
     }
     hideLoader = () => console.log(1);;
     async componentDidMount() {
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const kitu = params.get('idPhong');
+        console.log(kitu);
         let idTaiKhoan = sessionStorage.getItem("accountId");
 
-        let res = await getListNguoiThueTheoIdPhongCallAPI(2);
+        let res = await getListNguoiThueTheoIdPhongCallAPI(kitu);
         if (res != null) {
             this.setState({
-                listNguoiThue: res
+                listNguoiThue: res,
+                loading: true
+
             })
         }
 
@@ -30,62 +38,69 @@ class DanhSachNguoiThueTro extends React.Component {
     }
 
     render() {
-        let { listNguoiThue, tenChuTro } = this.state
+        let { listNguoiThue, tenChuTro, loading } = this.state
         return (
-            <>
-                <div class="page-heading header-text">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h3>DANH SÁCH NGƯỜI THUÊ</h3>
-                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>{tenChuTro}</span>
+            loading == true ?
+                <>
+                    <div class="page-heading header-text">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3>DANH SÁCH NGƯỜI THUÊ</h3>
+                                    <span class="breadcrumb"><a href="#">Chủ Trọ: </a>{tenChuTro}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="section trending">
-                    <div class="container">
-                        <div class="row trending-box">
-                            {
-                                listNguoiThue.length == 0 ? <div className='null'>Chưa có người thuê</div> :
-                                    <>
-                                        <table className="table table-hover my-0">
-                                            <thead>
-                                                <tr>
-                                                    <th className="d-none d-xl-table-cell">Hình</th>
-                                                    <th className="d-none d-xl-table-cell">Tên</th>
-                                                    <th className="d-none d-xl-table-cell">Số điện thoại</th>
-                                                    <th className="d-none d-xl-table-cell">Giới tính</th>
-                                                    <th className="d-none d-md-table-cell">Chức năng</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                    <div class="section trending">
+                        <div class="container">
+                            <div class="row trending-box">
+                                {
+                                    listNguoiThue.length == 0 ? <div className='null'>Chưa có người thuê</div> :
+                                        <>
+                                            <table className="table table-hover my-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th className="d-none d-xl-table-cell">Hình</th>
+                                                        <th className="d-none d-xl-table-cell">Tên</th>
+                                                        <th className="d-none d-xl-table-cell">Số điện thoại</th>
+                                                        <th className="d-none d-xl-table-cell">Giới tính</th>
+                                                        <th className="d-none d-md-table-cell">Chức năng</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                                {
-                                                    listNguoiThue && listNguoiThue.length > 0 && listNguoiThue.map((item, index) => {
-                                                        return (
-                                                            <tr>
-                                                                <td className="d-none d-xl-table-cell">
-                                                                    <img className='img-main' src={baseURL + item.nguoiThue.hinh} alt={item.nguoiThue.hinh} />
-                                                                </td>
-                                                                <td className="d-none d-xl-table-cell">{item.nguoiThue.ten}</td>
-                                                                <td className="d-none d-xl-table-cell">{item.nguoiThue.soDienThoai}</td>
-                                                                <td>
-                                                                    {item.nguoiThue.gioiTinh == 1 ? <div>Nam</div> : <div>Nữ</div>}
-                                                                </td>
-                                                                <td className="d-none d-md-table-cell">
-                                                                    <NavLink to={`/chutro/chitietnguoithue?id=${item.nguoiThue.id}`} className="btn btn-primary">Xem thông tin</NavLink>
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    })
-                                                }
+                                                    {
+                                                        listNguoiThue && listNguoiThue.length > 0 && listNguoiThue.map((item, index) => {
+                                                            return (
+                                                              
+                                                                item.nguoiThue!==null?
 
-                                            </tbody>
-                                        </table>
-                                    </>
-                            }
-                            {/* <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 str">
+                                                                    <tr>
+                                                                        <td className="d-none d-xl-table-cell">
+                                                                            <img className='img-main' src={baseURL + item.nguoiThue.hinh} alt={""} />
+                                                                        </td>
+                                                                        <td className="d-none d-xl-table-cell">{item.nguoiThue.ten}</td>
+                                                                        <td className="d-none d-xl-table-cell">{item.nguoiThue.soDienThoai}</td>
+                                                                        <td>
+                                                                            {item.nguoiThue.gioiTinh == 1 ? <div>Nam</div> : <div>Nữ</div>}
+                                                                        </td>
+                                                                        <td className="d-none d-md-table-cell">
+                                                                            <NavLink to={`/chutro/chitietnguoithue?id=${item.nguoiThue.id}`} className="btn btn-primary">Xem thông tin</NavLink>
+                                                                        </td>
+                                                                    </tr>
+                                                                    : <>
+                                                                        Rong
+                                                                    </>
+                                                            )
+                                                        })
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </>
+                                }
+                                {/* <div class="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 str">
                                 <div class="item">
 
                                     <div class="down-content">
@@ -98,10 +113,11 @@ class DanhSachNguoiThueTro extends React.Component {
                                 </div>
                             </div> */}
 
+                            </div>
                         </div>
                     </div>
-                </div>
-            </>
+                </>
+                : <>loading</>
         )
     }
 }

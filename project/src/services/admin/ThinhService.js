@@ -21,13 +21,18 @@ const editQuankhonghinh = (id, tenQuan, trangThai) => {
 const getDetailPhuongCallAPI = (id) => {
   return myAxios.get(`api/layphuongtheoid?id=${id}`);
 }
+const listPhuongCallAPI = (id) => {
+  return myAxios.get(`api/phuong/layphuongtheoquan?idQuan=${id}`);
+}
 const editPhuongCallAPI = (id, tenPhuong, idQuan, trangThai) => {
   return myAxios.put(`api/capnhatphuong?id=${id}&tenPhuong=${tenPhuong}&idQuan=${idQuan}`)
 }
 const getDetailThongBaoCallAPI = (id) => {
   return myAxios.get(`api/thongbao/chitiet?id=${id}`)
 }
-
+const getNguoiGui = (idTaiKhoan) => {
+  return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+}
 const getAllGoiDangKyCallAPI = () => {
   return myAxios.get("api/goi/all");
 }
@@ -37,7 +42,7 @@ const getAllGoiDangKyCallAPI = () => {
 
 
 // export { multiple };
-export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI, editPhuongCallAPI, getDetailThongBaoCallAPI,getAllGoiDangKyCallAPI};
+export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI,listPhuongCallAPI, editPhuongCallAPI , getDetailThongBaoCallAPI, getNguoiGui, getAllGoiDangKyCallAPI};
 
 
 

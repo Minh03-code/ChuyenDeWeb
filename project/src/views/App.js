@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -12,7 +12,25 @@ import NguoiThue from './NguoiThue/NguoiThue.js';//
 import DangKiTaiKhoanChuTro from './loginregister/DangKiTaiKhoanChuTro.js';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import firebase from '../firebase/firebase.js';
+import { getDatabase, ref, onValue } from "firebase/database";
+import ChonLoaiTaiKhoan from './loginregister/ChonLoaiTaiKhoan.js';
+import DangKiTaiKhoanNguoiThue from './loginregister/DangKiTaiKhoanNguoiThue.js';
 function App() {
+  const [data, setData] = useState(null);
+  const fetchData = async () => {
+    const db = getDatabase();
+    const starCountRef = ref(db, 'login');
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+    });
+  };
+  useEffect(() => {
+
+    fetchData();
+
+  }, []);
+
   return (
     <>
     <BrowserRouter>
@@ -20,7 +38,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginRegister />}>
         </Route>
+        <Route path="/chonloaitaikhoan" element={<ChonLoaiTaiKhoan />}>
+        </Route>
         <Route path="/dangkitaikhoanchutro" element={<DangKiTaiKhoanChuTro />}>
+        </Route>
+        <Route path="/dangkitaikhoannguoithue" element={<DangKiTaiKhoanNguoiThue />}>
         </Route>
         <Route path="/admin/*" element={<Admin />}>
         </Route>
