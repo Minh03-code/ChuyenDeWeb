@@ -37,12 +37,16 @@ const getAllGoiDangKyCallAPI = () => {
   return myAxios.get("api/goi/all");
 }
 
+const deletePhongTro = (id) => {
+  return myAxios.delete(`api/chutro/phongtrochutro/delete?id=${id}`);
+};
+
 
 
 
 
 // export { multiple };
-export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI,listPhuongCallAPI, editPhuongCallAPI , getDetailThongBaoCallAPI, getNguoiGui, getAllGoiDangKyCallAPI};
+export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI,listPhuongCallAPI, editPhuongCallAPI , getDetailThongBaoCallAPI, getNguoiGui, getAllGoiDangKyCallAPI, deletePhongTro};
 
 
 
