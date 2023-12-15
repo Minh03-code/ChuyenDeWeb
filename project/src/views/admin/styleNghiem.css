@@ -403,3 +403,9 @@
     text-align: center; 
   }
 
+  .goidangky{
+    display: block; /* mặc định được ẩn đi */
+  }
+
+  /* end Dung */
+
