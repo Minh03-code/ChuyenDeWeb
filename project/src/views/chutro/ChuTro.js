@@ -27,6 +27,7 @@ import AddRoom from './AddRoom';
 import ThongBaoDetail from './ThongBaoDetail.js';
 import ListGoiDangKy from './ListGoiDangKy.js';
 import Footer from '../item/Footer';
+import UpdateRoom from './UpdateRoom';
 function ChuTro() {
  
   return (
@@ -48,6 +49,7 @@ function ChuTro() {
           <Route path='/themphong' element={<AddRoom/>}></Route>
           <Route path='/listgoidangky' element={<ListGoiDangKy />}></Route>
           <Route path='/thongbaodetail' element={<ThongBaoDetail />}></Route>
+          <Route path='/editroom/:idPhong' element={<UpdateRoom />}></Route>
         </Routes>
        <Footer
         title={"Thông tin liên hệ"}

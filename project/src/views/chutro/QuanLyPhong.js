@@ -1,83 +1,85 @@
-import React from 'react';
-import { createContext } from 'react';
-import anh11 from "../../images/anhnhatro.jpg";
+import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import Loading from '../loading/Loading';
 import { layTatCaPhongCuaChuTro } from '../../services/chutro/MinhService';
 import { baseURL } from '../../services/my-axios';
 import PhongItem from '../item/PhongItem';
 import Header from '../item/Header';
+import Comment from '../item/Comment';
+import { Button, Modal } from 'react-bootstrap';
 
-class QuanLyPhong extends React.Component {
-    state = {
-        list: [],
-        loading: false
-    }
-    async componentDidMount() {
-        let res = await layTatCaPhongCuaChuTro(2);
-        if (res != null) {
-            this.setState({
-                list: res,
-                loading: true,
-            })
+function QuanLyPhong() {
+    const [list, setList] = useState([]);
+    const [idPhong, setIdPhong] = useState(-1);
+    const [loading, setLoading] = useState(false);
+    const [show, setShow] = useState(false);
+    useEffect(() => {
+        fetchDataPhong();
+    }, []);
+    const fetchDataPhong = async () => {
+        try {
+            const res = await layTatCaPhongCuaChuTro(sessionStorage.getItem('idNguoiDung'));
+            if (res != null) {
+                setList(res);
+                setLoading(true);
+            }
+        } catch (error) {
+            console.log('Error fetching data:', error);
         }
+    };
+    const onClickComment = (text) => {
+        setIdPhong(text);
+        setShow(true);
     }
-    render() {
-        let { list, loading } = this.state;
-        return (
-            loading == true ?
-                <>
-                    <Header
-                        tenManHinh={"Màn hình danh sách phòng"}
-                        tenChuTro={"Nguyễn Đức Minh"}
-                    />
-                    <div className="section trending">
-                        <div className="container">
-                            <Link to={`/chutro/themphong`} className="btn btn-primary">Thêm phòng</Link>
-                            {list != null ?
-                                <div className="row trending-box">
-                                    {
-                                        list && list.length > 0 && list.map((item, index) => {
-                                            if (item.phongTro) {
-                                                console.log(index, item);
-                                            }
-                                            return (
-                                                <PhongItem
-                                                    hinh={item.hinhAnh.length > 0 ? baseURL + item.hinhAnh[0].hinh : ""}
-                                                    gia={item.phongTro != null ? item.phongTro.gia : 0}
-                                                    gioiTinh={item.phongTro != null ? (item.phongTro.gioiTinh == 0 ? "Tất cả giới tính" : item.phongTro.gioiTinh == 1 ? "Nam" : "Nữ") : "Rỗng"}
-                                                    soPhong={item.phongTro != null ? item.phongTro.soPhong : "Rỗng"}
-                                                    linkEdit={`/chutro/editroom?id=${item.phongTro != null ? item.phongTro.id : -1}`}
-                                                    inkDelete={`/chutro/editroom?id=${item.phongTro != null ? item.phongTro.id : -1}`}
-                                                    linkDSNguoiThue={`/chutro/danhsachnguoithue?idPhong=${item.phongTro.id != null ? item.phongTro.id : -1}`}
+    const onCloseComment = () => {
+        setShow(false);
+    }
 
-                                                />
-                                            )
-                                        })
-                                    }
+    return (
+        loading == true ?
+            <>
+                <Header
+                    tenManHinh={"Màn hình danh sách phòng"}
+                    tenChuTro={"Nguyễn Đức Minh"}
+                />
+                <div className="section trending">
+                    <div className="container">
+                        <Link to={`/chutro/themphong`} className="btn btn-primary">Thêm phòng</Link>
+                        {list != null ?
+                            <div className="row trending-box">
+                                {
+                                    list && list.length > 0 && list.map((item, index) => {
+                                        return (
+                                            <PhongItem
+                                                idPhong={item.phongTro != null ? item.phongTro.id : -1}
+                                                hinh={item.hinhAnh.length > 0 ? baseURL + item.hinhAnh[0].hinh : ""}
+                                                gia={item.phongTro != null ? item.phongTro.gia : 0}
+                                                gioiTinh={item.phongTro != null ? (item.phongTro.gioiTinh == 0 ? "Tất cả giới tính" : item.phongTro.gioiTinh == 1 ? "Nam" : "Nữ") : "Rỗng"}
+                                                soPhong={item.phongTro != null ? item.phongTro.soPhong : "Rỗng"}
+                                                linkEdit={`/chutro/editroom/id=${item.phongTro != null ? item.phongTro.id : -1}`}
+                                                linkDelete={`/chutro/deleteroom/id=${item.phongTro != null ? item.phongTro.id : -1}`}
+                                                linkDSNguoiThue={`/chutro/danhsachnguoithue/idPhong=${item.phongTro != null ? item.phongTro.id : -1}`}
+                                                binhLuan={onClickComment}
+                                            />
+                                        )
+                                    })
+                                }
 
-                                </div>
-                                :
-                                <h1>Rỗng</h1>
-                            }
-
-                            {/* <div className="row">
-                            <div className="col-lg-12">
-                                <ul className="pagination">
-                                    <li><a href="#"> &lt; </a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a className="is_active" href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#"> &gt; </a></li>
-                                </ul>
                             </div>
-                        </div> */}
-                        </div>
+                            :
+                            <h1>Rỗng</h1>
+                        }
+
+
                     </div>
-                </>
-                :
-                <Loading />
-        )
-    }
+                </div>
+                <Comment
+                idPhong={idPhong}
+                show={show}
+                onHide={onCloseComment}/>
+            </>
+            :
+            <Loading />
+    )
 }
 export default QuanLyPhong;

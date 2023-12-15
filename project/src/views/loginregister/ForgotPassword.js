@@ -8,57 +8,45 @@ import {
 } from "react-router-dom";
 import "./main.css";
 import "./util.css";
-import { checkAccountAPI } from "../../services/admin/MinhService";
+import { checkUsernameAPI } from "../../services/admin/MinhService";
+import { guiCodeLayLaiMatKhau } from "../../services/admin/MinhService";
 
-function LoginRegister() {
+function ForgotPassword() {
     const navigate = useNavigate();
     const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
     const [account, setAccount] = useState();
     const [loading, setLoading] = useState(false);
     const [fail, setFail] = useState(false);
 
-    const kiemTraTrangThaiDangNhap = () => {
-        console.log("OKKK");
-        if (sessionStorage.getItem("accountType") == 2) { navigate("/admin") }
-        else if (sessionStorage.getItem("accountType") == 1) { navigate("/chutro") }
-        else if (sessionStorage.getItem("accountType") == 0) { navigate("/nguoithue") }
-    }
 
     useEffect(() => {
-        kiemTraTrangThaiDangNhap();
     }, []);
 
 
     const handleOnChangeUsername = (e) => {
         setUsername(e.target.value);
     }
-    const handleOnChangePassword = (e) => {
-        setPassword(e.target.value);
-    }
 
     const getData = async () => {
-        let res = await checkAccountAPI(username, password);
+        let res = await checkUsernameAPI(username);
         if (res != null) {
             setAccount(res);
-            console.log(res);
             setLoading(true);
+            if (res.email != "") {
+                guiCodeLayLaiMatKhau(res.email, res.id);
+                navigate("/codeforgot");
+            }
+            else {
+                alert("Tài khoản này không có email khôi phục");
+            }
         }
         if (res == "") {
             setFail(true);
         }
     }
-    const checkLogin = () => {
+    const checkUsername = () => {
         if (account != "") {
-            sessionStorage.setItem("accountId", account.id);
-            sessionStorage.setItem("accountType", account.loaiTaiKhoan);
-            sessionStorage.setItem("idNguoiDung", account.nguoiDangNhap.id);
-            if (account.loaiTaiKhoan == 2) { navigate("/admin") }
-            else if (account.loaiTaiKhoan == 1) {
-                navigate("/chutro");
-                sessionStorage.setItem("xacThuc", account.nguoiDangNhap.xacThuc);
-            }
-            else if (account.loaiTaiKhoan == 0) { navigate("/nguoithue") }
+           
 
         }
         else {
@@ -69,14 +57,14 @@ function LoginRegister() {
 
 
     return (
-        loading == true && fail == false ? checkLogin() :
+        loading == true && fail == false ? checkUsername() :
             <>
                 <div className="limiter">
                     <div className="container-login100 my-background-lr">
                         <div className="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                             <form className="login100-form validate-form">
                                 <span className="login100-form-title p-b-49">
-                                    Đăng nhập
+                                    Lấy lại mật khẩu
                                 </span>
 
                                 <div className="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
@@ -85,23 +73,18 @@ function LoginRegister() {
                                     <span className="focus-input100" data-symbol="&#xf206;"></span>
                                 </div>
 
-                                <div className="wrap-input100 validate-input" data-validate="Password is required">
-                                    <span className="label-input100">Mật khẩu</span>
-                                    <input className="input100" type="password" value={password} onChange={handleOnChangePassword} placeholder="Nhập mật khẩu của bạn" />
-                                    <span className="focus-input100" data-symbol="&#xf190;"></span>
-                                </div>
 
                                 <div className="text-right p-t-8 p-b-31">
-                                    <Link to="/forgotpassword">Quên mật khẩu?</Link>
+                                    <Link to="/">Đăng nhập</Link>
                                 </div>
 
-                                {fail == true ? <p className='fail-login'>Tài khoản mật khẩu không chính xác</p> : <p className='fail-login'></p>}
+                                {fail == true ? <p className='fail-login'>Tên tài khoản không chính sác</p> : <p className='fail-login'></p>}
 
                                 <div className="container-login100-form-btn">
                                     <div className="wrap-login100-form-btn">
                                         <div className="login100-form-bgbtn"></div>
                                         <button className="login100-form-btn" type='button' onClick={getData}>
-                                            Đăng nhập
+                                            Xác nhận
                                         </button>
                                     </div>
                                 </div>
@@ -127,4 +110,4 @@ function LoginRegister() {
 
 }
 
-export default LoginRegister;
+export default ForgotPassword;
