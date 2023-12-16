@@ -11,6 +11,8 @@ import Navigation from "./Navigation.js";
 import ThongBao from '../NguoiThue/ThongBao.js';
 import Footer from '../item/Footer.js';
 import ThongBaoDetail from './ThongBaoDetail.js';
+import TinNhanRealTime from './TinNhanRealTime.js';
+import DanhSachPhongGoiY from './DanhSachPhongGoiY.js';
 
 function NguoiThue() {
   console.log(sessionStorage.getItem('accountId'));
@@ -21,7 +23,9 @@ function NguoiThue() {
         <Routes>
           <Route path="/thongbao" element={<ThongBao />}></Route>
           <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
-
+ 			<Route path="/*" element={<TinNhanRealTime/>}></Route>
+        <Route path="/danhsachphonggoiy" element={<DanhSachPhongGoiY/>}></Route>
+      
         </Routes>
 
         <Footer

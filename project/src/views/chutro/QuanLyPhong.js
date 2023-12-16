@@ -50,7 +50,7 @@ class QuanLyPhong extends React.Component {
                                                     linkEdit={`/chutro/editroom?id=${item.phongTro != null ? item.phongTro.id : -1}`}
                                                     inkDelete={`/chutro/editroom?id=${item.phongTro != null ? item.phongTro.id : -1}`}
                                                     linkDSNguoiThue={`/chutro/danhsachnguoithue?idPhong=${item.phongTro.id != null ? item.phongTro.id : -1}`}
-
+                                                    linkVideoReview={`/chutro/videoreview?idPhong=${item.phongTro.id != null ? item.phongTro.id : -1}`}
                                                 />
                                             )
                                         })
