@@ -92,7 +92,12 @@ const ThongTin = () => {
                 >
                   Đổi mật khẩu
                 </Link>
-                <button className="btn btn-success bbt">Xác Thực</button>
+                <Link
+                  className="btn btn-success bbt"
+                  to={`/chutro/xacthucchutro/${result.id}`}
+                >
+                  Xác Thực
+                </Link>
               </div>
             </div>
           </div>
