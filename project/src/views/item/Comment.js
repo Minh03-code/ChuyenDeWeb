@@ -34,7 +34,7 @@ export default function Comment(props) {
 
         set(commentRef, commentId)
             .then(() => {
-                console.log('Data added successfully');
+                console.log('ADD REALTIME OK');
             })
             .catch((error) => {
                 console.error('Error adding data: ', error);
@@ -50,9 +50,8 @@ export default function Comment(props) {
         const db = getDatabase();
         const starCountRef = ref(db, `comment/${idPhong}`);
         onValue(starCountRef, (snapshot) => {
-            const data = snapshot.val();
             fetchDataComment();
-            console.log(data);
+            console.log("GET REALTIME OK");
         });
     };
     const fetchDataComment = async () => {
