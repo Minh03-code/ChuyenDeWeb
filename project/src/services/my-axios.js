@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://192.168.190.1/3t/laravel/public/";
+const baseURL = "http://192.168.226.1/3t/laravel/public/";
 const myAxios = axios.create({
   baseURL: baseURL,
   timeout: 1000 * 120,
