@@ -30,6 +30,7 @@ function PhongItem(props) {
                         <Button 
                         onClickButton={() => onClickDanhSachNguoiThue(props.idPhong)}
                         label="Người thuê"/>
+                        <p/>
                         <Button 
                         onClickButton={() => onClickDanhSachNguoiThue(props.idPhong)}
                         label="Người thuê"/>
