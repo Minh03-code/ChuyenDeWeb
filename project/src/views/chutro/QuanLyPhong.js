@@ -33,7 +33,7 @@ function QuanLyPhong() {
         setShow(true);
     }
     const onClickXemNguoiThue = (idPhong) => {
-        
+        navigate(`/chutro/danhsachnguoithue?idPhong=${idPhong}`);
     }
     const onClickXoaPhong = (idPhong) => {
     }
@@ -83,9 +83,9 @@ function QuanLyPhong() {
                     </div>
                 </div>
                 <Comment
-                idPhong={idPhong}
-                show={show}
-                onHide={onCloseComment}/>
+                    idPhong={idPhong}
+                    show={show}
+                    onHide={onCloseComment} />
             </>
             :
             <Loading />
