@@ -31,6 +31,10 @@ function QuanLyPhong() {
         setIdPhong(text);
         setShow(true);
     }
+    const onClickXemNguoiThue = (idPhong) => {
+    }
+    const onClickXoaPhong = (idPhong) => {
+    }
     const onCloseComment = () => {
         setShow(false);
     }
@@ -60,6 +64,8 @@ function QuanLyPhong() {
                                                 linkDelete={`/chutro/deleteroom/id=${item.phongTro != null ? item.phongTro.id : -1}`}
                                                 linkDSNguoiThue={`/chutro/danhsachnguoithue/idPhong=${item.phongTro != null ? item.phongTro.id : -1}`}
                                                 binhLuan={onClickComment}
+                                                xemNguoiThue={onClickXemNguoiThue}
+                                                xoaPhong={onClickXoaPhong}
                                                 linkVideoReview={`/chutro/videoreview?idPhong=${item.phongTro.id != null ? item.phongTro.id : -1}`}
                                             />
                                         )
