@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom"
 import { layThongTinChiTietYeuCauXacThucAPI } from '../../services/admin/MinhService';
 import Loading from "../loading/Loading.js";
 import { Link } from "react-router-dom";
+import Button from "../item/Button"
 
 class QuanLyYeuCauXacNhanChuTro extends React.Component {
     state = {
@@ -23,6 +24,12 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
             })
         }
     }
+    onClickXacNhan() {
+        alert("Chưa call api xác nhận");
+    }
+    onClickHuy() {
+        alert("Chưa call api hủy");
+    }
     render() {
 
         let { detail, loading } = this.state;
@@ -31,30 +38,26 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
             loading == true ?
                 <>
                     <div className="main">
-                        <main className="content">
-                            <div className="manhinhadmin">
-                                <img className='img-fluid avt' src={baseURL + detail.chuTro.hinh} alt='anh' />
-                                <div className="bg_admin">
-
-                                </div>
-                                <div className="thongtin_content">
-                                    <p className="title_admin">Thông tin chi tiết</p>
-                                    <div className="noidung_content">
-                                        <div><b className="labeladmin">Tên:</b> {detail.chuTro.ten}</div>
-                                        <div><b className="labeladmin">Số Điện Thoại:</b> {detail.chuTro.soDienThoai}</div>
-                                        <div><b className="labeladmin">Căn cước công dân mặt trước:</b></div>
-                                        <img src={baseURL+detail.cccdMatTruoc} alt={baseURL+detail.cccdMatTruoc} />
-                                        <div><b className="labeladmin">Căn cước công dân mặt sau:</b> </div>
-                                        <img src={baseURL+detail.cccdMatSau} alt={baseURL+detail.cccdMatSau} />
-                                        {/* <div className="dieuhuong">
-                                             <Link className="btn btn-primary bbt">Xác nhận</Link>
-                                           
-                                        </div> */}
-                                    </div>
-                                </div>
+                        <p className="title_admin">Thông tin chi tiết</p>
+                        <div className="noidung_content">
+                            <div><b className="labeladmin">Tên:</b> {detail.chuTro.ten}</div>
+                            <div><b className="labeladmin">Số Điện Thoại:</b> {detail.chuTro.soDienThoai}</div>
+                            <div><b className="labeladmin">Căn cước công dân mặt trước:</b></div>
+                            <img className='cccd' src={baseURL + detail.cccdMatTruoc} alt={baseURL + detail.cccdMatTruoc} />
+                            <div><b className="labeladmin">Căn cước công dân mặt sau:</b> </div>
+                            <img className='cccd' src={baseURL + detail.cccdMatSau} alt={baseURL + detail.cccdMatSau} />
+                        </div>
+                        <div className='row'>
+                            <div className='col-md-6'>
+                                <Button
+                                    onClickButton={this.onClickXacNhan}
+                                    label="Xác nhận" />
+                                    <p/>
+                                    <Button
+                                    onClickButton={this.onClickHuy}
+                                    label="Hủy" />
                             </div>
-
-                        </main>
+                        </div>
                     </div>
                 </>
                 :

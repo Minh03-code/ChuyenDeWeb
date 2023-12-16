@@ -6,16 +6,14 @@ import SelectOption from '../item/SelectOption';
 import Button from '../item/Button';
 import InputMultipleFile from '../item/InputMultipleFile';
 import CheckBox from '../item/CheckBox';
-import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong } from '../../services/chutro/MinhService.js';
+import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinPhongTheoID } from '../../services/chutro/MinhService.js';
 import SelectMultipleOption from '../item/SelectMultipleOption';
 import InputFile from '../item/InputFile';
-import {useNavigate} from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-function AddRoom() {
-    const navigate = useNavigate();
+function UpdateRoom() {
     const [listQuan, setListQuan] = useState([]);
     const [listPhuong, setListPhuong] = useState([]);
     const [listTienIch, setListTienIch] = useState([]);
+    const [room, setRoom] = useState();
     const [soPhong, setSoPhong] = useState('');
     const [gia, setGia] = useState('');
     const [dienTich, setDienTich] = useState('');
@@ -40,6 +38,14 @@ function AddRoom() {
             console.log('Error fetching data:', error);
         }
     };
+    const fetchDataPhong = async () => {
+        try {
+            const res = await layThongTinPhongTheoID();
+            setRoom(res);
+        } catch (error) {
+            console.log('Error fetching data:', error);
+        }
+    };
     const fetchDataTienIch = async () => {
         try {
             const res = await layTatCaTienIchHoatDong();
@@ -60,8 +66,6 @@ function AddRoom() {
         try {
             const res = await themPhong(idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages);
             setResAdd(res);
-            alert("Thêm thành công");
-            navigate("/chutro");
         } catch (error) {
             console.log('Error fetching data:', error);
         }
@@ -119,11 +123,11 @@ function AddRoom() {
     const onClickButtonAdd = () => {
         console.log(tienIch);
         if(soPhong != ""&& gia != ""&& dienTich != ""&& moTa != ""&& diaChiChiTiet != ""&& soLuong != ""&& tienCoc != ""&& tienDien != ""&& tienNuoc != ""&& gioiTinh != ""&& quan  != ""&& phuong != ""){
-            fetchThemPhong(sessionStorage.getItem('idNguoiDung'), soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files);
+            fetchThemPhong(2, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files);
             
         }
         else {
-            alert("Hãy nhập đủ cái trường có dấu *");
+            alert("Hãy nhập đủ thông tin có đấu *");
         }
     }
     return (
@@ -239,4 +243,4 @@ function AddRoom() {
         </>
     )
 }
-export default AddRoom;
+export default UpdateRoom;
