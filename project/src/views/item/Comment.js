@@ -42,6 +42,9 @@ export default function Comment(props) {
     }
     const handleClose = () => {
         onHide();
+        console.log(">>>Close");
+        setComments(null);
+        setText("");
     }
     const getText = (text) => {
         setText(text);
@@ -58,6 +61,7 @@ export default function Comment(props) {
         try {
             const res = await layTatCaBinhLuanCuaPhong(idPhong);
             if (res) {
+                console.log("fetchDataComment");
                 setComments(res);
                 setLoading(false);
             }
@@ -66,8 +70,7 @@ export default function Comment(props) {
         }
     };
     useEffect(() => {
-        fetchData();
-
+        if(show) fetchData();
     }, [show]);
 
     return (
