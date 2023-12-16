@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink} from "react-router-dom";
 import chitietanh from "../../images/avt1.jpg"
 import { getGoiCallAPI } from "../../services/admin/DungService"
 class GoiDangDung extends React.Component {
@@ -85,7 +86,8 @@ class GoiDangDung extends React.Component {
                   <div className='chutro_info'><b>Số Tài Khoản:</b> 1111111111111</div>
                   <div className='chutro_info'><b>Số Tài Khoản Ngân Hàng:</b> 1111111111111</div>
                   <div className='chutro_info'><b>Tên Người Thụ Hưởng:</b> NGUYEN G IA NGHIEM</div>
-<button className='btn btn-primary bbt'>Nâng Cấp Gói</button>
+                  {/* <button className='btn btn-primary bbt'>Nâng Cấp Gói</button> */}
+                  <NavLink to={`/chutro/listdoigoidangky`} ><span className="btn btn-primary bbt">Nâng Cấp Gói</span></NavLink>
                   <button className='btn btn-success bbt' onClick={() => this.moModal()}>Gia Hạn Gói</button>
                   <button className='btn btn-danger bbt'>Huỷ Gói</button>
                 </div>

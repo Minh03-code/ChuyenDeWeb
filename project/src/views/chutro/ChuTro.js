@@ -31,6 +31,7 @@ import EditThongTinChuTro from "./EditThongTinChuTro.js";
 import EditPasswordChuTro from "./EditPassWordChutro.js";
 import TinNhanRealTime from './TinNhanRealTime.js';
 import VideoReviewManager from "./VideoReviewManager.js";
+import ListDoiGoiDangKy from "./ListDoiGoiDangKy.js";
 
 function ChuTro() {
   console.log(sessionStorage.getItem("accountId"));
@@ -56,6 +57,7 @@ function ChuTro() {
         ></Route>
         <Route path="/themphong" element={<AddRoom />}></Route>
         <Route path="/listgoidangky" element={<ListGoiDangKy />}></Route>
+        <Route path="/listdoigoidangky" element={<ListDoiGoiDangKy />}></Route>
         <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
         <Route
           path="/editthongtinchutro/:id"

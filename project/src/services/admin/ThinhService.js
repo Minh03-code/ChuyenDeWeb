@@ -36,13 +36,16 @@ const getNguoiGui = (idTaiKhoan) => {
 const getAllGoiDangKyCallAPI = () => {
   return myAxios.get("api/goi/all");
 }
+const getAllDoiGoiDangKyCallAPI = () => {
+  return myAxios.get("api/goi/all");
+}
 
 
 
 
 
 // export { multiple };
-export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI,listPhuongCallAPI, editPhuongCallAPI , getDetailThongBaoCallAPI, getNguoiGui, getAllGoiDangKyCallAPI};
+export { getAllKhuVucApi, addnewQuan, layQuanTheoId, editQuan, editQuankhonghinh, getDetailPhuongCallAPI,listPhuongCallAPI, editPhuongCallAPI , getDetailThongBaoCallAPI, getNguoiGui, getAllGoiDangKyCallAPI, getAllDoiGoiDangKyCallAPI};
 
 
 
