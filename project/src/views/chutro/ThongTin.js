@@ -49,11 +49,9 @@ const ThongTin = () => {
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
-              <img
-                className="hinh-banner"
-                src={baseURL + result.hinh}
-                alt={baseURL + result.hinh}
-              />
+              <div className="cha-img">
+                <img className="con-img" src={baseURL + result.hinh} alt={baseURL + result.hinh} />
+              </div>
             </div>
             <div class="col-lg-6 align-self-center">
               <div className="thongtinchutro">
