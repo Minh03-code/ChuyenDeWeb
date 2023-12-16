@@ -3,13 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 function PhongItem(props) {
 
-    const onClickBinhLuan = (idPhong)=>{
+    const onClickBinhLuan = (idPhong) => {
         props.binhLuan(idPhong);
     }
-    const onClickDanhSachNguoiThue = (idPhong)=>{
+    const onClickDanhSachNguoiThue = (idPhong) => {
         props.xemNguoiThue(idPhong);
     }
-    const onClickXoaPhong = (idPhong)=>{
+    const onClickXoaPhong = (idPhong) => {
         props.xoaPhong(idPhong);
     }
     return (
@@ -17,25 +17,25 @@ function PhongItem(props) {
             <div className="col-lg-3 col-md-6 align-self-center mb-30 trending-items col-md-6 adv">
                 <div className="item">
                     <div className="thumb">
-                        <a href="product-details.html"><img src={props.hinh}  style={{height: 200}} /></a>
+                        <a href="product-details.html"><img src={props.hinh} style={{ height: 200 }} /></a>
                         <span className="price">{props.gia} vnd</span>
                     </div>
                     <div className="down-content">
                         <span className="category">Giới tính: {props.gioiTinh}</span>
                         <h4>Phòng {props.soPhong}</h4>
-                        <Button 
-                        onClickButton={() => onClickBinhLuan(props.idPhong)}
-                        label="Bình luận"/>
-                        <p/>
-                        <Button 
-                        onClickButton={() => onClickDanhSachNguoiThue(props.idPhong)}
-                        label="Người thuê"/>
-                        <p/>
-                        <Button 
-                        onClickButton={() => onClickDanhSachNguoiThue(props.idPhong)}
-                        label="Người thuê"/>
-						<Link to={props.linkVideoReview}className='videoReview' ><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
-                        <path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z"/>
+                        <Button
+                            onClickButton={() => onClickBinhLuan(props.idPhong)}
+                            label="Bình luận" />
+                        <p />
+                        <Button
+                            onClickButton={() => onClickXoaPhong(props.idPhong)}
+                            label="Xóa phòng" />
+                        <p />
+                        <Button
+                            onClickButton={() => onClickDanhSachNguoiThue(props.idPhong)}
+                            label="Người thuê" />
+                        <Link to={props.linkVideoReview} className='videoReview' ><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                            <path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z" />
                         </svg>
                         </Link>
                         <Link to={props.linkEdit}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">

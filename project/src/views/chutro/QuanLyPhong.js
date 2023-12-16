@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import Loading from '../loading/Loading';
 import { layTatCaPhongCuaChuTro } from '../../services/chutro/MinhService';
 import { baseURL } from '../../services/my-axios';
@@ -9,6 +9,7 @@ import Comment from '../item/Comment';
 import { Button, Modal } from 'react-bootstrap';
 
 function QuanLyPhong() {
+    const navigate = useNavigate();
     const [list, setList] = useState([]);
     const [idPhong, setIdPhong] = useState(-1);
     const [loading, setLoading] = useState(false);
@@ -32,6 +33,7 @@ function QuanLyPhong() {
         setShow(true);
     }
     const onClickXemNguoiThue = (idPhong) => {
+        
     }
     const onClickXoaPhong = (idPhong) => {
     }
