@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import avt from "../../images/avt1.jpg";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { getDetailNguoiThue } from "../../services/nguoithue/PhucService";
 import { baseURL } from "../../services/my-axios";
-import { ToastContainer, toast } from "react-toastify";
-import "./editthongtinchutro.css";
-import { getDetailChuTro } from "../../services/admin/PhucService";
-const ThongTin = () => {
-  let { idTaiKhoan } = useParams();
+const ThongTinChuTro = () => {
   const [id, setId] = useState(sessionStorage.getItem("accountId"));
   console.log(id);
   const [result, setResult] = useState({});
+
   useEffect(() => {
     const fetchBanner = async () => {
-      setResult(await getDetailChuTro(id));
+      setResult(await getDetailNguoiThue(id));
       console.log(result);
     };
     fetchBanner();
@@ -25,10 +23,6 @@ const ThongTin = () => {
           <div class="row">
             <div class="col-lg-12">
               <h3>Thông Tin</h3>
-              <span class="breadcrumb">
-                <a href="#">Chủ Trọ: </a>
-                {result.ten}
-              </span>
             </div>
           </div>
         </div>
@@ -49,35 +43,27 @@ const ThongTin = () => {
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
-              <div className="cha-img">
-                <img className="con-img" src={baseURL + result.hinh} alt={baseURL + result.hinh} />
-              </div>
+              <img
+                className="hinh-banner2"
+                src={baseURL + result.hinh}
+                alt={baseURL + result.hinh}
+              />
             </div>
             <div class="col-lg-6 align-self-center">
               <div className="thongtinchutro">
-                <h2 className="ten_chu_tro">{result.ten}</h2>
                 <div className="chutro_info">
-                  <b>Trạng Thái: </b>{" "}
-                  {result.xacThuc == 1 ? (
-                    <span class="fw-normal txt_green">Đã xác thực</span>
-                  ) : (
-                    <span class="fw-normal txt_red">Chưa xác thực</span>
-                  )}
+                  <b>Tên: </b>
+                  {result.ten}
                 </div>
+
                 <div className="chutro_info">
                   <b>Số Điện Thoại: </b>
                   {result.soDienThoai}
                 </div>
-                <div className="chutro_info">
-                  <b>Số Tài Khoản:</b> {result.soTaiKhoanNganHang}
-                </div>
-                <div className="chutro_info">
-                  <b>Số Tài Khoản Ngân Hàng:</b> {result.tenChuTaiKhoanNganHang}
-                </div>
 
                 <Link
                   className="btn btn-primary bbt"
-                  to={`/chutro/editthongtinchutro/${result.id}`}
+                  //   to={`/chutro/editthongtinchutro/${result.id}`}
                 >
                   Chỉnh Sửa
                 </Link>
@@ -89,7 +75,7 @@ const ThongTin = () => {
                 </Link>
                 <Link
                   className="btn btn-success bbt"
-                  to={`/chutro/xacthucchutro/${result.id}`}
+                  //   to={`/chutro/xacthucchutro/${result.id}`}
                 >
                   Xác Thực
                 </Link>
@@ -102,4 +88,4 @@ const ThongTin = () => {
   );
 };
 
-export default ThongTin;
+export default ThongTinChuTro;

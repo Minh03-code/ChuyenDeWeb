@@ -1,41 +1,46 @@
-import React from 'react';
+import React from "react";
 import {
   useNavigate,
   BrowserRouter,
   Routes,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
 import NotFound from "../NotFound/NotFound.js";
 import Navigation from "./Navigation.js";
-import ThongBao from '../NguoiThue/ThongBao.js';
-import Footer from '../item/Footer.js';
-import ThongBaoDetail from './ThongBaoDetail.js';
-import TinNhanRealTime from './TinNhanRealTime.js';
-import DanhSachPhongGoiY from './DanhSachPhongGoiY.js';
+import ThongBao from "../NguoiThue/ThongBao.js";
+import Footer from "../item/Footer.js";
+import ThongBaoDetail from "./ThongBaoDetail.js";
+import TinNhanRealTime from "./TinNhanRealTime.js";
+import DanhSachPhongGoiY from "./DanhSachPhongGoiY.js";
+import ThongTinChuTro from "./ThongTin.js";
 
 function NguoiThue() {
-  console.log(sessionStorage.getItem('accountId'));
-  return (
-    sessionStorage.getItem('accountType') == 0 ?
-      <>
-        <Navigation />
-        <Routes>
-          <Route path="/thongbao" element={<ThongBao />}></Route>
-          <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
- 			<Route path="/*" element={<TinNhanRealTime/>}></Route>
-        <Route path="/danhsachphonggoiy" element={<DanhSachPhongGoiY/>}></Route>
-      
-        </Routes>
+  console.log(sessionStorage.getItem("accountId"));
+  return sessionStorage.getItem("accountType") == 0 ? (
+    <>
+      <Navigation />
+      <Routes>
+        <Route path="/thongbao" element={<ThongBao />}></Route>
+        <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
+        <Route path="/*" element={<TinNhanRealTime />}></Route>
+        <Route
+          path="/danhsachphonggoiy"
+          element={<DanhSachPhongGoiY />}
+        ></Route>
 
-        <Footer
-          title={"Thông tin liên hệ"}
-          name={"Nguyễn Đức Minh"}
-          phoneNumber={"0123456789"}
-          email={"minh123@gmail.com"}
-        />
-      </>
-      : <NotFound />
+        <Route path="/thongtin" element={<ThongTinChuTro />}></Route>
+      </Routes> 
+
+      <Footer
+        title={"Thông tin liên hệ"}
+        name={"Nguyễn Đức Minh"}
+        phoneNumber={"0123456789"}
+        email={"minh123@gmail.com"}
+      />
+    </>
+  ) : (
+    <NotFound />
   );
 }
 
