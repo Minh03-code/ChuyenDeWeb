@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import imgGhep from "./imgs/icon_ghep.png";
+import imgRandom from "./imgs/icon_random.png";
+import imgRecomment from "./imgs/icon_recomment.png";
+import imgVDRoom from "./imgs/img2.jpg";
 export default function HeaderNguoiThue(props) {
 
     return (
         <>
             <header>
                 <div className="image-container">
-                    <img src="img2.jpg" alt="" />
-                    <img src="img2.jpg" alt="" />
-                    <img src="img3.jpg" alt="" />
-                    <img src="img.jpg" alt="" />
+                    <img src={imgVDRoom} alt="" />
                 </div>
                 <div className="container-search">
                     <div className="search">
@@ -22,19 +23,19 @@ export default function HeaderNguoiThue(props) {
                     <div className="button-form">
                         <div className="btn-m">
                             <div className="btn-icon">
-                                <img src="./icon_ghep.png" />
+                                <img src={imgGhep} />
                             </div>
                             <p>Phòng ghép</p>
                         </div>
                         <div className="btn-m">
                             <div className="btn-icon">
-                                <img src="./icon_recomment.png" />
+                                <img src={imgRecomment} />
                             </div>
                             <p>Gợi ý</p>
                         </div>
                         <div className="btn-m">
                             <div className="btn-icon">
-                                <img src="./icon_random.png" />
+                                <img src={imgRandom} />
                             </div>
                             <p>Ngẫu nhiên</p>
                         </div>

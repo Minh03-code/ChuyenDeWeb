@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import HeaderNguoiThue from '../item/HeaderNguoiThue';
+import imgBinhLuan from "./imgs/icon_comment.png";
+import imgVDRoom from "./imgs/img2.jpg";
 export default function Home() {
     return (
         <>
@@ -11,42 +13,42 @@ export default function Home() {
                         <div className="row">
                             <div className="col-md-3">
                                 <div className="item-quan">
-                                    <img className="image-quan" src="./img.jpg" alt="Overlay Image" />
+                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
                                     <div className="quan-gradient"></div>
                                     <div className="quan-name">Quận 1</div>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="item-quan">
-                                    <img className="image-quan" src="./img2.jpg" alt="Overlay Image" />
+                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
                                     <div className="quan-gradient"></div>
                                     <div className="quan-name">Quận 1</div>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="item-quan">
-                                    <img className="image-quan" src="./img2.jpg" alt="Overlay Image" />
+                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
                                     <div className="quan-gradient"></div>
                                     <div className="quan-name">Quận 1</div>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="item-quan">
-                                    <img className="image-quan" src="./img2.jpg" alt="Overlay Image" />
+                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
                                     <div className="quan-gradient"></div>
                                     <div className="quan-name">Quận 1</div>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="item-quan">
-                                    <img className="image-quan" src="./img2.jpg" alt="Overlay Image" />
+                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
                                     <div className="quan-gradient"></div>
                                     <div className="quan-name">Quận 1</div>
                                 </div>
                             </div>
                             <div className="col-md-3">
                                 <div className="item-quan">
-                                    <img className="image-quan" src="./img2.jpg" alt="Overlay Image" />
+                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
                                     <div className="quan-gradient"></div>
                                     <div className="quan-name">Quận 1</div>
                                 </div>
@@ -57,7 +59,7 @@ export default function Home() {
                     <b className='title-m'>Danh sách phòng</b>
                     <div className="phong-m">
                         <div className="item-room-m">
-                            <img className="img-room-m" src="./img.jpg" alt="" />
+                            <img className="img-room-m" src={imgVDRoom} alt="" />
                             <div className="description-item-room-m">
                                 <p className="address-m">104 Nguyễn Văn A Phường A Thành phố A</p>
                                 <div className="row">
@@ -66,7 +68,7 @@ export default function Home() {
                                         <p className="color-text-item-room">Diện tích: 30m²</p>
                                         <div className="list-item-button">
                                             <div className="item-button">
-                                                <img className="icon-button" src="./icon_comment.png" alt="" />
+                                                <img className="icon-button" src={imgBinhLuan} alt="" />
                                                 <span>20</span>
                                             </div>
                                         </div>
@@ -81,7 +83,7 @@ export default function Home() {
 
                         </div>
                         <div className="item-room-m">
-                            <img className="img-room-m" src="./img2.jpg" alt="" />
+                            <img className="img-room-m" src={imgVDRoom} alt="" />
                             <div className="description-item-room-m">
                                 <p className="address-m">104 Nguyễn Văn A Phường A Thành phố A</p>
                                 <div className="row">
@@ -90,7 +92,7 @@ export default function Home() {
                                         <p className="color-text-item-room">Diện tích: 30m²</p>
                                         <div className="list-item-button">
                                             <div className="item-button">
-                                                <img className="icon-button" src="./icon_comment.png" alt="" />
+                                                <img className="icon-button" src={imgBinhLuan} alt="" />
                                                 <span>20</span>
                                             </div>
                                         </div>
@@ -105,7 +107,7 @@ export default function Home() {
 
                         </div>
                         <div className="item-room-m">
-                            <img className="img-room-m" src="./img2.jpg" alt="" />
+                            <img className="img-room-m" src={imgVDRoom} alt="" />
                             <div className="description-item-room-m">
                                 <p className="address-m">104 Nguyễn Văn A Phường A Thành phố A</p>
                                 <div className="row">
@@ -114,7 +116,7 @@ export default function Home() {
                                         <p className="color-text-item-room">Diện tích: 30m²</p>
                                         <div className="list-item-button">
                                             <div className="item-button">
-                                                <img className="icon-button" src="./icon_comment.png" alt="" />
+                                                <img className="icon-button" src={imgBinhLuan} alt="" />
                                                 <span>20</span>
                                             </div>
                                         </div>
