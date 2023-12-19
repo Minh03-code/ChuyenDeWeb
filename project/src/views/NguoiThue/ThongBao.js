@@ -39,16 +39,7 @@ class ThongBao extends React.Component {
         return (
             <>
             <Header/>
-                <div class="page-heading header-text">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h3>Thông Báo</h3>
-                                <span class="breadcrumb"><a href="#">Người thuê: </a>{tenChuTro}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="section trending">
                     <div class="container">
                         <div class="row trending-box">

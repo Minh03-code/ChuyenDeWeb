@@ -16,10 +16,10 @@ class Navigation extends React.Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                                 <li className='nav-item'>
-                                    <NavLink to='/nguoithue/quanlyphong' exact="true" className={(navData) => (navData.isActive ? "active nav-link m" : 'nav-link m')}>Danh Sách Phòng Trọ</NavLink>
+                                    <NavLink to='/nguoithue/trang-chu' exact="true" className={(navData) => (navData.isActive ? "active nav-link m" : 'nav-link m')}>Trang chủ</NavLink>
                                 </li>
-                                <li className='nav-item'><NavLink to='/nguoithue/goidangdung' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Gói Đăng Kí</NavLink></li>
-                                <li className='nav-item'><NavLink to='/nguoithue/thongbao' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Thông Báo</NavLink></li>
+                                <li className='nav-item'><NavLink to='/nguoithue/phong-cua-toi' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Phòng của tôi</NavLink></li>
+                                <li className='nav-item'><NavLink to='/nguoithue/thongbao' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Thông báo</NavLink></li>
                                 <li className='nav-item'><NavLink to='/nguoithue/tinnhan' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Tin Nhắn</NavLink></li>
                                 <li className='nav-item'><NavLink to='/nguoithue/thongtin' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Thông Tin</NavLink></li>
                             </ul>

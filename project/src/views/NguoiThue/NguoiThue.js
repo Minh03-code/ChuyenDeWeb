@@ -17,6 +17,7 @@ import ThongTinChuTro from "./ThongTin.js";
 import Home from "./Home.js";
 import "./styles/nguoithue.css";
 import FooterNguoiThue from "../item/FooterNguoiThue.js";
+import PhongCuaToi from "./PhongCuaToi.js";
 
 function NguoiThue() {
   console.log(sessionStorage.getItem("accountId"));
@@ -26,6 +27,8 @@ function NguoiThue() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/trang-chu" element={<Home />}></Route>
+          <Route path="/phong-cua-toi" element={<PhongCuaToi />}></Route>
           <Route path="/thongbao" element={<ThongBao />}></Route>
           <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
           <Route path="/tinnhan" element={<TinNhanRealTime />}></Route>
