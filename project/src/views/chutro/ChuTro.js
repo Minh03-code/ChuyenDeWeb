@@ -34,6 +34,7 @@ import VideoReviewManager from "./VideoReviewManager.js";
 import XacThucChuTro from "./XacThucChuTro.js";
 import UpdateRoom from './UpdateRoom';
 import YeuCauDatPhong from "./YeuCauDatPhong.js";
+import YeuCauDatPhongDetail from "./YeuCauDatPhongDetail.js";
 function ChuTro() {
   console.log(sessionStorage.getItem("accountId"));
   return sessionStorage.getItem("accountType") == 1 ? (
@@ -60,6 +61,8 @@ function ChuTro() {
         <Route path="/themphong" element={<AddRoom />}></Route>
         <Route path="/listgoidangky" element={<ListGoiDangKy />}></Route>
         <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
+        <Route path="/yeucaudetail" element={<YeuCauDatPhongDetail />}></Route>
+
         <Route
           path="/editthongtinchutro/:id"
           element={<EditThongTinChuTro />}

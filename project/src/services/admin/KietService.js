@@ -45,5 +45,23 @@ const getDetailThongBaoCallAPI = (id) => {
 const getListYeuCauDatPhongCallAPI = (idTaiKhoan) => {
     return myAxios.get(`api/yeucaudatphong/all?idTaiKhoan=${idTaiKhoan}`)
 }
+const getDetailYeuCauCallAPI = (id) => {
+    return myAxios.get(`api/yeucaudatphong/chitiet?id=${id}`)
+}
+const getNguoiThue = (id) => {
+    return myAxios.get(`api/nguoithue/chitiet?id=${id}`);
+}
+const chapNhanYeuCauDatPhong = (id, idNguoiThue, idPhong, myIdTaiKhoan, idTaiKhoanGui) => {
+    return myAxios.put(`api/yeucaudatphong/xacnhandatphong?id=${id}&idNguoiThue=${idNguoiThue}&idPhong=${idPhong}&myIdTaiKhoan=${myIdTaiKhoan}&idTaiKhoanGui=${idTaiKhoanGui}`);
+}
+const tuChoiYeuCauDatPhong = (id, myIdTaiKhoan, idTaiKhoanGui) => {
+    return myAxios.put(`api/yeucaudatphong/tuchoi?id=${id}&myIdTaiKhoan=${myIdTaiKhoan}&idTaiKhoanGui=${idTaiKhoanGui}`);
+}
+const getNguoiGuiChuTro = (idTaiKhoan) => {
+    return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+  }
+  const xoaThongBao = (id) => {
+    return myAxios.get(`api/thongbao/xoa?id=${id}`);
+  }
 // export { multiple };
-export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI, editServiceCallAPI, addServiceCallAPI, getDetailMotelRoomOwnerCallAPI, capNhatTrangThaiMotelRoomOwnerCallAPI, getListThongBaoByIdCallAPI, getListNguoiThueTheoIdPhongCallAPI, getChiTietnguoiThueCallAPI, getChiTietTaiKhoanTheoIdCallAPI, getDetailThongBaoCallAPI, getListYeuCauDatPhongCallAPI };
+export { getAllMotelRoomOwnerCallAPI, getAllServiceCallAPI, getDetailServiceCallAPI, lockServiceCallAPI, unLockServiceCallAPI, editServiceCallAPI, addServiceCallAPI, getDetailMotelRoomOwnerCallAPI, capNhatTrangThaiMotelRoomOwnerCallAPI, getListThongBaoByIdCallAPI, getListNguoiThueTheoIdPhongCallAPI, getChiTietnguoiThueCallAPI, getChiTietTaiKhoanTheoIdCallAPI, getDetailThongBaoCallAPI, getListYeuCauDatPhongCallAPI, getDetailYeuCauCallAPI, getNguoiThue, chapNhanYeuCauDatPhong, tuChoiYeuCauDatPhong, getNguoiGuiChuTro, xoaThongBao };
