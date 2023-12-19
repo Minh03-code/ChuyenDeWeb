@@ -14,6 +14,8 @@ import ThongBaoDetail from "./ThongBaoDetail.js";
 import TinNhanRealTime from "./TinNhanRealTime.js";
 import DanhSachPhongGoiY from "./DanhSachPhongGoiY.js";
 import ThongTinChuTro from "./ThongTin.js";
+import EditThongTinNguoiThue from "./EditThongTinNguoiThue.js";
+import EditPassWordNguoiThue from "./EditPassWordNguoiThue.js";
 
 function NguoiThue() {
   console.log(sessionStorage.getItem("accountId"));
@@ -24,13 +26,13 @@ function NguoiThue() {
         <Route path="/thongbao" element={<ThongBao />}></Route>
         <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
         <Route path="/*" element={<TinNhanRealTime />}></Route>
-        <Route
-          path="/danhsachphonggoiy"
-          element={<DanhSachPhongGoiY />}
-        ></Route>
+        <Route path="/danhsachphonggoiy" element={<DanhSachPhongGoiY />}></Route>
+
+        <Route path="/editthongtinnguoithue/:id" element={<EditThongTinNguoiThue />}></Route>
+        <Route path="/editpasswordnguoithue" element={<EditPassWordNguoiThue />}></Route>
 
         <Route path="/thongtin" element={<ThongTinChuTro />}></Route>
-      </Routes> 
+      </Routes>
 
       <Footer
         title={"Thông tin liên hệ"}

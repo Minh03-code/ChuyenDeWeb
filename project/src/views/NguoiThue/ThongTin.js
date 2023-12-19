@@ -63,7 +63,7 @@ const ThongTinChuTro = () => {
 
                 <Link
                   className="btn btn-primary bbt"
-                  //   to={`/chutro/editthongtinchutro/${result.id}`}
+                  to={`/nguoithue/editthongtinnguoithue/${result.id}`}
                 >
                   Chỉnh Sửa
                 </Link>
