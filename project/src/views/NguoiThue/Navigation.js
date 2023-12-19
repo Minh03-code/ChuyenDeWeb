@@ -6,7 +6,7 @@ class Navigation extends React.Component {
     render() {
         return (
             <>
-                <nav className="navbar navbar-expand-lg bg-secondary nav-m">
+                <nav className="navbar navbar-expand-lg nav-m">
                     <div className="container">
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -18,10 +18,10 @@ class Navigation extends React.Component {
                                 <li className='nav-item'>
                                     <NavLink to='/nguoithue/trang-chu' exact="true" className={(navData) => (navData.isActive ? "active nav-link m" : 'nav-link m')}>Trang chủ</NavLink>
                                 </li>
-                                <li className='nav-item'><NavLink to='/nguoithue/phong-cua-toi' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Phòng của tôi</NavLink></li>
-                                <li className='nav-item'><NavLink to='/nguoithue/thongbao' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Thông báo</NavLink></li>
-                                <li className='nav-item'><NavLink to='/nguoithue/tinnhan' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Tin Nhắn</NavLink></li>
-                                <li className='nav-item'><NavLink to='/nguoithue/thongtin' className={(navData) => (navData.isActive ? "nav-link m" : 'nav-link m')}>Thông Tin</NavLink></li>
+                                <li className='nav-item'><NavLink to='/nguoithue/phong-cua-toi' className={(navData) => (navData.isActive ? "active nav-link m" : 'nav-link m')}>Phòng của tôi</NavLink></li>
+                                <li className='nav-item'><NavLink to='/nguoithue/thongbao' className={(navData) => (navData.isActive ? "active nav-link m" : 'nav-link m')}>Thông báo</NavLink></li>
+                                <li className='nav-item'><NavLink to='/nguoithue/tinnhan' className={(navData) => (navData.isActive ? "active nav-link m" : 'nav-link m')}>Tin Nhắn</NavLink></li>
+                                <li className='nav-item'><NavLink to='/nguoithue/thongtin' className={(navData) => (navData.isActive ? "active nav-link m" : 'nav-link m')}>Thông Tin</NavLink></li>
                             </ul>
                         </div>
                     </div>

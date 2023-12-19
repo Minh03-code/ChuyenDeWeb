@@ -13,25 +13,27 @@ export default function ImagesBanner (){
         }
     }
     const scrollAutoImages = () => {
-        let quantity = 1;
+        let position = 1;
+        const time = 5000;
         const imgContainer = document.querySelector('.image-container');
         const listItemImages = document.querySelectorAll('.item-img');
         const itemImage = document.querySelector('.item-img');
         setInterval(() => {
-            if (quantity < listItemImages.length) {
+            if (position < listItemImages.length) {
                 listItemImages.forEach(element => {
-                    element.style.transform = `translateX(-${100 * quantity}%)`;
+                    element.style.transform = `translateX(-${100 * position}%)`;
+                    element.style.transition = 'transform 0.5s ease-in-out';
                 });
-
+                position++;
             }
             else {
-                quantity = 0;
+                position = 0;
                 listItemImages.forEach(element => {
-                    element.style.transform = `translateX(${100 * quantity}%)`;
+                    element.style.transform = `translateX(${100 * position}%)`;
+                    element.style.transition = 'transform 0.5s ease-in-out';
                 });
             }
-            quantity++;
-        }, 2000);
+        }, time);
     }
     scrollAutoImages();
     return (

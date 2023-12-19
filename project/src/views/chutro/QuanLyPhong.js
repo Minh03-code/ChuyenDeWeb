@@ -28,8 +28,8 @@ function QuanLyPhong() {
             console.log('Error fetching data:', error);
         }
     };
-    const onClickComment = (text) => {
-        setIdPhong(text);
+    const onClickComment = (idPhong) => {
+        setIdPhong(idPhong);
         setShow(true);
     }
     const onClickXemNguoiThue = (idPhong) => {

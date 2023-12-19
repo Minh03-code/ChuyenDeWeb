@@ -10,13 +10,18 @@ function InputText(props) {
     }
     return (
         <>
-            <div className="input-group mb-3">
-                {props.label ?
-                    <span className="input-group-text" id="basic-addon1">{props.label}</span>
-                    : <></>
-                }
-                <input type={props.type} value={props.value} onChange={changeText} className="form-control" placeholder={props.placeholder} aria-label={props.placeholder} aria-describedby="basic-addon1" />
-            </div>
+            {
+                props.newParent ?
+                    <input type={props.type} value={props.value} onChange={changeText} className={"form-control " + (props.class ? props.class : "")} placeholder={props.placeholder} aria-label={props.placeholder} aria-describedby="basic-addon1" />
+                    :
+                    <div className="input-group">
+                        {props.label ?
+                            <span className="input-group-text" id="basic-addon1">{props.label}</span>
+                            : <></>
+                        }
+                        <input type={props.type} value={props.value} onChange={changeText} className={"form-control " + (props.class ? props.class : "")} placeholder={props.placeholder} aria-label={props.placeholder} aria-describedby="basic-addon1" />
+                    </div>
+            }
         </>
     )
 }
