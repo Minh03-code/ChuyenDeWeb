@@ -6,6 +6,8 @@ import {
   Link
 } from "react-router-dom";
 import LoginRegister from './loginregister/FormLR.js';
+import CodeForgot from './loginregister/CodeForgot.js';
+import ForgotPassword from './loginregister/ForgotPassword.js';
 import Admin from './admin/Admin.js';
 import ChuTro from './chutro/ChuTro.js';
 import NguoiThue from './NguoiThue/NguoiThue.js';
@@ -23,6 +25,7 @@ function App() {
     const starCountRef = ref(db, 'login');
     onValue(starCountRef, (snapshot) => {
       const data = snapshot.val();
+      console.log(data);
     });
   };
   useEffect(() => {
@@ -38,9 +41,13 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginRegister />}>
         </Route>
-        <Route path="/chonloaitaikhoan" element={<ChonLoaiTaiKhoan />}>
+        <Route path="/forgotpassword" element={<ForgotPassword />}>
+        </Route>
+        <Route path="/codeforgot" element={<CodeForgot />}>
         </Route>
         <Route path="/dangkitaikhoanchutro" element={<DangKiTaiKhoanChuTro />}>
+        </Route>
+          <Route path="/chonloaitaikhoan" element={<ChonLoaiTaiKhoan />}>
         </Route>
         <Route path="/dangkitaikhoannguoithue" element={<DangKiTaiKhoanNguoiThue />}>
         </Route>

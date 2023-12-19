@@ -123,3 +123,20 @@
         margin: 20px;
     }
 }
+.cha-img{
+    text-align: center;
+}
+.con-img{
+    width: 250px;
+    height: 250px;
+}
+.gui2 {
+    font-size: 25px;
+    height: 60px;
+    width: 400px;
+}
+.text_xac_thuc{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 100px;
+}
