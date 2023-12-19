@@ -28,7 +28,7 @@ function NguoiThue() {
         <Route path="/*" element={<TinNhanRealTime />}></Route>
         <Route path="/danhsachphonggoiy" element={<DanhSachPhongGoiY />}></Route>
 
-        <Route path="/editthongtinnguoithue" element={<EditThongTinNguoiThue/>}></Route>
+        <Route path="/editthongtinnguoithue" element={<EditThongTinNguoiThue />}></Route>
         <Route path="/editpasswordnguoithue" element={<EditPassWordNguoiThue />}></Route>
 
         <Route path="/thongtin" element={<ThongTinChuTro />}></Route>

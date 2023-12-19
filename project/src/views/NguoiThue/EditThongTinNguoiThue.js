@@ -1,11 +1,13 @@
 import React, { version } from 'react';
 import './styleThinh.css';
 import {  baseURL } from '../../services/my-axios.js';
+
 import { getProfileNguoiThue, updateProfileNguoiThue1,updateProfileNguoiThue2 } from '../../services/nguoithue/ThinhService.js';
-import { NavLink } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 class EditThongTinNguoiThue extends React.Component {
+   
     state = {
         nguoithue: {},
         idTaiKhoan: "",
@@ -15,6 +17,7 @@ class EditThongTinNguoiThue extends React.Component {
 
     }
     async componentDidMount() {
+        
         let idTaiKhoanSession = sessionStorage.getItem("accountId");
         let res = await getProfileNguoiThue(idTaiKhoanSession);
         if (res != null) {
@@ -46,13 +49,7 @@ class EditThongTinNguoiThue extends React.Component {
         })
 
     }
-    kiemTraHinh() {
-        if (this.state.hinh === "") {
-
-        } else {
-
-        }
-    }
+   
     kiemTraRong() {
         if (this.state.ten !== "") {
             if (this.state.soDienThoai !== "") {
@@ -73,11 +70,12 @@ class EditThongTinNguoiThue extends React.Component {
 
 
     async capNhat() {
-        console.log(this.state.hinh);
         if (this.state.hinh != null) {
-            let res = await updateProfileNguoiThue1(this.state.idTaiKhoan, this.state.ten, this.state.soDienThoai, this.state.hinh);
+            let res = await updateProfileNguoiThue1(this.state.idTaiKhoan, this.state.hinh, this.state.ten, this.state.soDienThoai);
             if (res != null) {
                 toast.success("Cập Nhật Thông Tin Thành Công!");
+               
+               
             } else {
                 toast.error("Cập Nhật Thất Bại!");
             }
@@ -85,6 +83,7 @@ class EditThongTinNguoiThue extends React.Component {
             let res = await updateProfileNguoiThue2(this.state.idTaiKhoan, this.state.ten, this.state.soDienThoai);
             if (res != null) {
                 toast.success("Cập Nhật Thông Tin Thành Công!");
+                
             } else {
                 toast.error("Cập Nhật Thất Bại!");
             }
@@ -123,7 +122,7 @@ class EditThongTinNguoiThue extends React.Component {
                                 </div>
 
                                 <div className="mb-3">
-                                    <label htmlFor="hinh" className="form-label">Ảnh nguoithue</label>
+                                    <label htmlFor="hinh" className="form-label">Ảnh mới</label>
                                     <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" placeholder="Chọn Hình Đại Diện" className="form-control" />
                                 </div>
                                 <button type="button" className="btn btn-primary bbt" onClick={() => this.kiemTraRong()}>Đồng Ý</button>

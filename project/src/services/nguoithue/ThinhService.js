@@ -13,8 +13,8 @@ const updatePassWord = (id, matKhaucu, matKhaumoi) => {
 const config = {
     headers: { "content-type": "multipart/form-data" },
   };
-const updateProfileNguoiThue1 = (idTaiKhoan, ten,hinh, soDienThoai)=>{
-    return myAxios.post(`api/capnhatthongtinnguoithuecohinh`,{idTaiKhoan:idTaiKhoan,ten:ten,hinh:hinh, soDienThoai:soDienThoai},config);
+const updateProfileNguoiThue1 = (idTaiKhoan,hinh, ten, soDienThoai)=>{
+    return myAxios.post(`api/capnhatthongtinnguoithuecohinh`,{idTaiKhoan:idTaiKhoan,ten:ten,hinh:hinh, soDienThoai:soDienThoai});
 }
 const updateProfileNguoiThue2 = (idTaiKhoan, ten, soDienThoai)=>{
     return myAxios.post(`api/capnhatthongtinnguoithuekhonghinh`,{idTaiKhoan:idTaiKhoan,ten:ten,soDienThoai:soDienThoai});
