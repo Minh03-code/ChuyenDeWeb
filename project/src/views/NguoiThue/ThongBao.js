@@ -4,6 +4,7 @@ import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
 import { getListThongBaoByIdCallAPI } from '../../services/admin/KietService';
 import { getProfileChuTro } from '../../services/admin/NghiemService';
+import Header from '../item/Header';
 
 
 class ThongBao extends React.Component {
@@ -37,6 +38,7 @@ class ThongBao extends React.Component {
         let { listThongBaoById, tenChuTro } = this.state
         return (
             <>
+            <Header/>
                 <div class="page-heading header-text">
                     <div class="container">
                         <div class="row">
