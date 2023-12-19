@@ -10,7 +10,7 @@ function FooterNguoiThue(props) {
                         {/* <p>{title}</p>
                         <p>{name}</p>
                         <p>{phoneNumber}</p>
-                        <p>{email}</p> */}
+                        <p>{email}</    p> */}
                     </div>
                 </div>
             </footer>
