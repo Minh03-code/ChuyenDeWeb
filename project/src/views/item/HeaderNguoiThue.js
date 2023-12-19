@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import ImagesBanner from './ImagesBanner';
+import ImagesBanner from './ImagesBanner.js';
 import imgGhep from "./imgs/icon_ghep.png";
 import imgRandom from "./imgs/icon_random.png";
 import imgRecomment from "./imgs/icon_recomment.png";
