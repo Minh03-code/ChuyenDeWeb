@@ -21,6 +21,30 @@ export default function HeaderNguoiThue(props) {
     const chuyenManHinhGoiY = ()=>{
         navigation("/nguoithue/danhsachphonggoiy")
     }
+    const scrollAutoImages = () => {
+        let quantity = 1;
+        const imgContainer = document.querySelector('.image-container');
+        const listItemImages = document.querySelectorAll('.item-img');
+        const itemImage = document.querySelector('.item-img');
+        setInterval(() => {
+            if (quantity < listItemImages.length) {
+                listItemImages.forEach(element => {
+                    element.style.transform = `translateX(-${100 * quantity}%)`;
+                });
+
+            }
+            else {
+                quantity = 0;
+                listItemImages.forEach(element => {
+                    element.style.transform = `translateX(${100 * quantity}%)`;
+                });
+                
+                
+            }
+            quantity++;
+        }, 2000);
+    }
+    scrollAutoImages();
     return (
         <>
             <header>
@@ -28,7 +52,7 @@ export default function HeaderNguoiThue(props) {
                     {
                         listBanner&&listBanner.length>0?listBanner.map((item,index)=>{
                             return(
-                                <img className="the_img_banner" src={baseURL+item.hinhBanner} alt={baseURL+item.hinhBanner} key={index}/>
+                                <img className="the_img_banner item-img" src={baseURL+item.hinhBanner} alt={baseURL+item.hinhBanner} key={index}/>
                             )
                         })
                         :<>
