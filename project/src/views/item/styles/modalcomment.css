@@ -42,3 +42,17 @@
 .loaiTaiKhoan{
     color: #00ad62;
 }
+.form-send{
+    display: flex;
+    height: 50px !important;
+    width: 100% !important;
+}
+.input-m{
+    width: 100% !important;
+}
+.form-send img{
+    margin-left: 10px;
+    width: 5%;
+    height: 100%;
+    
+}

@@ -1,8 +1,55 @@
 import React, { useEffect, useState } from 'react';
+import { layDanhSachPhongHoatDong, layDanhSachQuan } from '../../services/chutro/MinhService';
+import { baseURL } from '../../services/my-axios';
+import Comment from '../item/Comment';
 import HeaderNguoiThue from '../item/HeaderNguoiThue';
-import imgBinhLuan from "./imgs/icon_comment.png";
-import imgVDRoom from "./imgs/img2.jpg";
+import PhongItem2 from '../item/PhongItem2';
+import QuanItem from '../item/QuanItem';
+import notImage from "./imgs/not_image.jpg";
 export default function Home() {
+    const [listQuan, setListQuan] = useState();
+    const [lodingQuan, setLoadingQuan] = useState(false);
+    const [listPhong, setListPhong] = useState();
+    const [lodingPhong, setLoadingPhong] = useState(false);
+    const [idPhong, setIdPhong] = useState(-1);
+    const [show, setShow] = useState(false);
+    const onCloseComment = () => {
+        setShow(false);
+    }
+    const fetchDataQuan = async () => {
+        const res = await layDanhSachQuan();
+        if (res) {
+            setListQuan(res);
+            setLoadingQuan(true);
+        }
+    }
+
+    const fetchDataPhong = async () => {
+        const res = await layDanhSachPhongHoatDong();
+        if (res) {
+            setListPhong(res);
+            setLoadingPhong(true);
+        }
+    }
+    // Đây là function sử lý click quận
+    const clickQuan = (idQuan) => {
+        alert(idQuan);
+        
+    }
+    // Đây là function sử lý click phòng
+    const clickPhong = (idPhong) => {
+        console.log(">>" + idPhong);
+    }
+    // Đây là function sử lý comment
+    const clickComment = (idPhong) => {
+        setIdPhong(idPhong);
+        setShow(true);
+    }
+
+    useEffect(() => {
+        fetchDataQuan();
+        fetchDataPhong();
+    }, []);
     return (
         <>
             <HeaderNguoiThue />
@@ -11,129 +58,55 @@ export default function Home() {
                     <b className='title-m'>Danh sách quận</b>
                     <div className="quan-m">
                         <div className="row">
-                            <div className="col-md-3">
-                                <div className="item-quan">
-                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
-                                    <div className="quan-gradient"></div>
-                                    <div className="quan-name">Quận 1</div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div className="item-quan">
-                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
-                                    <div className="quan-gradient"></div>
-                                    <div className="quan-name">Quận 1</div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div className="item-quan">
-                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
-                                    <div className="quan-gradient"></div>
-                                    <div className="quan-name">Quận 1</div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div className="item-quan">
-                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
-                                    <div className="quan-gradient"></div>
-                                    <div className="quan-name">Quận 1</div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div className="item-quan">
-                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
-                                    <div className="quan-gradient"></div>
-                                    <div className="quan-name">Quận 1</div>
-                                </div>
-                            </div>
-                            <div className="col-md-3">
-                                <div className="item-quan">
-                                    <img className="image-quan" src={imgVDRoom} alt="Overlay Image" />
-                                    <div className="quan-gradient"></div>
-                                    <div className="quan-name">Quận 1</div>
-                                </div>
-                            </div>
+                            {
+                                lodingQuan ?
+                                    listQuan && listQuan.length >= 0 && listQuan.map((item, index) => {
+                                        return (
+                                            <QuanItem
+                                                idQuan={item.id}
+                                                imgQuan={`${baseURL}${item.hinh}`}
+                                                tenQuan={item.tenQuan}
+                                                onClickItemQuanListener={clickQuan}
+                                            />
+                                        )
+                                    })
+                                    :
+                                    <></>
+                            }
                         </div>
 
                     </div>
                     <b className='title-m'>Danh sách phòng</b>
                     <div className="phong-m">
-                        <div className="item-room-m">
-                            <img className="img-room-m" src={imgVDRoom} alt="" />
-                            <div className="description-item-room-m">
-                                <p className="address-m">104 Nguyễn Văn A Phường A Thành phố A</p>
-                                <div className="row">
-                                    <div className="col-md-10">
-                                        <p className="color-text-item-room">Giới tính: Nam</p>
-                                        <p className="color-text-item-room">Diện tích: 30m²</p>
-                                        <div className="list-item-button">
-                                            <div className="item-button">
-                                                <img className="icon-button" src={imgBinhLuan} alt="" />
-                                                <span>20</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-2">
-                                        <div className="price-room-m">
-                                            4,5Tr
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        {
+                            lodingPhong ?
+                                listPhong && listPhong.length >= 0 && listPhong.map((item, index) => {
+                                    return (
+                                        <PhongItem2
+                                            idPhong={item.id}
+                                            imgPhong={item.hinhAnhPhongTro && item.hinhAnhPhongTro.length > 0 ? baseURL + item.hinhAnhPhongTro[0].hinh : `${notImage}`}
+                                            diaChi={item.diaChiChiTiet}
+                                            gioiTinh={item.gioiTinh === 0 ? "Nam & Nữ" : item.gioiTinh === 1 ? "Nam" : "Nữ"}
+                                            dienTich={item.dienTich}
+                                            gia={100000}
+                                            demComment={item.binhLuan}
+                                            onClickRoomListener={clickPhong}
+                                            onClickItemCommentListener={clickComment}
+                                        />
+                                    )
+                                })
+                                :
+                                <></>
+                        }
 
-                        </div>
-                        <div className="item-room-m">
-                            <img className="img-room-m" src={imgVDRoom} alt="" />
-                            <div className="description-item-room-m">
-                                <p className="address-m">104 Nguyễn Văn A Phường A Thành phố A</p>
-                                <div className="row">
-                                    <div className="col-md-10">
-                                        <p className="color-text-item-room">Giới tính: Nam</p>
-                                        <p className="color-text-item-room">Diện tích: 30m²</p>
-                                        <div className="list-item-button">
-                                            <div className="item-button">
-                                                <img className="icon-button" src={imgBinhLuan} alt="" />
-                                                <span>20</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-2">
-                                        <div className="price-room-m">
-                                            4,5Tr
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="item-room-m">
-                            <img className="img-room-m" src={imgVDRoom} alt="" />
-                            <div className="description-item-room-m">
-                                <p className="address-m">104 Nguyễn Văn A Phường A Thành phố A</p>
-                                <div className="row">
-                                    <div className="col-md-10">
-                                        <p className="color-text-item-room">Giới tính: Nam</p>
-                                        <p className="color-text-item-room">Diện tích: 30m²</p>
-                                        <div className="list-item-button">
-                                            <div className="item-button">
-                                                <img className="icon-button" src={imgBinhLuan} alt="" />
-                                                <span>20</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-2">
-                                        <div className="price-room-m">
-                                            4,5Tr
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
 
                 </div>
             </div>
+            <Comment
+                idPhong={idPhong}
+                show={show}
+                onHide={onCloseComment} />
         </>
     );
 }
