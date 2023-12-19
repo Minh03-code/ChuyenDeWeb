@@ -32,7 +32,7 @@ import EditPasswordChuTro from "./EditPassWordChutro.js";
 import TinNhanRealTime from "./TinNhanRealTime.js";
 import VideoReviewManager from "./VideoReviewManager.js";
 import XacThucChuTro from "./XacThucChuTro.js";
-
+import UpdateRoom from './UpdateRoom';
 function ChuTro() {
   console.log(sessionStorage.getItem("accountId"));
   return sessionStorage.getItem("accountType") == 1 ? (
@@ -67,6 +67,7 @@ function ChuTro() {
           element={<EditPasswordChuTro />}
         ></Route>
         <Route path="/xacthucchutro/:id" element={<XacThucChuTro />}></Route>
+		 <Route path='/editroom/:idPhong' element={<UpdateRoom />}></Route>
       </Routes>
 
       <Footer
