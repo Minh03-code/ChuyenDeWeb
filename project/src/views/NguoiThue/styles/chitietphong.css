@@ -3,3 +3,43 @@
     height: 200px;
     background: greenyellow;
 }
+.bao-ngoai{
+    padding-top: 100px;
+}
+.anh-chi-tiet-phong-tro{
+    width: 100%;
+    height: 600px;
+    background: red;
+   
+}
+.anh-chi-tiet-phong-tro-con{
+    width: 100%;
+    height: 100%;
+    border-radius:50px;
+}
+
+.bg-green{
+    background: #008000;
+    position: fixed;
+    width: 100%;
+    height: 400px;
+    top: 20%;
+    transition: 0.3s;
+}
+
+.item{
+    width: 400px;
+    height: 400px;
+    background: #ffa500;
+    margin: 0 20px;
+}
+.item:hover{
+    transform: scale(1.2);
+    box-shadow: 1px 10px 20px #000;
+}
+.wrap{
+    position: absolute;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0 100px;
+}
