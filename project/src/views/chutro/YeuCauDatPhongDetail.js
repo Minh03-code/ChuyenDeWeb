@@ -4,7 +4,7 @@ import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { getDetailYeuCauCallAPI, getNguoiThue, chapNhanYeuCauDatPhong, tuChoiYeuCauDatPhong } from '../../services/admin/KietService';
-
+import { getProfileChuTro } from '../../services/admin/NghiemService';
 
 class YeuCauDatPhongDetail extends React.Component {
     state = {
@@ -20,6 +20,8 @@ class YeuCauDatPhongDetail extends React.Component {
 
 
     async componentDidMount() {
+        let idTaiKhoan = sessionStorage.getItem("accountId");
+
         const search = window.location.search;
         const params = new URLSearchParams(search);
         const kitu = params.get('id');
@@ -38,6 +40,13 @@ class YeuCauDatPhongDetail extends React.Component {
             })
         }
         console.log(resDetailYeuCau);
+
+        let resChuTro = await getProfileChuTro(idTaiKhoan);
+        if (resChuTro != null) {
+            this.setState({
+                tenChuTro: resChuTro.ten
+            })
+        }
     }
 
     async tuChoiYeuCau() {
@@ -52,9 +61,10 @@ class YeuCauDatPhongDetail extends React.Component {
             await chapNhanYeuCauDatPhong(this.state.id, this.state.idNguoiThue, this.state.idPhong, this.state.myIdTaiKhoan, this.state.idTaiKhoanGui);
         }
     }
+    
 
     render() {
-        let { id, ten, phong, nguoiThue } = this.state
+        let { id, ten, phong, nguoiThue, tenChuTro } = this.state
 
         return (
             <>
@@ -62,8 +72,8 @@ class YeuCauDatPhongDetail extends React.Component {
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h3>Thông Báo</h3>
-                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>Nguyễn Gia Nghiêm </span>
+                                <h3>Chi tiết yêu cầu</h3>
+                                <span class="breadcrumb"><a href="#">Chủ Trọ: </a>{tenChuTro}</span>
                             </div>
                         </div>
                     </div>
