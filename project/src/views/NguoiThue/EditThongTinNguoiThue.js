@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { version } from 'react';
 import './styleThinh.css';
-import { getProfileNguoiThue, updateProfileNguoiThue1, updateProfileNguoiThue2 } from '../../services/nguoithue/ThinhService.js';
+import {  baseURL } from '../../services/my-axios.js';
+import { getProfileNguoiThue, updateProfileNguoiThue1,updateProfileNguoiThue2 } from '../../services/nguoithue/ThinhService.js';
 import { NavLink } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 class EditThongTinNguoiThue extends React.Component {
     state = {
@@ -92,7 +93,7 @@ class EditThongTinNguoiThue extends React.Component {
     }
 
     render() {
-        let {ten,hinh,soDienThoai } = this.state;
+        let {idTaiKhoan,ten,hinh,soDienThoai } = this.state;
         //let isObject = Object.keys(nguoithue).length === 0
         return (
             <>

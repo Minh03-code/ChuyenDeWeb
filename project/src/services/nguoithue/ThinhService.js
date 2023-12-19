@@ -10,14 +10,14 @@ const updatePassWord = (id, matKhaucu, matKhaumoi) => {
     matKhaumoi: matKhaumoi,
   });
 };
-const config = {     
-    headers: { 'content-type': 'multipart/form-data' }
+const config = {
+    headers: { "content-type": "multipart/form-data" },
+  };
+const updateProfileNguoiThue1 = (idTaiKhoan, ten,hinh, soDienThoai)=>{
+    return myAxios.post(`api/capnhatthongtinnguoithuecohinh`,{idTaiKhoan:idTaiKhoan,ten:ten,hinh:hinh, soDienThoai:soDienThoai},config);
 }
-const updateProfileNguoiThue1 = (id, ten,hinh, soDienThoai)=>{
-    return myAxios.post(`api/capnhatthongtinnguoithuecohinh`,{id:id,ten:ten,hinh:hinh, soDienThoai:soDienThoai},config);
-}
-const updateProfileNguoiThue2 = (id, ten, soDienThoai)=>{
-    return myAxios.post(`api/capnhatthongtinnguoithuekhonghinh`,{id:id,ten:ten,soDienThoai:soDienThoai});
+const updateProfileNguoiThue2 = (idTaiKhoan, ten, soDienThoai)=>{
+    return myAxios.post(`api/capnhatthongtinnguoithuekhonghinh`,{idTaiKhoan:idTaiKhoan,ten:ten,soDienThoai:soDienThoai});
 }
 
 const getAccountById = (id) => {
