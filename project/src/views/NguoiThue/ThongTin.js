@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { getDetailNguoiThue } from "../../services/nguoithue/PhucService";
 import { baseURL } from "../../services/my-axios";
-const ThongTinChuTro = () => {
+const ThongTinNguoiThue = () => {
   const [id, setId] = useState(sessionStorage.getItem("accountId"));
   console.log(id);
   const [result, setResult] = useState({});
@@ -50,7 +50,7 @@ const ThongTinChuTro = () => {
               />
             </div>
             <div class="col-lg-6 align-self-center">
-              <div className="thongtinchutro">
+              <div className="ThongTinNguoiThue">
                 <div className="chutro_info">
                   <b>Tên: </b>
                   {result.ten}
@@ -63,7 +63,7 @@ const ThongTinChuTro = () => {
 
                 <Link
                   className="btn btn-primary bbt"
-                  //   to={`/chutro/editthongtinchutro/${result.id}`}
+                  //   to={`/chutro/editThongTinNguoiThue/${result.id}`}
                 >
                   Chỉnh Sửa
                 </Link>
@@ -73,11 +73,9 @@ const ThongTinChuTro = () => {
                 >
                   Đổi mật khẩu
                 </Link>
-                <Link
-                  className="btn btn-success bbt"
-                  //   to={`/chutro/xacthucchutro/${result.id}`}
-                >
-                  Xác Thực
+
+                <Link className="btn btn-danger bbt" to="/nguoithue/dangxuat">
+                  Đăng xuất
                 </Link>
               </div>
             </div>
@@ -88,4 +86,4 @@ const ThongTinChuTro = () => {
   );
 };
 
-export default ThongTinChuTro;
+export default ThongTinNguoiThue;
