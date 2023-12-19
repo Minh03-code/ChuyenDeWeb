@@ -5,17 +5,10 @@ import "./styles/chitietphong.css";
 const ChiTietPhongTro = () => {
   return (
     <>
-      <div className="main-content">
-        <div className="container">
-          <div className="wapper-hinh-anh"></div>
-          <p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-          <p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-          <p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-          <p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-          <p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-          <p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-          <p>aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-        </div>
+      <div className="bao-ngoai">
+        <div className="anh">Hình ảnh</div>
+
+        <div className="thong-tin"></div>
       </div>
     </>
   );
