@@ -7,6 +7,7 @@ const ThongTinChuTro = () => {
   const [id, setId] = useState(sessionStorage.getItem("accountId"));
   console.log(id);
   const [result, setResult] = useState({});
+  
 
   useEffect(() => {
     const fetchBanner = async () => {
@@ -63,13 +64,13 @@ const ThongTinChuTro = () => {
 
                 <Link
                   className="btn btn-primary bbt"
-                  to={`/nguoithue/editthongtinnguoithue/${result.id}`}
+                  to={`/nguoithue/editthongtinnguoithue`}
                 >
                   Chỉnh Sửa
                 </Link>
                 <Link
                   className="btn btn-warning bbt"
-                  to={`/chutro/editpasswordchutro`}
+                  to={`/nguoithue/editpasswordnguoithue`}
                 >
                   Đổi mật khẩu
                 </Link>

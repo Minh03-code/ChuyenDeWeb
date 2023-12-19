@@ -1,165 +1,142 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import "./editthongtinnguoithue.css";
-import { baseURL } from "../../services/my-axios.js";
-import {getNguoiThueById, updateThongTinNguoiThueCoHinh, updateThongTinNguoiThueKhongCoHinh,
-} from "../../services/nguoithue/ThinhService.js";
-import { ToastContainer, toast } from "react-toastify";
-import InputText from "../item/InputText.js";
-import InputFile from "../item/InputFile.js";
-import Header from "../item/Header.js";
-const EditThongTinNguoiThue = () => {
-  let params = useParams();
-  console.log("check id nguoi thue", params.id);
+import React from 'react';
+import './styleThinh.css';
+import { getProfileNguoiThue, updateProfileNguoiThue1, updateProfileNguoiThue2 } from '../../services/nguoithue/ThinhService.js';
+import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-  let nav = useNavigate();
-  let [result, setResult] = useState({});
+class EditThongTinNguoiThue extends React.Component {
+    state = {
+        nguoithue: {},
+        idTaiKhoan: "",
+        ten: "",
+        hinh: null,
+        soDienThoai: "",
 
-  const [idTaiKhoan, setIdTaiKhoan] = useState(
-    sessionStorage.getItem("accountId")
-  );
-
-  const [file, setFile] = useState();
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [checkChooseFile, setCheckChooseFile] = useState(false);
-  const [isObject, setIsObject] = useState({});
-  const [ten, setTen] = useState("");
-  const [soDienThoai, setSoDienThoai] = useState();
-//   const [soTaiKhoanNganHang, setSoTaiKhoanNganHang] = useState();
-//   const [tenChuTaiKhoanNganHang, setTenChuTaiKhoanNganHang] = useState("");
-
-  useEffect(() => {
-    async function getDataAPI() {
-      setResult(await getNguoiThueById(idTaiKhoan));
-      setLoading(true);
     }
-    getDataAPI();
-  }, []);
+    async componentDidMount() {
+        let idTaiKhoanSession = sessionStorage.getItem("accountId");
+        let res = await getProfileNguoiThue(idTaiKhoanSession);
+        if (res != null) {
+            this.setState({
+                nguoithue: res,
+                idTaiKhoan: idTaiKhoanSession,
+                ten: res.ten,
+                soDienThoai: res.soDienThoai,
 
-  const onClcikChangeImage = (file) => {
-    setFile(file);
-  };
-  const changeTen = (text) => {
-    setTen(text);
-  };
-  const changeSoDienThoai = (text) => {
-    setSoDienThoai(text);
-  };
-
-  const updateProfile1 = async (
-    idTaiKhoan,
-    ten,
-    soDienThoai,
-  ) => {
-    const res = await updateThongTinNguoiThueKhongCoHinh(
-      idTaiKhoan,
-      ten,
-      soDienThoai,
-    );
-  };
-
-  const updateProfile2 = async (
-    idTaiKhoan,
-    ten,
-    soDienThoai,
-    file
-  ) => {
-    const res = await updateThongTinNguoiThueCoHinh(
-      idTaiKhoan,
-      ten,
-      soDienThoai,
-      file
-    );
-  };
-
-  const onClickUpdate = () => {
-    if (
-      ten !== "" &&
-      soDienThoai !== "" 
-    ) {
-      if (file) {
-        updateProfile2(
-          idTaiKhoan,
-          file,
-          soDienThoai,
-        );
-        nav("/nguoithue/thongtin");
-        toast.success("Cập nhật thông tin thành công");
-      } else {
-        updateProfile1(
-          idTaiKhoan,
-          ten,
-          soDienThoai,
-        );
-        nav("/nguoithue/thongtin");
-        toast.success("Cập nhật thông tin thành công");
-      }
-    } else {
-      toast.warning("Không được bỏ trống thông tin");
+            })
+        }
     }
-  };
-  console.log(">>>89>>>" + result.ten);
-  return (
-    <>
-      <Header tenManHinh={"Chỉnh sửa thông tin"} tenNguoiThue={result.ten} />
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-      <div class="wrapperp rounded bg-white">
-        <div className="cha">
-          <img
-            className="hinh-banner"
-            src={baseURL + result.hinh}
-            alt=""
-            width="100px"
-            height="100px"
-          />
-        </div>
 
-        <div className="mb-3">
-          <InputFile lable={"Chon hinh"} onChangeFile={onClcikChangeImage} />
-        </div>
+    thayDoiTen(event) {
+        this.setState({
+            ten: event.target.value
+        })
 
-        <div class="form">
-          <div class="row">
-            {loading === true ? (
-              <InputText
-                label={"Tên"}
-                type={"text"}
-                value={result.ten}
-                changeValue={changeTen}
-              />
-            ) : (
-              <></>
-            )}
-            {loading === true ? (
-              <InputText
-                label={"Số điện thoại"}
-                type={"text"}
-                value={result.soDienThoai}
-                changeValue={changeSoDienThoai}
-              />
-            ) : (
-              <></>
-            )}
-          </div>
-          <button class="btn btn-primary mt-3" onClick={onClickUpdate}>
-            Update
-          </button>
-        </div>
-      </div>
-    </>
-  );
-};
+    }
+    thayDoiSoDienThoai(event) {
+        this.setState({
+            soDienThoai: event.target.value
+        })
+    }
 
+    thayDoiHinh(event) {
+        this.setState({
+            hinh: event.target.files[0]
+        })
+
+    }
+    kiemTraHinh() {
+        if (this.state.hinh === "") {
+
+        } else {
+
+        }
+    }
+    kiemTraRong() {
+        if (this.state.ten !== "") {
+            if (this.state.soDienThoai !== "") {
+
+                this.capNhat()
+
+            } else {
+                toast.warning("Không Được Bỏ Trống Số Điện Thoại!");
+            }
+        }
+        else {
+            toast.warning("Không Được Bỏ Trống Tên!");
+        }
+
+    }
+    
+
+
+
+    async capNhat() {
+        console.log(this.state.hinh);
+        if (this.state.hinh != null) {
+            let res = await updateProfileNguoiThue1(this.state.idTaiKhoan, this.state.ten, this.state.soDienThoai, this.state.hinh);
+            if (res != null) {
+                toast.success("Cập Nhật Thông Tin Thành Công!");
+            } else {
+                toast.error("Cập Nhật Thất Bại!");
+            }
+        } else {
+            let res = await updateProfileNguoiThue2(this.state.idTaiKhoan, this.state.ten, this.state.soDienThoai);
+            if (res != null) {
+                toast.success("Cập Nhật Thông Tin Thành Công!");
+            } else {
+                toast.error("Cập Nhật Thất Bại!");
+            }
+        }
+
+    }
+
+    render() {
+        let {ten,hinh,soDienThoai } = this.state;
+        //let isObject = Object.keys(nguoithue).length === 0
+        return (
+            <>
+                <div class="page-heading header-text">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3>Chỉnh Sửa Thông Tin Người Thuê</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+
+                  
+                       
+                        <div className="noidung_content">
+                            <form action="#" className="form-control" encType="multipart/form-data" method="post">
+                                <div className="mb-3">
+                                    <label htmlFor="ten" className="form-label">Tên Của Người Thuê</label>
+                                    <input value={ten} onChange={(event) => this.thayDoiTen(event)} type="text" id="ten" name="ten" placeholder="Nhập Tên Của nguoithue Vào Đây..." className="form-control" />
+                                </div>
+                                
+                                <div className="mb-3">
+                                    <label htmlFor="soDienThoai" className="form-label">Số Điện Thoại</label>
+                                    <input value={soDienThoai} onChange={(event) => this.thayDoiSoDienThoai(event)} type="text" id="soDienThoai" name="soDienThoai" placeholder="Nhập Số Điện Thoại Của nguoithue Vào Đây..." className="form-control" />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="hinh" className="form-label">Ảnh nguoithue</label>
+                                    <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" placeholder="Chọn Hình Đại Diện" className="form-control" />
+                                </div>
+                                <button type="button" className="btn btn-primary bbt" onClick={() => this.kiemTraRong()}>Đồng Ý</button>
+                                <NavLink to="/nguoithue/thongtin">
+                                    <button type="button" className="btn btn-warning bbt" >Quay lại</button>
+                                </NavLink>
+                            </form>
+                        </div>
+                  
+               
+
+
+            </>
+        )
+    }
+}
 export default EditThongTinNguoiThue;

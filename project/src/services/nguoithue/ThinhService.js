@@ -1,42 +1,7 @@
 import { myAxios } from "../my-axios";
-const getNguoiThueById = (id) => {
-  return myAxios.get(`api/nguoithue/thongtinchitiet?idTaiKhoan=${id}`);
-};
-const config = {
-  headers: { "content-type": "multipart/form-data" },
-};
-const updateThongTinNguoiThueCoHinh = (
-  idTaiKhoan,
-  hinh,
-  ten,
-  soDienThoai,
-) => {
-  return myAxios.post(
-    `api/capnhatthongtinnguoithuecohinh`,
-    {
-      idTaiKhoan: idTaiKhoan,
-      hinh: hinh,
-      ten: ten,
-      soDienThoai: soDienThoai,
-    },
-    config
-  );
-};
-const updateThongTinNguoiThueKhongCoHinh = (
-  idTaiKhoan,
-  ten,
-  soDienThoai,
-) => {
-  return myAxios.post(
-    `api/capnhatthongtinnguoithuekhonghinh`,
-    {
-      idTaiKhoan: idTaiKhoan,
-      ten: ten,
-      soDienThoai: soDienThoai,
-    },
-    config
-  );
-};
+const getProfileNguoiThue = (idTaiKhoan) =>{
+    return myAxios.get(`api/nguoithue/thongtinchitiet?idTaiKhoan=${idTaiKhoan}`);
+}
 
 const updatePassWord = (id, matKhaucu, matKhaumoi) => {
   return myAxios.patch(`api/taikhoan/doimatkhau`, {
@@ -45,15 +10,29 @@ const updatePassWord = (id, matKhaucu, matKhaumoi) => {
     matKhaumoi: matKhaumoi,
   });
 };
+const config = {     
+    headers: { 'content-type': 'multipart/form-data' }
+}
+const updateProfileNguoiThue1 = (id, ten,hinh, soDienThoai)=>{
+    return myAxios.post(`api/capnhatthongtinnguoithuecohinh`,{id:id,ten:ten,hinh:hinh, soDienThoai:soDienThoai},config);
+}
+const updateProfileNguoiThue2 = (id, ten, soDienThoai)=>{
+    return myAxios.post(`api/capnhatthongtinnguoithuekhonghinh`,{id:id,ten:ten,soDienThoai:soDienThoai});
+}
 
 const getAccountById = (id) => {
   return myAxios.get(`api/taikhoan?id=${id}`);
 };
 
+
+
 export {
-  getNguoiThueById,
-  updateThongTinNguoiThueKhongCoHinh,
-  updateThongTinNguoiThueCoHinh,
+ getProfileNguoiThue,
   updatePassWord,
   getAccountById,
+  updateProfileNguoiThue1,
+  updateProfileNguoiThue2
+
+
+  
 };
