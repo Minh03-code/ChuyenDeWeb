@@ -14,30 +14,30 @@ import ThongBaoDetail from "./ThongBaoDetail.js";
 import TinNhanRealTime from "./TinNhanRealTime.js";
 import DanhSachPhongGoiY from "./DanhSachPhongGoiY.js";
 import ThongTinChuTro from "./ThongTin.js";
+import Home from "./Home.js";
+import "./styles/nguoithue.css";
+import FooterNguoiThue from "../item/FooterNguoiThue.js";
 
 function NguoiThue() {
   console.log(sessionStorage.getItem("accountId"));
   return sessionStorage.getItem("accountType") == 0 ? (
     <>
-      <Navigation />
-      <Routes>
-        <Route path="/thongbao" element={<ThongBao />}></Route>
-        <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
-        <Route path="/*" element={<TinNhanRealTime />}></Route>
-        <Route
-          path="/danhsachphonggoiy"
-          element={<DanhSachPhongGoiY />}
-        ></Route>
+      <div className="wts">
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/thongbao" element={<ThongBao />}></Route>
+          <Route path="/thongbaodetail" element={<ThongBaoDetail />}></Route>
+          <Route path="/tinnhan" element={<TinNhanRealTime />}></Route>
+          <Route
+            path="/danhsachphonggoiy"
+            element={<DanhSachPhongGoiY />}
+          ></Route>
 
-        <Route path="/thongtin" element={<ThongTinChuTro />}></Route>
-      </Routes> 
-
-      <Footer
-        title={"Thông tin liên hệ"}
-        name={"Nguyễn Đức Minh"}
-        phoneNumber={"0123456789"}
-        email={"minh123@gmail.com"}
-      />
+          <Route path="/thongtin" element={<ThongTinChuTro />}></Route>
+        </Routes>
+        <FooterNguoiThue/>
+      </div>
     </>
   ) : (
     <NotFound />

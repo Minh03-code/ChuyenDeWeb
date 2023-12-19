@@ -1672,3 +1672,39 @@ body {
 @media (max-width: 1200px) {
   
 }
+
+/* Nguoi thue */
+.page-heading-nguoi-thue {
+  background: gray;
+  border-radius: 0px 0px 150px 150px;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 200px 0px 100px 0px;
+  text-align: center;
+}
+
+.page-heading-nguoi-thue span {
+  display: inline-block;
+  font-size: 16px;
+  color: #fff;
+}
+
+.page-heading-nguoi-thue span a {
+  color: #fff;
+}
+
+.page-heading-nguoi-thue h3 {
+  font-size: 48px;
+  text-transform: uppercase;
+  color: #fff;
+  margin-top: 20px;
+  position: relative;
+  margin-bottom: 20px;
+}
+.page-heading-nguoi-thue {
+  padding: 140px 0px 100px 0px;
+}
+
+
+/* 
