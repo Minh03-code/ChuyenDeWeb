@@ -12,6 +12,7 @@ class GoiDangDung extends React.Component {
   state = {
     // Lay thong tin chu tro
     idCT: "",
+    idChuTro: "",
     tenCT: "",
     hinh: "",
     goi: 0,
@@ -75,6 +76,7 @@ class GoiDangDung extends React.Component {
     if (res != null) {
       this.setState({
         tenAdmin: res.ten,
+        idChuTro: res.id,
         sdt: res.soDienThoai,
         tenSTk: res.tenChuTaiKhoan,
         stkAdmins: res.soTaiKhoanNganHang,
@@ -186,9 +188,9 @@ class GoiDangDung extends React.Component {
   }
 
 
-  async guiThanhToanGoi(idCT, idGoi, hinh) {
+  async guiThanhToanGoi(idGoi, hinh) {
     if (hinh !== undefined) {
-      let res = await guiYeuCauDangKyGoi(idCT, idGoi, hinh);
+      let res = await guiYeuCauDangKyGoi(this.state.idChuTro, idGoi, hinh);
       if (res != null) {
         toast.success("Gửi Yêu Cầu Thành Công!");
         this.dongModal();
@@ -226,9 +228,9 @@ class GoiDangDung extends React.Component {
     modal2.style.display = "block"
   }
 
-  async guiThanhToanGoidk(idCT, idGoi, hinh) {
+  async guiThanhToanGoidk(idGoi, hinh) {
     if (hinh !== undefined) {
-      let res = await guiYeuCauDangKyGoi(idCT, idGoi, hinh);
+      let res = await guiYeuCauDangKyGoi(this.state.idChuTro, idGoi, hinh);
       if (res != null) {
         toast.success("Gửi Yêu Cầu Thành Công!");
         this.dongModal1();
@@ -361,7 +363,7 @@ class GoiDangDung extends React.Component {
                             <label for="formFile" class="form-label fs-2">Ảnh Chuyển Khoản: </label>
                             <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                           </div>
-                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi(this.state.idCT, this.state.idGoiNangCap, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
+                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi(this.state.idGoiNangCap, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
                         </div>
                       </div>
                     </div>
@@ -405,7 +407,7 @@ class GoiDangDung extends React.Component {
                             <label for="formFile" class="form-label fs-2">Ảnh Chuyển Khoản: </label>
                             <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                           </div>
-                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi(this.state.idCT, this.state.goi, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
+                          <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi(this.state.goi, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
                         </div>
                       </div>
                     </div>
@@ -493,7 +495,7 @@ class GoiDangDung extends React.Component {
                           <label for="formFile" class="form-label fs-2">Ảnh Chuyển Khoản: </label>
                           <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                         </div>
-                        <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi1(this.state.idCT, this.state.idGoiNangCap, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
+                        <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi1(this.state.idGoiNangCap, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
                       </div>
                     </div>
                   </div>
