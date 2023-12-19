@@ -22,7 +22,6 @@ class DangKiTaiKhoanNguoiThue extends React.Component {
         gioiTinh:1,
         checkBox: false
     }
-
     thayDoiTen(event){
         this.setState({
             ten:event.target.value

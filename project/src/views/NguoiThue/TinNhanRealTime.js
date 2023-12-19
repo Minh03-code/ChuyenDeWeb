@@ -229,17 +229,10 @@ class TinNhanRealTime extends React.Component {
         let isObjectReceiver = Object.keys(receiver).length === 0
         return (
             <>
-                <div className="page-heading header-text">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <h3>Tin Nhắn</h3>
-                                <span className="cl"><a href="#">Người Thuê: </a>{isObjectSender === false ? sender.ten : "Chưa Có Dữ Liệu"} </span>
-                            </div>
-                        </div>
-                    </div>
+                <div className="header_tin_nhan">
+                   
                 </div>
-                <div className='section'>
+                <div className='section activity_tin_nhan'>
                     <div className="row man_hinh_nhan_tin">
                         {
                             listUser.length !== 0 ?
@@ -345,12 +338,6 @@ class TinNhanRealTime extends React.Component {
                     </div>
 
                 </div>
-                <Footer
-                    title={"Thông tin liên hệ"}
-                    name={"Nguyễn Đức Minh"}
-                    phoneNumber={"0123456789"}
-                    email={"minh123@gmail.com"}
-                />
             </>
         )
     }
