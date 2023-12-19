@@ -33,6 +33,7 @@ import TinNhanRealTime from "./TinNhanRealTime.js";
 import VideoReviewManager from "./VideoReviewManager.js";
 import XacThucChuTro from "./XacThucChuTro.js";
 import UpdateRoom from './UpdateRoom';
+import YeuCauDatPhong from "./YeuCauDatPhong.js";
 function ChuTro() {
   console.log(sessionStorage.getItem("accountId"));
   return sessionStorage.getItem("accountType") == 1 ? (
@@ -43,6 +44,7 @@ function ChuTro() {
         <Route path="/quanlyphong" element={<QuanLyPhong />}></Route>
         <Route path="/goidangdung" element={<GoiDangDung />}></Route>
         <Route path="/thongbao" element={<ThongBao />}></Route>
+        <Route path="/yeucaudatphong" element={<YeuCauDatPhong />}></Route>
         <Route path="/thongtin" element={<ThongTin />}></Route>
         <Route path="/tinnhan" element={<TinNhanRealTime />}></Route>
         <Route path="/videoreview" element={<VideoReviewManager />}></Route>
