@@ -123,4 +123,33 @@
         margin: 20px;
     }
 }
+.gui2 {
+    font-size: 25px;
+    height: 60px;
+    width: 400px;
+}
+/* .text_chua_xacthuc{
+    font-size: 30px;
+    color: red;
+}
+.text_cho_xacthuc{
+    font-size: 30px;
+    color: orange;
+}
+.text_da_xacthuc{
+    font-size: 30px;
+    color: greenyellow;
+}
+.cha_text_xac_thuc{
+    text-align: center;
+    margin-top: 100px;
+
+} */
+.text_xac_thuc{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 100px;
+}
+
+
 

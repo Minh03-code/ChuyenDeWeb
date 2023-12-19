@@ -18,7 +18,7 @@ const XacThucChuTro = () => {
   let idChuTro = params.id;
 
   let nav = useNavigate();
-  let [result, setResult] = useState({});
+  let [result, setResult] = useState(null);
 
   const [idTaiKhoan, setIdTaiKhoan] = useState(
     sessionStorage.getItem("accountId")
@@ -26,8 +26,27 @@ const XacThucChuTro = () => {
 
   useEffect(() => {
     async function getTrangThaiXacThucAPI() {
-      setResult(await getTrangThai(idChuTro));
+      let res = await getTrangThai(idChuTro);
+
+      if (res != "") {
+        setResult(res);
+
+        if (res.trangThaiXacThuc === 0) {
+          let xacThuc = document.querySelector(".text_xac_thuc");
+          xacThuc.style.color = "orange";
+          xacThuc.textContent = "Đang chờ xác thực";
+        } else {
+          let xacThuc = document.querySelector(".text_xac_thuc");
+          xacThuc.textContent = "Đã xác thực";
+          xacThuc.style.color = "green";
+        }
+      } else {
+        let xacThuc = document.querySelector(".text_xac_thuc");
+        xacThuc.textContent = "Chưa xác thực";
+        xacThuc.style.color = "red";
+      }
     }
+
     getTrangThaiXacThucAPI();
   }, []);
 
@@ -35,16 +54,29 @@ const XacThucChuTro = () => {
   const [file2, setFile2] = useState("");
 
   const onClickImageCCCDMT = (file) => {
-    setFile(file);
+    let dungLuong = file.size / 1024 / 1024;
+    if (dungLuong < 2) {
+      setFile(file);
+    } else {
+      toast.warning("File tối đa 2mb");
+    }
   };
-  console.log("tenfile", file.name);
 
   const onClickImageCCCDMS = (file2) => {
-    setFile2(file2);
+    let dungLuong = file2.size / 1024 / 1024;
+    if (dungLuong < 2) {
+      setFile(file2);
+    } else {
+      toast.warning("File tối đa 2mb");
+    }
   };
 
   const guiYeuCauXacThucApi = async (idChuTro, file, file2) => {
     const res = await guiYeuCauXacThuc(idChuTro, file, file2);
+
+    console.log("idChuTro", idChuTro);
+    console.log("tenfile", file.name);
+    console.log("tenfile", file2.name);
   };
 
   const onClickGui = () => {
@@ -71,10 +103,14 @@ const XacThucChuTro = () => {
         pauseOnHover
         theme="dark"
       />
+
+      <div className="text_xac_thuc">
+        <div className="text_chua_xacthuc"></div>
+      </div>
+
       <div class="wrapperp rounded bg-white">
-        {/* <p className="text_cccd">Căn cước công dân mặt trước <img className="icon_cccd" src=""></img></p> */}
         <div className="cha">
-          {result ? (
+          {result != null ? (
             <img
               className="hinh-banner"
               src={baseURL + result.cccdMatTruoc}
@@ -100,7 +136,7 @@ const XacThucChuTro = () => {
 
       <div class="wrapperp rounded bg-white">
         <div className="cha">
-          {result ? (
+          {result != null ? (
             <img
               className="hinh-banner"
               src={baseURL + result.cccdMatSau}
@@ -122,7 +158,10 @@ const XacThucChuTro = () => {
         <div className="mb-3">
           <InputFile lable={"Chon hinh"} onChangeFile={onClickImageCCCDMS} />
         </div>
-        <button class="btn btn-primary gui" onClick={onClickGui}>
+      </div>
+
+      <div className="cha">
+        <button class="btn btn-primary gui2" onClick={onClickGui}>
           Gửi yêu cầu xác thực
         </button>
       </div>
