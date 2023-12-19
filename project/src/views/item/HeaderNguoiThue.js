@@ -1,16 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import imgGhep from "./imgs/icon_ghep.png";
 import imgRandom from "./imgs/icon_random.png";
 import imgRecomment from "./imgs/icon_recomment.png";
 import imgVDRoom from "./imgs/img2.jpg";
+import { getAllBannerApi } from '../../services/admin/PhucService';
+import { baseURL } from '../../services/my-axios';
 export default function HeaderNguoiThue(props) {
-
+    const navigation = useNavigate();
+    const[listBanner,setListBanner]= useState([]);
+    useEffect(() => {
+         fetchData();
+    }, []);
+    const fetchData = async()=>{
+        let res = await getAllBannerApi();
+        if(res!=null){
+         setListBanner(res);
+        }
+    }
+    const chuyenManHinhGoiY = ()=>{
+        navigation("/nguoithue/danhsachphonggoiy")
+    }
     return (
         <>
             <header>
                 <div className="image-container">
-                    <img src={imgVDRoom} alt="" />
+                    {
+                        listBanner&&listBanner.length>0?listBanner.map((item,index)=>{
+                            return(
+                                <img className="the_img_banner" src={baseURL+item.hinhBanner} alt={baseURL+item.hinhBanner} key={index}/>
+                            )
+                        })
+                        :<>
+                        </>
+                    }
                 </div>
                 <div className="container-search">
                     <div className="search">
@@ -27,7 +50,7 @@ export default function HeaderNguoiThue(props) {
                             </div>
                             <p>Phòng ghép</p>
                         </div>
-                        <div className="btn-m">
+                        <div className="btn-m" onClick={chuyenManHinhGoiY}>
                             <div className="btn-icon">
                                 <img src={imgRecomment} />
                             </div>

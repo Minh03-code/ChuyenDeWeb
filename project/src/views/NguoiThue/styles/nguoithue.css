@@ -130,6 +130,7 @@ header {
 footer {
     background: white;
     height: 100px;
+    margin: 50px 0 0 0 !important;
 }
 
 .footer {
@@ -256,7 +257,12 @@ footer {
     -ms-overflow-style: none;
     white-space: nowrap;
     /* Ngăn chặn xuống dòng khi cuộn ngang */
-    animation: normal 5s linear infinite;
+    /* animation: normal 5s linear infinite; */
+}
+
+.image-container::-webkit-scrollbar { 
+    width: 0 !important;
+    display: none;
 }
 
 .image-container img {
@@ -276,4 +282,15 @@ footer {
 .title-m{
     font-size: 3em;
     font-weight: bold;
+}
+.activity_tin_nhan{
+    margin: 20px 0 0 0 !important;
+    transform: translateY(-100px);
+    
+}
+.btn-m:hover{
+    cursor: pointer;
+}
+.btn-icon:hover{
+    background: yellow;
 }
