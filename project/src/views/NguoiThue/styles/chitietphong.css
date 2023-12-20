@@ -111,7 +111,7 @@
 .item1{
     display: inline-block;
     font-size: 15px;
-    margin-right: 100px;
+    width: calc(100%/4);
 }
 .main-content{
     height: 2060px;
@@ -223,6 +223,9 @@ display: flexbox    ;
 float: left;
 width: 30%;
 }
+.danh-gia-left2{
+    width: calc(100%/2);
+}
 .gia{
     font-size: 40px;
     color: #f73486;
@@ -253,7 +256,8 @@ width: 30%;
 }
 .danh-gia-left{
     float: left;
-    margin-right: 60px;
+    width: calc(100%/4);
+    margin-bottom: 20px;
 }
 .danh-gia-right{
     float: right;
@@ -316,6 +320,11 @@ width: 30%;
     height: 200px;
     background: greenyellow;
 }
+
+.label-thong-tin2{
+    margin-bottom: 10px;
+}
+
 
 .bg-green{
     /* background: #008000; */

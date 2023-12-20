@@ -75,6 +75,9 @@ const guiYeuCauXacThuc= (idChuTro, cccdMatTruoc, cccdMatSau) => {
 }
 
 
+
+
+
 export {
   getChuTroById,
   updateThongTinChuTroCoHinh,
