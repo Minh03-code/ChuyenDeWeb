@@ -40,10 +40,7 @@ function NguoiThue() {
 
           <Route path="/thongtin" element={<ThongTinNguoiThue />}></Route>
           <Route path="/dangxuat" element={<DangXuat />}></Route>
-          <Route
-            path="/chitietphongtro"
-            element={<ChiTietPhongTro />}
-          ></Route>
+          <Route path="/chitietphongtro" element={<ChiTietPhongTro />}></Route>
         </Routes>
         <FooterNguoiThue />
       </div>
