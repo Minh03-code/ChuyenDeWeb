@@ -8,7 +8,11 @@ import Header from '../item/Header';
 import Comment from '../item/Comment';
 import { Button, Modal } from 'react-bootstrap';
 
+import { xoaPhong } from '../../services/chutro/ThinhService';
+
 function QuanLyPhong() {
+    const [error, setError] = useState(null);
+
     const navigate = useNavigate();
     const [list, setList] = useState([]);
     const [idPhong, setIdPhong] = useState(-1);
@@ -35,11 +39,25 @@ function QuanLyPhong() {
     const onClickXemNguoiThue = (idPhong) => {
         navigate(`/chutro/danhsachnguoithue?idPhong=${idPhong}`);
     }
-    const onClickXoaPhong = (idPhong) => {
-    }
+    
     const onCloseComment = () => {
         setShow(false);
     }
+
+    const onClickXoaPhong = async (idPhong) => {
+        try {
+            const res = await xoaPhong(idPhong);
+            if (res != null) {
+                console.log("Phòng đã được xóa thành công!");
+                fetchDataPhong(); // Làm mới danh sách phòng sau khi xóa
+            }
+        } catch (error) {
+            console.error('Lỗi khi xóa phòng:', error);
+            setError('Lỗi khi xóa phòng. Vui lòng thử lại.');
+        }
+    };
+    
+    
 
     return (
         loading == true ?
