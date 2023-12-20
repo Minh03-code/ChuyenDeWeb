@@ -4,13 +4,13 @@ import Loading from '../loading/Loading';
 import { layTatCaPhongCuaChuTro, layThongTinTaiKhoan } from '../../services/chutro/MinhService';
 import { baseURL } from '../../services/my-axios';
 import PhongItem from '../item/PhongItem';
-import Header from '../item/Header';
-import Comment from '../item/Comment';
+import Header from '../item/Header.js';
+import Comment from '../item/Comment.js';
 import { Modal } from 'react-bootstrap';
 import PhongItem3 from '../item/PhongItem3';
 import notImage from "./imgs/not_image.jpg";
-import Button from '../item/Button';
-import Dialog from '../item/Dialog';
+import Button from '../item/Button.js';
+import Dialog from '../item/Dialog.js';
 
 function QuanLyPhong() {
     const navigate = useNavigate();
