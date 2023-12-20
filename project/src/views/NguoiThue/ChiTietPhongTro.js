@@ -37,8 +37,7 @@ const ChiTietPhongTro = () => {
                     Phòng trọ trung tâm quận Thủ Đức
                   </p>
                   <div className="icon-tim">
-                  <img className="anhTim" src={tim2}></img>
-
+                    <img className="anhTim" src={tim2}></img>
                   </div>
                 </div>
                 <div className="dia-chi-right">
@@ -231,7 +230,7 @@ const ChiTietPhongTro = () => {
 
           <div className="danh-sach-lien-quan">
             <div className="header-danh-sach">
-              <p className="textThongTin">
+              <p className="textLienQuan">
                 Có thể bạn quan tâm
                 <img className="anhThongTin" src={anhGoiY} />
               </p>

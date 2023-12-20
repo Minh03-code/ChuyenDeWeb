@@ -286,3 +286,11 @@ width: 30%;
     height: 50px;
     margin-right: 20px;
 }
+
+.textLienQuan{
+    font-size: 23px;
+    width: 250px;
+    height: 100%;
+    margin-left: 550px;
+    font-weight: bold;
+}
