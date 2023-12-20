@@ -5,5 +5,5 @@ const xoaPhong = (idPhong) => {
 };
 
 
-export { xoaPhong}
+export { xoaPhong};
 
