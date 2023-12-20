@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { baseURL } from '../../services/my-axios';
 import InputText from '../item/InputText';
 import Header from '../item/Header';
@@ -10,6 +11,8 @@ import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchH
 import SelectMultipleOption from '../item/SelectMultipleOption';
 import InputFile from '../item/InputFile';
 function UpdateRoom() {
+    let params = useParams();
+    console.log(params.idPhong);
     const [listQuan, setListQuan] = useState([]);
     const [listPhuong, setListPhuong] = useState([]);
     const [listTienIch, setListTienIch] = useState([]);

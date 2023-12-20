@@ -6,11 +6,12 @@ import SelectOption from '../item/SelectOption';
 import Button from '../item/Button';
 import InputMultipleFile from '../item/InputMultipleFile';
 import CheckBox from '../item/CheckBox';
-import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong } from '../../services/chutro/MinhService.js';
+import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinTaiKhoan } from '../../services/chutro/MinhService.js';
 import SelectMultipleOption from '../item/SelectMultipleOption';
 import InputFile from '../item/InputFile';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import NotFound from '../NotFound/NotFound';
 function AddRoom() {
     const navigate = useNavigate();
     const [listQuan, setListQuan] = useState([]);
@@ -32,6 +33,8 @@ function AddRoom() {
     const [tienIch, setTienIch] = useState([]);
     const [files, setFiles] = useState();
     const [resAdd, setResAdd] = useState();
+    const [chuTro, setChuTro] = useState();
+    const [loadingChuTro, setLoadingChuTro] = useState(false);
     const fetchDataQuan = async () => {
         try {
             const res = await layTatCaQuanHoatDong();
@@ -66,10 +69,18 @@ function AddRoom() {
             console.log('Error fetching data:', error);
         }
     };
+    const layThongTinChuTro = async () => {
+        const res = await layThongTinTaiKhoan(sessionStorage.getItem("accountId"));
+        if (res != null) {
+            setChuTro(res);
+            setLoadingChuTro(true);
+        }
+    }
 
     useEffect(() => {
         fetchDataQuan();
         fetchDataTienIch();
+        layThongTinChuTro();
     }, []);
 
     const onChangeSoPhong = (text) => {
@@ -103,14 +114,14 @@ function AddRoom() {
         setGioiTinh(text);
     }
     const onChangeQuan = (value) => {
-        fetchDataPhuong(value? value:1);
+        fetchDataPhuong(value ? value : 1);
         setQuan(value);
     }
     const onChangePhuong = (value) => {
         setPhuong(value);
     }
     const onChangeTienIch = (res) => {
-        
+
         setTienIch(res);
     }
     const onChangeImages = (files) => {
@@ -118,102 +129,106 @@ function AddRoom() {
     }
     const onClickButtonAdd = () => {
         console.log(tienIch);
-        if(soPhong != ""&& gia != ""&& dienTich != ""&& moTa != ""&& diaChiChiTiet != ""&& soLuong != ""&& tienCoc != ""&& tienDien != ""&& tienNuoc != ""&& gioiTinh != ""&& quan  != ""&& phuong != ""){
+        if (soPhong != "" && gia != "" && dienTich != "" && moTa != "" && diaChiChiTiet != "" && soLuong != "" && tienCoc != "" && tienDien != "" && tienNuoc != "" && gioiTinh != "" && quan != "" && phuong != "") {
             fetchThemPhong(sessionStorage.getItem('idNguoiDung'), soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files);
-            
+
         }
         else {
             alert("Hãy nhập đủ cái trường có dấu *");
         }
     }
     return (
+
         <>
-            <Header
-                tenManHinh={"Màn hình thêm phòng"}
-                tenChuTro={"Nguyễn Đức Minh"}
-            />
-            <div className="section trending">
-                <div className="container">
-                    <form>
-                        <InputText
-                            label={"Số phòng*:"}
-                            type={"number"}
-                            placeholder={"Nhập số phòng"}
-                            changeValue={onChangeSoPhong}
+            {
+                loadingChuTro === true && chuTro.xacThuc === 1 ?
+                    <>
+                        <Header
+                            tenManHinh={"Màn hình thêm phòng"}
+                            tenChuTro={"Nguyễn Đức Minh"}
                         />
-                        <InputText
-                            label={"Giá*:"}
-                            type={"number"}
-                            placeholder={"Nhập giá"}
-                            changeValue={onChangeGia}
-                        />
-                        <InputText
-                            label={"Diện tích*:"}
-                            type={"number"}
-                            placeholder={"Nhập diện tích"}
-                            changeValue={onChangeDienTich}
-                        />
-                        <InputText
-                            label={"Mô Tả*:"}
-                            type={"text"}
-                            placeholder={"Nhập mô tả"}
-                            changeValue={onChangeMoTa}
-                        />
-                        <InputText
-                            label={"Địa chỉ chi tiết*:"}
-                            type={"text"}
-                            placeholder={"Nhập địa chỉ chi tiết"}
-                            changeValue={onChangeDiaChiChiTiet}
-                        />
-                        <InputText
-                            label={"Số lượng tối đa*:"}
-                            type={"number"}
-                            placeholder={"Nhập số lượng tối đa"}
-                            changeValue={onChangeSoLuong}
-                        />
-                        <InputText
-                            label={"Tiền cọc*:"}
-                            type={"number"}
-                            placeholder={"Nhập tiền cọc"}
-                            changeValue={onChangeTienCoc}
-                        />
-                        <InputText
-                            label={"Tiền điện*:"}
-                            type={"number"}
-                            placeholder={"Nhập tiền điện"}
-                            changeValue={onChangeDien}
-                        />
-                        <InputText
-                            label={"Tiền nước*:"}
-                            type={"number"}
-                            placeholder={"Nhập tiền nước"}
-                            changeValue={onChangeNuoc}
-                        />
-                        <SelectOption 
-                        label={"Chọn giới tính*"}
-                        list={listGioiTinh}
-                        changeValue={onChangeGioiTinh}
-                        convertName={(e) => e.value}
-                        />
-                        <SelectOption 
-                        label={"Chọn quận*"}
-                        list={listQuan}
-                        changeValue={onChangeQuan}
-                        convertName={(item) => item.tenQuan}
-                        />
-                        <SelectOption 
-                        label={"Chọn phường*"}
-                        list={listPhuong}
-                        changeValue={onChangePhuong}
-                        convertName={(item) => item.tenPhuong}
-                        />
-                       <SelectMultipleOption
-                       label={"Chọn tiện ích"}
-                       list={listTienIch}
-                       changeValue={onChangeTienIch}
-                       convertName={(item)=>item.ten}
-                       />
-                        {/* <label for="floatingSelect">Chọn tiện ích</label>
+                        <div className="section trending">
+                            <div className="container">
+                                <form>
+                                    <InputText
+                                        label={"Số phòng*:"}
+                                        type={"number"}
+                                        placeholder={"Nhập số phòng"}
+                                        changeValue={onChangeSoPhong}
+                                    />
+                                    <InputText
+                                        label={"Giá*:"}
+                                        type={"number"}
+                                        placeholder={"Nhập giá"}
+                                        changeValue={onChangeGia}
+                                    />
+                                    <InputText
+                                        label={"Diện tích*:"}
+                                        type={"number"}
+                                        placeholder={"Nhập diện tích"}
+                                        changeValue={onChangeDienTich}
+                                    />
+                                    <InputText
+                                        label={"Mô Tả*:"}
+                                        type={"text"}
+                                        placeholder={"Nhập mô tả"}
+                                        changeValue={onChangeMoTa}
+                                    />
+                                    <InputText
+                                        label={"Địa chỉ chi tiết*:"}
+                                        type={"text"}
+                                        placeholder={"Nhập địa chỉ chi tiết"}
+                                        changeValue={onChangeDiaChiChiTiet}
+                                    />
+                                    <InputText
+                                        label={"Số lượng tối đa*:"}
+                                        type={"number"}
+                                        placeholder={"Nhập số lượng tối đa"}
+                                        changeValue={onChangeSoLuong}
+                                    />
+                                    <InputText
+                                        label={"Tiền cọc*:"}
+                                        type={"number"}
+                                        placeholder={"Nhập tiền cọc"}
+                                        changeValue={onChangeTienCoc}
+                                    />
+                                    <InputText
+                                        label={"Tiền điện*:"}
+                                        type={"number"}
+                                        placeholder={"Nhập tiền điện"}
+                                        changeValue={onChangeDien}
+                                    />
+                                    <InputText
+                                        label={"Tiền nước*:"}
+                                        type={"number"}
+                                        placeholder={"Nhập tiền nước"}
+                                        changeValue={onChangeNuoc}
+                                    />
+                                    <SelectOption
+                                        label={"Chọn giới tính*"}
+                                        list={listGioiTinh}
+                                        changeValue={onChangeGioiTinh}
+                                        convertName={(e) => e.value}
+                                    />
+                                    <SelectOption
+                                        label={"Chọn quận*"}
+                                        list={listQuan}
+                                        changeValue={onChangeQuan}
+                                        convertName={(item) => item.tenQuan}
+                                    />
+                                    <SelectOption
+                                        label={"Chọn phường*"}
+                                        list={listPhuong}
+                                        changeValue={onChangePhuong}
+                                        convertName={(item) => item.tenPhuong}
+                                    />
+                                    <SelectMultipleOption
+                                        label={"Chọn tiện ích"}
+                                        list={listTienIch}
+                                        changeValue={onChangeTienIch}
+                                        convertName={(item) => item.ten}
+                                    />
+                                    {/* <label for="floatingSelect">Chọn tiện ích</label>
                         <select className="form-select" onChange={onChangeTienIch} multiple aria-label="Multiple select example">
                             {
                                 listTienIch && listTienIch.length > 0 && listTienIch.map((item, index) => {
@@ -223,19 +238,23 @@ function AddRoom() {
                                 })
                             }
                         </select> */}
-                        <InputMultipleFile
-                            label={"Chọn hình:"}
-                            onChangeFile={onChangeImages}
-                        />
-                        <div className="d-grid gap-2">
-                            <Button
-                                label={"Thêm phòng"}
-                                onClickButton={onClickButtonAdd}
-                            />
+                                    <InputMultipleFile
+                                        label={"Chọn hình:"}
+                                        onChangeFile={onChangeImages}
+                                    />
+                                    <div className="d-grid gap-2">
+                                        <Button
+                                            label={"Thêm phòng"}
+                                            onClickButton={onClickButtonAdd}
+                                        />
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </form>
-                </div>
-            </div>
+                    </>
+                    :
+                    <NotFound />
+            }
         </>
     )
 }

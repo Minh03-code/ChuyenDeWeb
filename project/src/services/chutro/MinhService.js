@@ -38,6 +38,9 @@ const layDanhSachQuan = () => {
 const layDanhSachPhongHoatDong = () => {
     return myAxios.get(`api/phongtro/all?loaiPhong=0&arrange=asc`);
 }
+const layThongTinTaiKhoan = (idTaiKhoan) => {
+    return myAxios.get(`/api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+}
 
 // export { multiple };
 export {
@@ -50,5 +53,6 @@ export {
     layTatCaBinhLuanCuaPhong,
     themBinhLuanChoPhong,
     layDanhSachQuan,
-    layDanhSachPhongHoatDong
+    layDanhSachPhongHoatDong,
+    layThongTinTaiKhoan
 };
