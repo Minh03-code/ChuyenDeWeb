@@ -1,14 +1,16 @@
 .bao-ngoai{
-    padding-top: 100px;
+    padding-top: 50px;
     display: block;
     width: 100%;
-    height: 900px;
+    height: 1360px;
+    /* background: wheat; */
 }
 .dia-chi{
     width: 100%;
     height: 50px;
     display: flexbox;
     margin-bottom: 10px;
+    margin-top: 10px;
     
 }
 .dia-chi .dia-chi-left{
@@ -23,6 +25,7 @@
     font-weight: bold;
     display: inline-block;
     float: left;
+    margin-top: 15px;
 }
 .icon-tim{
     display: inline-block;
@@ -47,9 +50,9 @@
 
 .thong-tin-chi-tiet .thong-tin-chi-tiet-left{
     float: left;
-    width: 62%;
+    width: 62.8%;
     /* height: 100%; */
-    margin-right: 3%;
+    margin-right: 1%;
 }
 
 .thong-tin-chi-tiet .thong-tin-chi-tiet-right{
@@ -60,7 +63,7 @@
     width: 100%;
     height: 30px;
     margin-bottom: 10px;
-    background: turquoise;
+    /* background: turquoise; */
 }
 
 .thong-tin-chi-tiet-left-ctp{
@@ -111,7 +114,7 @@
     margin-right: 100px;
 }
 .main-content{
-    height: 1500px;
+    height: 2060px;
     background: #f6f5f2;
 }
 /* .avt-chu-tro{
@@ -288,9 +291,67 @@ width: 30%;
 }
 
 .textLienQuan{
-    font-size: 23px;
-    width: 250px;
     height: 100%;
     margin-left: 550px;
     font-weight: bold;
+    font-size: 25px;
+    width: 280px;
 }
+.thong-tin{
+    height: 780px;
+    width: 100%;
+    background: #f6f5f2;    
+    /* margin-top: 50px; */
+}
+.anh-chi-tiet-phong-tro{
+    width: 100%;
+    height: 510px;  
+    /* background: yellow; */
+    background: white;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.chi-tiet{
+    width: 500px;
+    height: 200px;
+    background: greenyellow;
+}
+
+.bg-green{
+    /* background: #008000; */
+    /* position: fixed; */
+    width: 100%;
+    height: 600px;
+    top: 20%;
+    transition: 0.3s;
+    border-radius: 50px;
+    overflow-x: auto;
+    /* Cho phép cuộn ngang khi nội dung vượt quá chiều rộng của container */
+    -ms-overflow-style: none;
+    white-space: nowrap;
+    
+}
+.bg-green::-webkit-scrollbar { 
+    width: 0 !important;
+    display: none;
+}
+.item{
+    border-radius: 50px;
+    width: 700px;
+    height: 400px;
+    background: #ffa500;
+    margin: 50px 50px;
+}
+.item:hover{
+    border-radius: 50px;
+    transform: scale(1.2);
+    box-shadow: 1px 10px 20px #000;
+}
+.wrap{
+    position: absolute;
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0 100px;
+}
+
+

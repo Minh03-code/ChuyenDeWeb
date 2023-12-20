@@ -23,12 +23,48 @@ import tim1 from "./imgs/phuc/tim1.png";
 import tim2 from "./imgs/phuc/tim2.png";
 
 const ChiTietPhongTro = () => {
+  useEffect(() => {
+    suKien();
+  }, []);
+
+  const suKien = () => {
+    const bgGreen = document.querySelector(".bg-green");
+    const wrap = document.querySelector(".wrap");
+    const items = document.querySelectorAll(".item");
+
+    bgGreen.addEventListener("mousemove", function (e) {
+      var x = e.clientX;
+      let width = window.innerWidth;
+      let percent = (x / width) * 100 - 20;
+      wrap.style.transform = `translateX(${-percent}%)`;
+    });
+
+    items.forEach((element) => {
+      element.addEventListener("click", function (e) {
+        bgGreen.style.top = "100%";
+        bgGreen.style.transitionTimingFunction =
+          "cubic-bezier(.27,-0.62,.83,.67)";
+      });
+    });
+  };
+
   return (
     <>
       <div className="main-content">
         <div className="container">
           <div className="bao-ngoai">
-            <div className="anh">Hình ảnh</div>
+            {/* <div className="anh"></div>  */}
+            <div className="anh-chi-tiet-phong-tro">
+              <div class="bg-green">
+                <div class="wrap">
+                  <img class="item" src={anhPhong} />
+                  <img class="item" src={anhPhong} />
+                  <img class="item" src={anhPhong} />
+                  <img class="item" src={anhPhong} />
+                  <img class="item" src={anhPhong} />
+                </div>
+              </div>
+            </div>
 
             <div className="thong-tin">
               <div className="dia-chi">
