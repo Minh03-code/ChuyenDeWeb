@@ -35,7 +35,7 @@ const ChiTietPhongTro = () => {
     bgGreen.addEventListener("mousemove", function (e) {
       var x = e.clientX;
       let width = window.innerWidth;
-      let percent = (x / width) * 100 - 20;
+      let percent = (x / width) * 100 - 10;
       wrap.style.transform = `translateX(${-percent}%)`;
     });
 
@@ -48,6 +48,14 @@ const ChiTietPhongTro = () => {
     });
   };
 
+  const openModal = ()=>{
+    let modal = document.querySelector(".modal_video_review");
+    modal.style.display = "unset"
+  }
+  const closeModal = ()=>{
+    let modal = document.querySelector(".modal_video_review");
+    modal.style.display = "none"
+  }
   return (
     <>
       <div className="main-content">
@@ -55,16 +63,35 @@ const ChiTietPhongTro = () => {
           <div className="bao-ngoai">
             {/* <div className="anh"></div>  */}
             <div className="anh-chi-tiet-phong-tro">
-              <div class="bg-green">
-                <div class="wrap">
-                  <img class="item" src={anhPhong} />
-                  <img class="item" src={anhPhong} />
-                  <img class="item" src={anhPhong} />
-                  <img class="item" src={anhPhong} />
-                  <img class="item" src={anhPhong} />
+              <div className="bg-green">
+                <div className="wrap">
+                  <img className="item" src={anhPhong} />
+                  <img className="item" src={anhPhong} />
+                  <img className="item" src={anhPhong} />
+                  <img className="item" src={anhPhong} />
+                  <img className="item" src={anhPhong} />
                 </div>
               </div>
+                <div className="modal_video_review">
+                        <div className="area_content_video_review">
+                            <div className="title_area_content_video_review_tro">
+                                  Review Phòng Trọ 1
+                                  
+                            </div>
+                            <div className="area_video_review_tro">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ION36k3dVNE?si=0Oed90clHiZ7S8l6" className="if_video_nt"  
+                                title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                            </div>
+                            <div className="footer_area_content_video_review_tro" onClick={closeModal}>
+                                  Đóng
+                                  
+                            </div>
+                        </div>
+                        
+                </div>
             </div>
+
+            
 
             <div className="thong-tin">
               <div className="dia-chi">
@@ -78,7 +105,7 @@ const ChiTietPhongTro = () => {
                 </div>
                 <div className="dia-chi-right">
                   <img className="icon-play" src={anhPlay}></img>
-                  <button type="button" class="btn btn-warning">
+                  <button type="button" className="btn btn-warning" onClick={openModal}>
                     Review room
                   </button>
                 </div>
@@ -385,7 +412,11 @@ const ChiTietPhongTro = () => {
               </div>
             </div>
           </div>
+
+          
+                    
         </div>
+                  
       </div>
     </>
   );
