@@ -61,7 +61,7 @@ class YeuCauDatPhongDetail extends React.Component {
             await chapNhanYeuCauDatPhong(this.state.id, this.state.idNguoiThue, this.state.idPhong, this.state.myIdTaiKhoan, this.state.idTaiKhoanGui);
         }
     }
-    
+
 
     render() {
         let { id, ten, phong, nguoiThue, tenChuTro } = this.state
@@ -97,7 +97,7 @@ class YeuCauDatPhongDetail extends React.Component {
                                         <h5 className="card-title mb-0">
                                             <button className="btn btn-success btn_margin_left" onClick={() => this.chapNhanYeuCau()}>Chấp nhận</button>
                                             <button className="btn btn-danger btn_margin_left" onClick={() => this.tuChoiYeuCau()}>Từ chối</button>
-                                            <NavLink to={`/chutro/chitietphongtro?id=${phong.id}`} ><button className="btn btn-warning btn_margin_left">Chi tiết phòng</button></NavLink>
+                                            <NavLink to={`/chutro/chitietphongtro/idPhong=${phong.id}`} ><button className="btn btn-warning btn_margin_left">Chi tiết phòng</button></NavLink>
                                             <NavLink to={`/chutro/yeucaudatphong`} ><button className="btn btn-primary btn_margin_left">Quay lại</button></NavLink>
                                         </h5>
                                     </div>
