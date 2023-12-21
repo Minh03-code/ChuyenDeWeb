@@ -10,6 +10,8 @@ import CheckBox from '../item/CheckBox';
 import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinPhongTheoID } from '../../services/chutro/MinhService.js';
 import SelectMultipleOption from '../item/SelectMultipleOption';
 import InputFile from '../item/InputFile';
+import QuanItem from '../item/QuanItem';
+import Item1 from '../item/Item1';
 function UpdateRoom() {
     let params = useParams();
     console.log(params.idPhong);
@@ -17,6 +19,7 @@ function UpdateRoom() {
     const [listPhuong, setListPhuong] = useState([]);
     const [listTienIch, setListTienIch] = useState([]);
     const [room, setRoom] = useState();
+    const [loadingRoom, setLoadingRoom] = useState(false);
     const [soPhong, setSoPhong] = useState('');
     const [gia, setGia] = useState('');
     const [dienTich, setDienTich] = useState('');
@@ -41,10 +44,27 @@ function UpdateRoom() {
             console.log('Error fetching data:', error);
         }
     };
+
     const fetchDataPhong = async () => {
         try {
-            const res = await layThongTinPhongTheoID();
+            const res = await layThongTinPhongTheoID(params.idPhong);
             setRoom(res);
+            setSoPhong(res.soPhong);
+            setGia(res.gia);
+            setDienTich(res.dienTich);
+            setMoTa(res.moTa);
+            setDiaChiChiTiet(res.diaChiChiTiet);
+            setSoLuong(res.soLuongToiDa);
+            setTienCoc(res.tienCoc);
+            setTienDien(res.tienDien);
+            setTienNuoc(res.tienNuoc);
+            setLoadingRoom(true);
+            setGioiTinh(res.gioiTinh);
+            setQuan(res.quan.id);
+            setPhuong(res.phuong.id);
+            fetchDataPhuong(res.quan.id);
+
+            console.log(res);
         } catch (error) {
             console.log('Error fetching data:', error);
         }
@@ -75,6 +95,7 @@ function UpdateRoom() {
     };
 
     useEffect(() => {
+        fetchDataPhong();
         fetchDataQuan();
         fetchDataTienIch();
     }, []);
@@ -110,24 +131,49 @@ function UpdateRoom() {
         setGioiTinh(text);
     }
     const onChangeQuan = (value) => {
-        fetchDataPhuong(value? value:1);
         setQuan(value);
     }
     const onChangePhuong = (value) => {
         setPhuong(value);
     }
     const onChangeTienIch = (res) => {
-        
+
         setTienIch(res);
     }
     const onChangeImages = (files) => {
         setFiles(files);
     }
+    const onClickDeleteTienIch = (id) => {
+        alert(id);
+        setListTienIch(removeItemById(listTienIch, id));
+    }
+    const removeItemById = (array, idItem) => {
+        const res = array;
+        array.forEach(element => {
+            if (element.id === idItem){
+                const index = array.indexOf(element);
+                if (index > -1) { 
+                    res.splice(index, 1); 
+                }
+            }
+        });
+        
+        return res;
+    }
+    const getItemArrayById = (array, id) => {
+        const res = array;
+        array.forEach(element => {
+            if (element.id === id) {
+                return element;
+            }
+        });
+        return null;
+    }
     const onClickButtonAdd = () => {
         console.log(tienIch);
-        if(soPhong != ""&& gia != ""&& dienTich != ""&& moTa != ""&& diaChiChiTiet != ""&& soLuong != ""&& tienCoc != ""&& tienDien != ""&& tienNuoc != ""&& gioiTinh != ""&& quan  != ""&& phuong != ""){
+        if (soPhong != "" && gia != "" && dienTich != "" && moTa != "" && diaChiChiTiet != "" && soLuong != "" && tienCoc != "" && tienDien != "" && tienNuoc != "" && gioiTinh != "" && quan != "" && phuong != "") {
             fetchThemPhong(2, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files);
-            
+
         }
         else {
             alert("Hãy nhập đủ thông tin có đấu *");
@@ -141,106 +187,134 @@ function UpdateRoom() {
             />
             <div className="section trending">
                 <div className="container">
-                    <form>
-                        <InputText
-                            label={"Số phòng*:"}
-                            type={"number"}
-                            placeholder={"Nhập số phòng"}
-                            changeValue={onChangeSoPhong}
-                        />
-                        <InputText
-                            label={"Giá*:"}
-                            type={"number"}
-                            placeholder={"Nhập giá"}
-                            changeValue={onChangeGia}
-                        />
-                        <InputText
-                            label={"Diện tích*:"}
-                            type={"number"}
-                            placeholder={"Nhập diện tích"}
-                            changeValue={onChangeDienTich}
-                        />
-                        <InputText
-                            label={"Mô Tả*:"}
-                            type={"text"}
-                            placeholder={"Nhập mô tả"}
-                            changeValue={onChangeMoTa}
-                        />
-                        <InputText
-                            label={"Địa chỉ chi tiết*:"}
-                            type={"text"}
-                            placeholder={"Nhập địa chỉ chi tiết"}
-                            changeValue={onChangeDiaChiChiTiet}
-                        />
-                        <InputText
-                            label={"Số lượng tối đa*:"}
-                            type={"number"}
-                            placeholder={"Nhập số lượng tối đa"}
-                            changeValue={onChangeSoLuong}
-                        />
-                        <InputText
-                            label={"Tiền cọc*:"}
-                            type={"number"}
-                            placeholder={"Nhập tiền cọc"}
-                            changeValue={onChangeTienCoc}
-                        />
-                        <InputText
-                            label={"Tiền điện*:"}
-                            type={"number"}
-                            placeholder={"Nhập tiền điện"}
-                            changeValue={onChangeDien}
-                        />
-                        <InputText
-                            label={"Tiền nước*:"}
-                            type={"number"}
-                            placeholder={"Nhập tiền nước"}
-                            changeValue={onChangeNuoc}
-                        />
-                        <SelectOption 
-                        label={"Chọn giới tính*"}
-                        list={listGioiTinh}
-                        changeValue={onChangeGioiTinh}
-                        convertName={(e) => e.value}
-                        />
-                        <SelectOption 
-                        label={"Chọn quận*"}
-                        list={listQuan}
-                        changeValue={onChangeQuan}
-                        convertName={(item) => item.tenQuan}
-                        />
-                        <SelectOption 
-                        label={"Chọn phường*"}
-                        list={listPhuong}
-                        changeValue={onChangePhuong}
-                        convertName={(item) => item.tenPhuong}
-                        />
-                       <SelectMultipleOption
-                       label={"Chọn tiện ích"}
-                       list={listTienIch}
-                       changeValue={onChangeTienIch}
-                       convertName={(item)=>item.ten}
-                       />
-                        {/* <label for="floatingSelect">Chọn tiện ích</label>
-                        <select className="form-select" onChange={onChangeTienIch} multiple aria-label="Multiple select example">
-                            {
-                                listTienIch && listTienIch.length > 0 && listTienIch.map((item, index) => {
-                                    return (
-                                        <option value={item.id}>{item.ten}</option>
-                                    )
-                                })
-                            }
-                        </select> */}
-                        <InputMultipleFile
-                            label={"Chọn hình:"}
-                            onChangeFile={onChangeImages}
-                        />
-                        <div className="d-grid gap-2">
-                            <Button
-                                label={"Thêm phòng"}
-                                onClickButton={onClickButtonAdd}
+                    {loadingRoom ?
+                        <form>
+                            <InputText
+                                value={soPhong}
+                                label={"Số phòng*:"}
+                                type={"number"}
+                                placeholder={"Nhập số phòng"}
+                                changeValue={onChangeSoPhong}
                             />
-                        </div>
-                    </form>
+                            <InputText
+                                value={gia}
+                                label={"Giá*:"}
+                                type={"number"}
+                                placeholder={"Nhập giá"}
+                                changeValue={onChangeGia}
+                            />
+                            <InputText
+                                value={dienTich}
+                                label={"Diện tích*:"}
+                                type={"number"}
+                                placeholder={"Nhập diện tích"}
+                                changeValue={onChangeDienTich}
+                            />
+                            <InputText
+                                value={moTa}
+                                label={"Mô Tả*:"}
+                                type={"text"}
+                                placeholder={"Nhập mô tả"}
+                                changeValue={onChangeMoTa}
+                            />
+                            <InputText
+                                value={diaChiChiTiet}
+                                label={"Địa chỉ chi tiết*:"}
+                                type={"text"}
+                                placeholder={"Nhập địa chỉ chi tiết"}
+                                changeValue={onChangeDiaChiChiTiet}
+                            />
+                            <InputText
+                                value={soLuong}
+                                label={"Số lượng tối đa*:"}
+                                type={"number"}
+                                placeholder={"Nhập số lượng tối đa"}
+                                changeValue={onChangeSoLuong}
+                            />
+                            <InputText
+                                value={tienCoc}
+                                label={"Tiền cọc*:"}
+                                type={"number"}
+                                placeholder={"Nhập tiền cọc"}
+                                changeValue={onChangeTienCoc}
+                            />
+                            <InputText
+                                value={tienDien}
+                                label={"Tiền điện*:"}
+                                type={"number"}
+                                placeholder={"Nhập tiền điện"}
+                                changeValue={onChangeDien}
+                            />
+                            <InputText
+                                value={tienNuoc}
+                                label={"Tiền nước*:"}
+                                type={"number"}
+                                placeholder={"Nhập tiền nước"}
+                                changeValue={onChangeNuoc}
+                            />
+                            <SelectOption
+                                defaultId={gioiTinh}
+                                label={"Chọn giới tính*"}
+                                list={listGioiTinh}
+                                changeValue={onChangeGioiTinh}
+                                convertName={(e) => e.value}
+                            />
+                            <SelectOption
+                                defaultId={quan}
+                                label={"Chọn quận*"}
+                                list={listQuan}
+                                changeValue={onChangeQuan}
+                                convertName={(item) => item.tenQuan}
+                            />
+                            <SelectOption
+                                defaultId={phuong}
+                                label={"Chọn phường*"}
+                                list={listPhuong}
+                                changeValue={onChangePhuong}
+                                convertName={(item) => item.tenPhuong}
+                            />
+
+                            <div className='list-selected'>
+                                <div className="quan-m">
+                                    <div className="row">
+                                        {
+                                            listTienIch && listTienIch.length >= 0 && listTienIch.map((item, index) => {
+                                                return (
+                                                    <Item1
+                                                        idItem={item.id}
+                                                        imgItem={`${baseURL}${item.hinh}`}
+                                                        tenItem={item.ten}
+                                                        // onClickItemQuanListener={clickQuan}
+                                                        onClickDeleteItemListener={onClickDeleteTienIch}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                            <SelectMultipleOption
+                                label={"Chọn tiện ích"}
+                                list={listTienIch}
+                                changeValue={onChangeTienIch}
+                                convertName={(item) => item.ten}
+                            />
+
+                            <InputMultipleFile
+                                label={"Chọn hình:"}
+                                onChangeFile={onChangeImages}
+                            />
+                            <div className="d-grid gap-2">
+                                <Button
+                                    label={"Thêm phòng"}
+                                    onClickButton={onClickButtonAdd}
+                                />
+                            </div>
+                        </form>
+                        :
+                        <></>}
+
                 </div>
             </div>
         </>

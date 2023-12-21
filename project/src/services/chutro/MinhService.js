@@ -42,6 +42,8 @@ const layThongTinTaiKhoan = (idTaiKhoan) => {
     return myAxios.get(`/api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
 }
 
+
+
 // export { multiple };
 export {
     layTatCaPhongCuaChuTro, 
