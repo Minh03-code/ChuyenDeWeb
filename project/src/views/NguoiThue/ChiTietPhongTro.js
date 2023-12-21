@@ -24,22 +24,26 @@ import tim2 from "./imgs/phuc/tim2.png";
 import anhKhongCoAnh from "./imgs/phuc/khongcoanh.png";
 import anhNguoiThue from "./imgs/phuc/anhnguoithue.png";
 import anhMoTa from "./imgs/phuc/anhmota.png";
+import { ToastContainer, toast } from "react-toastify";
 import {
   capNhatPhongGoiY,
+  capNhatYeuThich,
   getChuTroById,
   getDanhSachPhongTheoIdQuan,
   getDetailPhongTro,
   getNguoiThueTheoPhong,
+  getTrangThaiYeuThich,
   guiYeuCauDatPhong,
 } from "../../services/nguoithue/PhucService";
 import { baseURL } from "../../services/my-axios";
 import { guiYeuCauXacThuc } from "../../services/chutro/PhucService";
+import Dialog from "../item/Dialog";
 import { NavLink } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { layVideoXuong } from "../../services/admin/NghiemService";
 
 const ChiTietPhongTro = () => {
-  let idPhong = 145;
+
   let idTaiKhoan = 73;
   const [result, setResult] = useState({});
   const [listHinhAnh, setListHinhAnh] = useState();
@@ -49,10 +53,13 @@ const ChiTietPhongTro = () => {
   const [chuTro, setChuTro] = useState({});
   const [videoReview,setVideoReview] = useState({});
   const navigation = useNavigate();
+  const [idPhong, setIdPhong] = useState(149);
+  const [showDialog, setShowDialog] = useState(false);
+    const [datPhong, setDatPhong] = useState();
 
   const fetchDataPhong = async () => {
     const res = await getDetailPhongTro(idPhong);
-    if (res) {
+    if (res!=null) {
       setResult(res);
       setListHinhAnh(res.hinhAnhPhongTro);
       setListTienIch(res.danhSachTienIch);
@@ -64,7 +71,7 @@ const ChiTietPhongTro = () => {
       let idQuan = res.idQuan;
       let tienCoc = res.tienCoc;
       let gioiTinh = res.gioiTinh;
-      console.log("quannnnn", idQuan);
+   
 
       if (loaiPhong !== 2) {
         let btn_send = document.querySelector(
@@ -86,6 +93,7 @@ const ChiTietPhongTro = () => {
     fetchDataPhong();
     fetchDataDanhSachPhongTheoQuan();
     fetchDataNguoiThue();
+    fetchDaTaYeuThich();
   }, []);
 
   const capNhatPhongGoiYApi = async (idTaiKhoan, idQuan, tienCoc, gioiTinh) => {
@@ -102,18 +110,22 @@ const ChiTietPhongTro = () => {
     idTaiKhoanNhan,
     idPhong
   ) => {
-    const res = await guiYeuCauDatPhong(idTaiKhoanGui, idTaiKhoanNhan, idPhong);
-  };
+  let res = await guiYeuCauDatPhong(idTaiKhoanGui, idTaiKhoanNhan, idPhong);
+    if (res !== null) {
+      setDatPhong(res);
+      setShowDialog(false);
+      toast.info(res.message);
+    }
+ };
 
+  
   let idTaiKhoanChuTro = chuTro.idTaiKhoan;
 
   const onCLickDatPhong = () => {
-    requestYeuCauDatPhong(idTaiKhoan, idTaiKhoanChuTro, idPhong);
+    // requestYeuCauDatPhong(idTaiKhoan, idTaiKhoanChuTro, idPhong);
 
-    alert("ok r đó");
-    console.log("idTaiKhoanGui", idTaiKhoan);
-    console.log("idTaiKhoanNhan", idTaiKhoanChuTro);
-    console.log("idPhong", idPhong);
+    setIdPhong(idPhong);
+    setShowDialog(true);
   };
 
   const fetchDataNguoiThue = async () => {
@@ -158,6 +170,56 @@ const ChiTietPhongTro = () => {
       navigation(`/nguoithue/tinnhan?id=${idTaiKhoan1}`);
     }
   }
+
+   const onCloseDialog = () => {
+    setShowDialog(false);
+  };
+
+  const onCLickXacNhanDatPhong = (idPhong) => {
+    requestYeuCauDatPhong(idTaiKhoan, idTaiKhoanChuTro, idPhong);
+  };
+
+  const fetchDaTaYeuThich = async () => {
+    let res = await getTrangThaiYeuThich(idPhong, idTaiKhoan);
+    let trangThai = res;
+
+    if (trangThai === 0) {
+      let btn_send = document.querySelector(".anhTim");
+      btn_send.style.display = "none";
+      let btn_send2 = document.querySelector(".anhTim2");
+      btn_send2.style.display = "unset";
+    } else {
+      let btn_send = document.querySelector(".anhTim");
+      btn_send.style.display = "unset";
+      let btn_send2 = document.querySelector(".anhTim2");
+      btn_send2.style.display = "none";
+    }
+  };
+
+  const requestYeuThich = async (idPhong, idTaiKhoan) => {
+    let res = await capNhatYeuThich(idPhong, idTaiKhoan);
+  };
+
+  const onClickYeuThich = () => {
+    let btn_send = document.querySelector(".anhTim");
+    btn_send.style.display = "none";
+    let btn_send2 = document.querySelector(".anhTim2");
+    btn_send2.style.display = "unset";
+    console.log("aaaaaaaaa", idPhong);
+    console.log("aaaaaaaaa", idTaiKhoan);
+    requestYeuThich(idPhong, idTaiKhoan);
+    toast.success("Bỏ yêu thích thành công");
+   
+  };
+  const onClickYeuThich2 = () => {
+    let btn_send = document.querySelector(".anhTim2");
+    btn_send.style.display = "none";
+    let btn_send2 = document.querySelector(".anhTim");
+    btn_send2.style.display = "unset";
+    requestYeuThich(idPhong, idTaiKhoan);
+    toast.success("Đã thêm vào danh sách yêu thích");
+  };
+
   return (
     <>
       <div className="main-content">
@@ -206,7 +268,17 @@ const ChiTietPhongTro = () => {
                 <div className="dia-chi-left">
                   <p className="text-so-phong">Phòng trọ số {result.soPhong}</p>
                   <div className="icon-tim">
-                    <img className="anhTim" src={tim2}></img>
+                    <img
+                      onClick={onClickYeuThich}
+                      className="anhTim"
+                      src={tim2}
+                    ></img>
+
+                    <img
+                      onClick={onClickYeuThich2}
+                      className="anhTim2"
+                      src={tim1}
+                    ></img>
                   </div>
                 </div>
                 <div className="dia-chi-right">
@@ -289,6 +361,18 @@ const ChiTietPhongTro = () => {
                     </div>
 
                     <div className="mid-thong-tin">
+                      <ToastContainer
+                        position="top-right"
+                        autoClose={1000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="dark"
+                      />
                       <div className="item1">
                         <div className="label-thong-tin">Địa chỉ</div>
                         <div className="label-thong-tin">
@@ -538,6 +622,14 @@ const ChiTietPhongTro = () => {
           </div>
         </div>
       </div>
+      <Dialog
+        id={idPhong}
+        show={showDialog}
+        onClickCANCAL={onCloseDialog}
+        title="Thông báo"
+        content={`Bạn chắc chắn muốn đặt phòng này ?`}
+        onClickOK={onCLickXacNhanDatPhong}
+      />
     </>
   );
 };

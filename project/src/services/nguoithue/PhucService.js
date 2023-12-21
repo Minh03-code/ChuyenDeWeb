@@ -32,6 +32,17 @@ const capNhatPhongGoiY = (idTaiKhoan, idQuan, tienCoc, gioiTinh) => {
 const getNguoiThueTheoPhong = (idPhong) => {
   return myAxios.get(`/api/phongnguoithue/all?idPhong=${idPhong}`);
 };
+const capNhatYeuThich = (idPhong, idTaiKhoan) => {
+  return myAxios.post(`api/capnhatyeuthichphongtro`, {
+    idPhong: idPhong,
+    idTaiKhoan: idTaiKhoan,
+  });
+};
+const getTrangThaiYeuThich = (idPhong, idTaiKhoan) => {
+  return myAxios.get(
+    `/api/kiemtrayeuthich?idPhong=${idPhong}&idTaiKhoan=${idTaiKhoan}`
+  );
+};
 
 export {
   getDetailNguoiThue,
@@ -41,4 +52,6 @@ export {
   guiYeuCauDatPhong,
   capNhatPhongGoiY,
   getNguoiThueTheoPhong,
+  capNhatYeuThich,
+  getTrangThaiYeuThich,
 };
