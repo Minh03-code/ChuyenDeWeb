@@ -30,6 +30,15 @@ const xacThucThongTinChuTro = (idChuTro) => {
 const xoaXacYeuCauXacThuc = (idChuTro) => {
     return myAxios.delete(`api/xacthucchutro/xoa?idChuTro=${idChuTro}`);
 }
+const layThongTinChiTietYeuCauDangKyGoi = (id) => {
+    return myAxios.get(`api/yeucaudangky/chitiet?id=${id}`);
+}
+const xacThucYeuCauDangKyGoi = (id) => {
+    return myAxios.patch(`api/yeucaudangky/xacthuc?id=${id}`);
+}
+const xoaYeuCauDangKyGoi = (id) => {
+    return myAxios.delete(`api/yeucaudangky/huy?id=${id}`);
+}
 // export { multiple };
 export {
     getAllMotelRoomOwnerAuthenticationCallAPI,
@@ -41,5 +50,8 @@ export {
     checkcode,
     xacThucChuTro,
     xoaXacYeuCauXacThuc,
-    xacThucThongTinChuTro
+    xacThucThongTinChuTro,
+    layThongTinChiTietYeuCauDangKyGoi,
+    xacThucYeuCauDangKyGoi,
+    xoaYeuCauDangKyGoi
 };
