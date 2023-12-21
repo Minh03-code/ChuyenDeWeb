@@ -18,22 +18,24 @@ class ThemTienIch extends React.Component {
         })
     }
     async kiemTraRong() {
-        if (this.state.ten != "") {
-            if (this.state.hinh != "") {
-                let res = await addnewTienIch(this.state.ten, this.state.hinh);
-                if (res != null) {
-                    toast.success("Thêm Tiện Ích Thành Công!");
+        if (window.confirm("Xác nhận thêm tiện " + this.state.ten)) {
+            if (this.state.ten !== "") {
+                if (this.state.hinh !== "") {
+                    let res = await addnewTienIch(this.state.ten, this.state.hinh);
+                    if (res != null) {
+                        toast.success("Thêm Tiện Ích Thành Công!");
+                    }
+                    else {
+                        toast.error("Thêm Tiện Ích Thất Bại!");
+                    }
                 }
                 else {
-                    toast.error("Thêm Tiện Ích Thất Bại!");
+                    toast.warning("Không Được Bỏ Trống Hình!");
                 }
             }
             else {
-                toast.warning("Không Được Bỏ Trống Hình!");
+                toast.warning("Không Được Bỏ Trống Tên!");
             }
-        }
-        else {
-            toast.warning("Không Được Bỏ Trống Tên!");
         }
     }
     render() {
