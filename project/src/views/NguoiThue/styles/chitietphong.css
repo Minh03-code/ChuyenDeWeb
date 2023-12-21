@@ -409,10 +409,15 @@ width: 30%;
     transform: scale(1.2);
     box-shadow: 1px 10px 20px #000;
 }
-.item{
+.item_thong_bao{
     width: auto;
     height: auto;
     border: #000 solid 1px;
+}
+.item_thong_bao:hover{
+    border-radius: 50px;
+    transform: scale(1.2);
+    box-shadow: 1px 10px 20px #000;
 }
 .wrap{
     position: absolute;
