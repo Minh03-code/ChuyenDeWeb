@@ -56,7 +56,7 @@ class YeuCauDatPhong extends React.Component {
                                         {listYeuCauById && listYeuCauById.length > 0 && listYeuCauById.map((item, index) => {
                                             return (
                                                 <div class="col-lg-12 col-md-6 align-self-center mb-30 trending-items col-md-6">
-                                                    <div class="item">
+                                                        <div class="item" style={{height: 8 + 'em', width: 80 + 'em'}}>
                                                         <div class="down-content">
                                                             <span class="category">Yêu cầu đặt phòng số {item.phong.soPhong}</span>
                                                             <br />
