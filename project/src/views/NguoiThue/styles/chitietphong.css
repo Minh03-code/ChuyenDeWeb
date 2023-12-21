@@ -347,6 +347,11 @@ width: 30%;
     transform: scale(1.2);
     box-shadow: 1px 10px 20px #000;
 }
+.item{
+    width: auto;
+    height: auto;
+    border: #000 solid 1px;
+}
 .wrap{
     position: absolute;
     display: flex;
