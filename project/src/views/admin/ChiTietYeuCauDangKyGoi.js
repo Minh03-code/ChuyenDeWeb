@@ -1,12 +1,12 @@
 import React from 'react';
 import { baseURL } from "../../services/my-axios";
 import { useSearchParams } from "react-router-dom"
-import { layThongTinChiTietYeuCauXacThucAPI, xacThucChuTro, xacThucThongTinChuTro, xoaXacYeuCauXacThuc } from '../../services/admin/MinhService';
+import { layThongTinChiTietYeuCauDangKyGoi, layThongTinChiTietYeuCauXacThucAPI, xacThucChuTro, xacThucThongTinChuTro, xacThucYeuCauDangKyGoi, xoaXacYeuCauXacThuc, xoaYeuCauDangKyGoi } from '../../services/admin/MinhService';
 import Loading from "../loading/Loading.js";
 import { Link } from "react-router-dom";
 import Button from "../item/Button"
 
-class QuanLyYeuCauXacNhanChuTro extends React.Component {
+class ChiTietYeuCauDangKyGoi extends React.Component {
 
     state = {
         detail: [],
@@ -16,8 +16,8 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
     async componentDidMount() {
         const search = window.location.search;
         const param = new URLSearchParams(search);
-        console.log(">>>>" + param.get('idChuTro'));
-        let res = await layThongTinChiTietYeuCauXacThucAPI(new URLSearchParams(window.location.search).get('idChuTro'));
+        console.log(">>>>" + param.get('id'));
+        let res = await layThongTinChiTietYeuCauDangKyGoi(new URLSearchParams(window.location.search).get('id'));
         if (res != null) {
             console.log(res);
             this.setState({
@@ -29,12 +29,10 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
     onClickXacNhan = async () => {
         const search = window.location.search;
         const param = new URLSearchParams(search);
-        const res = await xacThucChuTro(+param.get('idChuTro'));
-        if (res!==null) {
-            
-            const res2 = await xacThucThongTinChuTro(+param.get('idChuTro'));
-            if (res2!==null) {
-                this.setState({trangThai: true})
+        const res = await xacThucYeuCauDangKyGoi(+param.get('id'));
+        if (res !== null) {
+            if (res > 0) {
+                this.setState({ trangThai: true })
             }
         }
     }
@@ -42,9 +40,9 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
     onClickHuy = async () => {
         const search = window.location.search;
         const param = new URLSearchParams(search);
-        const res = await xoaXacYeuCauXacThuc(+param.get('idChuTro'));
-        if(res){
-            this.setState({trangThai: true})
+        const res = await xoaYeuCauDangKyGoi(+param.get('id'));
+        if (res && res>0) {
+            this.setState({ trangThai: true })
         }
     }
     render() {
@@ -59,10 +57,12 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
                         <div className="noidung_content">
                             <div><b className="labeladmin">Tên:</b> {detail.chuTro.ten}</div>
                             <div><b className="labeladmin">Số Điện Thoại:</b> {detail.chuTro.soDienThoai}</div>
-                            <div><b className="labeladmin">Căn cước công dân mặt trước:</b></div>
-                            <img className='cccd' src={baseURL + detail.cccdMatTruoc} alt={baseURL + detail.cccdMatTruoc} />
-                            <div><b className="labeladmin">Căn cước công dân mặt sau:</b> </div>
-                            <img className='cccd' src={baseURL + detail.cccdMatSau} alt={baseURL + detail.cccdMatSau} />
+                            <div><b className="labeladmin">Id gói:</b> {detail.idGoi}</div>
+                            <div><b className="labeladmin">Số phòng tối đa:</b> {detail.goi.soLuongPhongToiDa}</div>
+                            <div><b className="labeladmin">Thời hạn:</b> {detail.goi.thoiHan}</div>
+                            <div><b className="labeladmin">Giá:</b> {detail.goi.gia}</div>
+                            <div><b className="labeladmin">Hình ảnh chuyển khoản:</b> </div>
+                            <img className='hinhchuyenkhoan' src={baseURL + detail.hinhAnhChuyenKhoan} alt={baseURL + detail.hinhAnhChuyenKhoan} />
                         </div>
                         <div className='row'>
                             {trangThai === true ?
@@ -86,4 +86,4 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
         )
     }
 }
-export default QuanLyYeuCauXacNhanChuTro;
+export default ChiTietYeuCauDangKyGoi;

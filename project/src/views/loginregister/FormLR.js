@@ -50,7 +50,7 @@ function LoginRegister() {
         }
     }
     const checkLogin = () => {
-        if (account != "" && account) {
+        if (account && account != "") {
             sessionStorage.setItem("accountId", account.id);
             sessionStorage.setItem("accountType", account.loaiTaiKhoan);
             sessionStorage.setItem("idNguoiDung", account.nguoiDangNhap.id);

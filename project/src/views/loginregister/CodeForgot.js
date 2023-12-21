@@ -34,6 +34,7 @@ function CodeForgot() {
     const getData = async () => {
         let idTaiKhoan = sessionStorage.getItem("accountForgotId");
         console.log(idTaiKhoan);
+        console.log(idTaiKhoan + " " + password);
         let res = await checkcode(idTaiKhoan, code, password);
         if (res != null) {
             alert(res.message);

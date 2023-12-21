@@ -35,61 +35,62 @@ import ThemPhuong from './ThemPhuong.js';
 import EditQuan from './EditQuan.js';
 import EditPhuong from './EditPhuong.js';
 import AddBanner from './AddBanner.js';
+import ChiTietYeuCauDangKyGoi from './ChiTietYeuCauDangKyGoi.js';
 
 function Admin() {
   console.log(sessionStorage.getItem('accountId'));
   return (
     sessionStorage.getItem('accountType') == 2 ?
-    <>
-      <div className="wrapper">
-        <Navigation />
+      <>
+        <div className="wrapper">
+          <Navigation />
 
-        <div className="main">
+          <div className="main">
 
-          <main className="content">
-            <Routes>
-            <Route path='*'  element={<QuanLyChuTro/>}></Route>
-              <Route path="/quanlychutro" exact element={<QuanLyChuTro />}>
-              </Route>
-              <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
-              </Route>
-              <Route path="/quanlytienich" element={<QuanLyTienIch />}>
-              </Route>
-              <Route path="/ThemTienIch" element={<ThemTienIch />}>
-              </Route>
-              <Route path="/SuaTienIch" element={<SuaTienIch />}>
-              </Route>
+            <main className="content">
+              <Routes>
+                <Route path='*' element={<QuanLyChuTro />}></Route>
+                <Route path="/quanlychutro" exact element={<QuanLyChuTro />}>
+                </Route>
+                <Route path="/quanlygoidangky" element={<QuanLyGoiDangKy />}>
+                </Route>
+                <Route path="/quanlytienich" element={<QuanLyTienIch />}>
+                </Route>
+                <Route path="/ThemTienIch" element={<ThemTienIch />}>
+                </Route>
+                <Route path="/SuaTienIch" element={<SuaTienIch />}>
+                </Route>
 
-              <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
-              </Route>
-              <Route path="/xacthucgoidangky" element={<QuanLyYeuCauXacNhanGoi />}>
-              </Route>
+                <Route path="/xacthucchutro" element={<QuanLyYeuCauXacNhanChuTro />}>
+                </Route>
+                <Route path="/xacthucgoidangky" element={<QuanLyYeuCauXacNhanGoi />}>
+                </Route>
 
-              <Route path="/quanlykhuvuc" element={<QuanLyKhuVuc />}>
-              </Route>
-              <Route path="/addKhuVuc" element={<AddKhuVuc/>}>
-              </Route>
-              <Route path="/listPhuong" element={<ListPhuong/>}>
-              </Route>
-              <Route path="/themPhuong" element={<ThemPhuong />}>
-              </Route>
-              <Route path="/editquan" element={<EditQuan/>}>
-              </Route>
-              <Route path="/editphuong" element={<EditPhuong/>}>
-              </Route>
+                <Route path="/quanlykhuvuc" element={<QuanLyKhuVuc />}>
+                </Route>
+                <Route path="/addKhuVuc" element={<AddKhuVuc />}>
+                </Route>
+                <Route path="/listPhuong" element={<ListPhuong />}>
+                </Route>
+                <Route path="/themPhuong" element={<ThemPhuong />}>
+                </Route>
+                <Route path="/editquan" element={<EditQuan />}>
+                </Route>
+                <Route path="/editphuong" element={<EditPhuong />}>
+                </Route>
 
-              <Route path="/quanlybanner" element={<QuanLyBanner />}>
-              </Route>
-              <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
-              </Route>
+                <Route path="/quanlybanner" element={<QuanLyBanner />}>
+                </Route>
+                <Route path="/thongtintaikhoan" element={<ThongTinTaiKhoan />}>
+                </Route>
 
-              <Route path="/editpassword" element={<EditPasswordAdmin />}>
-              </Route>
-              <Route path="/editprofileadmin" element={<EditProfileAdmin />}>
-              </Route>
-              <Route path="/editbanner/:id" element={<EditBanner />}>
-              </Route>
-              <Route path="/chiTietDichVu" element={<DetailDichVu />}>
+                <Route path="/editpassword" element={<EditPasswordAdmin />}>
+                </Route>
+                <Route path="/editprofileadmin" element={<EditProfileAdmin />}>
+                </Route>
+                <Route path="/editbanner/:id" element={<EditBanner />}>
+                </Route>
+                <Route path="/chiTietDichVu" element={<DetailDichVu />}>
                 </Route>
                 <Route path="/suaDichVu" element={<EditDichVu />}>
                 </Route>
@@ -98,30 +99,32 @@ function Admin() {
                 <Route path="/chiTietChuTro" element={<DetailChuTro />}>
                 </Route>
                 <Route path="/chitietyeucauxacthucchutro" element={<XemThongTinChiTietYeuCauXacNhanChuTro />}>
-              </Route>
-              <Route path="/chinhsach" element={<ChinhSach />}>
-              </Route>
-              <Route path="/addbanner" element={<AddBanner />}>
-              </Route>
-            </Routes>
-            
-          </main>
+                </Route>
+                <Route path="/chitietyeucaudangkygoi" element={<ChiTietYeuCauDangKyGoi />}>
+                </Route>
+                <Route path="/chinhsach" element={<ChinhSach />}>
+                </Route>
+                <Route path="/addbanner" element={<AddBanner />}>
+                </Route>
+              </Routes>
+
+            </main>
+          </div>
+          <ToastContainer
+            position="top-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
         </div>
-        <ToastContainer
-              position="top-right"
-              autoClose={1000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-            />
-      </div>
-    </>
-    :<NotFound/>
+      </>
+      : <NotFound />
   );
 }
 
