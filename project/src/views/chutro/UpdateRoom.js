@@ -7,7 +7,7 @@ import SelectOption from '../item/SelectOption';
 import Button from '../item/Button';
 import InputMultipleFile from '../item/InputMultipleFile';
 import CheckBox from '../item/CheckBox';
-import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinPhongTheoID } from '../../services/chutro/MinhService.js';
+import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinPhongTheoID, xoaItemInListTienIchSeleted, layTatCaTienIchDaChonCuaPhong } from '../../services/chutro/MinhService.js';
 import SelectMultipleOption from '../item/SelectMultipleOption';
 import InputFile from '../item/InputFile';
 import QuanItem from '../item/QuanItem';
@@ -34,6 +34,7 @@ function UpdateRoom() {
     const [quan, setQuan] = useState('');
     const [phuong, setPhuong] = useState('');
     const [tienIch, setTienIch] = useState([]);
+    const [tienIchSeleted, setTienIchSeleted] = useState([]);
     const [files, setFiles] = useState();
     const [resAdd, setResAdd] = useState();
     const fetchDataQuan = async () => {
@@ -62,6 +63,7 @@ function UpdateRoom() {
             setGioiTinh(res.gioiTinh);
             setQuan(res.quan.id);
             setPhuong(res.phuong.id);
+            setTienIchSeleted(res.tienIch);
             fetchDataPhuong(res.quan.id);
 
             console.log(res);
@@ -143,32 +145,17 @@ function UpdateRoom() {
     const onChangeImages = (files) => {
         setFiles(files);
     }
-    const onClickDeleteTienIch = (id) => {
-        alert(id);
-        setListTienIch(removeItemById(listTienIch, id));
+    const fetchDataTienIchSeleted = async () => {
+        const res = await layTatCaTienIchDaChonCuaPhong(params.idPhong);
+        setTienIchSeleted(res.tienIchSeleted);
     }
-    const removeItemById = (array, idItem) => {
-        const res = array;
-        array.forEach(element => {
-            if (element.id === idItem){
-                const index = array.indexOf(element);
-                if (index > -1) { 
-                    res.splice(index, 1); 
-                }
-            }
-        });
-        
-        return res;
+    const onClickDeleteTienIch = async (id) => {
+        const res = await xoaItemInListTienIchSeleted(params.idPhong, id);
+        if (res === 1) {
+            fetchDataTienIchSeleted(params.idPhong);
+        }
     }
-    const getItemArrayById = (array, id) => {
-        const res = array;
-        array.forEach(element => {
-            if (element.id === id) {
-                return element;
-            }
-        });
-        return null;
-    }
+   
     const onClickButtonAdd = () => {
         console.log(tienIch);
         if (soPhong != "" && gia != "" && dienTich != "" && moTa != "" && diaChiChiTiet != "" && soLuong != "" && tienCoc != "" && tienDien != "" && tienNuoc != "" && gioiTinh != "" && quan != "" && phuong != "") {
@@ -278,7 +265,7 @@ function UpdateRoom() {
                                 <div className="quan-m">
                                     <div className="row">
                                         {
-                                            listTienIch && listTienIch.length >= 0 && listTienIch.map((item, index) => {
+                                            tienIchSeleted && tienIchSeleted.length >= 0 && tienIchSeleted.map((item, index) => {
                                                 return (
                                                     <Item1
                                                         idItem={item.id}

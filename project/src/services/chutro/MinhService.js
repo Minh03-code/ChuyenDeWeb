@@ -39,7 +39,13 @@ const layDanhSachPhongHoatDong = () => {
     return myAxios.get(`api/phongtro/all?loaiPhong=0&arrange=asc`);
 }
 const layThongTinTaiKhoan = (idTaiKhoan) => {
-    return myAxios.get(`/api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+    return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+}
+const xoaItemInListTienIchSeleted = (idPhong, idTienIch) => {
+    return myAxios.delete(`api/phongtrotienich/delete?idPhong=${idPhong}&idTienIch=${idTienIch}`);
+}
+const layTatCaTienIchDaChonCuaPhong = (idPhong) => {
+    return myAxios.get(`api/phongtrotienich/getseleted?idPhong=${idPhong}`);
 }
 
 
@@ -56,5 +62,7 @@ export {
     themBinhLuanChoPhong,
     layDanhSachQuan,
     layDanhSachPhongHoatDong,
-    layThongTinTaiKhoan
+    layThongTinTaiKhoan,
+    xoaItemInListTienIchSeleted,
+    layTatCaTienIchDaChonCuaPhong
 };
