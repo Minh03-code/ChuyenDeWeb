@@ -36,9 +36,10 @@ import { baseURL } from "../../services/my-axios";
 import { guiYeuCauXacThuc } from "../../services/chutro/PhucService";
 import { NavLink } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { layVideoXuong } from "../../services/admin/NghiemService";
 
 const ChiTietPhongTro = () => {
-  let idPhong = 143;
+  let idPhong = 145;
   let idTaiKhoan = 73;
   const [result, setResult] = useState({});
   const [listHinhAnh, setListHinhAnh] = useState();
@@ -46,6 +47,7 @@ const ChiTietPhongTro = () => {
   const [listPhongTheoQuan, setListPhongTheoQuan] = useState();
   const [listNguoiThue, setListNguoiThue] = useState();
   const [chuTro, setChuTro] = useState({});
+  const [videoReview,setVideoReview] = useState({});
   const navigation = useNavigate();
 
   const fetchDataPhong = async () => {
@@ -57,7 +59,7 @@ const ChiTietPhongTro = () => {
       let idTaiKhoanChuTro = res.phongTroChuTro.idTaiKhoan;
       const res1 = await getChuTroById(idTaiKhoanChuTro);
       setChuTro(res1);
-
+      
       let loaiPhong = res.loaiPhong;
       let idQuan = res.idQuan;
       let tienCoc = res.tienCoc;
@@ -72,6 +74,10 @@ const ChiTietPhongTro = () => {
       }
 
       capNhatPhongGoiYApi(idTaiKhoan, idQuan, tienCoc, gioiTinh);
+    }
+    const resVideo =  await layVideoXuong(idPhong);
+    if(resVideo!=null){
+      setVideoReview(resVideo);
     }
   };
 
@@ -178,8 +184,13 @@ const ChiTietPhongTro = () => {
                                   
                             </div>
                             <div className="area_video_review_tro">
-                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ION36k3dVNE?si=0Oed90clHiZ7S8l6" className="if_video_nt"  
+
+                              {
+                                videoReview.id!==-1?
+                                <iframe width="100%" height="100%" src={videoReview.loaiVideo===0?baseURL+videoReview.linkVideo:"https://www.youtube.com/embed/"+videoReview.linkVideo} className="if_video_nt"  
                                 title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                                :<>Chủ trọ chưa thêm video</>
+                              }
                             </div>
                             <div className="footer_area_content_video_review_tro" onClick={closeModal}>
                                   Đóng
