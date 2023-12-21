@@ -133,6 +133,14 @@ const ChiTietPhongTro = () => {
     });
   };
 
+  const openModal = ()=>{
+    let modal = document.querySelector(".modal_video_review");
+    modal.style.display = "unset"
+  }
+  const closeModal = ()=>{
+    let modal = document.querySelector(".modal_video_review");
+    modal.style.display = "none"
+  }
   return (
     <>
       <div className="main-content">
@@ -152,6 +160,23 @@ const ChiTietPhongTro = () => {
                     })}
                 </div>
               </div>
+              <div className="modal_video_review">
+                        <div className="area_content_video_review">
+                            <div className="title_area_content_video_review_tro">
+                                  Review Phòng Trọ 1
+                                  
+                            </div>
+                            <div className="area_video_review_tro">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ION36k3dVNE?si=0Oed90clHiZ7S8l6" className="if_video_nt"  
+                                title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                            </div>
+                            <div className="footer_area_content_video_review_tro" onClick={closeModal}>
+                                  Đóng
+                                  
+                            </div>
+                        </div>
+                        
+                </div>
             </div>
 
             <div className="thong-tin">
