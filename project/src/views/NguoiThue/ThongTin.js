@@ -11,7 +11,7 @@ const ThongTinNguoiThue = () => {
   useEffect(() => {
     const fetchBanner = async () => {
       setResult(await getDetailNguoiThue(id));
-      console.log(result);
+      console.log("Thong tin nguoithue ", result);
     };
     fetchBanner();
   }, []);
