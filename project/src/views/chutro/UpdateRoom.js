@@ -7,7 +7,7 @@ import SelectOption from '../item/SelectOption';
 import Button from '../item/Button';
 import InputMultipleFile from '../item/InputMultipleFile';
 import CheckBox from '../item/CheckBox';
-import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinPhongTheoID, xoaItemInListTienIchSeleted, layTatCaTienIchDaChonCuaPhong } from '../../services/chutro/MinhService.js';
+import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinPhongTheoID, xoaItemInListTienIchSeleted, layTatCaTienIchDaChonCuaPhong, xoaItemInListImageSeleted, layTatCaImageDaChonCuaPhong, updatePhong } from '../../services/chutro/MinhService.js';
 import SelectMultipleOption from '../item/SelectMultipleOption';
 import InputFile from '../item/InputFile';
 import QuanItem from '../item/QuanItem';
@@ -35,8 +35,9 @@ function UpdateRoom() {
     const [phuong, setPhuong] = useState('');
     const [tienIch, setTienIch] = useState([]);
     const [tienIchSeleted, setTienIchSeleted] = useState([]);
+    const [hinhAnhSeleted, setHinhAnhSeleted] = useState([]);
     const [files, setFiles] = useState();
-    const [resAdd, setResAdd] = useState();
+    const [resUpdate, setResUpdate] = useState();
     const fetchDataQuan = async () => {
         try {
             const res = await layTatCaQuanHoatDong();
@@ -64,6 +65,7 @@ function UpdateRoom() {
             setQuan(res.quan.id);
             setPhuong(res.phuong.id);
             setTienIchSeleted(res.tienIch);
+            setHinhAnhSeleted(res.hinhAnhPhongTro);
             fetchDataPhuong(res.quan.id);
 
             console.log(res);
@@ -87,10 +89,11 @@ function UpdateRoom() {
             console.log('Error fetching data:', error);
         }
     };
-    const fetchThemPhong = async (idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages) => {
+    const fetchSuaPhong = async (idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages) => {
         try {
-            const res = await themPhong(idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages);
-            setResAdd(res);
+            const res = await updatePhong(idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages);
+            setResUpdate(res);
+            console.log(">>>"+res);
         } catch (error) {
             console.log('Error fetching data:', error);
         }
@@ -149,18 +152,28 @@ function UpdateRoom() {
         const res = await layTatCaTienIchDaChonCuaPhong(params.idPhong);
         setTienIchSeleted(res.tienIchSeleted);
     }
+    const fetchDataImageSeleted = async () => {
+        const res = await layTatCaImageDaChonCuaPhong(params.idPhong);
+        setHinhAnhSeleted(res);
+    }
     const onClickDeleteTienIch = async (id) => {
         const res = await xoaItemInListTienIchSeleted(params.idPhong, id);
         if (res === 1) {
             fetchDataTienIchSeleted(params.idPhong);
         }
     }
-   
-    const onClickButtonAdd = () => {
+    const onClickDeleteImage = async (id) => {
+        alert(id);
+        const res = await xoaItemInListImageSeleted(id);
+        if (res === 1) {
+            fetchDataImageSeleted(params.idPhong);
+        }
+    }
+
+    const onClickButtonUpdate = () => {
         console.log(tienIch);
         if (soPhong != "" && gia != "" && dienTich != "" && moTa != "" && diaChiChiTiet != "" && soLuong != "" && tienCoc != "" && tienDien != "" && tienNuoc != "" && gioiTinh != "" && quan != "" && phuong != "") {
-            fetchThemPhong(2, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files);
-
+            fetchSuaPhong(params.idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files);
         }
         else {
             alert("Hãy nhập đủ thông tin có đấu *");
@@ -262,24 +275,30 @@ function UpdateRoom() {
                             />
 
                             <div className='list-selected'>
-                                <div className="quan-m">
-                                    <div className="row">
-                                        {
-                                            tienIchSeleted && tienIchSeleted.length >= 0 && tienIchSeleted.map((item, index) => {
-                                                return (
-                                                    <Item1
-                                                        idItem={item.id}
-                                                        imgItem={`${baseURL}${item.hinh}`}
-                                                        tenItem={item.ten}
-                                                        // onClickItemQuanListener={clickQuan}
-                                                        onClickDeleteItemListener={onClickDeleteTienIch}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </div>
+                                {
+                                    tienIchSeleted ? <>
+                                        <b>Chỉnh sửa tiện ích đã chọn</b>
+                                        <div className="quan-m">
+                                            <div className="row">
+                                                {
+                                                    tienIchSeleted && tienIchSeleted.length >= 0 && tienIchSeleted.map((item, index) => {
+                                                        return (
+                                                            <Item1
+                                                                idItem={item.id}
+                                                                imgItem={`${baseURL}${item.hinh}`}
+                                                                tenItem={item.ten}
+                                                                // onClickItemQuanListener={clickQuan}
+                                                                onClickDeleteItemListener={onClickDeleteTienIch}
+                                                            />
+                                                        )
+                                                    })
+                                                }
+                                            </div>
 
-                                </div>
+                                        </div>
+                                    </> :
+                                        <></>
+                                }
                             </div>
                             <SelectMultipleOption
                                 label={"Chọn tiện ích"}
@@ -287,7 +306,32 @@ function UpdateRoom() {
                                 changeValue={onChangeTienIch}
                                 convertName={(item) => item.ten}
                             />
+                            <div className='list-selected'>
+                                {
+                                    hinhAnhSeleted && hinhAnhSeleted.length > 0 ? <>
+                                        <b>Danh sách hình đã chọn trước đó</b>
+                                        <div className="quan-m">
+                                            <div className="row">
+                                                {
+                                                    hinhAnhSeleted && hinhAnhSeleted.length >= 0 && hinhAnhSeleted.map((item, index) => {
+                                                        return (
+                                                            <Item1
+                                                                idItem={item.id}
+                                                                imgItem={`${baseURL}${item.hinh}`}
+                                                                // tenItem={item.ten}
+                                                                // onClickItemQuanListener={clickQuan}
+                                                                onClickDeleteItemListener={onClickDeleteImage}
+                                                            />
+                                                        )
+                                                    })
+                                                }
+                                            </div>
 
+                                        </div>
+                                    </> :
+                                        <></>
+                                }
+                            </div>
                             <InputMultipleFile
                                 label={"Chọn hình:"}
                                 onChangeFile={onChangeImages}
@@ -295,7 +339,7 @@ function UpdateRoom() {
                             <div className="d-grid gap-2">
                                 <Button
                                     label={"Thêm phòng"}
-                                    onClickButton={onClickButtonAdd}
+                                    onClickButton={onClickButtonUpdate}
                                 />
                             </div>
                         </form>

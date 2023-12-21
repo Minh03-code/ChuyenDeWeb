@@ -22,6 +22,14 @@ const themPhong = (idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuon
         data,
         config);
 }
+const updatePhong = (idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages) => {
+    const data = { idPhong: idPhong, soPhong: soPhong, gia: gia, dienTich: dienTich, moTa: moTa, diaChiChiTiet: diaChiChiTiet, soLuongToiDa: soLuongToiDa, tienCoc: tienCoc, tienDien: tienDien, tienNuoc: tienNuoc, gioiTinh: gioiTinh, idQuan: idQuan, idPhuong: idPhuong, hinh: listImages, tienIch: listTienIch };
+    console.log(data);
+    return myAxios.post(
+        `api/phongtro/updateweb`,
+        data,
+        config);
+}
 const layThongTinPhongTheoID = (idPhong) => {
     return myAxios.get(`api/phongtro/chitiet?id=${idPhong}`);
 }
@@ -44,8 +52,14 @@ const layThongTinTaiKhoan = (idTaiKhoan) => {
 const xoaItemInListTienIchSeleted = (idPhong, idTienIch) => {
     return myAxios.delete(`api/phongtrotienich/delete?idPhong=${idPhong}&idTienIch=${idTienIch}`);
 }
+const xoaItemInListImageSeleted = (idHinh) => {
+    return myAxios.delete(`api/hinhcuaphong/delete?idHinh=${idHinh}`);
+}
 const layTatCaTienIchDaChonCuaPhong = (idPhong) => {
     return myAxios.get(`api/phongtrotienich/getseleted?idPhong=${idPhong}`);
+}
+const layTatCaImageDaChonCuaPhong = (idPhong) => {
+    return myAxios.get(`api/hinhanh/getseleted?idPhong=${idPhong}`);
 }
 
 
@@ -64,5 +78,8 @@ export {
     layDanhSachPhongHoatDong,
     layThongTinTaiKhoan,
     xoaItemInListTienIchSeleted,
-    layTatCaTienIchDaChonCuaPhong
+    layTatCaTienIchDaChonCuaPhong,
+    xoaItemInListImageSeleted,
+    layTatCaImageDaChonCuaPhong,
+    updatePhong
 };
