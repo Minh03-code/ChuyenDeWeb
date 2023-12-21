@@ -24,19 +24,23 @@ import tim2 from "./imgs/phuc/tim2.png";
 import anhKhongCoAnh from "./imgs/phuc/khongcoanh.png";
 import anhNguoiThue from "./imgs/phuc/anhnguoithue.png";
 import anhMoTa from "./imgs/phuc/anhmota.png";
+import { ToastContainer, toast } from "react-toastify";
 import {
   capNhatPhongGoiY,
+  capNhatYeuThich,
   getChuTroById,
   getDanhSachPhongTheoIdQuan,
   getDetailPhongTro,
   getNguoiThueTheoPhong,
+  getTrangThaiYeuThich,
   guiYeuCauDatPhong,
 } from "../../services/nguoithue/PhucService";
 import { baseURL } from "../../services/my-axios";
 import { guiYeuCauXacThuc } from "../../services/chutro/PhucService";
+import Dialog from "../item/Dialog";
+import { Alert } from "react-bootstrap";
 
 const ChiTietPhongTro = () => {
-  let idPhong = 149;
   let idTaiKhoan = 84;
   const [result, setResult] = useState({});
   const [listHinhAnh, setListHinhAnh] = useState();
@@ -44,31 +48,40 @@ const ChiTietPhongTro = () => {
   const [listPhongTheoQuan, setListPhongTheoQuan] = useState();
   const [listNguoiThue, setListNguoiThue] = useState();
   const [chuTro, setChuTro] = useState({});
+  const [showDialog, setShowDialog] = useState(false);
+  const [idPhong, setIdPhong] = useState(149);
+  const [datPhong, setDatPhong] = useState();
+  const [visible, setVisible] = useState(false);
+
+  const onDismiss = () => setVisible(false);
+
+  // const [trangThaiYT, setTrangThaiYT] = useState();
 
   const fetchDataPhong = async () => {
     const res = await getDetailPhongTro(idPhong);
-    if (res) {
-      setResult(res);
-      setListHinhAnh(res.hinhAnhPhongTro);
-      setListTienIch(res.danhSachTienIch);
-      let idTaiKhoanChuTro = res.phongTroChuTro.idTaiKhoan;
-      const res1 = await getChuTroById(idTaiKhoanChuTro);
-      setChuTro(res1);
+    if (res != null) {
+      if (res) {
+        setResult(res);
+        setListHinhAnh(res.hinhAnhPhongTro);
+        setListTienIch(res.danhSachTienIch);
+        let idTaiKhoanChuTro = res.phongTroChuTro.idTaiKhoan;
+        const res1 = await getChuTroById(idTaiKhoanChuTro);
+        setChuTro(res1);
 
-      let loaiPhong = res.loaiPhong;
-      let idQuan = res.idQuan;
-      let tienCoc = res.tienCoc;
-      let gioiTinh = res.gioiTinh;
-      console.log("quannnnn", idQuan);
+        let loaiPhong = res.loaiPhong;
+        let idQuan = res.idQuan;
+        let tienCoc = res.tienCoc;
+        let gioiTinh = res.gioiTinh;
 
-      if (loaiPhong !== 2) {
-        let btn_send = document.querySelector(
-          ".thong-tin-chi-tiet-left-ctct-2"
-        );
-        btn_send.style.display = "none";
+        if (loaiPhong !== 2) {
+          let btn_send = document.querySelector(
+            ".thong-tin-chi-tiet-left-ctct-2"
+          );
+          btn_send.style.display = "none";
+        }
+
+        capNhatPhongGoiYApi(idTaiKhoan, idQuan, tienCoc, gioiTinh);
       }
-
-      capNhatPhongGoiYApi(idTaiKhoan, idQuan, tienCoc, gioiTinh);
     }
   };
 
@@ -77,6 +90,7 @@ const ChiTietPhongTro = () => {
     fetchDataPhong();
     fetchDataDanhSachPhongTheoQuan();
     fetchDataNguoiThue();
+    fetchDaTaYeuThich();
   }, []);
 
   const capNhatPhongGoiYApi = async (idTaiKhoan, idQuan, tienCoc, gioiTinh) => {
@@ -93,18 +107,21 @@ const ChiTietPhongTro = () => {
     idTaiKhoanNhan,
     idPhong
   ) => {
-    const res = await guiYeuCauDatPhong(idTaiKhoanGui, idTaiKhoanNhan, idPhong);
+    let res = await guiYeuCauDatPhong(idTaiKhoanGui, idTaiKhoanNhan, idPhong);
+    if (res !== null) {
+      setDatPhong(res);
+      setShowDialog(false);
+      toast.info(res.message);
+    }
   };
 
   let idTaiKhoanChuTro = chuTro.idTaiKhoan;
 
   const onCLickDatPhong = () => {
-    requestYeuCauDatPhong(idTaiKhoan, idTaiKhoanChuTro, idPhong);
+    // requestYeuCauDatPhong(idTaiKhoan, idTaiKhoanChuTro, idPhong);
 
-    alert("ok r đó");
-    console.log("idTaiKhoanGui", idTaiKhoan);
-    console.log("idTaiKhoanNhan", idTaiKhoanChuTro);
-    console.log("idPhong", idPhong);
+    setIdPhong(idPhong);
+    setShowDialog(true);
   };
 
   const fetchDataNguoiThue = async () => {
@@ -133,11 +150,61 @@ const ChiTietPhongTro = () => {
     });
   };
 
+  const onCloseDialog = () => {
+    setShowDialog(false);
+  };
+
+  const onCLickXacNhanDatPhong = (idPhong) => {
+    requestYeuCauDatPhong(idTaiKhoan, idTaiKhoanChuTro, idPhong);
+  };
+
+  const fetchDaTaYeuThich = async () => {
+    let res = await getTrangThaiYeuThich(idPhong, idTaiKhoan);
+    let trangThai = res;
+
+    if (trangThai === 0) {
+      let btn_send = document.querySelector(".anhTim");
+      btn_send.style.display = "none";
+      let btn_send2 = document.querySelector(".anhTim2");
+      btn_send2.style.display = "unset";
+    } else {
+      let btn_send = document.querySelector(".anhTim");
+      btn_send.style.display = "unset";
+      let btn_send2 = document.querySelector(".anhTim2");
+      btn_send2.style.display = "none";
+    }
+  };
+
+  const requestYeuThich = async (idPhong, idTaiKhoan) => {
+    let res = await capNhatYeuThich(idPhong, idTaiKhoan);
+  };
+
+  const onClickYeuThich = () => {
+    let btn_send = document.querySelector(".anhTim");
+    btn_send.style.display = "none";
+    let btn_send2 = document.querySelector(".anhTim2");
+    btn_send2.style.display = "unset";
+    console.log("aaaaaaaaa", idPhong);
+    console.log("aaaaaaaaa", idTaiKhoan);
+    requestYeuThich(idPhong, idTaiKhoan);
+    toast.success("Bỏ yêu thích thành công");
+   
+  };
+  const onClickYeuThich2 = () => {
+    let btn_send = document.querySelector(".anhTim2");
+    btn_send.style.display = "none";
+    let btn_send2 = document.querySelector(".anhTim");
+    btn_send2.style.display = "unset";
+    requestYeuThich(idPhong, idTaiKhoan);
+    toast.success("Đã thêm vào danh sách yêu thích");
+  };
+
   return (
     <>
       <div className="main-content">
         <div className="container">
           <div className="bao-ngoai">
+         
             <div className="anh-chi-tiet-phong-tro">
               <div class="bg-green">
                 <div class="wrap">
@@ -159,7 +226,17 @@ const ChiTietPhongTro = () => {
                 <div className="dia-chi-left">
                   <p className="text-so-phong">Phòng trọ số {result.soPhong}</p>
                   <div className="icon-tim">
-                    <img className="anhTim" src={tim2}></img>
+                    <img
+                      onClick={onClickYeuThich}
+                      className="anhTim"
+                      src={tim2}
+                    ></img>
+
+                    <img
+                      onClick={onClickYeuThich2}
+                      className="anhTim2"
+                      src={tim1}
+                    ></img>
                   </div>
                 </div>
                 <div className="dia-chi-right">
@@ -242,6 +319,18 @@ const ChiTietPhongTro = () => {
                     </div>
 
                     <div className="mid-thong-tin">
+                      <ToastContainer
+                        position="top-right"
+                        autoClose={1000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="dark"
+                      />
                       <div className="item1">
                         <div className="label-thong-tin">Địa chỉ</div>
                         <div className="label-thong-tin">
@@ -309,6 +398,7 @@ const ChiTietPhongTro = () => {
                       </div>
                     </div>
                   </div>
+
                   <div className="thong-tin-chi-tiet-left-ctct">
                     <div className="header-thong-tin">
                       <img className="anhThongTin" src={anhDanhGia}></img>
@@ -333,6 +423,7 @@ const ChiTietPhongTro = () => {
                       </div>
                     </div>
                   </div>
+
                   <div className="thong-tin-chi-tiet-left-ctct">
                     <div className="header-thong-tin">
                       <img className="anhThongTin" src={anhLienHe}></img>
@@ -358,12 +449,12 @@ const ChiTietPhongTro = () => {
                       </div>
                     </div>
                   </div>
+
                   <div className="thong-tin-chi-tiet-left-ctct-2">
                     <div className="header-thong-tin">
                       <img className="anhThongTin" src={anhNguoiThue}></img>
                       <p className="textThongTin">Danh sách người thuê</p>
                     </div>
-                    {console.log("ngngngn", listNguoiThue)}
                     {listNguoiThue &&
                       listNguoiThue.length >= 0 &&
                       listNguoiThue.map((item, index) => {
@@ -479,85 +570,17 @@ const ChiTietPhongTro = () => {
                   </>
                 );
               })}
-
-            {/* <div className="content-danh-sach">
-              {}
-              <div className="content-danh-sach-left">
-                <img className="anhPhong" src={anhPhong} />
-              </div>
-              <div className="content-danh-sach-right">
-                <p className="soPhong">Số phòng 9</p>
-                <div className="thongTinChung">
-                  <div className="thongTinChung-left">
-                    <div className="thongTinChung-item">
-                      <img className="iconThongTin" src={anhLoaiPhong} />
-                      <p className="textThongTin2">Phòng cho thuê</p>
-                    </div>
-                    <div className="thongTinChung-item2">
-                      <img className="iconThongTin" src={anhGioTinh} />
-                      <p className="textThongTin2">Nam</p>
-                    </div>
-                    <div className="thongTinChung-item2">
-                      <img className="iconThongTin" src={anhSao} />
-                      <p className="textThongTin2">Quận</p>
-                    </div>
-                    <div className="thongTinChung-item">
-                      <img className="iconThongTin" src={anhMap} />
-                      <p className="textThongTin2">Địa chỉ chi tiết</p>
-                    </div>
-                  </div>
-                  <div className="thongTinhChung-right">
-                    <div className="thongTinhChung-right-left">
-                      <p className="gia">4.5 triệu/tháng</p>
-                    </div>
-                    <div className="thongTinhChung-right-right">
-                      <button className="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="line-cach"></div>
-            </div> */}
-
-            {/* <div className="content-danh-sach">
-              <div className="content-danh-sach-left">
-                <img className="anhPhong" src={anhPhong} />
-              </div>
-              <div className="content-danh-sach-right">
-                <p className="soPhong">Số phòng 9</p>
-                <div className="thongTinChung">
-                  <div className="thongTinChung-left">
-                    <div className="thongTinChung-item">
-                      <img className="iconThongTin" src={anhLoaiPhong} />
-                      <p className="textThongTin2">Phòng cho thuê</p>
-                    </div>
-                    <div className="thongTinChung-item2">
-                      <img className="iconThongTin" src={anhGioTinh} />
-                      <p className="textThongTin2">Nam</p>
-                    </div>
-                    <div className="thongTinChung-item2">
-                      <img className="iconThongTin" src={anhSao} />
-                      <p className="textThongTin2">Quận</p>
-                    </div>
-                    <div className="thongTinChung-item">
-                      <img className="iconThongTin" src={anhMap} />
-                      <p className="textThongTin2">Địa chỉ chi tiết</p>
-                    </div>
-                  </div>
-                  <div className="thongTinhChung-right">
-                    <div className="thongTinhChung-right-left">
-                      <p className="gia">4.5 triệu/tháng</p>
-                    </div>
-                    <div className="thongTinhChung-right-right">
-                      <button className="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
+      <Dialog
+        id={idPhong}
+        show={showDialog}
+        onClickCANCAL={onCloseDialog}
+        title="Thông báo"
+        content={`Bạn chắc chắn muốn đặt phòng này ?`}
+        onClickOK={onCLickXacNhanDatPhong}
+      />
     </>
   );
 };

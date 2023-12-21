@@ -33,7 +33,27 @@
 .icon-tim{
     display: inline-block;
     float: right;
+    position: relative;
 }
+.anhTim{
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    position: absolute;
+    /* z-index: 1; */
+
+}
+/* .anhTim:hover{
+    width: 60px;
+    height: 60px;
+} */
+.anhTim2{
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    position: absolute;
+}
+
 
 .dia-chi .dia-chi-right{
     width: 19.%;
@@ -78,6 +98,7 @@
     padding: 30px;
     /* ma */
 }
+
 .thong-tin-chi-tiet-left-ctp-2{
     overflow: hidden;
     clear: both;
@@ -157,6 +178,7 @@
     margin-top: 30px;
     overflow: hidden;
     clear: both;
+    z-index: -1;
 }
 .mid-chu-tro-2 {
     display: flexbox;
@@ -311,6 +333,7 @@ width: 30%;
 }
 .danh-gia-right{
     float: right;
+
 }
 .text-danh-gia{
     font-size: 20px;
@@ -338,11 +361,7 @@ width: 30%;
     margin-top: 20px;
     width: 100%;
 }
-.anhTim{
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-}
+
 
 .textLienQuan{
     height: 100%;
@@ -409,11 +428,12 @@ width: 30%;
     transform: scale(1.2);
     box-shadow: 1px 10px 20px #000;
 }
-.item{
+.item_thong_bao{
     width: auto;
     height: auto;
     border: #000 solid 1px;
 }
+
 .wrap{
     position: absolute;
     display: flex;
