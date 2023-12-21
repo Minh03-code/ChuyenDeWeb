@@ -3,6 +3,7 @@ import { getProfileNguoiThue, getProfileReceiver, getListTinNhan, taoPhongTinNha
 import { baseURL } from '../../services/my-axios.js';
 import { getDatabase, ref, onValue, set } from "firebase/database";
 import Footer from '../item/Footer.js';
+import ImagesBanner from '../item/ImagesBanner.js';
 class TinNhanRealTime extends React.Component {
     state = {
         listUser: [],
@@ -230,9 +231,9 @@ class TinNhanRealTime extends React.Component {
         let isObjectReceiver = Object.keys(receiver).length === 0
         return (
             <>
-                <div className="page-heading header-text ">
-                    
-                </div>
+                <header>
+                <ImagesBanner/>
+                </header>
                 <div className='section activity_tin_nhan'>
                     <div className="row man_hinh_nhan_tin">
                         {

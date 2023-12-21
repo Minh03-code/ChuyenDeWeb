@@ -3,7 +3,8 @@ import anhnhatro from '../../images/anhnhatro.jpg';
 import { baseURL } from '../../services/my-axios';
 import { layDanhSachPhongGoiY,layTongDanhSachGoiY } from '../../services/admin/NghiemService';
 import ReactPaginate from 'react-paginate';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import ImagesBanner from '../item/ImagesBanner';
 class DanhSachPhongGoiY extends React.Component {
     
     state = {
@@ -75,15 +76,10 @@ class DanhSachPhongGoiY extends React.Component {
         let {listRoomGoiY,numberObjectin1Page,currentPage,tongSoPage}= this.state;
         return (
                 <>
-                     <div className="page-heading header-text">
-                        <div className="container">
-                            <div className="row">
-                            <div className="col-lg-12">
-                                <h3>Danh Sách Phòng Có Thể Bạn Quan Tâm</h3>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
+                <header>
+                <ImagesBanner/>
+                </header>
+                    
                     <div className="section container">
                         <div className='danhsachgoiy'>
                             <h3 className='tieuDe'>
@@ -153,7 +149,10 @@ class DanhSachPhongGoiY extends React.Component {
                                                                 </div>
                                                             </div>
                                                             <div className='infor_card_view_phong_goi_y_right'>
+                                                                <NavLink to={`/nguoithue/chitietphongtro?idPhong=${item.id}`}>
                                                                 <span className='xem_chi_tiet'>Xem</span>
+                                                                </NavLink>
+                                                                
                                                             </div>
                                                             
 
