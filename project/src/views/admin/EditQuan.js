@@ -3,6 +3,7 @@ import { layQuanTheoId, editQuan, editQuankhonghinh } from '../../services/admin
 import { baseURL } from "../../services/my-axios";
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import './styleThinh.css';
 
 class EditQuan extends React.Component {
 
@@ -68,13 +69,14 @@ class EditQuan extends React.Component {
                             <div className="card flex-fill">
                                 <div className="card-header">
                                     <div className="row">
-                                        <div className="col-md-3">
-                                            <h5 className="card-title mb-0">EDIT quận</h5>
+                                        <div className="edit">
+                                            <h5 className='text_edit'>Edit quận</h5>
                                         </div>
                                     </div>
                                 </div>
+                                <div className='form1'>
                                 <div class="row g-2 align-items-center">
-                                    <label class="form-label">ID: {id}</label>
+                                    <label class="form-label">ID quận: {id}</label>
                                     <div class="col-auto">
                                         <label class="col-form-label">Tên quận Mới:</label>
                                     </div>
@@ -83,12 +85,12 @@ class EditQuan extends React.Component {
                                     </div>
                                 </div>
                                 <label class="form-label">Hình Cũ</label>
-                                <td className="d-none d-xl-table-cell">
+                                <td className="hinhanh">
                                     <img
                                         src={baseURL + list.hinh}
                                         alt={baseURL + hinh}
-                                        width="400px"
-                                        height="200px"
+                                        width="100%"
+                                        height="100%"
                                     />
                                 </td>
                                 <div class="col-auto">
@@ -96,7 +98,8 @@ class EditQuan extends React.Component {
                                     <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control form-control-lg" />
                                 </div>
                                 <div className="col-md">
-                                    <NavLink to={`/admin/quanlykhuvuc`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Sửa</button></NavLink>
+                                    <NavLink to={`/admin/quanlykhuvuc`}><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Cập nhật</button></NavLink>
+                                </div>
                                 </div>
                             </div>
                         </div>
