@@ -1,9 +1,11 @@
 .bao-ngoai{
     padding-top: 50px;
     display: block;
-    width: 100%;
-    height: 1360px;
-    /* background: wheat; */
+    /* width: 100%;
+    height: 1500px; */
+    background: #f6f5f2;
+    overflow: hidden;
+    clear: both;
 }
 .dia-chi{
     width: 100%;
@@ -26,6 +28,7 @@
     display: inline-block;
     float: left;
     margin-top: 15px;
+    margin-left: 300px;
 }
 .icon-tim{
     display: inline-block;
@@ -75,15 +78,30 @@
     padding: 30px;
     /* ma */
 }
-
+.thong-tin-chi-tiet-left-ctp-2{
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 30px;
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+}
 .thong-tin-chi-tiet-left-ctct{
-    width: 100%;
-    height: 195px;
+    overflow: hidden;
+    clear: both;
     margin-bottom: 30px;
     background: white;
     border-radius: 10px;
     padding: 30px;
     /* ma */
+}
+.thong-tin-chi-tiet-left-ctct-2{
+   overflow: hidden;
+    clear: both;
+    margin-bottom: 30px;
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
 }
 .header-thong-tin{
   width: 100%;
@@ -108,14 +126,25 @@
     margin-top: 30px;
     width: 100%;
 }
+.line-cach-2{
+    height: 0.5px;
+    width: 100%;
+    background: black;
+    position: fixed;
+    bottom: 0;
+    margin-top: 10px;
+
+}
 .item1{
     display: inline-block;
     font-size: 15px;
-    margin-right: 100px;
+    width: calc(100%/4);
 }
 .main-content{
-    height: 2060px;
+    /* height: 2700px; */
     background: #f6f5f2;
+    overflow: hidden;
+    clear: both;
 }
 /* .avt-chu-tro{
     width: 60px;
@@ -126,24 +155,45 @@
 .mid-chu-tro{
     display: flex;
     margin-top: 30px;
+    overflow: hidden;
+    clear: both;
 }
+.mid-chu-tro-2 {
+    display: flexbox;
+    margin-top: 20px;
+   height: 70px;
+}
+
 .avt-chu-tro-2{
     width: 60px;
     height: 60px;
     border-radius: 100%;
     display: inline-block;
 }
-.thong-tin-chu-tro{
-   display: inline-block; 
-   margin-top: 6px;
-   margin-left: 12px;
+.thong-tin-chu-tro-2{
+    margin-top: 15px;
+    margin-left: 10px;
+    display: inline-block;
+
+}
+.btn-chat-2{
+    float: right;
+    display: inline-block;
+    margin-top: 5px;
 }
 .danh-sach-lien-quan{
-    width: 100%;
-    height: 700px;
+    /* width: 100%;
+    height: 700px; */
     background: white;
     border-radius: 10px;
+    overflow: hidden;
+    clear: both;
 }
+.thong-tin-chu-tro{
+    display: inline-block; 
+    margin-top: 6px;
+    margin-left: 12px;
+ }
 .header-danh-sach{
     width: 100%;
     height: 57px;
@@ -223,6 +273,9 @@ display: flexbox    ;
 float: left;
 width: 30%;
 }
+.danh-gia-left2{
+    width: calc(100%/2);
+}
 .gia{
     font-size: 40px;
     color: #f73486;
@@ -253,7 +306,8 @@ width: 30%;
 }
 .danh-gia-left{
     float: left;
-    margin-right: 60px;
+    width: calc(100%/4);
+    margin-bottom: 20px;
 }
 .danh-gia-right{
     float: right;
@@ -298,9 +352,12 @@ width: 30%;
     width: 280px;
 }
 .thong-tin{
-    height: 780px;
-    width: 100%;
-    background: #f6f5f2;    
+    /* height: 100%;
+    width: 100%; */
+    background: #f6f5f2;   
+    overflow: hidden;
+    clear: both;
+
     /* margin-top: 50px; */
 }
 .anh-chi-tiet-phong-tro{
@@ -316,6 +373,11 @@ width: 30%;
     height: 200px;
     background: greenyellow;
 }
+
+.label-thong-tin2{
+    margin-bottom: 10px;
+}
+
 
 .bg-green{
     /* background: #008000; */
@@ -358,5 +420,58 @@ width: 30%;
     flex-wrap: nowrap;
     padding: 0 100px;
 }
+.modal_video_review{
+    display: none; /* mặc định được ẩn đi */
+    position: fixed; /* vị trí cố định */
+    z-index: 2; /* Ưu tiên hiển thị trên cùng */
+    padding-top: 20px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+}
+.area_content_video_review{
+    margin: 0 auto;
+    width: 50%;
+    height: 95%;
+    background: #fff;
+    border-radius: 50px;
+}
+.title_area_content_video_review_tro{
+    width: 100%;
+    height: 10%;
+    background: #CAF272;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 10px;
+}
+.area_video_review_tro{
+    width: 100%;
+    height: 80%;
+    
+}
+.footer_area_content_video_review_tro{
+    width: 100%;
+    height: 10%;
+    background: #D9A23D;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 10px;
+}
+.footer_area_content_video_review_tro:hover{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
 
 

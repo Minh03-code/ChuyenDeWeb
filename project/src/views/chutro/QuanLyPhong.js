@@ -11,8 +11,10 @@ import PhongItem3 from '../item/PhongItem3';
 import notImage from "./imgs/not_image.jpg";
 import Button from '../item/Button.js';
 import Dialog from '../item/Dialog.js';
+import { xoaphong } from '../../services/chutro/ThinhService.js';
 
 function QuanLyPhong() {
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     const [list, setList] = useState([]);
     const [idPhong, setIdPhong] = useState(-1);
@@ -64,8 +66,19 @@ function QuanLyPhong() {
     const onChangeActive = (idPhong) => {
 
     }
-    const xacNhanXoaPhong = (idPhong) => {
-        alert(idPhong);
+    const xacNhanXoaPhong = async (idPhongTro) => {
+        
+        try {
+            await xoaphong(sessionStorage.getItem('idNguoiDung'), idPhongTro);
+            console.log("Phòng đã được xóa thành công!");
+            fetchDataPhong(); // Làm mới danh sách phòng sau khi xóa
+        } catch (error) {
+            console.error('Lỗi khi xóa phòng:', error);
+            setError('Lỗi khi xóa phòng. Vui lòng thử lại.');
+        }
+
+
+
     }
     const themPhong = () => {
         if (chuTro.xacThuc === 1) {

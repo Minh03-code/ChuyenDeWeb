@@ -77,7 +77,6 @@ class ChiTietNguoiThueTro extends React.Component {
                                     <div className='chutro_info'>Loại: {loaiTaiKhoan == 1 ? <>Chủ trọ</> : <>Người thuê</>}</div>
                                     <NavLink to={`/chutro/tinnhan?id=${idTaiKhoan}`} ><button className='btn btn-primary bbt'>Nhắn tin</button></NavLink>
                                     <NavLink to={`/chutro/danhsachnguoithue?idPhong=${idPhong}`} ><button className='btn btn-primary bbt'>Quay lại</button></NavLink>
-
                                 </div>
                             </div>
                             <div class="col-lg-12">
