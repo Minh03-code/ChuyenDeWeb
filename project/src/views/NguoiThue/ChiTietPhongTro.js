@@ -34,16 +34,21 @@ import {
 } from "../../services/nguoithue/PhucService";
 import { baseURL } from "../../services/my-axios";
 import { guiYeuCauXacThuc } from "../../services/chutro/PhucService";
+import { NavLink } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { layVideoXuong } from "../../services/admin/NghiemService";
 
 const ChiTietPhongTro = () => {
-  let idPhong = 149;
-  let idTaiKhoan = 84;
+  let idPhong = 145;
+  let idTaiKhoan = 73;
   const [result, setResult] = useState({});
   const [listHinhAnh, setListHinhAnh] = useState();
   const [listTienIch, setListTienIch] = useState();
   const [listPhongTheoQuan, setListPhongTheoQuan] = useState();
   const [listNguoiThue, setListNguoiThue] = useState();
   const [chuTro, setChuTro] = useState({});
+  const [videoReview,setVideoReview] = useState({});
+  const navigation = useNavigate();
 
   const fetchDataPhong = async () => {
     const res = await getDetailPhongTro(idPhong);
@@ -54,7 +59,7 @@ const ChiTietPhongTro = () => {
       let idTaiKhoanChuTro = res.phongTroChuTro.idTaiKhoan;
       const res1 = await getChuTroById(idTaiKhoanChuTro);
       setChuTro(res1);
-
+      
       let loaiPhong = res.loaiPhong;
       let idQuan = res.idQuan;
       let tienCoc = res.tienCoc;
@@ -69,6 +74,10 @@ const ChiTietPhongTro = () => {
       }
 
       capNhatPhongGoiYApi(idTaiKhoan, idQuan, tienCoc, gioiTinh);
+    }
+    const resVideo =  await layVideoXuong(idPhong);
+    if(resVideo!=null){
+      setVideoReview(resVideo);
     }
   };
 
@@ -141,6 +150,14 @@ const ChiTietPhongTro = () => {
     let modal = document.querySelector(".modal_video_review");
     modal.style.display = "none"
   }
+ 
+  const nhanTin = (idTaiKhoan1)=>{
+    if(idTaiKhoan1===idTaiKhoan){
+      alert("Không thể nhắn tin cho chính bạn!");
+    }else{
+      navigation(`/nguoithue/tinnhan?id=${idTaiKhoan1}`);
+    }
+  }
   return (
     <>
       <div className="main-content">
@@ -167,8 +184,13 @@ const ChiTietPhongTro = () => {
                                   
                             </div>
                             <div className="area_video_review_tro">
-                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/ION36k3dVNE?si=0Oed90clHiZ7S8l6" className="if_video_nt"  
+
+                              {
+                                videoReview.id!==-1?
+                                <iframe width="100%" height="100%" src={videoReview.loaiVideo===0?baseURL+videoReview.linkVideo:"https://www.youtube.com/embed/"+videoReview.linkVideo} className="if_video_nt"  
                                 title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                                :<>Chủ trọ chưa thêm video</>
+                              }
                             </div>
                             <div className="footer_area_content_video_review_tro" onClick={closeModal}>
                                   Đóng
@@ -189,7 +211,7 @@ const ChiTietPhongTro = () => {
                 </div>
                 <div className="dia-chi-right">
                   <img className="icon-play" src={anhPlay}></img>
-                  <button type="button" class="btn btn-warning">
+                  <button type="button" class="btn btn-warning" onClick={openModal}>
                     Review room
                   </button>
                 </div>
@@ -378,7 +400,10 @@ const ChiTietPhongTro = () => {
                       <div className="danh-gia-right">
                         <img className="icon-danh-gia" src={anhTinNhan} />
                         <div className="thong-tin-chu-tro2">
-                          <button className="btn btn-info">Nhắn tin</button>
+                          {/* <NavLink to={`/nguoithue/tinnhan?id=${chuTro.idTaiKhoan}`}> */}
+                          <button className="btn btn-info" onClick={()=>nhanTin(chuTro.idTaiKhoan)}>Nhắn tin</button>
+                          {/* </NavLink> */}
+                         
                         </div>
                       </div>
                     </div>
@@ -406,9 +431,13 @@ const ChiTietPhongTro = () => {
                                   {item.nguoiThue.ten}
                                 </div>
                               </div>
-                              <button className="btn btn-info btn-chat-2">
+                              {/* <NavLink to={`/nguoithue/tinnhan?id=${item.nguoiThue.idTaiKhoan}`}> */}
+                              <button className="btn btn-info btn-chat-2" onClick={()=>nhanTin(item.nguoiThue.idTaiKhoan)}>
                                 Chat
                               </button>
+
+                              
+                              
                               <div className="line-cach-2"></div>
                             </div>
                           </>
@@ -505,81 +534,7 @@ const ChiTietPhongTro = () => {
                 );
               })}
 
-            {/* <div className="content-danh-sach">
-              {}
-              <div className="content-danh-sach-left">
-                <img className="anhPhong" src={anhPhong} />
-              </div>
-              <div className="content-danh-sach-right">
-                <p className="soPhong">Số phòng 9</p>
-                <div className="thongTinChung">
-                  <div className="thongTinChung-left">
-                    <div className="thongTinChung-item">
-                      <img className="iconThongTin" src={anhLoaiPhong} />
-                      <p className="textThongTin2">Phòng cho thuê</p>
-                    </div>
-                    <div className="thongTinChung-item2">
-                      <img className="iconThongTin" src={anhGioTinh} />
-                      <p className="textThongTin2">Nam</p>
-                    </div>
-                    <div className="thongTinChung-item2">
-                      <img className="iconThongTin" src={anhSao} />
-                      <p className="textThongTin2">Quận</p>
-                    </div>
-                    <div className="thongTinChung-item">
-                      <img className="iconThongTin" src={anhMap} />
-                      <p className="textThongTin2">Địa chỉ chi tiết</p>
-                    </div>
-                  </div>
-                  <div className="thongTinhChung-right">
-                    <div className="thongTinhChung-right-left">
-                      <p className="gia">4.5 triệu/tháng</p>
-                    </div>
-                    <div className="thongTinhChung-right-right">
-                      <button className="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="line-cach"></div>
-            </div> */}
-
-            {/* <div className="content-danh-sach">
-              <div className="content-danh-sach-left">
-                <img className="anhPhong" src={anhPhong} />
-              </div>
-              <div className="content-danh-sach-right">
-                <p className="soPhong">Số phòng 9</p>
-                <div className="thongTinChung">
-                  <div className="thongTinChung-left">
-                    <div className="thongTinChung-item">
-                      <img className="iconThongTin" src={anhLoaiPhong} />
-                      <p className="textThongTin2">Phòng cho thuê</p>
-                    </div>
-                    <div className="thongTinChung-item2">
-                      <img className="iconThongTin" src={anhGioTinh} />
-                      <p className="textThongTin2">Nam</p>
-                    </div>
-                    <div className="thongTinChung-item2">
-                      <img className="iconThongTin" src={anhSao} />
-                      <p className="textThongTin2">Quận</p>
-                    </div>
-                    <div className="thongTinChung-item">
-                      <img className="iconThongTin" src={anhMap} />
-                      <p className="textThongTin2">Địa chỉ chi tiết</p>
-                    </div>
-                  </div>
-                  <div className="thongTinhChung-right">
-                    <div className="thongTinhChung-right-left">
-                      <p className="gia">4.5 triệu/tháng</p>
-                    </div>
-                    <div className="thongTinhChung-right-right">
-                      <button className="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+            
           </div>
         </div>
       </div>
