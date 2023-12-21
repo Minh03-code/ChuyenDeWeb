@@ -5,8 +5,12 @@ function InputText(props) {
     //     props.changeValue(text);
     // }
     const changeText = (e) => {
+        console.log(">>>> changeText");
         // setText(e.target.value)
-        props?.changeValue(e.target.value);
+        if (props.changeValue){
+            props.changeValue(e.target.value);
+        }
+        
     }
     return (
         <>
