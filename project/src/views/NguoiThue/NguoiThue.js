@@ -42,10 +42,18 @@ function NguoiThue() {
 
           <Route path="/thongtin" element={<ThongTinNguoiThue />}></Route>
           <Route path="/dangxuat" element={<DangXuat />}></Route>
-          <Route path="/chitietphongtro" element={<ChiTietPhongTro />}></Route>
-          <Route path="/editthongtinnguoithue" element={<EditThongTinNguoiThue />}></Route>
-          <Route path="/editpasswordnguoithue" element={<EditPassWordNguoiThue />}></Route>
-
+          <Route
+            path="/chitietphongtro/:id"
+            element={<ChiTietPhongTro />}
+          ></Route>
+          <Route
+            path="/editthongtinnguoithue"
+            element={<EditThongTinNguoiThue />}
+          ></Route>
+          <Route
+            path="/editpasswordnguoithue"
+            element={<EditPassWordNguoiThue />}
+          ></Route>
         </Routes>
         <FooterNguoiThue />
       </div>
