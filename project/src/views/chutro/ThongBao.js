@@ -56,7 +56,7 @@ class ThongBao extends React.Component {
                                         {listThongBaoById && listThongBaoById.length > 0 && listThongBaoById.map((item, index) => {
                                             return (
                                                 <div class="col-lg-12 col-md-6 align-self-center mb-30 trending-items col-md-6">
-                                                    <div class="item">
+                                                        <div class="item" style={{height: 8 + 'em', width: 80 + 'em'}}>
                                                         <div class="down-content">
                                                             <span class="category">{item.noiDung}</span>
                                                             <h4>{item.nguoiGui.ten}</h4>
