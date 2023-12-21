@@ -32,6 +32,15 @@ const layTatCaBinhLuanCuaPhong = (idPhong) => {
 const themBinhLuanChoPhong = (idPhong, idTaiKhoan, noiDung) => {
     return myAxios.put(`api/phongbinhluan/create?idPhong=${idPhong}&idTaiKhoan=${idTaiKhoan}&noiDungBinhLuan=${noiDung}`);
 }
+const layDanhSachQuan = () => {
+    return myAxios.get(`api/quan/all/hoatdong`);
+}
+const layDanhSachPhongHoatDong = () => {
+    return myAxios.get(`api/phongtro/all?loaiPhong=0&arrange=asc`);
+}
+const layThongTinTaiKhoan = (idTaiKhoan) => {
+    return myAxios.get(`/api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+}
 
 // export { multiple };
 export {
@@ -42,5 +51,8 @@ export {
     themPhong, 
     layThongTinPhongTheoID, 
     layTatCaBinhLuanCuaPhong,
-    themBinhLuanChoPhong
+    themBinhLuanChoPhong,
+    layDanhSachQuan,
+    layDanhSachPhongHoatDong,
+    layThongTinTaiKhoan
 };
