@@ -39,39 +39,39 @@ import { baseURL } from "../../services/my-axios";
 import { guiYeuCauXacThuc } from "../../services/chutro/PhucService";
 import Dialog from "../item/Dialog";
 import { NavLink } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { layVideoXuong } from "../../services/admin/NghiemService";
 
 const ChiTietPhongTro = () => {
-
-  let idTaiKhoan = 73;
+  const [idTaiKhoan, setIdTaiKhoan] = useState(sessionStorage.getItem("accountId"));
+  const params = useParams();
+  console.log(params.id);
   const [result, setResult] = useState({});
   const [listHinhAnh, setListHinhAnh] = useState();
   const [listTienIch, setListTienIch] = useState();
   const [listPhongTheoQuan, setListPhongTheoQuan] = useState();
   const [listNguoiThue, setListNguoiThue] = useState();
   const [chuTro, setChuTro] = useState({});
-  const [videoReview,setVideoReview] = useState({});
+  const [videoReview, setVideoReview] = useState({});
   const navigation = useNavigate();
   const [idPhong, setIdPhong] = useState(149);
   const [showDialog, setShowDialog] = useState(false);
-    const [datPhong, setDatPhong] = useState();
+  const [datPhong, setDatPhong] = useState();
 
   const fetchDataPhong = async () => {
     const res = await getDetailPhongTro(idPhong);
-    if (res!=null) {
+    if (res != null) {
       setResult(res);
       setListHinhAnh(res.hinhAnhPhongTro);
       setListTienIch(res.danhSachTienIch);
       let idTaiKhoanChuTro = res.phongTroChuTro.idTaiKhoan;
       const res1 = await getChuTroById(idTaiKhoanChuTro);
       setChuTro(res1);
-      
+
       let loaiPhong = res.loaiPhong;
       let idQuan = res.idQuan;
       let tienCoc = res.tienCoc;
       let gioiTinh = res.gioiTinh;
-   
 
       if (loaiPhong !== 2) {
         let btn_send = document.querySelector(
@@ -82,8 +82,8 @@ const ChiTietPhongTro = () => {
 
       capNhatPhongGoiYApi(idTaiKhoan, idQuan, tienCoc, gioiTinh);
     }
-    const resVideo =  await layVideoXuong(idPhong);
-    if(resVideo!=null){
+    const resVideo = await layVideoXuong(idPhong);
+    if (resVideo != null) {
       setVideoReview(resVideo);
     }
   };
@@ -110,15 +110,14 @@ const ChiTietPhongTro = () => {
     idTaiKhoanNhan,
     idPhong
   ) => {
-  let res = await guiYeuCauDatPhong(idTaiKhoanGui, idTaiKhoanNhan, idPhong);
+    let res = await guiYeuCauDatPhong(idTaiKhoanGui, idTaiKhoanNhan, idPhong);
     if (res !== null) {
       setDatPhong(res);
       setShowDialog(false);
       toast.info(res.message);
     }
- };
+  };
 
-  
   let idTaiKhoanChuTro = chuTro.idTaiKhoan;
 
   const onCLickDatPhong = () => {
@@ -154,24 +153,24 @@ const ChiTietPhongTro = () => {
     });
   };
 
-  const openModal = ()=>{
+  const openModal = () => {
     let modal = document.querySelector(".modal_video_review");
-    modal.style.display = "unset"
-  }
-  const closeModal = ()=>{
+    modal.style.display = "unset";
+  };
+  const closeModal = () => {
     let modal = document.querySelector(".modal_video_review");
-    modal.style.display = "none"
-  }
- 
-  const nhanTin = (idTaiKhoan1)=>{
-    if(idTaiKhoan1===idTaiKhoan){
+    modal.style.display = "none";
+  };
+
+  const nhanTin = (idTaiKhoan1) => {
+    if (idTaiKhoan1 === idTaiKhoan) {
       alert("Không thể nhắn tin cho chính bạn!");
-    }else{
+    } else {
       navigation(`/nguoithue/tinnhan?id=${idTaiKhoan1}`);
     }
-  }
+  };
 
-   const onCloseDialog = () => {
+  const onCloseDialog = () => {
     setShowDialog(false);
   };
 
@@ -209,7 +208,6 @@ const ChiTietPhongTro = () => {
     console.log("aaaaaaaaa", idTaiKhoan);
     requestYeuThich(idPhong, idTaiKhoan);
     toast.success("Bỏ yêu thích thành công");
-   
   };
   const onClickYeuThich2 = () => {
     let btn_send = document.querySelector(".anhTim2");
@@ -240,27 +238,39 @@ const ChiTietPhongTro = () => {
                 </div>
               </div>
               <div className="modal_video_review">
-                        <div className="area_content_video_review">
-                            <div className="title_area_content_video_review_tro">
-                                  Review Phòng Trọ 1
-                                  
-                            </div>
-                            <div className="area_video_review_tro">
-
-                              {
-                                videoReview.id!==-1?
-                                <iframe width="100%" height="100%" src={videoReview.loaiVideo===0?baseURL+videoReview.linkVideo:"https://www.youtube.com/embed/"+videoReview.linkVideo} className="if_video_nt"  
-                                title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
-                                :<>Chủ trọ chưa thêm video</>
-                              }
-                            </div>
-                            <div className="footer_area_content_video_review_tro" onClick={closeModal}>
-                                  Đóng
-                                  
-                            </div>
-                        </div>
-                        
+                <div className="area_content_video_review">
+                  <div className="title_area_content_video_review_tro">
+                    Review Phòng Trọ 1
+                  </div>
+                  <div className="area_video_review_tro">
+                    {videoReview.id !== -1 ? (
+                      <iframe
+                        width="100%"
+                        height="100%"
+                        src={
+                          videoReview.loaiVideo === 0
+                            ? baseURL + videoReview.linkVideo
+                            : "https://www.youtube.com/embed/" +
+                              videoReview.linkVideo
+                        }
+                        className="if_video_nt"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                      ></iframe>
+                    ) : (
+                      <>Chủ trọ chưa thêm video</>
+                    )}
+                  </div>
+                  <div
+                    className="footer_area_content_video_review_tro"
+                    onClick={closeModal}
+                  >
+                    Đóng
+                  </div>
                 </div>
+              </div>
             </div>
 
             <div className="thong-tin">
@@ -283,7 +293,11 @@ const ChiTietPhongTro = () => {
                 </div>
                 <div className="dia-chi-right">
                   <img className="icon-play" src={anhPlay}></img>
-                  <button type="button" class="btn btn-warning" onClick={openModal}>
+                  <button
+                    type="button"
+                    class="btn btn-warning"
+                    onClick={openModal}
+                  >
                     Review room
                   </button>
                 </div>
@@ -485,9 +499,13 @@ const ChiTietPhongTro = () => {
                         <img className="icon-danh-gia" src={anhTinNhan} />
                         <div className="thong-tin-chu-tro2">
                           {/* <NavLink to={`/nguoithue/tinnhan?id=${chuTro.idTaiKhoan}`}> */}
-                          <button className="btn btn-info" onClick={()=>nhanTin(chuTro.idTaiKhoan)}>Nhắn tin</button>
+                          <button
+                            className="btn btn-info"
+                            onClick={() => nhanTin(chuTro.idTaiKhoan)}
+                          >
+                            Nhắn tin
+                          </button>
                           {/* </NavLink> */}
-                         
                         </div>
                       </div>
                     </div>
@@ -516,12 +534,15 @@ const ChiTietPhongTro = () => {
                                 </div>
                               </div>
                               {/* <NavLink to={`/nguoithue/tinnhan?id=${item.nguoiThue.idTaiKhoan}`}> */}
-                              <button className="btn btn-info btn-chat-2" onClick={()=>nhanTin(item.nguoiThue.idTaiKhoan)}>
+                              <button
+                                className="btn btn-info btn-chat-2"
+                                onClick={() =>
+                                  nhanTin(item.nguoiThue.idTaiKhoan)
+                                }
+                              >
                                 Chat
                               </button>
 
-                              
-                              
                               <div className="line-cach-2"></div>
                             </div>
                           </>
@@ -617,8 +638,6 @@ const ChiTietPhongTro = () => {
                   </>
                 );
               })}
-
-            
           </div>
         </div>
       </div>
