@@ -63,13 +63,13 @@ const ThongTinNguoiThue = () => {
 
                 <Link
                   className="btn btn-primary bbt"
-                  //   to={`/chutro/editThongTinNguoiThue/${result.id}`}
+                  to={`/Nguoithue/editthongtinnguoithue`}
                 >
                   Chỉnh Sửa
                 </Link>
                 <Link
                   className="btn btn-warning bbt"
-                  to={`/chutro/editpasswordchutro`}
+                  to={`/Nguoithue/editpasswordnguoithue`}
                 >
                   Đổi mật khẩu
                 </Link>

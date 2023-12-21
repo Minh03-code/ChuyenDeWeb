@@ -11,7 +11,7 @@ import PhongItem3 from '../item/PhongItem3';
 import notImage from "./imgs/not_image.jpg";
 import Button from '../item/Button.js';
 import Dialog from '../item/Dialog.js';
-import { xoaphong } from '../../services/chutro/ThinhService.js';
+import { xoaPhong } from '../../services/chutro/ThinhService.js';
 
 function QuanLyPhong() {
     const [error, setError] = useState(null);
@@ -69,7 +69,7 @@ function QuanLyPhong() {
     const xacNhanXoaPhong = async (idPhongTro) => {
         
         try {
-            await xoaphong(sessionStorage.getItem('idNguoiDung'), idPhongTro);
+            await xoaPhong(sessionStorage.getItem('idNguoiDung'), idPhongTro);
             console.log("Phòng đã được xóa thành công!");
             fetchDataPhong(); // Làm mới danh sách phòng sau khi xóa
         } catch (error) {
