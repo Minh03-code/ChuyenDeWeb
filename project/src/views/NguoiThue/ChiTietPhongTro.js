@@ -22,11 +22,14 @@ import anhMayLanh from "./imgs/phuc/maylanh.png";
 import tim1 from "./imgs/phuc/tim1.png";
 import tim2 from "./imgs/phuc/tim2.png";
 import anhKhongCoAnh from "./imgs/phuc/khongcoanh.png";
+import anhNguoiThue from "./imgs/phuc/anhnguoithue.png";
+import anhMoTa from "./imgs/phuc/anhmota.png";
 import {
   capNhatPhongGoiY,
   getChuTroById,
   getDanhSachPhongTheoIdQuan,
   getDetailPhongTro,
+  getNguoiThueTheoPhong,
   guiYeuCauDatPhong,
 } from "../../services/nguoithue/PhucService";
 import { baseURL } from "../../services/my-axios";
@@ -39,6 +42,9 @@ const ChiTietPhongTro = () => {
   const [listHinhAnh, setListHinhAnh] = useState();
   const [listTienIch, setListTienIch] = useState();
   const [listPhongTheoQuan, setListPhongTheoQuan] = useState();
+  const [listNguoiThue, setListNguoiThue] = useState();
+  const [loaiPhong, setLoaiPhong] = useState();
+
   const [idQuan, setIdQuan] = useState();
   const [tienCoc, setTienCoc] = useState();
   const [gioiTinh, setGioiTinh] = useState();
@@ -51,12 +57,15 @@ const ChiTietPhongTro = () => {
       setListHinhAnh(res.hinhAnhPhongTro);
       setListTienIch(res.danhSachTienIch);
       let idTaiKhoanChuTro = res.phongTroChuTro.idTaiKhoan;
+      console.log("aaaaaaaaa", idTaiKhoanChuTro);
 
       const res1 = await getChuTroById(idTaiKhoanChuTro);
       setChuTro(res1);
       setIdQuan(res.idQuan);
       setTienCoc(res.tienCoc);
       setGioiTinh(res.gioiTinh);
+      setLoaiPhong(res.loaiPhong);
+      console.log("lalalaal", loaiPhong);
     }
   };
 
@@ -64,6 +73,8 @@ const ChiTietPhongTro = () => {
     suKien();
     fetchDataPhong();
     fetchDataDanhSachPhongTheoQuan();
+    fetchDataNguoiThue();
+
     // capNhatPhongGoiYApi(idTaiKhoan, idQuan, tienCoc, gioiTinh);
   }, []);
 
@@ -74,7 +85,6 @@ const ChiTietPhongTro = () => {
   const fetchDataDanhSachPhongTheoQuan = async () => {
     const res = await getDanhSachPhongTheoIdQuan(idTaiKhoan);
     setListPhongTheoQuan(res);
-    console.log("phong theo quan", res);
   };
 
   const requestYeuCauDatPhong = async (
@@ -94,6 +104,11 @@ const ChiTietPhongTro = () => {
     console.log("idTaiKhoanGui", idTaiKhoan);
     console.log("idTaiKhoanNhan", idTaiKhoanChuTro);
     console.log("idPhong", idPhong);
+  };
+
+  const fetchDataNguoiThue = async () => {
+    const res = await getNguoiThueTheoPhong(idPhong);
+    setListNguoiThue(res);
   };
 
   const suKien = () => {
@@ -141,9 +156,7 @@ const ChiTietPhongTro = () => {
             <div className="thong-tin">
               <div className="dia-chi">
                 <div className="dia-chi-left">
-                  <p className="text-so-phong">
-                    Phòng trọ trung tâm quận Thủ Đức
-                  </p>
+                  <p className="text-so-phong">Phòng trọ số {result.soPhong}</p>
                   <div className="icon-tim">
                     <img className="anhTim" src={tim2}></img>
                   </div>
@@ -234,10 +247,6 @@ const ChiTietPhongTro = () => {
                           {result.diaChiChiTiet}
                         </div>
                       </div>
-                      <div className="item1">
-                        <div className="label-thong-tin">Mô tả</div>
-                        <div className="label-thong-tin">{result.moTa}</div>
-                      </div>
                     </div>
                   </div>
 
@@ -263,6 +272,14 @@ const ChiTietPhongTro = () => {
                           );
                         })}
                     </div>
+                  </div>
+
+                  <div className="thong-tin-chi-tiet-left-ctp-2">
+                    <div className="header-thong-tin">
+                      <img className="anhThongTin" src={anhMoTa}></img>
+                      <p className="textThongTin">Mô tả</p>
+                    </div>
+                    <div className="mid-thong-tin">{result.moTa}</div>
                   </div>
                 </div>
 
@@ -339,6 +356,38 @@ const ChiTietPhongTro = () => {
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div className="thong-tin-chi-tiet-left-ctct-2">
+                    <div className="header-thong-tin">
+                      <img className="anhThongTin" src={anhNguoiThue}></img>
+                      <p className="textThongTin">Danh sách người thuê</p>
+                    </div>
+                    {console.log("ngngngn", listNguoiThue)}
+                    {listNguoiThue &&
+                      listNguoiThue.length >= 0 &&
+                      listNguoiThue.map((item, index) => {
+                        return (
+                          <>
+                            <div className="mid-chu-tro-2 ">
+                              <div className="avt-chu-tro-2">
+                                <img
+                                  className="avt-chu-tro-2"
+                                  src={baseURL + item.nguoiThue.hinh}
+                                />
+                              </div>
+                              <div className="thong-tin-chu-tro-2">
+                                <div className="label-thong-tin2">
+                                  {item.nguoiThue.ten}
+                                </div>
+                              </div>
+                              <button className="btn btn-info btn-chat-2">
+                                Chat
+                              </button>
+                              <div className="line-cach-2"></div>
+                            </div>
+                          </>
+                        );
+                      })}
                   </div>
                 </div>
               </div>

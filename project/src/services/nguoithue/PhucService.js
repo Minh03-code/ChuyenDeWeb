@@ -29,6 +29,9 @@ const capNhatPhongGoiY = (idTaiKhoan, idQuan, tienCoc, gioiTinh) => {
     gioiTinh: gioiTinh,
   });
 };
+const getNguoiThueTheoPhong = (idPhong) => {
+  return myAxios.get(`/api/phongnguoithue/all?idPhong=${idPhong}`);
+};
 
 export {
   getDetailNguoiThue,
@@ -37,4 +40,5 @@ export {
   getChuTroById,
   guiYeuCauDatPhong,
   capNhatPhongGoiY,
+  getNguoiThueTheoPhong,
 };
