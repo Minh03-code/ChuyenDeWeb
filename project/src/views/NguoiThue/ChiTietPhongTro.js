@@ -43,11 +43,6 @@ const ChiTietPhongTro = () => {
   const [listTienIch, setListTienIch] = useState();
   const [listPhongTheoQuan, setListPhongTheoQuan] = useState();
   const [listNguoiThue, setListNguoiThue] = useState();
-  const [loaiPhong, setLoaiPhong] = useState();
-
-  const [idQuan, setIdQuan] = useState();
-  const [tienCoc, setTienCoc] = useState();
-  const [gioiTinh, setGioiTinh] = useState();
   const [chuTro, setChuTro] = useState({});
 
   const fetchDataPhong = async () => {
@@ -57,15 +52,23 @@ const ChiTietPhongTro = () => {
       setListHinhAnh(res.hinhAnhPhongTro);
       setListTienIch(res.danhSachTienIch);
       let idTaiKhoanChuTro = res.phongTroChuTro.idTaiKhoan;
-      console.log("aaaaaaaaa", idTaiKhoanChuTro);
-
       const res1 = await getChuTroById(idTaiKhoanChuTro);
       setChuTro(res1);
-      setIdQuan(res.idQuan);
-      setTienCoc(res.tienCoc);
-      setGioiTinh(res.gioiTinh);
-      setLoaiPhong(res.loaiPhong);
-      console.log("lalalaal", loaiPhong);
+
+      let loaiPhong = res.loaiPhong;
+      let idQuan = res.idQuan;
+      let tienCoc = res.tienCoc;
+      let gioiTinh = res.gioiTinh;
+      console.log("quannnnn", idQuan);
+
+      if (loaiPhong !== 2) {
+        let btn_send = document.querySelector(
+          ".thong-tin-chi-tiet-left-ctct-2"
+        );
+        btn_send.style.display = "none";
+      }
+
+      capNhatPhongGoiYApi(idTaiKhoan, idQuan, tienCoc, gioiTinh);
     }
   };
 
@@ -74,13 +77,11 @@ const ChiTietPhongTro = () => {
     fetchDataPhong();
     fetchDataDanhSachPhongTheoQuan();
     fetchDataNguoiThue();
-
-    // capNhatPhongGoiYApi(idTaiKhoan, idQuan, tienCoc, gioiTinh);
   }, []);
 
-  // const capNhatPhongGoiYApi = async (idTaiKhoan, idQuan, tienCoc, gioiTinh) => {
-  //   const res = await capNhatPhongGoiY(idTaiKhoan, idQuan, tienCoc, gioiTinh);
-  // };
+  const capNhatPhongGoiYApi = async (idTaiKhoan, idQuan, tienCoc, gioiTinh) => {
+    const res = await capNhatPhongGoiY(idTaiKhoan, idQuan, tienCoc, gioiTinh);
+  };
 
   const fetchDataDanhSachPhongTheoQuan = async () => {
     const res = await getDanhSachPhongTheoIdQuan(idTaiKhoan);
