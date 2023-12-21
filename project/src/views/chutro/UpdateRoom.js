@@ -338,7 +338,7 @@ function UpdateRoom() {
                             />
                             <div className="d-grid gap-2">
                                 <Button
-                                    label={"Thêm phòng"}
+                                    label={"Sửa phòng"}
                                     onClickButton={onClickButtonUpdate}
                                 />
                             </div>

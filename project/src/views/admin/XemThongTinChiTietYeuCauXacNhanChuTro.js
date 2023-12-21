@@ -1,15 +1,17 @@
 import React from 'react';
 import { baseURL } from "../../services/my-axios";
 import { useSearchParams } from "react-router-dom"
-import { layThongTinChiTietYeuCauXacThucAPI } from '../../services/admin/MinhService';
+import { layThongTinChiTietYeuCauXacThucAPI, xacThucChuTro, xacThucThongTinChuTro } from '../../services/admin/MinhService';
 import Loading from "../loading/Loading.js";
 import { Link } from "react-router-dom";
 import Button from "../item/Button"
 
 class QuanLyYeuCauXacNhanChuTro extends React.Component {
+
     state = {
         detail: [],
-        loading: false
+        loading: false,
+        trangThai: false
     }
     async componentDidMount() {
         const search = window.location.search;
@@ -24,15 +26,27 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
             })
         }
     }
-    onClickXacNhan() {
-        alert("Chưa call api xác nhận");
+    async onClickXacNhan() {
+        const search = window.location.search;
+        const param = new URLSearchParams(search);
+        const res = await xacThucChuTro(+param.get('idChuTro'));
+        if (res!==null) {
+            console.log(">>>>OK");
+            
+            const res2 = await xacThucThongTinChuTro(+param.get('idChuTro'));
+            if (res2!==null) {
+                this.setState({trangThai: true})
+                console.log("Thành công"+" "+res2);
+            }
+           
+        }
     }
     onClickHuy() {
         alert("Chưa call api hủy");
     }
     render() {
 
-        let { detail, loading } = this.state;
+        let { detail, loading, trangThai } = this.state;
 
         return (
             loading == true ?
@@ -48,15 +62,19 @@ class QuanLyYeuCauXacNhanChuTro extends React.Component {
                             <img className='cccd' src={baseURL + detail.cccdMatSau} alt={baseURL + detail.cccdMatSau} />
                         </div>
                         <div className='row'>
-                            <div className='col-md-6'>
-                                <Button
-                                    onClickButton={this.onClickXacNhan}
-                                    label="Xác nhận" />
-                                    <p/>
+                            {trangThai === true ?
+                                <></>
+                                :
+                                <div className='col-md-6'>
                                     <Button
-                                    onClickButton={this.onClickHuy}
-                                    label="Hủy" />
-                            </div>
+                                        onClickButton={this.onClickXacNhan}
+                                        label="Xác nhận" />
+                                    <p />
+                                    <Button
+                                        onClickButton={this.onClickHuy}
+                                        label="Hủy" />
+                                </div>
+                            }
                         </div>
                     </div>
                 </>

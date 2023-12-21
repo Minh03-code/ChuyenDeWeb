@@ -21,6 +21,15 @@ const guiCodeLayLaiMatKhau = (email, idTaiKhoan) => {
 const checkcode = (idTaiKhoan, code, password) => {
     return myAxios.post(`api/checkcode?idTaiKhoan=${idTaiKhoan}&code=${code}&matKhau=${password}`);
 }
+const xacThucChuTro = (idChuTro) => {
+    return myAxios.patch(`api/xacthucchutro/xacthuc?idChuTro=${idChuTro}`);
+}
+const xacThucThongTinChuTro = (idChuTro) => {
+    return myAxios.patch(`api/chutro/chapnhanxacthuc?id=${idChuTro}`);
+}
+const xoaXacYeuCauXacThuc = (idChuTro) => {
+    return myAxios.delete(`api/xacthucchutro/xoa?idChuTro=${idChuTro}`);
+}
 // export { multiple };
 export {
     getAllMotelRoomOwnerAuthenticationCallAPI,
@@ -29,5 +38,8 @@ export {
     layThongTinChiTietYeuCauXacThucAPI,
     checkUsernameAPI,
     guiCodeLayLaiMatKhau,
-    checkcode
+    checkcode,
+    xacThucChuTro,
+    xoaXacYeuCauXacThuc,
+    xacThucThongTinChuTro
 };
