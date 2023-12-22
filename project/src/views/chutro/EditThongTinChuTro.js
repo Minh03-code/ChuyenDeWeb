@@ -28,21 +28,29 @@ const EditThongTinChuTro = () => {
   const [loading, setLoading] = useState(false);
   const [checkChooseFile, setCheckChooseFile] = useState(false);
   const [isObject, setIsObject] = useState({});
-  const [ten, setTen] = useState("");
+  const [ten, setTen] = useState();
+  const [hinh, setHinh] = useState();
   const [soDienThoai, setSoDienThoai] = useState();
   const [soTaiKhoanNganHang, setSoTaiKhoanNganHang] = useState();
   const [tenChuTaiKhoanNganHang, setTenChuTaiKhoanNganHang] = useState("");
 
   useEffect(() => {
-    async function getDataAPI() {
-      setResult(await getChuTroById(idTaiKhoan));
-      setLoading(true);
-    }
-    getDataAPI();
+    fetchDaTaChuTro();
   }, []);
 
+  const fetchDaTaChuTro = async () => {
+    const res = await getChuTroById(idTaiKhoan);
+    setTen(res.ten);
+    setHinh(res.hinh);
+    setSoDienThoai(res.soDienThoai);
+    setSoTaiKhoanNganHang(res.soTaiKhoanNganHang);
+    setTenChuTaiKhoanNganHang(res.tenChuTaiKhoanNganHang);
+    setLoading(true);
+  };
+
   const onClcikChangeImage = (file) => {
-    setFile(file);
+    console.log(file);
+    // setFile(file);
   };
   const changeTen = (text) => {
     setTen(text);
@@ -123,85 +131,90 @@ const EditThongTinChuTro = () => {
       toast.warning("Không được bỏ trống thông tin");
     }
   };
-  console.log(">>>89>>>" + result.ten);
   return (
     <>
-      <Header tenManHinh={"Chỉnh sửa thông tin"} tenChuTro={result.ten} />
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-      <div class="wrapperp rounded bg-white">
-        <div className="cha">
-          <img
-            className="hinh-banner"
-            src={baseURL + result.hinh}
-            alt=""
-            width="100px"
-            height="100px"
+      {loading ? (
+        <>
+          <Header tenManHinh={"Chỉnh sửa thông tin"} tenChuTro={ten} />
+          <ToastContainer
+            position="top-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
           />
-        </div>
+          <div class="wrapperp rounded bg-white">
+            <div className="cha">
+              <img
+                className="hinh-banner"
+                src={baseURL + hinh}
+                alt=""
+                width="100px"
+                height="100px"
+              />
+            </div>
 
-        <div className="mb-3">
-          <InputFile lable={"Chon hinh"} onChangeFile={onClcikChangeImage} />
-        </div>
+            <div className="mb-3">
+              <InputFile changeValue={onClcikChangeImage} />
+            </div>
 
-        <div class="form">
-          <div class="row">
-            {loading === true ? (
-              <InputText
-                label={"Tên"}
-                type={"text"}
-                value={result.ten}
-                changeValue={changeTen}
-              />
-            ) : (
-              <></>
-            )}
-            {loading === true ? (
-              <InputText
-                label={"Số điện thoại"}
-                type={"text"}
-                value={result.soDienThoai}
-                changeValue={changeSoDienThoai}
-              />
-            ) : (
-              <></>
-            )}
-            {loading === true ? (
-              <InputText
-                label={"Số tài khoản"}
-                type={"text"}
-                value={result.soTaiKhoanNganHang}
-                changeValue={changeSoTaiKhoan}
-              />
-            ) : (
-              <></>
-            )}
-            {loading === true ? (
-              <InputText
-                label={"Tên chủ tài khoản ngân hàng"}
-                type={"text"}
-                value={result.tenChuTaiKhoanNganHang}
-                changeValue={changeTCTKNH}
-              />
-            ) : (
-              <></>
-            )}
+            <div class="form">
+              <div class="row">
+                {loading === true ? (
+                  <InputText
+                    label={"Tên"}
+                    type={"text"}
+                    value={ten}
+                    changeValue={changeTen}
+                  />
+                ) : (
+                  <></>
+                )}
+                {loading === true ? (
+                  <InputText
+                    label={"Số điện thoại"}
+                    type={"text"}
+                    value={soDienThoai}
+                    changeValue={changeSoDienThoai}
+                  />
+                ) : (
+                  <></>
+                )}
+                {loading === true ? (
+                  <InputText
+                    label={"Số tài khoản"}
+                    type={"text"}
+                    value={soTaiKhoanNganHang}
+                    changeValue={changeSoTaiKhoan}
+                  />
+                ) : (
+                  <></>
+                )}
+                {loading === true ? (
+                  <InputText
+                    label={"Tên chủ tài khoản ngân hàng"}
+                    type={"text"}
+                    value={tenChuTaiKhoanNganHang}
+                    changeValue={changeTCTKNH}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+              <button class="btn btn-primary mt-3" onClick={onClickUpdate}>
+                Update
+              </button>
+            </div>
           </div>
-          <button class="btn btn-primary mt-3" onClick={onClickUpdate}>
-            Update
-          </button>
-        </div>
-      </div>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
