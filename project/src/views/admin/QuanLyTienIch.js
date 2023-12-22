@@ -88,7 +88,7 @@ class QuanLyTienIch extends React.Component {
                                                             height="100px"><img
                                                                 src={baseURL + item.hinh}
                                                                 alt={baseURL + item.hinh}
-
+                                                                className="hinh-banner"
                                                             /></td>
                                                         <td className="d-none d-md-table-cell">
                                                             <NavLink to={`/admin/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
