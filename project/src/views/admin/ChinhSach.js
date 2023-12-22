@@ -78,7 +78,7 @@ class ChinhSach extends React.Component {
                     <main className="content">
                     <div className="manhinhadmin">
 
-                    <img  src={isObject===false?baseURL+admin.hinh:""} className="img-fluid avt"/>
+                    <img  src={isObject===false?baseURL+admin.hinh:""} className="avt_admin_nghiem"/>
                     <div className="bg_admin">
                     
                     </div>

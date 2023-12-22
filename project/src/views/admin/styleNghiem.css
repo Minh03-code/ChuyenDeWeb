@@ -1,7 +1,7 @@
 .manhinhadmin{
     background: #222e3c;
      width: 100%;
-     height: 700px;
+     height: 800px;
      border-radius: 10%;
      position: relative;
      box-shadow: 10px 10px #7d8793;
@@ -21,9 +21,9 @@
      border-radius: 10%;
      z-index: -1;
  }
- .avt{
+ .avt_admin_nghiem{
      position: absolute;
-     width: 20%;
+     width: 25%;
      height: 30%;
      border-radius: 50%;
      border: 10px solid black;
@@ -51,6 +51,9 @@
  }
  .btnChinhSua{
     margin-left: 50%;
+ }
+ .dangxuat_btn{
+    margin-top: 10px;
  }
 
 
