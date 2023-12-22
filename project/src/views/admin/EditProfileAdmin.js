@@ -120,7 +120,7 @@ class EditProfileAdmin extends React.Component {
                     <main className="content">
                     <div className="manhinhadmin">
 
-                    <img src={isObject===false?baseURL+admin.hinh:""} className="img-fluid avt"/>
+                    <img src={isObject===false?baseURL+admin.hinh:""} className="avt_admin_nghiem"/>
                     <div className="bg_admin">
                     
                     </div>
@@ -148,7 +148,7 @@ class EditProfileAdmin extends React.Component {
                             <label htmlFor="hinh" className="form-label">Ảnh Admin</label>
                             <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" placeholder="Chọn Hình Đại Diện" className="form-control"/>
                         </div>
-                        <button type="button" className="btn btn-primary bbt" onClick={()=>this.kiemTraRong()}>Đồng Ý</button>
+                        <button type="button" className="btn btn-info bbt" onClick={()=>this.kiemTraRong()}>Đồng Ý</button>
                         <NavLink to="/admin/thongtintaikhoan">
                         <button type="button" className="btn btn-warning bbt" >Quay lại</button>
                         </NavLink>
