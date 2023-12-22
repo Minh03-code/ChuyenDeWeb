@@ -46,6 +46,12 @@ const layDanhSachQuan = () => {
 const layDanhSachPhongHoatDong = () => {
     return myAxios.get(`api/phongtro/all?loaiPhong=0&arrange=asc`);
 }
+const layDanhSachPhongTheoLoaiVaXapXep = (loaiPhong, xapXep) => {
+    return myAxios.get(`api/phongtro/all?loaiPhong=${loaiPhong}&arrange=${xapXep}`);
+}
+const layDanhSachPhongTroYeuThich = (idTaiKhoan) => {
+    return myAxios.get(`api/laydanhsachphongtroyeuthich?idTaiKhoan=${idTaiKhoan}`);
+}
 const layThongTinTaiKhoan = (idTaiKhoan) => {
     return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
 }
@@ -61,17 +67,29 @@ const layTatCaTienIchDaChonCuaPhong = (idPhong) => {
 const layTatCaImageDaChonCuaPhong = (idPhong) => {
     return myAxios.get(`api/hinhanh/getseleted?idPhong=${idPhong}`);
 }
+const layTatCaPhongHoatDongTheoQuan = (idQuan) => {
+    return myAxios.get(`api/phongtro/quan?idQuan=${idQuan}&arrange=DESC`);
+}
+const layDanhSachPhongNgauNhien = () => {
+    return myAxios.get(`api/phongtro/random`);
+}
+const layPhongTheoBoLoc = (quan,giaBatDau,giaKetThuc,loaiPhong,gioiTinh,listTienIch) => {
+    return myAxios.get(`api/timkiemtheonhucauweb?giaBatDau=${giaBatDau}&giaKetThuc=${giaKetThuc}&loaiPhong=${loaiPhong}&gioiTinh=${gioiTinh}&quan=${quan}&listTienIch=${JSON.stringify(listTienIch)}`);
+}
+const layQuanDauTien = () => {
+    return myAxios.get(`api/quan/first`);
+}
 
 
 
 // export { multiple };
 export {
-    layTatCaPhongCuaChuTro, 
-    layTatCaQuanHoatDong, 
-    layTatCaPhuongThuocQuanHoatDong, 
-    layTatCaTienIchHoatDong, 
-    themPhong, 
-    layThongTinPhongTheoID, 
+    layTatCaPhongCuaChuTro,
+    layTatCaQuanHoatDong,
+    layTatCaPhuongThuocQuanHoatDong,
+    layTatCaTienIchHoatDong,
+    themPhong,
+    layThongTinPhongTheoID,
     layTatCaBinhLuanCuaPhong,
     themBinhLuanChoPhong,
     layDanhSachQuan,
@@ -81,5 +99,11 @@ export {
     layTatCaTienIchDaChonCuaPhong,
     xoaItemInListImageSeleted,
     layTatCaImageDaChonCuaPhong,
-    updatePhong
+    updatePhong,
+    layTatCaPhongHoatDongTheoQuan,
+    layDanhSachPhongTheoLoaiVaXapXep,
+    layDanhSachPhongTroYeuThich,
+    layDanhSachPhongNgauNhien,
+    layPhongTheoBoLoc,
+    layQuanDauTien
 };

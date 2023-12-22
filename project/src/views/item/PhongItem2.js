@@ -10,10 +10,14 @@ export default function PhongItem2(props) {
     const { demComment } = props;
     const { gia } = props;
     const openComment = () => {
-        props?.onClickItemCommentListener(idPhong);
+        if (props.onClickItemCommentListener) {
+            props.onClickItemCommentListener(idPhong);
+        }
     }
     const onClickItemRoom = () => {
-        props?.onClickRoomListener(idPhong);
+        if (props.onClickRoomListener) {
+            props.onClickRoomListener(idPhong);
+        }
     }
     return (
         <>
@@ -43,7 +47,7 @@ export default function PhongItem2(props) {
                                 <div className="item-button" onClick={(e) => e.stopPropagation()}>
                                     <img className="icon-button" src={imgBinhLuan} alt="" onClick={openComment} />
                                     {
-                                        demComment ?
+                                        demComment || demComment >= 0 ?
                                             <span>{demComment}</span> :
                                             <span>Chưa chuyền props demComment</span>
                                     }
