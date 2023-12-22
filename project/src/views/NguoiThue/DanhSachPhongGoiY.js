@@ -149,7 +149,7 @@ class DanhSachPhongGoiY extends React.Component {
                                                                 </div>
                                                             </div>
                                                             <div className='infor_card_view_phong_goi_y_right'>
-                                                                <NavLink to={`/nguoithue/chitietphongtro?idPhong=${item.id}`}>
+                                                                <NavLink to={`/nguoithue/chitietphongtro/${item.id}`}>
                                                                 <span className='xem_chi_tiet'>Xem</span>
                                                                 </NavLink>
                                                                 
