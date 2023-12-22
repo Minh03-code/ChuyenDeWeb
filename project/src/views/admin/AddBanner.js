@@ -24,7 +24,7 @@ const AddBanner = () => {
         setData(await addBanner(file));
       }
       addBannerFromApi();
-      toast.success("Add banner thành công");
+      toast.success("Thêm banner thành công");
       nav("/admin/quanlybanner");
     } else {
       toast.error("Chưa chọn file ảnh!!!");
@@ -74,7 +74,12 @@ const AddBanner = () => {
                       </div>
                     </td>
                     <td className="d-none d-md-table-cell">
-                      <button onClick={onClickAddBanner}>Update</button>
+                      <button
+                        className="btn btn-info"
+                        onClick={onClickAddBanner}
+                      >
+                        Thêm
+                      </button>
                     </td>
                   </tr>
                 </tbody>
