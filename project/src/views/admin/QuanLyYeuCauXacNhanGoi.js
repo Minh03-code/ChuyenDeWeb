@@ -2,6 +2,7 @@ import React from 'react';
 import { baseURL } from "../../services/my-axios";
 import { getAllYeuCauDangKyDichVuAPI } from '../../services/admin/MinhService';
 import Loading from "../loading/Loading.js";
+import { Link } from 'react-router-dom';
 class QuanLyYeuCauXacNhanGoi extends React.Component {
     state = {
         listYeuCauXacThuc: [],
@@ -61,7 +62,7 @@ class QuanLyYeuCauXacNhanGoi extends React.Component {
                                                                     <td className="d-none d-xl-table-cell">{item.goi.thoiHan}</td>
                                                                     <td className="d-none d-xl-table-cell">{item.goi.gia}</td>
                                                                     <td className="d-none d-md-table-cell">
-                                                                        <a href="#" className="btn btn-primary">Xem thông tin</a>
+                                                                        <Link to={`/admin/chitietyeucaudangkygoi?id=${item.id}`} className="btn btn-primary">Xem thông tin</Link>
                                                                     </td>
                                                                 </tr>
                                                             )

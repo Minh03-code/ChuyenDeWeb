@@ -19,6 +19,8 @@ import PhongCuaToi from "./PhongCuaToi.js";
 import DangXuat from "./DangXuat.js";
 import ChiTietPhongTro from "./ChiTietPhongTro.js";
 import ThongTinNguoiThue from "./ThongTin.js";
+import EditThongTinNguoiThue from "./EditThongTinNguoiThue.js";
+import EditPassWordNguoiThue from "./EditPassWordNguoiThue.js";
 
 function NguoiThue() {
   console.log(sessionStorage.getItem("accountId"));
@@ -41,8 +43,16 @@ function NguoiThue() {
           <Route path="/thongtin" element={<ThongTinNguoiThue />}></Route>
           <Route path="/dangxuat" element={<DangXuat />}></Route>
           <Route
-            path="/chitietphongtro"
+            path="/chitietphongtro/:idPhong"
             element={<ChiTietPhongTro />}
+          ></Route>
+          <Route
+            path="/editthongtinnguoithue"
+            element={<EditThongTinNguoiThue />}
+          ></Route>
+          <Route
+            path="/editpasswordnguoithue"
+            element={<EditPassWordNguoiThue />}
           ></Route>
         </Routes>
         <FooterNguoiThue />

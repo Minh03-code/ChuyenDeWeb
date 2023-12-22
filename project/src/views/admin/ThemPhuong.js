@@ -1,18 +1,24 @@
 import React from 'react';
 import { addPhuong } from '../../services/admin/DungService.js';
-import { getAllKhuVucApi } from '../../services/admin/ThinhService.js';
+import { layQuanTheoId } from '../../services/admin/ThinhService.js';
 import { toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 class ThemPhuong extends React.Component {
     state = {
         ten: "",
         idQuan: 0,
+        tenQuan: "",
     }
     async componentDidMount() {
-        let res = await getAllKhuVucApi();
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const kitu = params.get('id');
+
+        let res = await layQuanTheoId(kitu);
         if (res != null) {
             this.setState({
-                listQuan: res
+                tenQuan: res.tenQuan,
+                idQuan: kitu
             })
         }
     }
@@ -21,14 +27,10 @@ class ThemPhuong extends React.Component {
             ten: event.target.value
         })
     }
-    thayDoiIdQuan(event) {
-        this.setState({
-            idQuan: event.target.value
-        })
-    }
     async kiemTraRong() {
-        if (this.state.ten != "") {
-            if (this.state.idQuan != 0) {
+        if (window.confirm("Xác nhận thêm " + this.state.ten)) {
+        if (this.state.ten !== "") {
+            if (this.state.idQuan !== 0) {
                 let res = await addPhuong(this.state.ten, this.state.idQuan);
                 if (res != null) {
                     toast.success("Thêm Phường Thành Công!");
@@ -45,8 +47,9 @@ class ThemPhuong extends React.Component {
             toast.warning("Không Được Bỏ Trống Tên!");
         }
     }
+    }
     render() {
-        let { listQuan } = this.state;
+        let { tenQuan, idQuan } = this.state;
         return (
             <form className="form-control" action='#' encType="multipart/form-data" method="post">
                 <>
@@ -62,19 +65,10 @@ class ThemPhuong extends React.Component {
                                         </div>
                                     </div>
                                     <input class="form-control form-control-lg" onChange={(event) => this.thayDoiTen(event)} type="text" id="ten" name="ten" placeholder="Nhập tên Phường mới"></input>
-                                    <div className="mb-3">
-                                        <label htmlFor="hinh" className="form-label">Thêm Hình</label>
-                                        <select class="form-control" onChange={(event) => this.thayDoiIdQuan(event)} id="idQuan" name='idQuan' placeholder="Chọn Quận mới">
-                                            <option selected value={0}>--Chọn--</option>
-                                            {listQuan && listQuan.length > 0 && listQuan.map((item, index) => {
-                                                return (
-                                                    <option value={item.id} > {item.tenQuan} </option>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
+                                        <label htmlFor="hinh" className="form-label">Quận</label>
+                                    <input class="form-control form-control-lg" type="text" id="quan" name="quan" value={tenQuan} readOnly></input>
                                     <div className="col-md">
-                                        <NavLink to="#"><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Thêm</button></NavLink>
+                                        <NavLink to={`/admin/listPhuong?id=${idQuan}`} ><button className="btn btn-primary" onClick={() => this.kiemTraRong()} type="button" >Thêm</button></NavLink>
                                     </div>
                                 </div>
                             </div>

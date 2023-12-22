@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 
 const XacThucChuTro = () => {
   let params = useParams();
-  console.log("check id chu tro", params.id);
 
   let idChuTro = params.id;
 
@@ -50,41 +49,32 @@ const XacThucChuTro = () => {
     getTrangThaiXacThucAPI();
   }, []);
 
-  const [file, setFile] = useState("");
-  const [file2, setFile2] = useState("");
+  const [file, setFile] = useState();
+  const [file2, setFile2] = useState();
 
-  const onClickImageCCCDMT = (file) => {
-    let dungLuong = file.size / 1024 / 1024;
-    if (dungLuong < 2) {
-      setFile(file);
-    } else {
-      toast.warning("File tối đa 2mb");
-    }
+  const onClickImageCCCDMT = (event) => {
+    setFile(event.target.files[0]);
   };
 
-  const onClickImageCCCDMS = (file2) => {
-    let dungLuong = file2.size / 1024 / 1024;
-    if (dungLuong < 2) {
-      setFile(file2);
-    } else {
-      toast.warning("File tối đa 2mb");
-    }
+  const onClickImageCCCDMS = (event) => {
+    setFile2(event.target.files[0]);
   };
 
   const guiYeuCauXacThucApi = async (idChuTro, file, file2) => {
     const res = await guiYeuCauXacThuc(idChuTro, file, file2);
-
-    console.log("idChuTro", idChuTro);
-    console.log("tenfile", file.name);
-    console.log("tenfile", file2.name);
   };
 
   const onClickGui = () => {
-    if (file.name == null && file2.name == null) {
+    if (file == null && file2 == null) {
       toast.warning("Vui lòng chọn ảnh!!!");
     } else {
-      guiYeuCauXacThucApi(idChuTro, file, file2);
-      toast.success("Gửi yêu cầu xác thực thành công");
+      let dungLuong = file.size / 1024 / 1024;
+      if (dungLuong < 2) {
+        guiYeuCauXacThucApi(idChuTro, file, file2);
+        toast.success("Gửi yêu cầu xác thực thành công");
+      } else {
+        toast.warning("File tối đa 2mb");
+      }
     }
   };
 
@@ -108,7 +98,7 @@ const XacThucChuTro = () => {
         <div className="text_chua_xacthuc"></div>
       </div>
 
-      <div class="wrapperp rounded bg-white">
+      <div className="wrapperp rounded bg-white">
         <div className="cha">
           {result != null ? (
             <img
@@ -130,11 +120,11 @@ const XacThucChuTro = () => {
         </div>
 
         <div className="mb-3">
-          <InputFile lable={"Chon hinh"} onChangeFile={onClickImageCCCDMT} />
+          <input type="file" onChange={onClickImageCCCDMT} />
         </div>
       </div>
 
-      <div class="wrapperp rounded bg-white">
+      <div className="wrapperp rounded bg-white">
         <div className="cha">
           {result != null ? (
             <img
@@ -156,12 +146,12 @@ const XacThucChuTro = () => {
         </div>
 
         <div className="mb-3">
-          <InputFile lable={"Chon hinh"} onChangeFile={onClickImageCCCDMS} />
+          <input type="file" onChange={onClickImageCCCDMS} />
         </div>
       </div>
 
       <div className="cha">
-        <button class="btn btn-primary gui2" onClick={onClickGui}>
+        <button className="btn btn-primary gui2" onClick={onClickGui}>
           Gửi yêu cầu xác thực
         </button>
       </div>

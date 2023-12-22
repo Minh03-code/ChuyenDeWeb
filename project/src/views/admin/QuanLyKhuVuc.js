@@ -3,6 +3,7 @@ import axios from 'axios';
 import { baseURL } from '../../services/my-axios';
 import { NavLink, useParams } from "react-router-dom";
 import { getAllKhuVucApi } from '../../services/admin/ThinhService';
+import './styleThinh.css';
 
 
 class QuanLyKhuVuc extends React.Component {
@@ -60,8 +61,8 @@ class QuanLyKhuVuc extends React.Component {
                                                         <tr>
                                                             <td>{item.id}</td>
                                                             <td className="d-none d-xl-table-cell">{item.tenQuan}</td>
-                                                            <td className="d-none d-xl-table-cell">
-                                                                <img src={baseURL + item.hinh} width="200px" height="150px"/>
+                                                            <td className="hinhanh">
+                                                                <img src={baseURL + item.hinh} width="110px" height="250px"/>
                                                             </td>
                                                             <td className="d-none d-md-table-cell">
                                                                 <NavLink to={`/admin/listPhuong?id=${item.id}`} ><span className="btn btn-primary">Xem phường</span></NavLink>

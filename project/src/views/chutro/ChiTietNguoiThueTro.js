@@ -3,6 +3,7 @@ import axios from 'axios';
 import { baseURL } from "../../services/my-axios";
 import { NavLink, useParams } from "react-router-dom";
 import { getChiTietnguoiThueCallAPI, getChiTietTaiKhoanTheoIdCallAPI } from '../../services/admin/KietService'
+
 class ChiTietNguoiThueTro extends React.Component {
     state = {
         idTaiKhoan: "",
@@ -11,7 +12,8 @@ class ChiTietNguoiThueTro extends React.Component {
         soDienThoai: "",
         gioiTinh: "",
         loaiTaiKhoan: "",
-        email: ""
+        email: "",
+        idPhong: ""
     }
     async componentDidMount() {
         const search = window.location.search;
@@ -26,7 +28,9 @@ class ChiTietNguoiThueTro extends React.Component {
                 hinh: resNguoiThue.hinh,
                 ten: resNguoiThue.ten,
                 soDienThoai: resNguoiThue.soDienThoai,
-                gioiTinh: resNguoiThue.gioiTinh
+                gioiTinh: resNguoiThue.gioiTinh,
+                idPhong : sessionStorage.getItem("idPhong")
+
             })
         }
         let idTaiKhoan = this.state.idTaiKhoan;
@@ -43,7 +47,7 @@ class ChiTietNguoiThueTro extends React.Component {
     }
 
     render() {
-        let {idTaiKhoan, hinh, ten, soDienThoai, gioiTinh, email, loaiTaiKhoan } = this.state
+        let { idTaiKhoan, hinh, ten, soDienThoai, gioiTinh, email, loaiTaiKhoan, idPhong } = this.state
         return (
             <>
                 <div class="page-heading header-text">
@@ -72,8 +76,7 @@ class ChiTietNguoiThueTro extends React.Component {
                                     <div className='chutro_info'>Email: {email}</div>
                                     <div className='chutro_info'>Loại: {loaiTaiKhoan == 1 ? <>Chủ trọ</> : <>Người thuê</>}</div>
                                     <NavLink to={`/chutro/tinnhan?id=${idTaiKhoan}`} ><button className='btn btn-primary bbt'>Nhắn tin</button></NavLink>
-                                    <NavLink to={`/chutro/danhsachnguoithue`} ><button className='btn btn-primary bbt'>Quay lại</button></NavLink>
-
+                                    <NavLink to={`/chutro/danhsachnguoithue?idPhong=${idPhong}`} ><button className='btn btn-primary bbt'>Quay lại</button></NavLink>
                                 </div>
                             </div>
                             <div class="col-lg-12">

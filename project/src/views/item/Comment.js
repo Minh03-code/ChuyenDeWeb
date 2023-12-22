@@ -1,3 +1,42 @@
+/*
+Đây là của function component. Nếu dùng classComponent thì làm tương tự
+Cách sử dụng component này
+Cần có sẵn
+const [idPhong, setIdPhong] = useState(-1);
+const [show, setShow] = useState(false);
+trong hàm mở model comment tức là khi click mở comment thêm {     setIdPhong(idPhong); setShow(true);     } hoặc xem ví dụ bên dưới
+const functionName = () =>{
+    setIdPhong(idPhong);
+    setShow(true);
+}
+Thêm hàm phía dưới để tắt comment
+const onCloseComment = () => {
+   setShow(false);
+}
+Gắn component này vào trang mở comment phải để ở phần render
+<Comment
+idPhong={idPhong}
+show={show}
+onHide={onCloseComment} />
+
+
+// Nếu đọc ở trên chưa hiểu thì 
+B1: Copy vào
+const [idPhong, setIdPhong] = useState(-1);
+const [show, setShow] = useState(false);
+const onCloseComment = () => {
+   setShow(false);
+}
+//B2 Copy vào trong hàm click mở comment
+setIdPhong(idPhong);
+setShow(true);
+//B3: Copy vào render
+<Comment
+idPhong={idPhong}
+show={show}
+onHide={onCloseComment} />
+*/
+
 import React, { useState, useEffect } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import InputText from './InputText';
@@ -7,6 +46,7 @@ import firebase from '../../firebase/firebase.js';
 import { getDatabase, ref, onValue, set } from "firebase/database";
 import { layTatCaBinhLuanCuaPhong, themBinhLuanChoPhong } from '../../services/chutro/MinhService';
 import { baseURL } from '../../services/my-axios';
+import imgSend from "./imgs/icon_send.png";
 export default function Comment(props) {
     const [text, setText] = useState("");
     const [comments, setComments] = useState(null);
@@ -22,6 +62,7 @@ export default function Comment(props) {
             if (res) {
                 console.log(res);
                 writeComment(idPhong, res.id);
+                setText("");
             }
         }
         else {
@@ -70,7 +111,7 @@ export default function Comment(props) {
         }
     };
     useEffect(() => {
-        if(show) fetchData();
+        if (show) fetchData();
     }, [show]);
 
     return (
@@ -96,12 +137,17 @@ export default function Comment(props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <InputText
-                        value={text}
-                        changeValue={getText} />
-                    <Button variant="primary" onClick={handleComment}>
-                        Gửi
-                    </Button>
+                    <div className="form-send">
+                        <InputText
+                            value={text}
+                            changeValue={getText}
+                            class={"input-m"}
+                            newParent={true}
+                            placeholder="Hãy viết bình luận của bạn..." />
+                        <img src={imgSend} onClick={handleComment} />
+                    </div>
+
+
                 </Modal.Footer>
             </Modal>
         </>

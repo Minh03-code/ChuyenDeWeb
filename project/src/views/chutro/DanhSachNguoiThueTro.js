@@ -18,6 +18,8 @@ class DanhSachNguoiThueTro extends React.Component {
         const params = new URLSearchParams(search);
         const kitu = params.get('idPhong');
         console.log(kitu);
+        sessionStorage.setItem("idPhong", kitu);
+
         let idTaiKhoan = sessionStorage.getItem("accountId");
 
         let res = await getListNguoiThueTheoIdPhongCallAPI(kitu);
@@ -73,8 +75,8 @@ class DanhSachNguoiThueTro extends React.Component {
                                                     {
                                                         listNguoiThue && listNguoiThue.length > 0 && listNguoiThue.map((item, index) => {
                                                             return (
-                                                              
-                                                                item.nguoiThue!==null?
+
+                                                                item.nguoiThue !== null ?
 
                                                                     <tr>
                                                                         <td className="d-none d-xl-table-cell">

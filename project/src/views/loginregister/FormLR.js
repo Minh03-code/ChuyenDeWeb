@@ -43,13 +43,14 @@ function LoginRegister() {
             setAccount(res);
             console.log(res);
             setLoading(true);
+            checkLogin();
         }
         if (res == "") {
             setFail(true);
         }
     }
     const checkLogin = () => {
-        if (account != "") {
+        if (account && account != "") {
             sessionStorage.setItem("accountId", account.id);
             sessionStorage.setItem("accountType", account.loaiTaiKhoan);
             sessionStorage.setItem("idNguoiDung", account.nguoiDangNhap.id);
