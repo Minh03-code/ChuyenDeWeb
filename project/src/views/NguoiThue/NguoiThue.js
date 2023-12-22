@@ -43,7 +43,7 @@ function NguoiThue() {
           <Route path="/thongtin" element={<ThongTinNguoiThue />}></Route>
           <Route path="/dangxuat" element={<DangXuat />}></Route>
           <Route
-            path="/chitietphongtro/:id"
+            path="/chitietphongtro/:idPhong"
             element={<ChiTietPhongTro />}
           ></Route>
           <Route

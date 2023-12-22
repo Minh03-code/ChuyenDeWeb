@@ -399,7 +399,7 @@ width: 30%;
 }
 
 
-.bg-green{
+.bg-green_map{
     /* background: #008000; */
     /* position: fixed; */
     width: 100%;
@@ -413,7 +413,7 @@ width: 30%;
     white-space: nowrap;
     
 }
-.bg-green::-webkit-scrollbar { 
+.bg-green_map::-webkit-scrollbar { 
     width: 0 !important;
     display: none;
 }
