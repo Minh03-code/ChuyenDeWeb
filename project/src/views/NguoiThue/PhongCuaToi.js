@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from "react";
-import HeaderNguoiThue from "../item/HeaderNguoiThue";
 import "./styles/chitietphong.css";
 import anhThongTin from "./imgs/phuc/thongtin.png";
 import anhUser from "./imgs/phuc/user.png";
-import anhChuTro from "./imgs/phuc/newlogo.jpg";
 import anhTienIch from "./imgs/phuc/utilities.png";
 import anhDanhGia from "./imgs/phuc/online-shop.png";
-import anhGoiY from "./imgs/phuc/question.png";
-import anhPhong from "./imgs/phuc/phong.jpg";
-import anhLoaiPhong from "./imgs/phuc/loaiphong.png";
-import anhGioTinh from "./imgs/phuc/gioitinh.png";
-import anhMap from "./imgs/phuc/map.png";
-import anhSao from "./imgs/phuc/star.png";
 import anhVote from "./imgs/phuc/vote.png";
+import { getListNguoiThueTheoIdPhongCallAPI } from '../../services/admin/KietService';
 import anhBinhLuan from "./imgs/phuc/coment.png";
 import anhLienHe from "./imgs/phuc/lienhe.png";
 import anhMoney from "./imgs/phuc/money.png";
 import anhTinNhan from "./imgs/phuc/tinnhan.png";
 import anhPlay from "./imgs/phuc/play-button.png";
-import anhMayLanh from "./imgs/phuc/maylanh.png";
 import tim1 from "./imgs/phuc/tim1.png";
 import tim2 from "./imgs/phuc/tim2.png";
 import anhKhongCoAnh from "./imgs/phuc/khongcoanh.png";
@@ -26,19 +18,13 @@ import anhNguoiThue from "./imgs/phuc/anhnguoithue.png";
 import anhMoTa from "./imgs/phuc/anhmota.png";
 import { ToastContainer, toast } from "react-toastify";
 import {
-    capNhatPhongGoiY,
     capNhatYeuThich,
     getChuTroById,
-    getDanhSachPhongTheoIdQuan,
     getDetailPhongTro,
     getNguoiThueTheoPhong,
     getTrangThaiYeuThich,
-    guiYeuCauDatPhong,
 } from "../../services/nguoithue/PhucService";
 import { baseURL } from "../../services/my-axios";
-import { guiYeuCauXacThuc } from "../../services/chutro/PhucService";
-import Dialog from "../item/Dialog";
-import { NavLink } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { layVideoXuong } from "../../services/admin/NghiemService";
 const PhongCuaToi = () => {
@@ -76,9 +62,6 @@ const PhongCuaToi = () => {
             setChuTro(res1);
 
             let loaiPhong = res.loaiPhong;
-            let idQuan = res.idQuan;
-            let tienCoc = res.tienCoc;
-            let gioiTinh = res.gioiTinh;
 
             if (loaiPhong !== 2) {
                 let btn_send = document.querySelector(
@@ -86,10 +69,6 @@ const PhongCuaToi = () => {
                 );
                 btn_send.style.display = "none";
             }
-
-            setTimeout(() => {
-                capNhatPhongGoiYApi(+idTaiKhoan, idQuan, tienCoc, gioiTinh);
-            }, 3000)
 
         }
         const resVideo = await layVideoXuong(idPhong);
@@ -117,9 +96,6 @@ const PhongCuaToi = () => {
             setChuTro(res1);
 
             let loaiPhong = res.loaiPhong;
-            let idQuan = res.idQuan;
-            let tienCoc = res.tienCoc;
-            let gioiTinh = res.gioiTinh;
 
             if (loaiPhong !== 2) {
                 let btn_send = document.querySelector(
@@ -127,10 +103,6 @@ const PhongCuaToi = () => {
                 );
                 btn_send.style.display = "none";
             }
-
-            setTimeout(() => {
-                capNhatPhongGoiYApi(+idTaiKhoan, idQuan, tienCoc, gioiTinh);
-            }, 3000)
 
         }
         const resVideo = await layVideoXuong(idPhongTro);
@@ -152,45 +124,19 @@ const PhongCuaToi = () => {
 
     }, []);
 
-    const capNhatPhongGoiYApi = async (idTaiKhoan, idQuan, tienCoc, gioiTinh) => {
-        const res = await capNhatPhongGoiY(idTaiKhoan, idQuan, tienCoc, gioiTinh);
-    };
+    const listnguoithuetrocungphong = async () => {
+        let res = await getListNguoiThueTheoIdPhongCallAPI(idPhong);
+        if (res != null) {
+            this.setState({
+                listNguoiThue: res,
+                loading: true
 
-    const requestYeuCauDatPhong = async (
-        idTaiKhoanGui,
-        idTaiKhoanNhan,
-        idPhong
-    ) => {
-        let res = await guiYeuCauDatPhong(idTaiKhoanGui, idTaiKhoanNhan, idPhong);
-        if (res !== null) {
-            toast.info(res.message);
+            })
         }
-    };
-
-    const onClickXemPhong = (idPhongTro) => {
-        window.scrollTo(0, 0);
-        setIdPhong(idPhongTro);
-        suKien();
-        fetchDataPhongMore(idPhongTro);
-        fetchDataNguoiThueMore(idPhongTro);
-        fetchDaTaYeuThichMore(idPhongTro);
-    }
-
-
-    const onCLickDatPhong = () => {
-        // requestYeuCauDatPhong(idTaiKhoan, idTaiKhoanChuTro, idPhong);
-
-        setIdPhong(idPhong);
     };
 
     const fetchDataNguoiThue = async () => {
         const res = await getNguoiThueTheoPhong(idPhong);
-        if (res !== null) {
-            setListNguoiThue(res);
-        }
-    };
-    const fetchDataNguoiThueMore = async (idPhongTro) => {
-        const res = await getNguoiThueTheoPhong(idPhongTro);
         if (res !== null) {
             setListNguoiThue(res);
         }
@@ -232,12 +178,6 @@ const PhongCuaToi = () => {
         } else {
             navigation(`/nguoithue/tinnhan?id=${idTaiKhoan1}`);
         }
-    };
-    const onCLickXacNhanDatPhong = (idPhong) => {
-        if (chuTro != null) {
-            requestYeuCauDatPhong(idTaiKhoan, chuTro.idTaiKhoan, idPhong);
-        }
-
     };
 
     const fetchDaTaYeuThich = async () => {
@@ -508,7 +448,7 @@ const PhongCuaToi = () => {
                                 </div>
 
                                 <div className="thong-tin-chi-tiet-right">
-                                    <div className="thong-tin-chi-tiet-left-ctct row justify-content-center" key={0}>
+                                    <div className="thong-tin-chi-tiet-left-ctct row" key={0}>
                                         <div className="header-thong-tin col-12">
                                             <img className="anhThongTin" src={anhUser}></img>
                                             <p className="textThongTin">Thông tin chủ trọ</p>
@@ -533,7 +473,7 @@ const PhongCuaToi = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-6">
+                                        <div className="col-6 align-self-center">
                                             <img className="icon-danh-gia" src={anhTinNhan} />
                                             <div className="thong-tin-chu-tro2" key={1}>
                                                 {/* <NavLink to={`/nguoithue/tinnhan?id=${chuTro.idTaiKhoan}`}> */}
@@ -568,28 +508,6 @@ const PhongCuaToi = () => {
                                                         Bình luận
                                                     </button>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="thong-tin-chi-tiet-left-ctct" key={2}>
-                                        <div className="header-thong-tin">
-                                            <img className="anhThongTin" src={anhLienHe}></img>
-                                            <p className="textThongTin">Liên hệ</p>
-                                        </div>
-                                        <div className="mid-chu-tro">
-                                            <div className="danh-gia-left2">
-                                                <img className="icon-danh-gia" src={anhMoney} />
-                                                <div className="thong-tin-chu-tro2" key={0}>
-                                                    <button
-                                                        className="btn btn-success"
-                                                        onClick={onCLickDatPhong}
-                                                    >
-                                                        Đặt phòng
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className="danh-gia-right">
-
                                             </div>
                                         </div>
                                     </div>
