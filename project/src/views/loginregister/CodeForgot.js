@@ -15,7 +15,6 @@ function CodeForgot() {
     const navigate = useNavigate();
     const [code, setCode] = useState();
     const [password, setPassword] = useState();
-    const [message, setMessage] = useState();
     const [loading, setLoading] = useState(false);
     const [fail, setFail] = useState(false);
 
@@ -36,27 +35,22 @@ function CodeForgot() {
         console.log(idTaiKhoan);
         console.log(idTaiKhoan + " " + password);
         let res = await checkcode(idTaiKhoan, code, password);
-        if (res != null) {
+        if (res) {
             alert(res.message);
             setLoading(true);
             if (res.status === 1) {
+                sessionStorage.clear();
                 navigate("/");
             }
-        }
-        if (res == "") {
-            setFail(true);
-        }
-    }
-    const checkInput = () => {
-        if (message != "") {
-            sessionStorage.clear();
+            else {
+                alert(res.message);
+            }
         }
     }
 
 
 
     return (
-        loading == true && fail == false ? checkInput() :
             <>
                 <div className="limiter">
                     <div className="container-login100 my-background-lr">
@@ -81,8 +75,6 @@ function CodeForgot() {
                                 <div className="text-right p-t-8 p-b-31">
                                     <Link to="/">Đăng nhập</Link>
                                 </div>
-
-                                {fail == true ? <p className='fail-login'>Tên tài khoản không chính sác</p> : <p className='fail-login'></p>}
 
                                 <div className="container-login100-form-btn">
                                     <div className="wrap-login100-form-btn">
