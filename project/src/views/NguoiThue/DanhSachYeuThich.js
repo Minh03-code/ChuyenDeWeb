@@ -31,8 +31,7 @@ export default function DanhSachYeuThich() {
                         <HeaderNguoiThue />
                         <div className="main-content-m">
                             <FormDanhSachPhong1
-                                listRoom={listRoom}
-                                convertHinh={(item) => item.hinhAnhPhongTro} />
+                                listRoom={listRoom} />
                         </div>
                     </>
                     :
