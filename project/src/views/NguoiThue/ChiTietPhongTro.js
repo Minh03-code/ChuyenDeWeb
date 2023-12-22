@@ -39,24 +39,26 @@ import { baseURL } from "../../services/my-axios";
 import { guiYeuCauXacThuc } from "../../services/chutro/PhucService";
 import Dialog from "../item/Dialog";
 import { NavLink } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { layVideoXuong } from "../../services/admin/NghiemService";
 
 const ChiTietPhongTro = () => {
-  const [idTaiKhoan, setIdTaiKhoan] = useState(sessionStorage.getItem("accountId"));
+  const [idTaiKhoan, setIdTaiKhoan] = useState(
+    sessionStorage.getItem("accountId")
+  );
   const params = useParams();
-  console.log(params.id);
   const [result, setResult] = useState({});
   const [listHinhAnh, setListHinhAnh] = useState();
   const [listTienIch, setListTienIch] = useState();
   const [listPhongTheoQuan, setListPhongTheoQuan] = useState();
-  const [listNguoiThue, setListNguoiThue] = useState();
+  const [listNguoiThue, setListNguoiThue] = useState([]);
   const [chuTro, setChuTro] = useState({});
   const [videoReview, setVideoReview] = useState({});
   const navigation = useNavigate();
-  const [idPhong, setIdPhong] = useState(149);
+  const [idPhong, setIdPhong] = useState(params.id);
   const [showDialog, setShowDialog] = useState(false);
   const [datPhong, setDatPhong] = useState();
+  const [idTKChuTro, setIdTKChuTro] = useState();
 
   const fetchDataPhong = async () => {
     const res = await getDetailPhongTro(idPhong);
@@ -64,7 +66,16 @@ const ChiTietPhongTro = () => {
       setResult(res);
       setListHinhAnh(res.hinhAnhPhongTro);
       setListTienIch(res.danhSachTienIch);
+      console.log("lllllti", res.danhSachTienIch);
+      if (res.danhSachTienIch.length === 0) {
+        let btn_send = document.querySelector(".text-khong-du-lieu");
+        btn_send.style.display = "unset";
+      } else {
+        let btn_send = document.querySelector(".text-khong-du-lieu");
+        btn_send.style.display = "none";
+      }
       let idTaiKhoanChuTro = res.phongTroChuTro.idTaiKhoan;
+
       const res1 = await getChuTroById(idTaiKhoanChuTro);
       setChuTro(res1);
 
@@ -129,7 +140,9 @@ const ChiTietPhongTro = () => {
 
   const fetchDataNguoiThue = async () => {
     const res = await getNguoiThueTheoPhong(idPhong);
-    setListNguoiThue(res);
+    if (res !== null) {
+      setListNguoiThue(res);
+    }
   };
 
   const suKien = () => {
@@ -204,8 +217,6 @@ const ChiTietPhongTro = () => {
     btn_send.style.display = "none";
     let btn_send2 = document.querySelector(".anhTim2");
     btn_send2.style.display = "unset";
-    console.log("aaaaaaaaa", idPhong);
-    console.log("aaaaaaaaa", idTaiKhoan);
     requestYeuThich(idPhong, idTaiKhoan);
     toast.success("Bỏ yêu thích thành công");
   };
@@ -224,14 +235,16 @@ const ChiTietPhongTro = () => {
         <div className="container">
           <div className="bao-ngoai">
             <div className="anh-chi-tiet-phong-tro">
-              <div class="bg-green">
-                <div class="wrap">
+              <div className="bg-green">
+                <div className="wrap">
                   {listHinhAnh &&
                     listHinhAnh.length >= 0 &&
                     listHinhAnh.map((item, index) => {
                       return (
                         <>
-                          <img class="item" src={baseURL + item.hinh} />
+                          <div key={item.id}>
+                            <img className="item" src={baseURL + item.hinh} />
+                          </div>
                         </>
                       );
                     })}
@@ -295,7 +308,7 @@ const ChiTietPhongTro = () => {
                   <img className="icon-play" src={anhPlay}></img>
                   <button
                     type="button"
-                    class="btn btn-warning"
+                    className="btn btn-warning"
                     onClick={openModal}
                   >
                     Review room
@@ -401,13 +414,14 @@ const ChiTietPhongTro = () => {
                       <img className="anhThongTin" src={anhTienIch}></img>
                       <p className="textThongTin">Tiện ích</p>
                     </div>
+                    <div className="text-khong-du-lieu">Chưa có dữ liệu</div>
                     <div className="mid-thong-tin">
                       {listTienIch &&
                         listTienIch.length >= 0 &&
                         listTienIch.map((item, index) => {
                           return (
                             <>
-                              <div className="danh-gia-left" key={index}>
+                              <div className="danh-gia-left" key={item.id}>
                                 <img
                                   className="icon-danh-gia"
                                   src={baseURL + item.hinh}
@@ -515,13 +529,12 @@ const ChiTietPhongTro = () => {
                       <img className="anhThongTin" src={anhNguoiThue}></img>
                       <p className="textThongTin">Danh sách người thuê</p>
                     </div>
-                    {console.log("ngngngn", listNguoiThue)}
                     {listNguoiThue &&
                       listNguoiThue.length >= 0 &&
                       listNguoiThue.map((item, index) => {
                         return (
                           <>
-                            <div className="mid-chu-tro-2 ">
+                            <div className="mid-chu-tro-2 " key={item.id}>
                               <div className="avt-chu-tro-2">
                                 <img
                                   className="avt-chu-tro-2"
@@ -566,9 +579,10 @@ const ChiTietPhongTro = () => {
               listPhongTheoQuan.map((item, index) => {
                 return (
                   <>
-                    <div className="content-danh-sach" key={index}>
+                    <div className="content-danh-sach">
                       <div className="content-danh-sach-left">
                         <img
+                          key={item.id}
                           className="anhPhong"
                           src={
                             item.hinhAnhPhongTro.length === 0
@@ -626,9 +640,12 @@ const ChiTietPhongTro = () => {
                               </p>
                             </div>
                             <div className="thongTinhChung-right-right">
-                              <button className="btn btn-primary">
+                              <Link
+                                className="btn btn-primary"
+                                to={`/nguoithue/chitietphongtro/${item.id}`}
+                              >
                                 Xem chi tiết
-                              </button>
+                              </Link>
                             </div>
                           </div>
                         </div>
