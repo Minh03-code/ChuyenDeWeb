@@ -205,7 +205,7 @@ const EditThongTinChuTro = () => {
                 )}
               </div>
               <button className="btn btn-primary mt-3" onClick={onClickUpdate}>
-                Update
+                Cập nhật
               </button>
             </div>
           </div>

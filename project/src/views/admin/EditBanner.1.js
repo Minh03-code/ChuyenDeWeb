@@ -35,7 +35,7 @@ export const EditBanner = () => {
       }
 
       updateData();
-      toast.success("Update banner thành công");
+      toast.success("Cập nhật banner thành công");
       nav("/admin/quanlybanner");
     } else {
       toast.error("Chưa chọn file ảnh!!!");
@@ -64,7 +64,7 @@ export const EditBanner = () => {
                   <tr>
                     <th className="d-none d-xl-table-cell">Hình</th>
                     <th className="d-none d-md-table-cell">Chức năng</th>
-                    <th className="d-none d-md-table-cell">Chinh sua</th>
+                    <th className="d-none d-md-table-cell">Chỉnh sửa</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -74,7 +74,8 @@ export const EditBanner = () => {
                         src={baseURL + result.hinhBanner}
                         alt=""
                         width="100px"
-                        height="100px" />
+                        height="100px"
+                      />
                     </td>
                     <td className="d-none d-md-table-cell">
                       <div className="mb-3">
@@ -84,11 +85,14 @@ export const EditBanner = () => {
                           id="hinh"
                           name="hinh"
                           placeholder="Chọn Hình Đại Diện"
-                          className="form-control" />
+                          className="form-control"
+                        />
                       </div>
                     </td>
                     <td className="d-none d-md-table-cell">
-                      <button onClick={onClickUpdate}>Update</button>
+                      <button className="btn btn-info" onClick={onClickUpdate}>
+                        Cập nhật
+                      </button>
                     </td>
                   </tr>
                 </tbody>
