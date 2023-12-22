@@ -33,6 +33,7 @@ function ForgotPassword() {
             setAccount(res);
             setLoading(true);
             if (res.email != "") {
+                sessionStorage.setItem("accountForgotId", res.id);
                 guiCodeLayLaiMatKhau(res.email, res.id);
                 navigate("/codeforgot");
             }

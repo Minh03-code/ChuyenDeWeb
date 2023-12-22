@@ -47,7 +47,7 @@
      font-weight: bold;
  }
  .bbt{
-     margin-right: 10px;
+     margin-right: 20px;
  }
  .btnChinhSua{
     margin-left: 50%;
@@ -325,8 +325,10 @@
     width: 100%;
     height: 90%; 
     overflow: auto;
-    background-color: white; 
   }
+
+
+  /* style dung */
 
   .modal3 {
     display: none; /* mặc định được ẩn đi */
@@ -334,16 +336,28 @@
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%; 
+    height: 105%; 
     background-color: white; 
     border: 2px solid #DC143C;
   }
+
   .modal4{
     height: 40px; 
   }
+
+  .modal5 {
+    display: none; /* mặc định được ẩn đi */
+    position: absolute; /* vị trí cố định */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 105%; 
+    background-color: white; 
+    border: 2px solid #DC143C;
+  }
   .chitietgoidangki1{
     background-color: #f7f7f7;
-    width: 600px;
+    width: auto;
     height: auto;
     padding: 20px;
   }
@@ -355,6 +369,45 @@
     height: 90%; 
     background-color: white; 
   }
+  .form-control1 .input1{
+    width: 100%;
+    height: 100%;
+    border-radius: 0%;
+  }
+  .modal_huy {
+    display: none; /* mặc định được ẩn đi */
+    position: fixed; /* vị trí cố định */
+    z-index: 5; /* Ưu tiên hiển thị trên cùng */
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto;
+    border: 3px solid #DC143C;
+    background-color: white;
+    /* background: linear-gradient(298deg, #0d6efd, #00ddff); */
+    /* background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);  */
+    
+  }
+
+  .modal-content_huy{
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    height: 90%;
+    border-radius: 10%;
+    text-align: center; 
+  }
+
+  .goidangky{
+    display: block; /* mặc định được ẩn đi */
+  }
+
+  /* end Dung */
 
 .danhsachgoiy{
     width: 100%;
