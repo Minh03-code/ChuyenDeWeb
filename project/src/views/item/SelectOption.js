@@ -10,7 +10,6 @@ function SelectOption(props) {
     useEffect(() => {
 
     }, []);
-    console.log("defaultId>>> " + defaultId);
     const changeText = (e) => {
         setText(e.target.value);
         changeValue(e.target.value);

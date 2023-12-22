@@ -1,50 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import ButtonInSearchHeader from './ButtonInSearchHeader.js';
 import ImagesBanner from './ImagesBanner.js';
 import imgGhep from "./imgs/icon_ghep.png";
 import imgRandom from "./imgs/icon_random.png";
 import imgRecomment from "./imgs/icon_recomment.png";
+import imgLike from "./imgs/like.png";
 import imgVDRoom from "./imgs/img2.jpg";
+import SearchInHeader from './SearchInHeader.js';
 
 export default function HeaderNguoiThue(props) {
     const navigation = useNavigate();
-    
-    
-    const chuyenManHinhGoiY = ()=>{
+
+    const onClickSearch = () => {
+        navigation("/nguoithue/timkiemboloc")
+    }
+    const chuyenManHinhGoiY = () => {
         navigation("/nguoithue/danhsachphonggoiy")
     }
-    
+
+
+    const chuyenQuaManHinhPhongGhep = () => {
+        navigation("/nguoithue/danhsachphongghep")
+    }
+    const chuyenQuanManHinhYeuThich = () => {
+        navigation("/nguoithue/danhsachyeuthich")
+    }
+    const chuyenQuaManHinhPhongNgauNhien = () => {
+        navigation("/nguoithue/danhsachphongrandom")
+    }
+
     return (
         <>
             <header>
-                <ImagesBanner/>
+                <ImagesBanner />
                 <div className="container-search">
-                    <div className="search">
-                        <div className="search-form">
-                            <div className="search-city">HCM</div>
-                            <div className="search-content">Bạn cần tìm gì...</div>
-                        </div>
-                    </div>
+                    <SearchInHeader
+                    city="HCM"
+                    content="Bạn cần tìm gì..."
+                    onClickSearchListener={onClickSearch}/>
+
 
                     <div className="button-form">
-                        <div className="btn-m">
-                            <div className="btn-icon">
-                                <img src={imgGhep} />
-                            </div>
-                            <p>Phòng ghép</p>
-                        </div>
-                        <div className="btn-m" onClick={chuyenManHinhGoiY}>
-                            <div className="btn-icon">
-                                <img src={imgRecomment} />
-                            </div>
-                            <p>Gợi ý</p>
-                        </div>
-                        <div className="btn-m">
-                            <div className="btn-icon">
-                                <img src={imgRandom} />
-                            </div>
-                            <p>Ngẫu nhiên</p>
-                        </div>
+                        <ButtonInSearchHeader
+                            imgIcon={imgGhep}
+                            title="Phòng ghép"
+                            onClickButtonIconListener={chuyenQuaManHinhPhongGhep}
+                        />
+                        <ButtonInSearchHeader
+                            imgIcon={imgRecomment}
+                            title="Gợi ý"
+                            onClickButtonIconListener={chuyenManHinhGoiY}
+                        />
+                        <ButtonInSearchHeader
+                            imgIcon={imgRandom}
+                            title="Ngẫu nhiên"
+                            onClickButtonIconListener={chuyenQuaManHinhPhongNgauNhien}
+                        />
+                        <ButtonInSearchHeader
+                            imgIcon={imgLike}
+                            title="Yêu thích"
+                            onClickButtonIconListener ={chuyenQuanManHinhYeuThich}
+                        />
                     </div>
                 </div>
             </header>

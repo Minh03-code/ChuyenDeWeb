@@ -65,7 +65,7 @@ export default function PhongItem3(props) {
                                 <div className="item-button" onClick={(e) => e.stopPropagation()}>
                                     <img className="icon-button" src={imgBinhLuan} alt="" onClick={openComment} />
                                     {
-                                        demComment ?
+                                        demComment || demComment >= 0 ?
                                             <span>{demComment}</span> :
                                             <span>Chưa chuyền props demComment</span>
                                     }

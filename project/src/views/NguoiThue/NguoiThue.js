@@ -21,6 +21,11 @@ import ChiTietPhongTro from "./ChiTietPhongTro.js";
 import ThongTinNguoiThue from "./ThongTin.js";
 import EditThongTinNguoiThue from "./EditThongTinNguoiThue.js";
 import EditPassWordNguoiThue from "./EditPassWordNguoiThue.js";
+import DanhSachPhongTheoQuan from "./DanhSachPhongTheoQuan.js";
+import DanhSachPhongGhep from "./DanhSachPhongGhep.js";
+import DanhSachYeuThich from "./DanhSachYeuThich.js";
+import DanhSachPhongRandom from "./DanhSachPhongRandom.js";
+import TimKiemTheoBoLoc from "./TimKiemTheoBoLoc.js";
 
 function NguoiThue() {
   console.log(sessionStorage.getItem("accountId"));
@@ -54,6 +59,26 @@ function NguoiThue() {
             path="/editpasswordnguoithue"
             element={<EditPassWordNguoiThue />}
           ></Route>
+          <Route
+            path="/danhsachphongtheoquan/:idQuan"
+            element={<DanhSachPhongTheoQuan />}
+          ></Route>
+          <Route
+            path="/danhsachphongtheoquan/:idQuan"
+            element={<DanhSachPhongTheoQuan />}
+          ></Route>
+          <Route
+            path="/danhsachphongghep"
+            element={<DanhSachPhongGhep />}></Route>
+          <Route
+            path="/danhsachphongrandom"
+            element={<DanhSachPhongRandom />}></Route>
+          <Route
+            path="/danhsachyeuthich"
+            element={<DanhSachYeuThich />}></Route>
+          <Route
+            path="/timkiemboloc"
+            element={<TimKiemTheoBoLoc />}></Route>
         </Routes>
         <FooterNguoiThue />
       </div>

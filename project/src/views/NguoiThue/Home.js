@@ -38,7 +38,7 @@ export default function Home() {
   };
   // Đây là function sử lý click quận
   const clickQuan = (idQuan) => {
-    alert(idQuan);
+    navigate(`/nguoithue/danhsachphongtheoquan/${idQuan}`);
   };
   // Đây là function sử lý click phòng
   const clickPhong = (idPhong) => {
