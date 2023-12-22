@@ -43,11 +43,13 @@ const ThongTinNguoiThue = () => {
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
-              <img
-                className="hinh-banner2"
-                src={baseURL + result.hinh}
-                alt={baseURL + result.hinh}
-              />
+              <div className="cha-img">
+                <img
+                  className="con-img"
+                  src={baseURL + result.hinh}
+                  alt={baseURL + result.hinh}
+                />
+              </div>
             </div>
             <div class="col-lg-6 align-self-center">
               <div className="ThongTinNguoiThue">
@@ -62,7 +64,7 @@ const ThongTinNguoiThue = () => {
                 </div>
 
                 <Link
-                  className="btn btn-primary bbt"
+                  className="btn btn-info bbt"
                   to={`/Nguoithue/editthongtinnguoithue`}
                 >
                   Chỉnh Sửa

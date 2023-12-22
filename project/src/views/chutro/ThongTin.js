@@ -76,7 +76,7 @@ const ThongTin = () => {
                 </div>
 
                 <Link
-                  className="btn btn-primary bbt"
+                  className="btn btn-info bbt"
                   to={`/chutro/editthongtinchutro/${result.id}`}
                 >
                   Chỉnh Sửa
