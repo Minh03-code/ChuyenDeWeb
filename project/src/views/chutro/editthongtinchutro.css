@@ -48,7 +48,9 @@
     cursor: pointer;
 }
 
-
+.chutro_info{
+margin-bottom: 10px;
+}
 .wrapperp .form .option input {
     opacity: 0;
 }

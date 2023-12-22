@@ -50,7 +50,7 @@ const XacThucChuTro = () => {
   }, []);
 
   const [file, setFile] = useState();
-  const [file2, setFile2] = useState(null);
+  const [file2, setFile2] = useState();
 
   const onClickImageCCCDMT = (event) => {
     setFile(event.target.files[0]);
