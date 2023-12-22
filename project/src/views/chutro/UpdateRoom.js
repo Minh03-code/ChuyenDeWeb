@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { baseURL } from '../../services/my-axios';
 import InputText from '../item/InputText';
 import Header from '../item/Header';
@@ -7,18 +7,25 @@ import SelectOption from '../item/SelectOption';
 import Button from '../item/Button';
 import InputMultipleFile from '../item/InputMultipleFile';
 import CheckBox from '../item/CheckBox';
-import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinPhongTheoID, xoaItemInListTienIchSeleted, layTatCaTienIchDaChonCuaPhong, xoaItemInListImageSeleted, layTatCaImageDaChonCuaPhong, updatePhong } from '../../services/chutro/MinhService.js';
+import { layTatCaQuanHoatDong, layTatCaPhuongThuocQuanHoatDong, layTatCaTienIchHoatDong, themPhong, layThongTinPhongTheoID, xoaItemInListTienIchSeleted, layTatCaTienIchDaChonCuaPhong, xoaItemInListImageSeleted, layTatCaImageDaChonCuaPhong, updatePhong, batTatHoatDongPhongPhiaNguoiDung } from '../../services/chutro/MinhService.js';
 import SelectMultipleOption from '../item/SelectMultipleOption';
 import InputFile from '../item/InputFile';
 import QuanItem from '../item/QuanItem';
 import Item1 from '../item/Item1';
+import Dialog from '../item/Dialog';
 function UpdateRoom() {
+    const navigate = useNavigate();
+    const _PHONG_DA_CO_NGUOI_THUE = 100;
+    const _DA_DAT_SO_LUONG_PHONG_TOI_DA = 101;
+    const _CHUA_DANG_KY_DICH_VU = 102;
+    const _THANH_CONG = 1;
     let params = useParams();
     console.log(params.idPhong);
     const [listQuan, setListQuan] = useState([]);
     const [listPhuong, setListPhuong] = useState([]);
     const [listTienIch, setListTienIch] = useState([]);
     const [room, setRoom] = useState();
+    const [hoatDong, setHoatDong] = useState();
     const [loadingRoom, setLoadingRoom] = useState(false);
     const [soPhong, setSoPhong] = useState('');
     const [gia, setGia] = useState('');
@@ -38,6 +45,13 @@ function UpdateRoom() {
     const [hinhAnhSeleted, setHinhAnhSeleted] = useState([]);
     const [files, setFiles] = useState();
     const [resUpdate, setResUpdate] = useState();
+    const [contentNotification, setContentNotification] = useState();
+
+    // Dialog setup
+    const [showDialog, setShowDialog] = useState(false);
+    const onCloseDialog = () => {
+        setShowDialog(false);
+    }
     const fetchDataQuan = async () => {
         try {
             const res = await layTatCaQuanHoatDong();
@@ -63,6 +77,7 @@ function UpdateRoom() {
             setLoadingRoom(true);
             setGioiTinh(res.gioiTinh);
             setQuan(res.quan.id);
+            setHoatDong(res.hoatDong);
             setPhuong(res.phuong.id);
             setTienIchSeleted(res.tienIch);
             setHinhAnhSeleted(res.hinhAnhPhongTro);
@@ -93,7 +108,8 @@ function UpdateRoom() {
         try {
             const res = await updatePhong(idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages);
             setResUpdate(res);
-            console.log(">>>"+res);
+            navigate("/chutro");
+            console.log(">>>" + res);
         } catch (error) {
             console.log('Error fetching data:', error);
         }
@@ -178,6 +194,39 @@ function UpdateRoom() {
         else {
             alert("Hãy nhập đủ thông tin có đấu *");
         }
+    }
+    const batHoatDongPhong = async () => {
+        const HOAT_DONG = 1;
+        const res = await batTatHoatDongPhongPhiaNguoiDung(params.idPhong, HOAT_DONG, sessionStorage.getItem("idNguoiDung"));
+        if (res){
+            console.log(res);
+            notificationDialog(res, HOAT_DONG);
+        }
+    }
+    const tatHoatDongPhong = async () => {
+        const TAT_HOAT_DONG = 0;
+        const res = await batTatHoatDongPhongPhiaNguoiDung(params.idPhong, TAT_HOAT_DONG, sessionStorage.getItem("idNguoiDung"));
+        if (res){
+            notificationDialog(res, TAT_HOAT_DONG);
+        }
+    }
+    const notificationDialog = (res, newHoatDong) => {
+        console.log(">>>"+res);
+        if(res === _PHONG_DA_CO_NGUOI_THUE){
+            setContentNotification("Phòng đã có người thuê không thể tắt hoạt động");
+        }
+        if(res === _DA_DAT_SO_LUONG_PHONG_TOI_DA){
+            alert(">>>");
+            setContentNotification("ố lượng phòng hoạt động đã đạt tối đa gói dịch vụ không thể bật");
+        }
+        if(res === _CHUA_DANG_KY_DICH_VU){
+            setContentNotification("Bạn chưa đăng ký dịch vụ hãy đăng ký dịch vụ để bật hoạt động phòng");
+        }
+        if(res === _THANH_CONG){
+            setHoatDong(newHoatDong);
+            setContentNotification("Chỉnh sửa thành công");
+        }
+        setShowDialog(true);
     }
     return (
         <>
@@ -341,13 +390,33 @@ function UpdateRoom() {
                                     label={"Sửa phòng"}
                                     onClickButton={onClickButtonUpdate}
                                 />
+                                {
+                                    hoatDong === 0 ?
+                                        <Button
+                                            label={"Bật hoạt động phòng phía người dùng"}
+                                            onClickButton={batHoatDongPhong}
+                                        />
+                                        :
+                                        <Button
+                                            label={"Tắt hoạt động phòng phía người dùng"}
+                                            onClickButton={tatHoatDongPhong}
+                                        />
+                                }
+
+
                             </div>
                         </form>
+
                         :
                         <></>}
 
                 </div>
             </div>
+            <Dialog
+                show={showDialog}
+                onClickCANCAL={onCloseDialog}
+                title="Thông báo"
+                content={contentNotification} />
         </>
     )
 }

@@ -79,10 +79,11 @@ const layPhongTheoBoLoc = (quan,giaBatDau,giaKetThuc,loaiPhong,gioiTinh,listTien
 const layQuanDauTien = () => {
     return myAxios.get(`api/quan/first`);
 }
+const batTatHoatDongPhongPhiaNguoiDung = (idPhong, hoatDong, idChuTro) => {
+    return myAxios.patch(`api/phongtro/hoatdong?idPhong=${idPhong}&hoatDong=${hoatDong}&idChuTro=${idChuTro}`);
+}
 
 
-
-// export { multiple };
 export {
     layTatCaPhongCuaChuTro,
     layTatCaQuanHoatDong,
@@ -105,5 +106,6 @@ export {
     layDanhSachPhongTroYeuThich,
     layDanhSachPhongNgauNhien,
     layPhongTheoBoLoc,
-    layQuanDauTien
+    layQuanDauTien,
+    batTatHoatDongPhongPhiaNguoiDung
 };
