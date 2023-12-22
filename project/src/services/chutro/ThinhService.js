@@ -1,7 +1,7 @@
 import { myAxios } from "../my-axios";
 
-const xoaPhong = (idPhong) => {
-    return myAxios.delete(`api/phongtrochutro/delete/${idPhong}`);
+const xoaPhong = (idChuTro, idPhongTro) => {
+  return myAxios.delete(`api/phongtrochutro/delete?idChuTro=${idChuTro}&idPhongTro=${idPhongTro}`);
 };
 
 
