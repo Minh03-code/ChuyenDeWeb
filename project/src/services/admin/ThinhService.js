@@ -12,6 +12,9 @@ const addnewQuan = (tenQuan, hinh) => {
 const layQuanTheoId = (id) => {
   return myAxios.get(`api/layquantheoid?id=${id}`);
 };
+const layPhuongTheoId = (id) => {
+  return myAxios.get(`api/layphuongtheoid?id=${id}`);
+};
 const editQuan = (id, tenQuan, hinh, trangThai) => {
   return myAxios.post(`api/capnhatquan`, { id, tenQuan: tenQuan, hinh: hinh, trangThai: trangThai }, config);
 }
