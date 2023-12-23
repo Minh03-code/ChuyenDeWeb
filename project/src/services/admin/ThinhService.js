@@ -37,7 +37,7 @@ const xoaThongBao = (id) => {
   return myAxios.get(`api/thongbao/xoa?id=${id}`);
 }
 const getNguoiGuiChuTro = (idTaiKhoan) => {
-  return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);
+  return myAxios.get(`api/thongtinadmin?id=${idTaiKhoan}`);
 }
 // const getNguoiGui = (idTaiKhoan) => {
 //   return myAxios.get(`api/chutro/chitiet?idTaiKhoan=${idTaiKhoan}`);

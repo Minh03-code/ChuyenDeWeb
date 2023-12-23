@@ -26,7 +26,9 @@ class ThongBaoDetail extends React.Component {
         if (resDetailThongBao != null) {
             this.setState({
                 id: resDetailThongBao.id,
-                nguoiGui: await getNguoiGuiChuTro(resDetailThongBao.idTaiKhoanGui),
+                // nguoiGui: await getNguoiGuiChuTro(resDetailThongBao.idTaiKhoanGui),
+
+                nguoiGui: await getNguoiGuiChuTro(1),
                 tieuDe: resDetailThongBao.tieuDe,
                 noiDung: resDetailThongBao.noiDung,
                 trangThai: resDetailThongBao.trangThai
@@ -85,7 +87,7 @@ class ThongBaoDetail extends React.Component {
                                     <div className='chutro_info'><b>Nội dung: </b> {noiDung}</div>
                                     <div>
                                         <h5 className="card-title mb-0">
-                                            <button className="btn btn-danger btn_margin_left" onClick={() => this.xoaThongBao()}>Xóa thông báo</button>
+                                            <button className="btn btn-primary btn_margin_left" onClick={() => this.xoaThongBao()}>Xóa thông báo</button>
                                             <NavLink to={`/chutro/thongbao`} ><button className="btn btn-primary btn_margin_left">Quay lại</button></NavLink>
                                         </h5>
                                     </div>
