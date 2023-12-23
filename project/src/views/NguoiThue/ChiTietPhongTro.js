@@ -46,7 +46,7 @@ const ChiTietPhongTro = () => {
   const [idTaiKhoan, setIdTaiKhoan] = useState(
     sessionStorage.getItem("accountId")
   );
-  
+
   const params = useParams();
   const [result, setResult] = useState({});
   const [listHinhAnh, setListHinhAnh] = useState();
@@ -67,7 +67,7 @@ const ChiTietPhongTro = () => {
       setResult(res);
       setListHinhAnh(res.hinhAnhPhongTro);
       setListTienIch(res.danhSachTienIch);
-    
+
       if (res.danhSachTienIch.length === 0) {
         let btn_send = document.querySelector(".text-khong-du-lieu");
         btn_send.style.display = "unset";
@@ -94,8 +94,7 @@ const ChiTietPhongTro = () => {
 
       setTimeout(() => {
         capNhatPhongGoiYApi(+idTaiKhoan, idQuan, tienCoc, gioiTinh);
-      }, 3000)
-     
+      }, 3000);
     }
     const resVideo = await layVideoXuong(idPhong);
     if (resVideo != null) {
@@ -135,8 +134,7 @@ const ChiTietPhongTro = () => {
 
       setTimeout(() => {
         capNhatPhongGoiYApi(+idTaiKhoan, idQuan, tienCoc, gioiTinh);
-      }, 3000)
-     
+      }, 3000);
     }
     const resVideo = await layVideoXuong(idPhongTro);
     if (resVideo != null) {
@@ -145,21 +143,18 @@ const ChiTietPhongTro = () => {
   };
 
   useEffect(() => {
-    if(idPhong !== undefined)
-    {
-      if(idPhong!==-1){
+    if (idPhong !== undefined) {
+      if (idPhong !== -1) {
         suKien();
         fetchDataPhong();
         setTimeout(() => {
           fetchDataDanhSachPhongTheoQuan();
-        }, 2000)
-      
+        }, 2000);
+
         fetchDataNguoiThue();
         fetchDaTaYeuThich();
       }
     }
-    
-    
   }, []);
 
   const capNhatPhongGoiYApi = async (idTaiKhoan, idQuan, tienCoc, gioiTinh) => {
@@ -187,19 +182,18 @@ const ChiTietPhongTro = () => {
       toast.info(res.message);
     }
   };
-  
-  const onClickXemPhong = (idPhongTro)=>{
+
+  const onClickXemPhong = (idPhongTro) => {
     window.scrollTo(0, 0);
-      setIdPhong(idPhongTro);
-      suKien();
-      fetchDataPhongMore(idPhongTro);
-      setTimeout(() => {
-        fetchDataDanhSachPhongTheoQuanMore();
-      }, 2000)
-      fetchDataNguoiThueMore(idPhongTro);
-      fetchDaTaYeuThichMore(idPhongTro);
-  }
-  
+    setIdPhong(idPhongTro);
+    suKien();
+    fetchDataPhongMore(idPhongTro);
+    setTimeout(() => {
+      fetchDataDanhSachPhongTheoQuanMore();
+    }, 2000);
+    fetchDataNguoiThueMore(idPhongTro);
+    fetchDaTaYeuThichMore(idPhongTro);
+  };
 
   const onCLickDatPhong = () => {
     // requestYeuCauDatPhong(idTaiKhoan, idTaiKhoanChuTro, idPhong);
@@ -264,10 +258,9 @@ const ChiTietPhongTro = () => {
   };
 
   const onCLickXacNhanDatPhong = (idPhong) => {
-    if(chuTro!=null){
+    if (chuTro != null) {
       requestYeuCauDatPhong(idTaiKhoan, chuTro.idTaiKhoan, idPhong);
     }
-   
   };
 
   const fetchDaTaYeuThich = async () => {
@@ -281,15 +274,13 @@ const ChiTietPhongTro = () => {
       btn_send2.style.display = "unset";
     } else {
       let btn_send = document.querySelector(".anhTim");
-      if(btn_send!=null){
+      if (btn_send != null) {
         btn_send.style.display = "unset";
       }
       let btn_send2 = document.querySelector(".anhTim2");
-     if(btn_send2!=null){
-      btn_send2.style.display = "none";
-     }
-      
-     
+      if (btn_send2 != null) {
+        btn_send2.style.display = "none";
+      }
     }
   };
   const fetchDaTaYeuThichMore = async (idPhongTro) => {
@@ -343,7 +334,11 @@ const ChiTietPhongTro = () => {
                     listHinhAnh.map((item, index) => {
                       return (
                         <>
-                            <img className="item" src={baseURL + item.hinh} key={index}/>
+                          <img
+                            className="item"
+                            src={baseURL + item.hinh}
+                            key={index}
+                          />
                         </>
                       );
                     })}
@@ -511,10 +506,10 @@ const ChiTietPhongTro = () => {
                   <div className="thong-tin-chi-tiet-left-ctp">
                     <div className="header-thong-tin">
                       <img className="anhThongTin" src={anhTienIch}></img>
-                      <p className="textThongTin" >Tiện ích</p>
+                      <p className="textThongTin">Tiện ích</p>
                     </div>
-                    <div className="text-khong-du-lieu" >Chưa có dữ liệu</div>
-                    
+                    <div className="text-khong-du-lieu">Chưa có dữ liệu</div>
+
                     <div className="mid-thong-tin">
                       {listTienIch &&
                         listTienIch.length >= 0 &&
@@ -537,9 +532,9 @@ const ChiTietPhongTro = () => {
                   <div className="thong-tin-chi-tiet-left-ctp-2">
                     <div className="header-thong-tin">
                       <img className="anhThongTin" src={anhMoTa}></img>
-                      <p className="textThongTin"  >Mô tả</p>
+                      <p className="textThongTin">Mô tả</p>
                     </div>
-                    <div className="mid-thong-tin" >{result.moTa}</div>
+                    <div className="mid-thong-tin">{result.moTa}</div>
                   </div>
                 </div>
 
@@ -564,30 +559,6 @@ const ChiTietPhongTro = () => {
                         <div className="label-thong-tin2">{chuTro.ten}</div>
                         <div className="label-thong-tin2">
                           {chuTro.soDienThoai}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="thong-tin-chi-tiet-left-ctct" key={1}>
-                    <div className="header-thong-tin">
-                      <img className="anhThongTin" src={anhDanhGia}></img>
-                      <p className="textThongTin">Vote</p>
-                    </div>
-                    <div className="mid-chu-tro">
-                      <div className="danh-gia-left2">
-                        <img className="icon-danh-gia" src={anhVote} />
-                        <div className="thong-tin-chu-tro2">
-                          <button className="btn btn-outline-dark">
-                            Đánh giá
-                          </button>
-                        </div>
-                      </div>
-                      <div className="danh-gia-right">
-                        <img className="icon-danh-gia" src={anhBinhLuan} />
-                        <div className="thong-tin-chu-tro2">
-                          <button className="btn btn-outline-dark">
-                            Bình luận
-                          </button>
                         </div>
                       </div>
                     </div>
@@ -632,14 +603,14 @@ const ChiTietPhongTro = () => {
                     {listNguoiThue &&
                       listNguoiThue.length >= 0 &&
                       listNguoiThue.map((item, index) => {
-                        if(item.nguoiThue!=null){
+                        if (item.nguoiThue != null) {
                           return (
                             <>
                               <div className="mid-chu-tro-2 " key={item.id}>
                                 <div className="avt-chu-tro-2">
                                   <img
                                     className="avt-chu-tro-2"
-                                    src={ baseURL+item.nguoiThue.hinh}
+                                    src={baseURL + item.nguoiThue.hinh}
                                   />
                                 </div>
                                 <div className="thong-tin-chu-tro-2">
@@ -656,13 +627,12 @@ const ChiTietPhongTro = () => {
                                 >
                                   Chat
                                 </button>
-  
+
                                 <div className="line-cach-2"></div>
                               </div>
                             </>
                           );
                         }
-                        
                       })}
                   </div>
                 </div>
@@ -742,7 +712,10 @@ const ChiTietPhongTro = () => {
                                   : item.tienCoc / 1000000 + " triệu/tháng"}
                               </p>
                             </div>
-                            <div className="thongTinhChung-right-right" onClick={()=>onClickXemPhong(item.id)}>
+                            <div
+                              className="thongTinhChung-right-right"
+                              onClick={() => onClickXemPhong(item.id)}
+                            >
                               <Link
                                 className="btn btn-primary"
                                 to={`/nguoithue/chitietphongtro/${item.id}`}
