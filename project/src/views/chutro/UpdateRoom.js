@@ -231,7 +231,7 @@ function UpdateRoom() {
     return (
         <>
             <Header
-                tenManHinh={"Màn hình thêm phòng"}
+                tenManHinh={"Màn hình sửa phòng"}
                 tenChuTro={"Nguyễn Đức Minh"}
             />
             <div className="section trending">
