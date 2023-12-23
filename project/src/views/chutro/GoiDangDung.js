@@ -189,7 +189,7 @@ class GoiDangDung extends React.Component {
 
 
   async guiThanhToanGoi(idGoi, hinh) {
-    if (hinh !== undefined) {
+    if (hinh !== null) {
       let res = await guiYeuCauDangKyGoi(this.state.idChuTro, idGoi, hinh);
       if (res != null) {
         toast.success("Gửi Yêu Cầu Thành Công!");
@@ -229,7 +229,7 @@ class GoiDangDung extends React.Component {
   }
 
   async guiThanhToanGoidk(idGoi, hinh) {
-    if (hinh !== undefined) {
+    if (hinh !== null) {
       let res = await guiYeuCauDangKyGoi(this.state.idChuTro, idGoi, hinh);
       if (res != null) {
         toast.success("Gửi Yêu Cầu Thành Công!");
@@ -448,7 +448,7 @@ class GoiDangDung extends React.Component {
                         {listGoiChuaDangKy && listGoiChuaDangKy.length > 0 && listGoiChuaDangKy.map((item, index) => {
                           return (
                             <div class="col-lg-12 col-md-6 align-self-center mb-30 trending-items col-md-6 ">
-                              <div class="item">
+                              <div class="item_goidk">
                                 <div class="down-content">
                                   <h4>Gói Cho Thuê {item.soLuongPhongToiDa} Phòng {item.thoiHan} Tháng</h4>
                                   <button className='btn btn-primary bbt' onClick={() => this.dangkygoi(item.id, item.gia, item.soLuongPhongToiDa, item.thoiHan)}>Đăng Ký gói</button>
@@ -495,7 +495,7 @@ class GoiDangDung extends React.Component {
                           <label for="formFile" class="form-label fs-2">Ảnh Chuyển Khoản: </label>
                           <input onChange={(event) => this.thayDoiHinh(event)} type="file" id="hinh" name="hinh" className="form-control" />
                         </div>
-                        <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoi1(this.state.idGoiNangCap, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
+                        <button type="button" class="btn btn-primary" onClick={() => this.guiThanhToanGoidk(this.state.idGoiNangCap, this.state.hinhChuyenKhoan)}>Gửi Yêu Cầu Đăng Ký Gói</button>
                       </div>
                     </div>
                   </div>
