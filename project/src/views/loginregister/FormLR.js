@@ -43,28 +43,28 @@ function LoginRegister() {
             setAccount(res);
             console.log(res);
             setLoading(true);
-            checkLogin();
+            if (res && res !== "") {
+                sessionStorage.setItem("accountId", res.id);
+                sessionStorage.setItem("accountType", res.loaiTaiKhoan);
+                sessionStorage.setItem("idNguoiDung", res.nguoiDangNhap.id);
+                if (res.loaiTaiKhoan == 2) { navigate("/admin") }
+                else if (res.loaiTaiKhoan == 1) {
+                    navigate("/chutro");
+                    sessionStorage.setItem("xacThuc", res.nguoiDangNhap.xacThuc);
+                }
+                else if (res.loaiTaiKhoan == 0) { navigate("/nguoithue") }
+
+            }
+            else {
+                navigate("/")
+            }
         }
         if (res == "") {
             setFail(true);
         }
     }
     const checkLogin = () => {
-        if (account && account != "") {
-            sessionStorage.setItem("accountId", account.id);
-            sessionStorage.setItem("accountType", account.loaiTaiKhoan);
-            sessionStorage.setItem("idNguoiDung", account.nguoiDangNhap.id);
-            if (account.loaiTaiKhoan == 2) { navigate("/admin") }
-            else if (account.loaiTaiKhoan == 1) {
-                navigate("/chutro");
-                sessionStorage.setItem("xacThuc", account.nguoiDangNhap.xacThuc);
-            }
-            else if (account.loaiTaiKhoan == 0) { navigate("/nguoithue") }
 
-        }
-        else {
-            navigate("/")
-        }
     }
 
 
@@ -110,10 +110,10 @@ function LoginRegister() {
                                 <div className="txt1 text-center p-t-54 p-b-20">
 
                                     <a href="#" className="txt2">
-                                            <Link to="/chonloaitaikhoan">
+                                        <Link to="/chonloaitaikhoan">
                                             Đăng ký
-                                            </Link>
-                                        </a>
+                                        </Link>
+                                    </a>
                                 </div>
 
                             </form>

@@ -86,13 +86,14 @@ class QuanLyTienIch extends React.Component {
                                                         <td className="d-none d-xl-table-cell"
                                                             width="200px"
                                                             height="100px"><img
+                                                                className="hinh-banner"
                                                                 src={baseURL + item.hinh}
                                                                 alt={baseURL + item.hinh}
 
                                                             /></td>
                                                         <td className="d-none d-md-table-cell">
-                                                            <NavLink to={`/admin/SuaTienIch?id=${item.id}`}><a className="btn btn-primary">EDIT</a></NavLink>
-                                                            {(item.trangThai === 0) ? <a onClick={() => this.update(item.ten, item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.id, item.trangThai)} className="btn btn-success">Mở</a>}
+                                                            <NavLink className="btn btn-primary" style={{ marginTop: 0 , marginRight: 20, marginLeft:30}} to={`/admin/SuaTienIch?id=${item.id}`}>EDIT</NavLink>
+                                                            {(item.trangThai === 0) ? <a onClick={() => this.update(item.ten, item.id, item.trangThai)} className="btn btn-danger">Khoá</a> : <a onClick={() => this.update(item.ten, item.id, item.trangThai)} className="btn btn-success">Mở</a>}
                                                         </td>
                                                     </tr>
                                                 )

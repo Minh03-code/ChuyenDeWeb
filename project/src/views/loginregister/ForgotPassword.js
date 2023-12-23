@@ -14,9 +14,6 @@ import { guiCodeLayLaiMatKhau } from "../../services/admin/MinhService";
 function ForgotPassword() {
     const navigate = useNavigate();
     const [username, setUsername] = useState();
-    const [account, setAccount] = useState();
-    const [loading, setLoading] = useState(false);
-    const [fail, setFail] = useState(false);
 
 
     useEffect(() => {
@@ -29,9 +26,7 @@ function ForgotPassword() {
 
     const getData = async () => {
         let res = await checkUsernameAPI(username);
-        if (res != null) {
-            setAccount(res);
-            setLoading(true);
+        if (res !== null && res !== -1) {
             if (res.email != "") {
                 sessionStorage.setItem("accountForgotId", res.id);
                 guiCodeLayLaiMatKhau(res.email, res.id);
@@ -41,24 +36,14 @@ function ForgotPassword() {
                 alert("Tài khoản này không có email khôi phục");
             }
         }
-        if (res == "") {
-            setFail(true);
-        }
-    }
-    const checkUsername = () => {
-        if (account != "") {
-           
-
-        }
-        else {
-            navigate("/")
+        if (res === -1) {
+            alert("Tên tài khoản sai");
         }
     }
 
 
 
     return (
-        loading == true && fail == false ? checkUsername() :
             <>
                 <div className="limiter">
                     <div className="container-login100 my-background-lr">
@@ -78,8 +63,6 @@ function ForgotPassword() {
                                 <div className="text-right p-t-8 p-b-31">
                                     <Link to="/">Đăng nhập</Link>
                                 </div>
-
-                                {fail == true ? <p className='fail-login'>Tên tài khoản không chính sác</p> : <p className='fail-login'></p>}
 
                                 <div className="container-login100-form-btn">
                                     <div className="wrap-login100-form-btn">

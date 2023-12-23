@@ -40,7 +40,7 @@ export default function FormDanhSachPhong1(props) {
                                         (props.convertHinh && props.convertHinh(item) && props.convertHinh(item).length > 0)
                                             ? props.convertHinh(item)[0].hinh
                                             : (item.hinhAnhPhongTro && item.hinhAnhPhongTro.length > 0)
-                                                ? item.hinhAnhPhongTro[0].hinh
+                                                ? baseURL + item.hinhAnhPhongTro[0].hinh
                                                 : notImage
                                     }
                                     diaChi={item.diaChiChiTiet}
