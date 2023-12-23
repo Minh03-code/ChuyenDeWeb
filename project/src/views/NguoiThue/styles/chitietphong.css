@@ -424,6 +424,17 @@ width: 30%;
     background: #ffa500;
     margin: 50px 50px;
 }
+.item_goidk{
+    padding: 20px;
+    background-color: #eeeeee;
+    border-radius: 50px;
+    margin: 50px 50px;
+}
+.item_goidk:hover{
+    border-radius: 50px;
+    transform: scale(1.2);
+    box-shadow: 1px 10px 20px #000;
+}
 .item:hover{
     border-radius: 50px;
     transform: scale(1.2);
