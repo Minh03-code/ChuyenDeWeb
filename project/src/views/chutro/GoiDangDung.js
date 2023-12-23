@@ -76,7 +76,7 @@ class GoiDangDung extends React.Component {
     if (res != null) {
       this.setState({
         tenAdmin: res.ten,
-        idChuTro: res.id,
+        idChuTro: sessionStorage.getItem("idNguoiDung"),
         sdt: res.soDienThoai,
         tenSTk: res.tenChuTaiKhoan,
         stkAdmins: res.soTaiKhoanNganHang,
@@ -172,7 +172,7 @@ class GoiDangDung extends React.Component {
     modal.style.display = "none"
     modal1.style.display = "block"
     this.setState({
-      goiNangCapGia: gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }),
+      goiNangCapGia: gia +"VND",
       goiNangCapPhong: phong,
       goiNangCapThoiGian: thoigian,
 
@@ -211,7 +211,7 @@ class GoiDangDung extends React.Component {
     modal1.style.display = "block"
     modal2.style.display = "none"
     this.setState({
-      goiNangCapGia: gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }),
+      goiNangCapGia: gia +"VND",
       goiNangCapPhong: phong,
       goiNangCapThoiGian: thoigian,
 
@@ -276,7 +276,7 @@ class GoiDangDung extends React.Component {
           theme="dark"
         />
         <div>
-          {goi !== 0 ?
+          {goi ?
 
             <div class="single-product section">
               <div class="container">
@@ -291,7 +291,7 @@ class GoiDangDung extends React.Component {
 
                     <div className='chitietgoidangki'>
                       <h2 className='ten_chu_tro fs-2'>Chủ Trọ: {ten}</h2>
-                      <div className='chutro_info fs-2'>Giá Gói: {gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                      <div className='chutro_info fs-2'>Giá Gói: {gia +'VND'}</div>
                       <div className='row align-items-start gap-3'>
                         <button className='btn btn-primary col' onClick={() => this.moModal()}>Nâng Cấp Gói</button>
                         <button className='btn btn-success col' onClick={() => this.moGiaHanGoi()}>Gia Hạn Gói</button>
@@ -339,7 +339,7 @@ class GoiDangDung extends React.Component {
                             <h2 className='ten_chu_tro'>Chủ Trọ: {ten}</h2>
                             <h2 className='ten_chu_tro'>Thông Tin Gói Hiện Tại</h2>
                             <div className='chutro_info'><b>Id Gói: </b>{goi}</div>
-                            <div className='chutro_info'><b>Giá Gói: </b>{gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                            <div className='chutro_info'><b>Giá Gói: </b>{gia+'VND'}</div>
                             <div className='chutro_info'><b>Thời Gian: </b>{thoihan} Tháng</div>
                             <div className='chutro_info'><b>Phòng: </b>{soLuongPhong} Phòng</div>
                             <div className='chutro_info'><b>Số Điện Thoại:</b> {sdtCT}</div>
@@ -398,7 +398,7 @@ class GoiDangDung extends React.Component {
                           <div className='chitietgoidangki1 col-md-4 border border-5'>
                             <h2 className='ten_chu_tro'>Thông Tin Gói Hiện Tại</h2>
                             <div className='chutro_info'><b>Id Gói: </b>{goi}</div>
-                            <div className='chutro_info'><b>Giá Gói: </b>{gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                            <div className='chutro_info'><b>Giá Gói: </b>{gia +"VND"}</div>
                             <div className='chutro_info'><b>Thời Gian: </b>{thoihan} Tháng</div>
                             <div className='chutro_info'><b>Phòng: </b>{soLuongPhong} Phòng</div>
                           </div>
@@ -421,7 +421,7 @@ class GoiDangDung extends React.Component {
                       <h2 className='ten_chu_tro'>Thông Tin Gói Hiện Tại</h2>
                       <div className='chitietgoidangki border border-success p-2 mb-2 border-5'>
                         <h3><div className='chutro_info'><b>Id Gói: </b>{goi}</div>
-                          <div className='chutro_info'><b>Giá Gói: </b>{gia.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</div>
+                          <div className='chutro_info'><b>Giá Gói: </b>{gia +"VND"}</div>
                           <div className='chutro_info'><b>Thời Gian: </b>{thoihan} Tháng</div>
                           <div className='chutro_info'><b>Phòng: </b>{soLuongPhong} Phòng</div>
                         </h3>
