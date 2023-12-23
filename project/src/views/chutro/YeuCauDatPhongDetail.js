@@ -98,7 +98,7 @@ class YeuCauDatPhongDetail extends React.Component {
                                             <button className="btn btn-success btn_margin_left" onClick={() => this.chapNhanYeuCau()}>Chấp nhận</button>
                                             <button className="btn btn-danger btn_margin_left" onClick={() => this.tuChoiYeuCau()}>Từ chối</button>
                                             {/* <NavLink to={`/nguoithue/chitietphongtro?idPhong=${phong.id}`} ><button className="btn btn-warning btn_margin_left">Chi tiết phòng</button></NavLink> */}
-                                            <NavLink to={`/chutro/yeucaudatphong`} ><button className="btn btn-primary btn_margin_left">Quay lại</button></NavLink>
+                                            <NavLink to={`/chutro/yeucaudatphong`} ><button className="btn btn-info btn_margin_left">Quay lại</button></NavLink>
                                         </h5>
                                     </div>
                                 </div>

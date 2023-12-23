@@ -74,7 +74,7 @@ class ThongBaoDetail extends React.Component {
                                     <div>
                                         <h5 className="card-title mb-0">
                                             <button className="btn btn-danger btn_margin_left" onClick={() => this.xoaThongBao()}>Xóa thông báo</button>
-                                            <NavLink to={`/nguoithue/thongbao`} ><button className="btn btn-primary btn_margin_left">Quay lại</button></NavLink>
+                                            <NavLink to={`/nguoithue/thongbao`} ><button className="btn btn-info btn_margin_left">Quay lại</button></NavLink>
                                         </h5>
                                     </div>
                                 </div>
