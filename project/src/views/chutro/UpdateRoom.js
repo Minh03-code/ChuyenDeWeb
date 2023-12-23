@@ -37,7 +37,7 @@ function UpdateRoom() {
     const [tienDien, setTienDien] = useState('');
     const [tienNuoc, setTienNuoc] = useState('');
     const [listGioiTinh, setListGioiTinh] = useState([{ id: 0, value: "Tất cả" }, { id: 1, value: "Nam" }, { id: 2, value: "Nữ" }]);
-    const [listLoaiPhong, setListLoaiPhong] = useState([{ id: 0, value: "Trống" }, { id: 2, value: "Ghép" }]);
+    const [listLoaiPhong, setListLoaiPhong] = useState([{ id: 0, value: "Trống" }, { id: 1, value: "Đã có người ở" }, { id: 2, value: "Ghép" }]);
     const [gioiTinh, setGioiTinh] = useState('');
     const [quan, setQuan] = useState('');
     const [loaiPhong, setLoaiPhong] = useState('');
@@ -66,27 +66,28 @@ function UpdateRoom() {
     const fetchDataPhong = async () => {
         try {
             const res = await layThongTinPhongTheoID(params.idPhong);
-            setRoom(res);
-            setSoPhong(res.soPhong);
-            setGia(res.gia);
-            setDienTich(res.dienTich);
-            setMoTa(res.moTa);
-            setDiaChiChiTiet(res.diaChiChiTiet);
-            setSoLuong(res.soLuongToiDa);
-            setTienCoc(res.tienCoc);
-            setTienDien(res.tienDien);
-            setTienNuoc(res.tienNuoc);
-            setLoadingRoom(true);
-            setGioiTinh(res.gioiTinh);
-            setQuan(res.quan.id);
-            setLoaiPhong(res.loaiPhong);
-            setHoatDong(res.hoatDong);
-            setPhuong(res.phuong.id);
-            setTienIchSeleted(res.tienIch);
-            setHinhAnhSeleted(res.hinhAnhPhongTro);
-            fetchDataPhuong(res.quan.id);
+            if (res) {
+                setRoom(res);
+                setSoPhong(res.soPhong);
+                setGia(res.gia);
+                setDienTich(res.dienTich);
+                setMoTa(res.moTa);
+                setDiaChiChiTiet(res.diaChiChiTiet);
+                setSoLuong(res.soLuongToiDa);
+                setTienCoc(res.tienCoc);
+                setTienDien(res.tienDien);
+                setTienNuoc(res.tienNuoc);
+                setLoadingRoom(true);
+                setGioiTinh(res.gioiTinh);
+                setQuan(res.quan.id);
+                setLoaiPhong(res.loaiPhong);
+                setHoatDong(res.hoatDong);
+                setPhuong(res.phuong.id);
+                setTienIchSeleted(res.tienIch);
+                setHinhAnhSeleted(res.hinhAnhPhongTro);
+                fetchDataPhuong(res.quan.id);
 
-            console.log(res);
+            }
         } catch (error) {
             console.log('Error fetching data:', error);
         }
@@ -182,7 +183,6 @@ function UpdateRoom() {
         }
     }
     const onClickDeleteImage = async (id) => {
-        alert(id);
         const res = await xoaItemInListImageSeleted(id);
         if (res === 1) {
             fetchDataImageSeleted(params.idPhong);
@@ -190,7 +190,6 @@ function UpdateRoom() {
     }
 
     const onClickButtonUpdate = () => {
-        alert(loaiPhong);
         console.log(tienIch);
         if (soPhong != "" && gia != "" && dienTich != "" && moTa != "" && diaChiChiTiet != "" && soLuong != "" && tienCoc != "" && tienDien != "" && tienNuoc != "" && gioiTinh != "" && quan != "" && phuong != "" && loaiPhong != "") {
             fetchSuaPhong(params.idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files, loaiPhong);
@@ -316,7 +315,7 @@ function UpdateRoom() {
                                 convertName={(e) => e.value}
                             />
                             <SelectOption
-                                defaultId={loaiPhong}
+                                defaultId={0}
                                 label={"Chọn loại phòng*"}
                                 list={listLoaiPhong}
                                 changeValue={onChangeLoaiPhong}
