@@ -5,13 +5,16 @@ import { listPhuongCallAPI } from '../../services/admin/ThinhService';
 import QuanLyKhuVuc from './QuanLyKhuVuc';
 class ListPhuong extends React.Component {
     state = {
-        listPhuong: []
+        listPhuong: [],
+        idQuan: 0,
     }
     async componentDidMount() {
         const search = window.location.search;
         const params = new URLSearchParams(search);
         const id = params.get('id');
-
+        this.setState({
+            idQuan: id
+        })
 
         let res = await listPhuongCallAPI(id);
         if (res != null) {
@@ -26,7 +29,7 @@ class ListPhuong extends React.Component {
 
 
     render() {
-        let { listPhuong } = this.state;
+        let { listPhuong, idQuan } = this.state;
         return (
             <>
                 <div className="main">
@@ -39,6 +42,12 @@ class ListPhuong extends React.Component {
                                     <div className="row">
                                         <div className="col-md-3">
                                             <h5 className="card-title mb-0">Quản lý khu vực</h5>
+                                        </div>
+                                        <div className="col-md-9">
+                                            {/* <button className="btn btn-primary"
+                                                onClick={() => this.handleAddNewKhuVuc(this)}><i className='fas fa-plus'></i> Thêm mới khu vực
+                                            </button> */}
+                                            <NavLink to={`/admin/themPhuong?id=${idQuan}`} ><span className="btn btn-primary">Thêm Phường</span></NavLink>
                                         </div>
 
                                     </div>
