@@ -103,7 +103,7 @@ class DetailDichVu extends React.Component {
                                             <h5 className="card-title mb-0">
                                                 {trangThai == 1 ? <button className="btn btn-success" onClick={() => this.moKhoaDichVu()}>Mở khóa dịch vụ</button> : <button className="btn btn-danger" onClick={() => this.khoaDichVu()}>Khóa dịch vụ</button>}
                                                 <NavLink to={`/admin/suaDichVu?id=${id}`} className="btn btn-warning btn_margin_left">Sửa dịch vụ</NavLink>
-                                                <NavLink to={`/admin/quanlygoidangky`} ><button className="btn btn-primary btn_margin_left">Quay lại</button></NavLink>
+                                                <NavLink to={`/admin/quanlygoidangky`} ><button className="btn btn-info btn_margin_left">Quay lại</button></NavLink>
                                             </h5>
                                         </div>
                                     </div>

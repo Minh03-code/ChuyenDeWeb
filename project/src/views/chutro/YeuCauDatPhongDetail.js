@@ -50,14 +50,14 @@ class YeuCauDatPhongDetail extends React.Component {
     }
 
     async tuChoiYeuCau() {
-        if (window.confirm("Chấp nhận cho " + (this.state.nguoiThue.ten) + " thuê phòng ?" + (this.state.id))) {
+        if (window.confirm("Từ chối yêu cầu của " + (this.state.nguoiThue.ten) + " ?" + (this.state.nguoiThue.ten) + " ?" + (this.state.id))) {
             await tuChoiYeuCauDatPhong(this.state.id, this.state.myIdTaiKhoan, this.state.idTaiKhoanGui);
         }
 
     }
 
     async chapNhanYeuCau() {
-        if (window.confirm("Từ chối yêu cầu của " + (this.state.nguoiThue.ten) + " ?" + (this.state.nguoiThue.ten) + " ?" + (this.state.id))) {
+        if (window.confirm("Chấp nhận cho " + (this.state.nguoiThue.ten) + " thuê phòng ?" + (this.state.id))) {
             await chapNhanYeuCauDatPhong(this.state.id, this.state.idNguoiThue, this.state.idPhong, this.state.myIdTaiKhoan, this.state.idTaiKhoanGui);
         }
     }

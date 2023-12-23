@@ -111,7 +111,7 @@ class DetailChuTro extends React.Component {
                                             <div>
                                                 <h5 className="card-title mb-0">
                                                     {result.taiKhoan.trangThai == 1 ? <button className="btn btn-success" onClick={() => this.thayDoiTrangThaiTaiKhoan()}>Mở khóa tài khoản</button> : <button className="btn btn-danger" onClick={() => this.thayDoiTrangThaiTaiKhoan()}>Khóa tài khoản</button>}
-                                                    <NavLink to={`/admin/quanlychutro`} ><button className="btn btn-primary btn_margin_left">Quay lại</button></NavLink>
+                                                    <NavLink to={`/admin/quanlychutro`} ><button className="btn btn-info btn_margin_left">Quay lại</button></NavLink>
                                                 </h5>
                                             </div>
                                         </div>
