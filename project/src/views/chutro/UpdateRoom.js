@@ -37,8 +37,10 @@ function UpdateRoom() {
     const [tienDien, setTienDien] = useState('');
     const [tienNuoc, setTienNuoc] = useState('');
     const [listGioiTinh, setListGioiTinh] = useState([{ id: 0, value: "Tất cả" }, { id: 1, value: "Nam" }, { id: 2, value: "Nữ" }]);
+    const [listLoaiPhong, setListLoaiPhong] = useState([{ id: 0, value: "Trống" }, { id: 2, value: "Ghép" }]);
     const [gioiTinh, setGioiTinh] = useState('');
     const [quan, setQuan] = useState('');
+    const [loaiPhong, setLoaiPhong] = useState('');
     const [phuong, setPhuong] = useState('');
     const [tienIch, setTienIch] = useState([]);
     const [tienIchSeleted, setTienIchSeleted] = useState([]);
@@ -77,6 +79,7 @@ function UpdateRoom() {
             setLoadingRoom(true);
             setGioiTinh(res.gioiTinh);
             setQuan(res.quan.id);
+            setLoaiPhong(res.loaiPhong);
             setHoatDong(res.hoatDong);
             setPhuong(res.phuong.id);
             setTienIchSeleted(res.tienIch);
@@ -104,9 +107,9 @@ function UpdateRoom() {
             console.log('Error fetching data:', error);
         }
     };
-    const fetchSuaPhong = async (idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages) => {
+    const fetchSuaPhong = async (idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages, loaiPhong) => {
         try {
-            const res = await updatePhong(idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages);
+            const res = await updatePhong(idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages, loaiPhong);
             setResUpdate(res);
             navigate("/chutro");
             console.log(">>>" + res);
@@ -187,9 +190,10 @@ function UpdateRoom() {
     }
 
     const onClickButtonUpdate = () => {
+        alert(loaiPhong);
         console.log(tienIch);
-        if (soPhong != "" && gia != "" && dienTich != "" && moTa != "" && diaChiChiTiet != "" && soLuong != "" && tienCoc != "" && tienDien != "" && tienNuoc != "" && gioiTinh != "" && quan != "" && phuong != "") {
-            fetchSuaPhong(params.idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files);
+        if (soPhong != "" && gia != "" && dienTich != "" && moTa != "" && diaChiChiTiet != "" && soLuong != "" && tienCoc != "" && tienDien != "" && tienNuoc != "" && gioiTinh != "" && quan != "" && phuong != "" && loaiPhong != "") {
+            fetchSuaPhong(params.idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuong, tienCoc, tienDien, tienNuoc, gioiTinh, quan, phuong, tienIch, files, loaiPhong);
         }
         else {
             alert("Hãy nhập đủ thông tin có đấu *");
@@ -198,7 +202,7 @@ function UpdateRoom() {
     const batHoatDongPhong = async () => {
         const HOAT_DONG = 1;
         const res = await batTatHoatDongPhongPhiaNguoiDung(params.idPhong, HOAT_DONG, sessionStorage.getItem("idNguoiDung"));
-        if (res){
+        if (res) {
             console.log(res);
             notificationDialog(res, HOAT_DONG);
         }
@@ -206,23 +210,26 @@ function UpdateRoom() {
     const tatHoatDongPhong = async () => {
         const TAT_HOAT_DONG = 0;
         const res = await batTatHoatDongPhongPhiaNguoiDung(params.idPhong, TAT_HOAT_DONG, sessionStorage.getItem("idNguoiDung"));
-        if (res){
+        if (res) {
             notificationDialog(res, TAT_HOAT_DONG);
         }
     }
+    const onChangeLoaiPhong = (text) => {
+        setLoaiPhong(text);
+    }
     const notificationDialog = (res, newHoatDong) => {
-        console.log(">>>"+res);
-        if(res === _PHONG_DA_CO_NGUOI_THUE){
+        console.log(">>>" + res);
+        if (res === _PHONG_DA_CO_NGUOI_THUE) {
             setContentNotification("Phòng đã có người thuê không thể tắt hoạt động");
         }
-        if(res === _DA_DAT_SO_LUONG_PHONG_TOI_DA){
+        if (res === _DA_DAT_SO_LUONG_PHONG_TOI_DA) {
             alert(">>>");
             setContentNotification("ố lượng phòng hoạt động đã đạt tối đa gói dịch vụ không thể bật");
         }
-        if(res === _CHUA_DANG_KY_DICH_VU){
+        if (res === _CHUA_DANG_KY_DICH_VU) {
             setContentNotification("Bạn chưa đăng ký dịch vụ hãy đăng ký dịch vụ để bật hoạt động phòng");
         }
-        if(res === _THANH_CONG){
+        if (res === _THANH_CONG) {
             setHoatDong(newHoatDong);
             setContentNotification("Chỉnh sửa thành công");
         }
@@ -307,6 +314,13 @@ function UpdateRoom() {
                                 list={listGioiTinh}
                                 changeValue={onChangeGioiTinh}
                                 convertName={(e) => e.value}
+                            />
+                            <SelectOption
+                                defaultId={loaiPhong}
+                                label={"Chọn loại phòng*"}
+                                list={listLoaiPhong}
+                                changeValue={onChangeLoaiPhong}
+                                convertName={(item) => item.value}
                             />
                             <SelectOption
                                 defaultId={quan}

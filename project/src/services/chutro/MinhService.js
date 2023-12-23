@@ -22,8 +22,8 @@ const themPhong = (idChuTro, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuon
         data,
         config);
 }
-const updatePhong = (idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages) => {
-    const data = { idPhong: idPhong, soPhong: soPhong, gia: gia, dienTich: dienTich, moTa: moTa, diaChiChiTiet: diaChiChiTiet, soLuongToiDa: soLuongToiDa, tienCoc: tienCoc, tienDien: tienDien, tienNuoc: tienNuoc, gioiTinh: gioiTinh, idQuan: idQuan, idPhuong: idPhuong, hinh: listImages, tienIch: listTienIch };
+const updatePhong = (idPhong, soPhong, gia, dienTich, moTa, diaChiChiTiet, soLuongToiDa, tienCoc, tienDien, tienNuoc, gioiTinh, idQuan, idPhuong, listTienIch, listImages, loaiPhong) => {
+    const data = { idPhong: idPhong, soPhong: soPhong, gia: gia, dienTich: dienTich, moTa: moTa, diaChiChiTiet: diaChiChiTiet, soLuongToiDa: soLuongToiDa, tienCoc: tienCoc, tienDien: tienDien, tienNuoc: tienNuoc, gioiTinh: gioiTinh, loaiPhong: loaiPhong, idQuan: idQuan, idPhuong: idPhuong, hinh: listImages, tienIch: listTienIch};
     console.log(data);
     return myAxios.post(
         `api/phongtro/updateweb`,
