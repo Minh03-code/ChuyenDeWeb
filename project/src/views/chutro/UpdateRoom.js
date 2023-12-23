@@ -315,7 +315,7 @@ function UpdateRoom() {
                                 convertName={(e) => e.value}
                             />
                             <SelectOption
-                                defaultId={0}
+                                defaultId={loaiPhong}
                                 label={"Chọn loại phòng*"}
                                 list={listLoaiPhong}
                                 changeValue={onChangeLoaiPhong}
