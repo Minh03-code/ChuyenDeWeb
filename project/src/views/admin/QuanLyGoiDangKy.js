@@ -35,7 +35,7 @@ class QuanLyGoiDangKy extends React.Component {
                                             <h5 className="card-title mb-0">Quản lý gói dịch vụ</h5>
                                         </div>
                                         <div className="col-md-9">
-                                            <NavLink to={`/admin/themDichVu`} className="btn btn-primary">Thêm</NavLink>
+                                            <NavLink to={`/admin/themDichVu`} className="btn btn-info">Thêm</NavLink>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@ class QuanLyGoiDangKy extends React.Component {
                                                                     {item.trangThai == 1 ? <div className='txt_red'>Đã khóa</div> : <div className='txt_green'>Đang hoạt động</div>}
                                                                 </td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <NavLink to={`/admin/chiTietDichVu?id=${item.id}`} className="btn btn-primary">Xem thông tin</NavLink>
+                                                                    <NavLink to={`/admin/chiTietDichVu?id=${item.id}`} className="btn btn-info">Xem thông tin</NavLink>
                                                                 </td>
                                                             </tr>
                                                         )

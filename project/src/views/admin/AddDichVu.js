@@ -92,7 +92,7 @@ class AddDichvu extends React.Component {
                                                 <div>
                                                     <h5 className="card-title mb-0">
                                                         <button className="btn btn-warning" onClick={() => this.themDichVu()}>Thêm dịch vụ</button>
-                                                        <NavLink to={`/admin/quanlygoidangky`} ><button className="btn btn-primary btn_margin_left">Trở lại dach sách</button></NavLink>
+                                                        <NavLink to={`/admin/quanlygoidangky`} ><button className="btn btn-info btn_margin_left">Trở lại dach sách</button></NavLink>
                                                     </h5>
                                                 </div>
                                             </div>

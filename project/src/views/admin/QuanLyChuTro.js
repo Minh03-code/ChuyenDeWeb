@@ -36,9 +36,6 @@ class QuanLyChuTro extends React.Component {
                                         <div className="col-md-3">
                                             <h5 className="card-title mb-0">Quản lý chủ trọ</h5>
                                         </div>
-                                        <div className="col-md-9">
-                                            <a href="add-product.html" className="btn btn-primary">Thêm</a>
-                                        </div>
                                     </div>
                                 </div>
                                 {
@@ -72,7 +69,7 @@ class QuanLyChuTro extends React.Component {
                                                                 </td>
                                                                 <td className="d-none d-xl-table-cell">{item.idGoi}</td>
                                                                 <td className="d-none d-md-table-cell">
-                                                                    <NavLink to={`/admin/chiTietChuTro?idTaiKhoan=${item.idTaiKhoan}`} className="btn btn-primary">Xem thông tin</NavLink>
+                                                                    <NavLink to={`/admin/chiTietChuTro?idTaiKhoan=${item.idTaiKhoan}`} className="btn btn-info">Xem thông tin</NavLink>
                                                                 </td>
                                                             </tr>
                                                         )
